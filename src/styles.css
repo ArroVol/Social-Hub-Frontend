@@ -1,3 +1,8 @@
+/*import '@angular/material/prebuilt-themes/blue.css';*/
+
+/*@import '~@angular/material/theming';*/
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 /* Global Styles */
 h1 {
   color: #369;
@@ -61,3 +66,6 @@ nav a.active {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
