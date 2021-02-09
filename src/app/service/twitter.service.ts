@@ -15,22 +15,26 @@ export class TwitterService {
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
-  private userUrl = 'http://localhost:8080/api';
+  private twitterUrl = 'http://localhost:8080/api';
 
   constructor(
     // private environment: Environment,
     private http: HttpClient,
 
-    // private userUrl = 'http://localhost:8080/api/user',  // URL to web api
+    // private twitterUrl = 'http://localhost:8080/api/user',  // URL to web api
     private messageService: MessageService) {
   }
 
-  /** GET followers by id from the server */
-  getUserById(id: number): Observable<User> {
-    const url = `${this.userUrl}/user/${id}`;
-    return this.http.get<User>(url)
+  /** GET num of followers by id from the server */
+  getNumFollowersById(id: number): Observable<number> {
+    console.log('in the get followers by id');
+
+    // const url = `${this.twitterUrl}/user/${id}`;
+    const url = `${this.twitterUrl}/twitter/followers`;
+
+    return this.http.get<number>(url)
       .pipe(
-        tap(_ => console.log('fetched user'))
+        tap(_ => console.log('fetched follower count'))
         // catchError(() => observableThrowError('get user by id error'))
       );
   }
@@ -38,7 +42,7 @@ export class TwitterService {
   /** GET user by id from the server */
   getUser(email: string, password: string): Observable<User> {
     console.log('in the get user');
-    const url = `${this.userUrl}/user/retrieve/${email}/${password}`;
+    const url = `${this.twitterUrl}/user/retrieve/${email}/${password}`;
     return this.http.get<User>(url)
       .pipe(
         tap(_ => console.log('fetched user' ))
@@ -48,7 +52,7 @@ export class TwitterService {
 
   /** Post registration by id from the server */
   postUser(user: User, studentId: number): Observable<User> {
-    const url = `${this.userUrl}/user/newUser`;
+    const url = `${this.twitterUrl}/user/newUser`;
     return this.http.post<User>(url, JSON.stringify(user), {headers})
       .pipe(
         tap(_ => console.log('sent the registration' ))
@@ -59,7 +63,7 @@ export class TwitterService {
   /** GET user by id from the server */
   getAllUsers(): Observable<User> {
     console.log('getting all user in service.ts');
-    const url = `${this.userUrl}/user`;
+    const url = `${this.twitterUrl}/user`;
     return this.http.get<User>(url)
       .pipe(
         tap(_ => console.log('fetched user'))

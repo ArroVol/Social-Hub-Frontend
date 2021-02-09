@@ -1,1 +1,13 @@
 <p>twitter works!</p>
+<!--<button class="submit" (click)="submit(courseSection.value)">Search</button>-->
+
+<button class="get-followers" (click)="getFollowerCount('1')">Search</button>
+<!--<div *ngIf="section">-->
+<!--  {{section | json}}-->
+<!--  <button (click)="add(section)">Add</button>-->
+<!--</div>-->
+<!--<div> {{followerCount}}</div>-->
+<div *ngIf="followerCount != -1">
+{{'You have this many followers: '}}
+  {{followerCount}}
+</div>

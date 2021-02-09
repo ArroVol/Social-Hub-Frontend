@@ -28,14 +28,21 @@ import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
+import { FacebookComponent } from './facebook/facebook.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SimpleFormComponent } from './simple-form/simple-form.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MessagesComponent,
     TwitterComponent,
-    ThrowAwayPageComponent
-
+    ThrowAwayPageComponent,
+    FacebookComponent,
+    DashboardComponent,
+  SimpleFormComponent,
+  LoginPageComponent,
   ],
   imports: [
     HttpClientModule,

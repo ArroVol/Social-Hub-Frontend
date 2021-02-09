@@ -25,6 +25,16 @@ export class UserService {
     private messageService: MessageService) {
   }
 
+  /** Post user by id from the server */
+  saveUser(user: User): Observable<User> {
+    const url = `${this.userUrl}/user/newUser`;
+    return this.http.post<User>(url, JSON.stringify(user), {headers})
+      .pipe(
+        tap(_ => console.log('sent the registration' ))
+        // catchError(() => observableThrowError('get registration by id error'))
+      );
+  }
+
   /** GET user by id from the server */
   getUserById(id: number): Observable<User> {
     const url = `${this.userUrl}/user/${id}`;

@@ -2,8 +2,9 @@ export class User {
   userId: number;
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
-
+  // firstName: string;
+  // lastName: string;
+  userName: string;
+  phoneNumber: string;
   constructor(){}
 }
