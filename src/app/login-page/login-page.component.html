@@ -1,0 +1,28 @@
+<mat-toolbar-row>
+  <app-simple-form > </app-simple-form>
+</mat-toolbar-row>
+
+<div id="login-box">
+  <div class="left">
+    <br>
+
+    <div *ngIf="loggedIn !== 'true' else notShow">
+      <h1>Register Account information below</h1>
+
+      <input #username type="text" name="userName" placeholder="XxX69Mastercheif420XxX" />
+      <input #firstName type="text" name="firstName" placeholder="First Name" />
+      <input #lastName type="text" name="lastName" placeholder="Last Name" />
+      <input #email type="text" name="email" placeholder="E-mail" />
+      <input #phoneNumber type="text" name="phoneNumber" placeholder="PhoneNumber" />
+      <input type="password" name="password" placeholder="Password" />
+      <input #password type="password" name="password2" placeholder="Retype password" />
+      <button class="submit" (click)="add(username.value, password.value, email.value, firstName.value, lastName.value, phoneNumber.value)">Create Account</button>
+    </div>
+  </div>
+
+  <ng-template #notShow>
+    <h1>View And Update Account Information</h1>
+  </ng-template>
+</div>
+
+
