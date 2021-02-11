@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {FacebookComponent} from './facebook/facebook.component';
 import {LoginPageComponent} from './login-page/login-page.component';
+import {AccountInformationComponent} from './account-information/account-information.component';
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'facebook', component: FacebookComponent },
   { path: 'login-page', component: LoginPageComponent },
+  { path: 'account-information', component: AccountInformationComponent },
+
 
 
 

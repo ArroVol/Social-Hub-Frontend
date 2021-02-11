@@ -1,5 +1,3 @@
-<p>twitter works!</p>
-<!--<button class="submit" (click)="submit(courseSection.value)">Search</button>-->
 
 <button class="get-followers" (click)="getFollowerCount('1')">Search</button>
 <!--<div *ngIf="section">-->
@@ -11,3 +9,19 @@
 {{'You have this many followers: '}}
   {{followerCount}}
 </div>
+
+<button class="get-timeline" (click)="getUserStatus('1')">Get status</button>
+
+<div *ngIf="status != null">
+  {{'User status: '}}
+  {{status | json}}
+
+</div>
+<p> </p>
+<button class="get-status" (click)="getUserStatusAsTweet('1')">Get status Content</button>
+
+<div *ngIf="tweet != null">
+  {{tweet.tweetText}}
+</div>
+
+<!--<button class="get-followers" (click)="getFollowerCount('1')">Search</button>-->

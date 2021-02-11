@@ -1,10 +1,10 @@
 export class User {
-  userId: number;
+  username: string;
+  // userId: number;
   email: string;
   password: string;
+  phoneNumber: string;
   // firstName: string;
   // lastName: string;
-  userName: string;
-  phoneNumber: string;
   constructor(){}
 }

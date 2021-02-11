@@ -4,6 +4,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {User} from '../model/user/User';
 import {MessageService} from '../message.service';
+import {Tweet} from '../model/twitter/Tweet';
+import {Status} from 'tslint/lib/runner';
 
 const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -35,6 +37,46 @@ export class TwitterService {
     return this.http.get<number>(url)
       .pipe(
         tap(_ => console.log('fetched follower count'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+  /** GET num of followers by id from the server */
+  getUserTweetsById(id: number): Observable<Tweet[]> {
+    console.log('in the get followers by id');
+
+    // const url = `${this.twitterUrl}/user/${id}`;
+    const url = `${this.twitterUrl}/twitter/get-tweets`;
+
+    return this.http.get<Tweet[]>(url)
+      .pipe(
+        tap(_ => console.log('fetched users tweets'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+  /** GET num of followers by id from the server */
+  getUserStatus(id: number): Observable<Status> {
+    console.log('getting the users status in the twitter service');
+
+    // const url = `${this.twitterUrl}/user/${id}`;
+    const url = `${this.twitterUrl}/twitter/status`;
+
+    return this.http.get<Status>(url)
+      .pipe(
+        tap(_ => console.log('fetched users status'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
+  /** GET num of followers by id from the server */
+  getUserStatusAsTweet(id: number): Observable<Tweet> {
+    console.log('getting the users status in the twitter service');
+
+    // const url = `${this.twitterUrl}/user/${id}`;
+    const url = `${this.twitterUrl}/twitter/status-tweet`;
+
+    return this.http.get<Tweet>(url)
+      .pipe(
+        tap(_ => console.log('fetched users status'))
         // catchError(() => observableThrowError('get user by id error'))
       );
   }

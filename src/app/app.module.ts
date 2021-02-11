@@ -32,6 +32,7 @@ import { FacebookComponent } from './facebook/facebook.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { AccountInformationComponent } from './account-information/account-information.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
     DashboardComponent,
   SimpleFormComponent,
   LoginPageComponent,
+  AccountInformationComponent,
   ],
   imports: [
     HttpClientModule,

@@ -24,9 +24,22 @@ export class UserService {
     // private userUrl = 'http://localhost:8080/api/user',  // URL to web api
     private messageService: MessageService) {
   }
+  /** GET user by id from the server */
+  getUserByUsername(username: string): Observable<User> {
+    console.log('in the get user by userna,e in the user service');
+    console.log(username);
+    const url = `${this.userUrl}/user/retrieve/${username}`;
+    return this.http.get<User>(url)
+      .pipe(
+        tap(_ => console.log('fetched user'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
 
   /** Post user by id from the server */
   saveUser(user: User): Observable<User> {
+    console.log('*********"=');
+    console.log(user.username);
     const url = `${this.userUrl}/user/newUser`;
     return this.http.post<User>(url, JSON.stringify(user), {headers})
       .pipe(
