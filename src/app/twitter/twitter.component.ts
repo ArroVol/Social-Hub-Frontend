@@ -11,12 +11,10 @@ import {Status} from 'tslint/lib/runner';
 export class TwitterComponent implements OnInit {
 
   tweet: Tweet;
-  // status: string;
   statusText: string;
   status: Status;
   followerCount: number;
   timelineList: Tweet[];
-  // twitter: Twitter;
   constructor(private twitterService: TwitterService) { }
 
   ngOnInit(): void {

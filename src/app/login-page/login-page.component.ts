@@ -17,11 +17,6 @@ export class LoginPageComponent implements OnInit {
   newUser: User;
   loggedIn: string;
   nameId: number;
-  // allAddress: Address[];
-  // address: Address;
-  // newAddress: Address;
-
-  addressId: number;
 
   constructor(private userService: UserService, public snackBar: MatSnackBar) {
     this.loggedIn = sessionStorage.getItem('loggedIn');

@@ -1,14 +1,16 @@
-
+<br>
 <button class="get-followers" (click)="getFollowerCount('1')">Search</button>
+<br>
 <!--<div *ngIf="section">-->
 <!--  {{section | json}}-->
 <!--  <button (click)="add(section)">Add</button>-->
 <!--</div>-->
 <!--<div> {{followerCount}}</div>-->
-<div *ngIf="followerCount != -1">
-{{'You have this many followers: '}}
-  {{followerCount}}
+<div *ngIf="followerCount != null">
+  <br>
+{{'Follower Count: ' + followerCount}}
 </div>
+<br>
 
 <button class="get-timeline" (click)="getUserStatus('1')">Get status</button>
 
