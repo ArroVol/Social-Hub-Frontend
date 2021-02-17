@@ -172,3 +172,21 @@
 <!--</div>-->
 <!--</body>-->
 <!--</html>-->
+<div class = "topnav">
+  <button (click)="submitLogin()">Log In</button>
+  <div style="float: right">
+    <!--
+    <fb:login-button
+      id = "fb-btn"
+      scope="public_profile,email,user_birthday,user_location,user_posts"
+      onlogin="checkLoginState();">
+    </fb:login-button>
+    -->
+    <li><a id="logout" href="#" onclick="logout()">Logout</a></li>
+  </div>
+</div>
+<div class="container">
+  <div id="profile"></div>
+  <div id="feed"></div>
+</div>
+
