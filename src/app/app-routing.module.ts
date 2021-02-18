@@ -6,6 +6,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {FacebookComponent} from './facebook/facebook.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
+import {TimelineComponent} from './timeline/timeline.component';
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
@@ -15,8 +16,7 @@ const routes: Routes = [
   { path: 'facebook', component: FacebookComponent },
   { path: 'login-page', component: LoginPageComponent },
   { path: 'account-information', component: AccountInformationComponent },
-
-
+  { path: 'timeline', component: TimelineComponent },
 
 
   // {path: 'create-account', component: CreateAccountComponent},

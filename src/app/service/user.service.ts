@@ -10,6 +10,9 @@ const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * The user service class.
+ */
 export class UserService {
   studentId: number;
   httpOptions = {
@@ -24,7 +27,7 @@ export class UserService {
     // private userUrl = 'http://localhost:8080/api/user',  // URL to web api
     private messageService: MessageService) {
   }
-  /** GET user by id from the server */
+  /** GET user by username from the server */
   getUserByUsername(username: string): Observable<User> {
     console.log('in the get user by userna,e in the user service');
     console.log(username);
@@ -36,7 +39,7 @@ export class UserService {
       );
   }
 
-  /** Post user by id from the server */
+  /** Post user to the backend the server */
   saveUser(user: User): Observable<User> {
     console.log('*********"=');
     console.log(user.username);
@@ -58,8 +61,8 @@ export class UserService {
       );
   }
 
-  /** GET user by id from the server */
-  getUser(email: string, password: string): Observable<User> {
+  /** GET user the user login (username, email) from the server */
+  getUserByLogin(email: string, password: string): Observable<User> {
     console.log('in the get user');
     const url = `${this.userUrl}/user/retrieve/${email}/${password}`;
     return this.http.get<User>(url)
@@ -69,7 +72,7 @@ export class UserService {
       );
   }
 
-  /** Post registration by id from the server */
+  /** Post the user to the server */
   postUser(user: User, studentId: number): Observable<User> {
     const url = `${this.userUrl}/user/newUser`;
     return this.http.post<User>(url, JSON.stringify(user), {headers})
@@ -79,7 +82,7 @@ export class UserService {
       );
   }
 
-  /** GET user by id from the server */
+  /** GET all users from the database. */
   getAllUsers(): Observable<User> {
     console.log('getting all user in service.ts');
     const url = `${this.userUrl}/user`;

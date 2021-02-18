@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NavbarService} from '../service/navbar.service';
 
 @Component({
   selector: 'app-timeline',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
-
-  constructor() { }
+  // constructor(private nav: NavbarService ) {}
 
   ngOnInit(): void {
+    // this.nav.hide();
   }
 
 }

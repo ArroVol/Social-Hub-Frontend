@@ -34,6 +34,8 @@ import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AccountInformationComponent } from './account-information/account-information.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import { DataTableComponent } from './data-table/data-table.component';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { TimelineComponent } from './timeline/timeline.component';
   LoginPageComponent,
   AccountInformationComponent,
   TimelineComponent,
+  DataTableComponent,
   ],
   imports: [
     HttpClientModule,
@@ -69,7 +72,7 @@ import { TimelineComponent } from './timeline/timeline.component';
     MatSortModule,
     MatIconModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
