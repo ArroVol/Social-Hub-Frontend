@@ -1,6 +1,6 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -26,6 +26,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     // TODO(gkalpak): Fix the code and enable this (i.e. switch from `fullTemplateTypeCheck` to `strictTemplates`).
-    "fullTemplateTypeCheck": true,// "strictTemplates": true
+    "fullTemplateTypeCheck": true // "strictTemplates": true
   }
 }
