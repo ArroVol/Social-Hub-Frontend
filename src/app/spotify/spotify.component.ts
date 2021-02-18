@@ -3,6 +3,7 @@ import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {SpotifyService} from '../service/spotify.service';
 import {SpotifyArtist} from '../model/spotify/SpotifyArtist';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
+import {SpotifyPlaylist} from '../model/spotify/SpotifyPlaylist';
 
 @Component({
   selector: 'app-spotify',
@@ -17,12 +18,15 @@ export class SpotifyComponent implements OnInit {
   trackQuery: SpotifyTrack[];
   trackSearchName: string;
 
+  spotifyUserPlaylist: SpotifyPlaylist[];
+
 
   constructor(private spotifyService: SpotifyService) {
   }
 
   ngOnInit(): void {
     this.getUserProfile();
+    this.getUserPlaylist();
   }
 
   getUserProfile() {
@@ -42,6 +46,10 @@ export class SpotifyComponent implements OnInit {
     this.spotifyService.getTrackQuery(trackName).subscribe(trackQuery => {
       this.trackQuery = trackQuery;
     });
+  }
+
+  getUserPlaylist() {
+    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => this.spotifyUserPlaylist = spotifyUserPlaylist);
   }
 
   // getAuthorizationLink() {

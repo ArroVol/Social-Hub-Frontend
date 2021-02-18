@@ -6,6 +6,7 @@ import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {SpotifyArtist} from '../model/spotify/SpotifyArtist';
 import {tap} from 'rxjs/operators';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
+import {SpotifyPlaylist} from '../model/spotify/SpotifyPlaylist';
 
 const headers = new HttpHeaders({'Access-Control-Allow-Origin': '*'});
 
@@ -70,6 +71,15 @@ export class SpotifyService {
       .pipe(
         tap(_ => console.log('fetched spotify track'))
         // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
+  getUserPlaylist(): Observable<SpotifyPlaylist[]> {
+    console.log('getting spotify user playlist');
+    const url = `${this.spotifyUrl}/playlist`;
+    return this.http.get<SpotifyPlaylist[]>(url)
+      .pipe(
+        tap(_ => console.log('fetched spotify user playlist'))
       );
   }
 

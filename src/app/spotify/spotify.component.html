@@ -19,6 +19,26 @@
       <h6><a href="#">More... </a></h6>
     </div>
   </div>
+  <table>
+    <thead>
+    <th>Name</th>
+    <th>URL</th>
+    <th>Image</th>
+    </thead>
+    <tbody *ngFor="let playlist of spotifyUserPlaylist">
+    <tr>
+      <td>{{playlist.name}}</td>
+      <td>{{playlist.spotifyUrl}}</td>
+      <td><img src="{{playlist.imageUrl}}"></td>
+    </tr>
+    <tr *ngFor="let track of playlist.tracks">
+      <td>{{track.name}}</td>
+      <td>{{track.artistNames}}</td>
+      <td>{{track.spotifyUrl}}</td>
+      <td>{{track.duration}}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <div class="form-inline justify-content-center mb-3">
