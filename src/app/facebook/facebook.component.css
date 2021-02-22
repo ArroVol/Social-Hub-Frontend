@@ -43,9 +43,10 @@ body{
 }
 
 .container {
-  position: relative;
+  position: absolute;
   text-align: center;
-  color: white;
+  background-color: darkgrey;
+  background-size: 1200px 1200px;
 }
 
 #centerTitle {
@@ -69,24 +70,13 @@ body{
   text-shadow: 5px 5px #1c1c1c;
 }
 
-#feed{
-  position: absolute;
-  top: 48%;
-  left: 80%;
-  transform: translate(-50%, -50%);
-  font-size: 30px;
-  font-family: Khand;
-  text-shadow: 5px 5px #1c1c1c;
-}
 
-#profile{
-  position: absolute;
-  top: 48%;
-  left: 30%;
-  transform: translate(-50%, -50%);
-  font-size: 30px;
+#profile, #feed{
+  position: center;
+  color: black;
+  font-size: 25px;
   font-family: Khand;
-  text-shadow: 5px 5px #1c1c1c;
+  float: left;
 }
 
 #logout{
