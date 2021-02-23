@@ -9,6 +9,9 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
+// import{ AppRoutingModule } from './app-routing.module';
+
+
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +39,8 @@ import { AccountInformationComponent } from './account-information/account-infor
 import { TimelineComponent } from './timeline/timeline.component';
 import { DataTableComponent } from './data-table/data-table.component';
 
+import { SpotifyComponent } from './spotify/spotify.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +55,10 @@ import { DataTableComponent } from './data-table/data-table.component';
   AccountInformationComponent,
   TimelineComponent,
   DataTableComponent,
+    MessagesComponent,
+    SpotifyComponent,
+    AboutComponent
+
   ],
   imports: [
     HttpClientModule,
