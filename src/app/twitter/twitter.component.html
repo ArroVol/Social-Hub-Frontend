@@ -56,11 +56,11 @@
 <div class="posttweettacontainer2">
 
   <div *ngIf="briefStatus != null" class="status">
-    <b>{{briefStatus.handle}}</b>  @{{briefStatus.screenName}} {{briefStatus.createdAt.substring(0, 10)}}
+    <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
     <br>
     {{briefStatus.text}} <br>
 
-    <mat-icon>repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon>circle</mat-icon> {{briefStatus.favoriteCount}}
+    <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">circle</mat-icon> {{briefStatus.favoriteCount}}
   </div>
 </div>
 <!--<button class="get-followers" (click)="getFollowerCount('1')">Search</button>-->
@@ -95,7 +95,8 @@
 <!--									<span class="statslistitemcount">35</span>-->
 <!--								</span>-->
 <!--          </li>-->
-
+<!--<br>-->
+      <br>
           <li class="profilecardstatslistitem">
 								<span class="dispblk">
 									<span class="statslistitemhead"> </span>
@@ -107,7 +108,7 @@
 <!--        </ul>-->
       </div>
     </div>
-
+<br>
 <br>
     <div class="rightcontainer">
       <div class="posttweetcontainer">
@@ -147,7 +148,7 @@
 <!--<div *ngIf="tweet != null" class="centered">-->
 <!--  {{tweet.tweetText}}-->
 <!--</div>-->
-<br>
+
 <!--<mat-form-field hintLabel="Max 300 characters">-->
 <!--  <input matInput #input maxlength="280" placeholder="Enter your tweet">-->
 <!--  <mat-hint align="end">{{input.value?.length || 0}}/280</mat-hint>-->
@@ -177,9 +178,9 @@
 <!--    </a>-->
   </li>
 </ul>
-<div *ngFor='let tweets of timelineList'>
-  {{tweets.tweetText}}
-  {{tweets.tweetCreator}} </div>
+<!--<div *ngFor='let tweets of timelineList'>-->
+<!--  {{tweets.tweetText}}-->
+<!--  {{tweets.tweetCreator}} </div>-->
 <br>
 <br>
 <!--<button class="get-timeline" (click)="getRecentPost('1')">Get recent Post</button>-->
@@ -195,13 +196,13 @@
 
 <div class="mat-elevation-z2">
   <mat-table [dataSource]="listData"  matSort>
-    <ng-container matColumnDef="courseId">
+    <ng-container matColumnDef="content">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Content</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.content}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.tweetText}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="courseName">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header>Creator</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.creator}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef  mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let element"></mat-cell>
     </ng-container>
     <ng-container matColumnDef="courseSubject">
       <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>

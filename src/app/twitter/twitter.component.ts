@@ -26,7 +26,7 @@ export class TwitterComponent implements OnInit {
   timelineList$: Observable<Tweet[]>;
   // twitter: Twitter;
   // displayedColumns: string[] = ['content', 'creator'];
-  displayedColumns: string[] = ['courseId', 'courseName', 'courseSubject', 'dayAndTime', 'roomNo', 'sectionNo', 'semester', 'status', 'actions'];
+  displayedColumns: string[] = ['content', 'courseName', 'courseSubject', 'dayAndTime', 'roomNo', 'sectionNo', 'semester', 'status', 'actions'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

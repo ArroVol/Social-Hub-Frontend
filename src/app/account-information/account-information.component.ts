@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from '../model/user/User';
 import {UserService} from '../service/user.service';
 import {any} from 'codelyzer/util/function';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 // import {MDCTextField} from '@material/textfield';
 
 @Component({
@@ -19,6 +22,13 @@ export class AccountInformationComponent implements OnInit {
   user: User;
   newUser: User;
   userSaved = false;
+  twitterSetup = false;
+
+  displayedColumns: string[] = ['username', 'email', 'password', 'phoneNumber'];
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  listData: string[];
 
   elements: any = [
     {username: 'y', email: 'Mark', password: 'Otto', phoneNumber: '@mdo'},
@@ -54,6 +64,7 @@ export class AccountInformationComponent implements OnInit {
     this.arr [1] = this.user.email;
     this.arr [2] = this.user.password;
     this.arr [3] = this.user.phoneNumber;
+    this.listData = this.arr;
     // tslint:disable-next-line:label-position
   }
 
@@ -94,10 +105,15 @@ export class AccountInformationComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkLogin();
+    this.getUser();
   }
   checkLogin(){
     if (sessionStorage.getItem('username') != null){
       this.userSaved = true;
     }
+  }
+
+  sendConsumerKey(value: any, value2: any, value3: any, value4: any) {
+    
   }
 }
