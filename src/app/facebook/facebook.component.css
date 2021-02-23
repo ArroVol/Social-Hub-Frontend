@@ -1,0 +1,84 @@
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+@import url(https://fonts.googleapis.com/css?family=Khand);
+
+/*Background Image*/
+body{
+  background-color: #1c1c1c;
+  background-size: 1400px;
+}
+
+
+/*Navigation Style*/
+.topnav {
+  background-color: #1c1c1c;
+  overflow: hidden;
+}
+
+/*Style for each menu option*/
+.topnav a {
+  float: left;
+  color: white;
+  font-family: Khand, Impact;
+  text-align: center;
+  padding: 12px 14px;
+  border: 1px solid black;
+  font-size: 25px;
+  text-decoration: none;
+}
+
+.topnav a:hover {
+  background-color: darkgray;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+#fb-btn{
+  margin-top: 18px;
+  margin-right: 20px;
+}
+
+.container {
+  position: absolute;
+  text-align: center;
+  background-color: darkgrey;
+  background-size: 1200px 1200px;
+}
+
+#centerTitle {
+  position: absolute;
+  top: 48%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  font-size: 120px;
+  font-family: Khand;
+  text-shadow: 5px 5px #1c1c1c;
+  text-decoration: underline ;
+}
+
+#centerSubTitle{
+  position: absolute;
+  top: 62%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  font-family: Khand;
+  text-shadow: 5px 5px #1c1c1c;
+}
+
+
+#profile, #feed{
+  position: center;
+  color: black;
+  font-size: 25px;
+  font-family: Khand;
+  float: left;
+}
+
+#logout{
+  display:none
+}
