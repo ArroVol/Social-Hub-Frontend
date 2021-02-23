@@ -33,6 +33,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AccountInformationComponent } from './account-information/account-information.component';
+import { InstagramComponent } from './instagram/instagram.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AccountInformationComponent } from './account-information/account-infor
   SimpleFormComponent,
   LoginPageComponent,
   AccountInformationComponent,
+  InstagramComponent,
   ],
   imports: [
     HttpClientModule,
