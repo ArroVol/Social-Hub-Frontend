@@ -6,12 +6,16 @@
       scope="public_profile,email,user_birthday,user_location,user_posts"
       onlogin="checkLoginState();">
     </fb:login-button>
-    -->
+
     <li><a id="fb-btn" (click)="submitLogin()">Login</a></li>
     <li><a id="logout" (click)="logout()">Logout</a></li>
+    -->
   </div>
 </div>
 <div class="container">
+  <h3>{{facebookUser.facebookName}}</h3>
+  <h3>{{facebookUser.facebookToken}}</h3>
+  <h3>{{facebookUser.facebookEmail}}</h3>
   <br>
   <div id="profile"></div>
   <br>

@@ -1,5 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import {FacebookService} from '../service/facebook.service';
+import {FacebookUser} from '../model/facebook/FacebookUser';
 
+@Component({
+  selector: 'app-facebook',
+  templateUrl: './facebook.component.html',
+  styleUrls: ['./facebook.component.css']
+})
+export class FacebookComponent implements OnInit{
+  facebookUser: FacebookUser;
+
+  constructor(private facebookService: FacebookService) {
+  }
+
+  ngOnInit(): void {
+    this.getUsername();
+  }
+
+  getUsername(){
+    this.facebookService.getUserName().subscribe(facebookUser => {
+      this.facebookUser = facebookUser;
+    });
+    console.log('Get username method called');
+  }
+}
+/*
 declare var FB: any;
 @Component({
   selector: 'app-facebook',
@@ -100,3 +125,6 @@ export class FacebookComponent implements OnInit {
   }
 
 }
+
+
+ */
