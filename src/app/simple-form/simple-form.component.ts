@@ -4,6 +4,7 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { ViewEncapsulation } from '@angular/core';
 import {UserService} from '../service/user.service';
+import {User} from '../model/user/User';
 
 @Component({
   selector: 'app-simple-form',
@@ -11,8 +12,10 @@ import {UserService} from '../service/user.service';
 
         <div class="login-container" style="font-size: 10px; position: absolute; right: 40px; top: 12px">
       <input #userName placeholder="Email" id="user-name" />
-      <input type="password" #password placeholder="Password" id="password"  />
-<!--          <div *ngIf="!loggedIn">-->
+     <input type="password" #password placeholder="Password" id="password" />  
+<!--          <span *ngIf="!loggedIn"> <input type="password" #password placeholder="Password" id="password" />  </span>-->
+
+          <!--          <div *ngIf="!loggedIn">-->
       <button mat-button *ngIf="!loggedIn else notShow" (click)="submit(userName.value, password.value);">Sign in</button>
 <!--          </div>-->
           <ng-template #notShow>
@@ -36,14 +39,15 @@ import {UserService} from '../service/user.service';
 export class SimpleFormComponent implements OnInit {
 
   value: string;
-  userName: string;
+  email: string;
   password: string;
   public studentId: string;
   loggedIn: boolean;
   logOutButton: string;
+  user: User;
 
   constructor(private userService: UserService, public snackBar: MatSnackBar) {
-    if (sessionStorage.getItem('studentId') !== null){
+    if (sessionStorage.getItem('email') !== null){
       this.loggedIn = true;
     }
     this.logOutButton = 'Sign in';
@@ -57,7 +61,7 @@ export class SimpleFormComponent implements OnInit {
     Validators.required,
   ]);
 
-  openSnackBar(status: string) {
+  async openSnackBar(status: string) {
     if (status === 'success') {
       this.snackBar.open('Logged In Successfully', 'close', {
         duration: 3200,
@@ -67,32 +71,36 @@ export class SimpleFormComponent implements OnInit {
         duration: 3200,
       });
   }
+    this.delay(300);
+
   }
 
-
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 
   ngOnInit(): void {
   }
 
-  // public submit(userName: string, password: string) {
-  //   this.userName = userName;
-  //   this.password = password;
-  //   this.userService.getUser(userName, password)
-  //     .subscribe(user => {
-  //       this.user = user;
-  //       this.studentId = user.studentId;
-  //       sessionStorage.setItem('studentId', user.studentId);
-  //       sessionStorage.setItem('studentFirstName', user.firstName);
-  //       this.loggedIn = true;
-  //       sessionStorage.setItem('loggedIn', String(this.loggedIn));
-  //       this.openSnackBar('success');
-  //       window.location.reload();
-  //       this.openSnackBar('success');
-  //     });
-  //   if (this.user == null && !this.loggedIn){
-  //     this.openSnackBar('fail');
-  //   }
-  // }
+  public async submit(email: string, password: string) {
+    this.email = email;
+    this.password = password;
+    this.userService.getUserByLogin(email, password)
+      .subscribe(user => {
+        this.user = user;
+        sessionStorage.setItem('email', user.email);
+        // sessionStorage.setItem('studentFirstName', user.firstName);
+        this.loggedIn = true;
+        sessionStorage.setItem('loggedIn', String(this.loggedIn));
+        // window.location.reload();
+        this.openSnackBar('success');
+        // window.location.reload();
+        // this.openSnackBar('success');
+      });
+    if (this.user == null && !this.loggedIn){
+      this.openSnackBar('fail');
+    }
+  }
 
   logOut() {
     this.loggedIn = false;
@@ -109,9 +117,6 @@ export class SimpleFormComponent implements OnInit {
     }
   }
 
-  submit(value: string, value2: string) {
-
-  }
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

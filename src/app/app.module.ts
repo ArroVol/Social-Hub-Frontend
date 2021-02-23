@@ -28,11 +28,19 @@ import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
-import { FacebookComponent } from './facebook/facebook.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { SimpleFormComponent } from './simple-form/simple-form.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { AccountInformationComponent } from './account-information/account-information.component';
+import {FacebookComponent} from './facebook/facebook.component';
+import {SpotifyComponent} from './spotify/spotify.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {SimpleFormComponent} from './simple-form/simple-form.component';
+import {LoginPageComponent} from './login-page/login-page.component';
+import {AccountInformationComponent} from './account-information/account-information.component';
+import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
+// import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
+
+import { TimelineComponent } from './timeline/timeline.component';
+import { DataTableComponent } from './data-table/data-table.component';
+
+// import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -41,10 +49,21 @@ import { AccountInformationComponent } from './account-information/account-infor
     TwitterComponent,
     ThrowAwayPageComponent,
     FacebookComponent,
+    SpotifyComponent,
     DashboardComponent,
+    SimpleFormComponent,
+    LoginPageComponent,
+    AccountInformationComponent,
+    SpotifyLandingComponent,
   SimpleFormComponent,
   LoginPageComponent,
   AccountInformationComponent,
+  TimelineComponent,
+  DataTableComponent,
+    MessagesComponent,
+    SpotifyComponent,
+    // AboutComponent,
+
   ],
   imports: [
     HttpClientModule,
@@ -67,7 +86,7 @@ import { AccountInformationComponent } from './account-information/account-infor
     MatSortModule,
     MatIconModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

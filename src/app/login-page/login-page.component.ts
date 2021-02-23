@@ -10,6 +10,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class LoginPageComponent implements OnInit {
 
+  loggedInBool: boolean;
   username: string;
   email: string;
   password: string;
@@ -17,10 +18,7 @@ export class LoginPageComponent implements OnInit {
   newUser: User;
   loggedIn: string;
   nameId: number;
-  // allAddress: Address[];
-  // address: Address;
-  // newAddress: Address;
-
+  parameterTaken: string;
   addressId: number;
 
   constructor(private userService: UserService, public snackBar: MatSnackBar) {
@@ -28,18 +26,30 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loggedIn = sessionStorage.getItem('loggedIn');
     this.nameId = +sessionStorage.getItem('userId');
   }
+  logOut() {
+    this.loggedInBool = false;
+    // this.user = null;
+    sessionStorage.clear();
+    window.location.reload();
+  }
+  // openSnackBar(status: string) {
+  //   if (status === 'success') {
+  //     this.snackBar.open('Account Created', 'close', {
+  //       duration: 3200,
+  //     });
+  //   } else {
+  //     this.snackBar.open('Account Creation Failed', 'close', {
+  //       duration: 3200,
+  //     });
+  //   }
+  // }
   openSnackBar(status: string) {
-    if (status === 'success') {
-      this.snackBar.open('Account Created', 'close', {
+      this.snackBar.open(status, 'close', {
         duration: 3200,
       });
-    } else {
-      this.snackBar.open('Account creation fail', 'close', {
-        duration: 3200,
-      });
-    }
   }
 
   add(username: string, password: string, email: string, firstName: string, lastName: string, phoneNumber: string): void {
@@ -60,9 +70,38 @@ export class LoginPageComponent implements OnInit {
     // this.newUser.lastName = lastName;
     this.userService.saveUser(this.newUser)
       .subscribe(newUser => {
-            this.newUser = newUser;
-            sessionStorage.setItem('username', this.newUser.username);
+        this.newUser = newUser;
+        if (this.newUser.username !== null) {
+          console.log('not a null user');
+          sessionStorage.setItem('username', this.newUser.username);
+      } else {
+          console.log('null user');
+          console.log(this.newUser.username);
+          console.log(this.newUser.email);
+          console.log(this.newUser.phoneNumber);
+        }
+        if (this.newUser.username !== null || this.newUser.email !== null || this.newUser.phoneNumber !== null) {
+          console.log('they arent null');
+          window.location.assign('/twitter');
+          this.openSnackBar('Account Created');
+        } else {
+          if (this.newUser.username == null) {
+            this.parameterTaken = 'Username';
+          } else if (this.newUser.phoneNumber == null) {
+            this.parameterTaken = 'Phone Number';
+          } else if (this.newUser.email == null) {
+            this.parameterTaken = 'Email';
+          }
+          this.openSnackBar('Account Creation Failed: ' + this.parameterTaken + ' Taken');
+        }
+        //   console.log('failed!')
+        //   this.parameterTaken = 'Username';
+        //   this.openSnackBar('Account Creation Failed: Username Taken');
+        // } else {
+        //   this.openSnackBar('Account Created');
+        // }
           });
+
     // this.id = sessionStorage.getItem(('studentId'));
     // this.userService.postUser(this.newUser, +this.newUser.studentId)
     //   .subscribe(newUser => {
@@ -73,5 +112,9 @@ export class LoginPageComponent implements OnInit {
     // } else {
     //   this.openSnackBar('success');
     // }
+  }
+
+  changeWindow() {
+    window.location.assign('/twitter');
   }
 }
