@@ -8,7 +8,8 @@ import {Tweet} from '../model/twitter/Tweet';
 import {Status} from 'tslint/lib/runner';
 import {BriefStatus} from '../model/twitter/BriefStatus';
 
-const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
+  'Content-Type': 'application/json' });
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 export class TwitterService {
   studentId: number;
   httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers: headers
   };
   private twitterUrl = 'http://localhost:8080/api';
 

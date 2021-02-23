@@ -9,9 +9,6 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
-// import{ AppRoutingModule } from './app-routing.module';
-
-
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,16 +28,19 @@ import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
-import { FacebookComponent } from './facebook/facebook.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { SimpleFormComponent } from './simple-form/simple-form.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { AccountInformationComponent } from './account-information/account-information.component';
+import {FacebookComponent} from './facebook/facebook.component';
+import {SpotifyComponent} from './spotify/spotify.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {SimpleFormComponent} from './simple-form/simple-form.component';
+import {LoginPageComponent} from './login-page/login-page.component';
+import {AccountInformationComponent} from './account-information/account-information.component';
+import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
+// import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
+
 import { TimelineComponent } from './timeline/timeline.component';
 import { DataTableComponent } from './data-table/data-table.component';
 
-import { SpotifyComponent } from './spotify/spotify.component';
-import { AboutComponent } from './about/about.component';
+// import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,12 @@ import { AboutComponent } from './about/about.component';
     TwitterComponent,
     ThrowAwayPageComponent,
     FacebookComponent,
+    SpotifyComponent,
     DashboardComponent,
+    SimpleFormComponent,
+    LoginPageComponent,
+    AccountInformationComponent,
+    SpotifyLandingComponent,
   SimpleFormComponent,
   LoginPageComponent,
   AccountInformationComponent,
@@ -57,7 +62,7 @@ import { AboutComponent } from './about/about.component';
   DataTableComponent,
     MessagesComponent,
     SpotifyComponent,
-    AboutComponent
+    // AboutComponent,
 
   ],
   imports: [
