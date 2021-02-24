@@ -8,6 +8,7 @@ import {SpotifyComponent} from './spotify/spotify.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
 import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.component';
+import {SpotifyPlaylistComponent} from './spotify-playlist/spotify-playlist.component';
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'facebook', component: FacebookComponent },
   { path: 'spotify', component: SpotifyComponent },
   { path: 'spotify/landing', component: SpotifyLandingComponent, pathMatch: 'full' },
+  { path: 'spotify/playlist', component: SpotifyPlaylistComponent, pathMatch: 'prefix'},
   { path: 'login-page', component: LoginPageComponent },
   { path: 'account-information', component: AccountInformationComponent },
 

@@ -1,114 +1,109 @@
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
-      id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"-->
+<!--      id="bootstrap-css">-->
+<!--<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
+<!--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
 
-<br><br>
-<div class="container-fluid well span6">
-  <div class="row-fluid">
-    <div class="span2">
-      <img src="{{spotifyUser.imageUrl}}" class="img-circle">
-    </div>
+<div class="nav-bar">
+  <mat-nav-list>
+    <a mat-list-item routerLink="spotify/userinfo"> User Info</a>
+    <a mat-list-item routerLink="spotify/search"> Search Track</a>
+    <a mat-list-item routerLink="spotify/artist"> Search Artist</a>
+  </mat-nav-list>
+  <br>
+  <hr>
 
-    <div class="span8">
-      <h3>{{spotifyUser.displayName}}</h3>
-      <h6>Email: {{spotifyUser.email}}</h6>
-      <h6>Spotify URL: {{spotifyUser.spotifyUrl}}</h6>
-      <h6>Country: {{spotifyUser.country}}</h6>
-      <h6>Birthdate: {{spotifyUser.birthdate}}</h6>
-      <h6><a href="#">More... </a></h6>
-    </div>
-  </div>
-  <table>
-    <thead>
-    <th>Name</th>
-    <th>URL</th>
-    <th>Image</th>
-    </thead>
-    <tbody *ngFor="let playlist of spotifyUserPlaylist">
-    <tr>
-      <td>{{playlist.name}}</td>
-      <td>{{playlist.spotifyUrl}}</td>
-      <td><img src="{{playlist.imageUrl}}"></td>
-    </tr>
-    <tr *ngFor="let track of playlist.tracks">
-      <td>{{track.name}}</td>
-      <td>{{track.artistNames}}</td>
-      <td>{{track.spotifyUrl}}</td>
-      <td>{{track.duration}}</td>
-    </tr>
-    </tbody>
-  </table>
+  <h2>Playlists</h2>
+  <mat-nav-list>
+    <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
+       (click)="routeToPlaylist(playlist.id)"> {{ playlist.name }} </a>
+    <br><hr>
+    <a mat-list-item routerLink="spotify/playlist/add"> Create New Playlist</a>
+  </mat-nav-list>
+
 </div>
 
-<div class="form-inline justify-content-center mb-3">
-  <input type="search" #newquery [value]="artistSearchName"
-         class="form-control form-control-lg w-75"
-         placeholder="enter artist name...">
-  <button (click)="queryArtist(newquery.value)" class="btn btn-primary btn-lg ml-3" type="button">Search</button>
-</div>
-  <table>
-    <thead>
-    <th>Name</th>
-    <th>URL</th>
-    <th>Followers</th>
-    <th>Image</th>
-    </thead>
-    <tbody>
-    <tr *ngFor="let artist of artistQuery">
-      <td>{{artist.name}}</td>
-      <td>{{artist.spotifyUrl}}</td>
-      <td>{{artist.followers}}</td>
-      <td><img src="{{artist.imageUrl}}"></td>
-    </tr>
-    </tbody>
-  </table>
-<!--<div *ngIf="artistSearchName">-->
-<!--  <p *ngIf="!artistSearchName.length">-->
-<!--    No results were found for the query '{{ artistSearchName }}'.-->
-<!--  </p>-->
-<!--  <div class="row" *ngIf="artistQuery.length">-->
 
-<!--    <div class="col-3 mb-3" *ngFor="let artist of artistQuery">-->
-<!--      <div class="card h-100">-->
-<!--        <img class="card-img-top" src="{{ artist.imageUrl }}" alt="{{artist.name}}">-->
-<!--        <div class="card-body">-->
-<!--          <h5 class="card-title">-->
-<!--            &lt;!&ndash;            <a [routerLink]="['/tracks', artist.id]" >{{artist.name}}</a>&ndash;&gt;-->
-<!--          </h5>-->
-<!--          <p class="card-text">-->
-<!--            &lt;!&ndash;            <a [routerLink]="['/artists', track.artists[0].id]" >{{track.artists[0].name}}</a>&ndash;&gt;-->
-<!--            <br/>-->
-<!--            &lt;!&ndash;            <a [routerLink]="['/albums', track.album.id]" >{{track.album.name}}</a>&ndash;&gt;-->
-<!--          </p>-->
-<!--        </div>-->
-<!--      </div>-->
+<!--<br><br>-->
+<!--<div class="container-fluid well span6">-->
+<!--  <div class="row-fluid">-->
+<!--    <div class="span2">-->
+<!--      <img src="{{spotifyUser.imageUrl}}" class="img-circle">-->
 <!--    </div>-->
 
+<!--    <div class="span8">-->
+<!--      <h3>{{spotifyUser.displayName}}</h3>-->
+<!--      <h6>Email: {{spotifyUser.email}}</h6>-->
+<!--      <h6>Spotify URL: {{spotifyUser.spotifyUrl}}</h6>-->
+<!--      <h6>Country: {{spotifyUser.country}}</h6>-->
+<!--      <h6>Birthdate: {{spotifyUser.birthdate}}</h6>-->
+<!--      <h6><a href="#">More... </a></h6>-->
+<!--    </div>-->
 <!--  </div>-->
 <!--</div>-->
 
-<div class="form-inline justify-content-center mb-3">
-  <!-- (keydown.enter)="queryArtist(newquery.value)"
-  -->
-  <input type="search" #trackquery [value]="trackSearchName"
-         class="form-control form-control-lg w-75"
-         placeholder="enter song title name...">
-  <button (click)="queryTrack(trackquery.value)" class="btn btn-primary btn-lg ml-3" type="button">Search</button>
-</div>
-<table>
-  <thead>
-  <th>Name</th>
-  <th>Artists Name</th>
-  <th>Spotify Url</th>
-  <th>Duration</th>
-  </thead>
-  <tbody>
-  <tr *ngFor="let track of trackQuery">
-    <td>{{track.name}}</td>
-    <td>{{track.artistNames}}</td>
-    <td>{{track.spotifyUrl}}</td>
-    <td>{{track.duration}} ms</td>
-  </tr>
-  </tbody>
-</table>
+<!--<table>-->
+<!--  <thead>-->
+<!--  <th>Name</th>-->
+<!--  <th>URL</th>-->
+<!--  <th>Image</th>-->
+<!--  </thead>-->
+<!--  <tbody *ngFor="let playlist of spotifyUserPlaylist">-->
+<!--  <tr>-->
+<!--    <td (click) = routeToPlaylist(playlist.id)> {{playlist.name}}</td>-->
+<!--    <td>{{playlist.spotifyUrl}}</td>-->
+<!--    <td><img src="{{playlist.imageUrl}}"></td>-->
+<!--  </tr>-->
+<!--&lt;!&ndash;  <tr *ngFor="let track of playlist.tracks">&ndash;&gt;-->
+<!--&lt;!&ndash;    <td>{{track.name}}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;    <td>{{track.artistNames}}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;    <td>{{track.spotifyUrl}}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;    <td>{{track.duration}}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;  </tr>&ndash;&gt;-->
+<!--  </tbody>-->
+<!--</table>-->
+
+<!--<div class="form-inline justify-content-center mb-3">-->
+<!--  <input type="search" #newquery [value]="artistSearchName"-->
+<!--         class="form-control form-control-lg w-75"-->
+<!--         placeholder="enter artist name...">-->
+<!--  <button (click)="queryArtist(newquery.value)" class="btn btn-primary btn-lg ml-3" type="button">Search</button>-->
+<!--</div>-->
+<!--  <table>-->
+<!--    <thead>-->
+<!--    <th>Name</th>-->
+<!--    <th>URL</th>-->
+<!--    <th>Followers</th>-->
+<!--    <th>Image</th>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr *ngFor="let artist of artistQuery">-->
+<!--      <td>{{artist.name}}</td>-->
+<!--      <td>{{artist.spotifyUrl}}</td>-->
+<!--      <td>{{artist.followers}}</td>-->
+<!--      <td><img src="{{artist.imageUrl}}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+
+<!--<div class="form-inline justify-content-center mb-3">-->
+<!--  <input type="search" #trackquery [value]="trackSearchName"-->
+<!--         class="form-control form-control-lg w-75"-->
+<!--         placeholder="enter song title name...">-->
+<!--  <button (click)="queryTrack(trackquery.value)" class="btn btn-primary btn-lg ml-3" type="button">Search</button>-->
+<!--</div>-->
+<!--<table>-->
+<!--  <thead>-->
+<!--  <th>Name</th>-->
+<!--  <th>Artists Name</th>-->
+<!--  <th>Spotify Url</th>-->
+<!--  <th>Duration</th>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr *ngFor="let track of trackQuery">-->
+<!--    <td>{{track.name}}</td>-->
+<!--    <td>{{track.artistNames}}</td>-->
+<!--    <td>{{track.spotifyUrl}}</td>-->
+<!--    <td>{{track.duration}} ms</td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+<!--</table>-->

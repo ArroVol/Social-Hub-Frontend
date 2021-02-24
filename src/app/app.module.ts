@@ -35,6 +35,10 @@ import {SimpleFormComponent} from './simple-form/simple-form.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
 import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
+import { SpotifyPlaylistComponent } from './spotify-playlist/spotify-playlist.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
 
 @NgModule({
@@ -51,10 +55,13 @@ import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.compo
     LoginPageComponent,
     AccountInformationComponent,
     SpotifyLandingComponent,
+    SpotifyPlaylistComponent,
   ],
   imports: [
     HttpClientModule,
+    MatSidenavModule,
     BrowserModule,
+    DragDropModule,
     FormsModule,
     BrowserAnimationsModule,
     MatSliderModule,
@@ -63,6 +70,7 @@ import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.compo
     MatToolbarModule,
     MatInputModule,
     MatButtonModule,
+    MatListModule,
     MatSelectModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,

@@ -4,6 +4,7 @@ import {SpotifyService} from '../service/spotify.service';
 import {SpotifyArtist} from '../model/spotify/SpotifyArtist';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
 import {SpotifyPlaylist} from '../model/spotify/SpotifyPlaylist';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-spotify',
@@ -21,7 +22,7 @@ export class SpotifyComponent implements OnInit {
   spotifyUserPlaylist: SpotifyPlaylist[];
 
 
-  constructor(private spotifyService: SpotifyService) {
+  constructor(private spotifyService: SpotifyService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -65,4 +66,12 @@ export class SpotifyComponent implements OnInit {
   //   this.logged = true;
   // }
 
+  routeToPlaylist(playlistId : string) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: playlistId
+      }
+    }
+    this.router.navigate(['spotify/playlist'], navigationExtras);
+  }
 }
