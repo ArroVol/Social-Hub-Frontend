@@ -4,11 +4,9 @@
 
 <div id="login-box">
   <div class="left">
-    <br>
 
     <div *ngIf="loggedIn !== 'true' else notShow">
       <h1>Register Account information below</h1>
-
       <input #username type="text" name="userName" placeholder="Username" />
       <input #firstName type="text" name="firstName" placeholder="First Name" />
       <input #lastName type="text" name="lastName" placeholder="Last Name" />
@@ -20,6 +18,20 @@
     </div>
   </div>
 
+<!--  <form class="example-form">-->
+<!--    <mat-form-field class="example-full-width">-->
+<!--&lt;!&ndash;      <mat-label>Favorite food</mat-label>&ndash;&gt;-->
+<!--&lt;!&ndash;      <input #username type="text" name="userName" placeholder="Username" />&ndash;&gt;-->
+<!--&lt;!&ndash;      <input #firstName type="text" name="firstName" placeholder="First Name" />&ndash;&gt;-->
+<!--&lt;!&ndash;      <input #lastName type="text" name="lastName" placeholder="Last Name" />&ndash;&gt;-->
+<!--&lt;!&ndash;      <input #email type="text" name="email" placeholder="E-mail" />&ndash;&gt;-->
+<!--&lt;!&ndash;      <input #phoneNumber type="text" name="phoneNumber" placeholder="PhoneNumber" />&ndash;&gt;-->
+<!--&lt;!&ndash;      <input type="password" name="password" placeholder="Password" />&ndash;&gt;-->
+<!--&lt;!&ndash;      <input #password type="password" name="password2" placeholder="Retype password" />&ndash;&gt;-->
+<!--      <input #username matInput placeholder="Username">-->
+<!--      <input #firstName matInput placeholder="First Name" />-->
+<!--    </mat-form-field>-->
+<!--  </form>-->
   <ng-template #notShow>
     <h1>View And Update Account Information</h1>
   </ng-template>

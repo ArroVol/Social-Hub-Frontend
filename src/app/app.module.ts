@@ -34,17 +34,19 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {SimpleFormComponent} from './simple-form/simple-form.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
-import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
-import { SpotifyPlaylistComponent } from './spotify-playlist/spotify-playlist.component';
+import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.component';
+import {SpotifyPlaylistComponent} from './spotify-playlist/spotify-playlist.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {TimelineComponent} from './timeline/timeline.component';
+import {DataTableComponent} from './data-table/data-table.component';
+
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule,
     MessagesComponent,
     TwitterComponent,
     ThrowAwayPageComponent,
@@ -56,6 +58,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     AccountInformationComponent,
     SpotifyLandingComponent,
     SpotifyPlaylistComponent,
+    TimelineComponent,
+    DataTableComponent,
   ],
   imports: [
     HttpClientModule,
@@ -63,6 +67,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     BrowserModule,
     DragDropModule,
     FormsModule,
+    // AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
     MatSelectModule,
@@ -80,7 +85,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatSortModule,
     MatIconModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
