@@ -2,69 +2,127 @@
   <mat-drawer mode="side" opened>
     <div class="nav-bar">
       <mat-nav-list>
-        <a mat-list-item routerLink="spotify/userinfo"> User Info</a>
-        <a mat-list-item routerLink="spotify/search"> Search Track</a>
-        <a mat-list-item routerLink="spotify/artist"> Search Artist</a>
+        <a mat-list-item routerLink="/spotify/userinfo"> User Info</a>
+        <a mat-list-item routerLink="/spotify/search"> Search Track</a>
+        <a mat-list-item routerLink="/spotify/artist"> Search Artist</a>
       </mat-nav-list>
       <br>
       <hr>
       <h2>Playlists</h2>
       <mat-nav-list>
-        <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"> {{ playlist.name }} </a>
+        <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
+           (click)="routeToPlaylist(playlist.id)"> {{playlist.name}} </a>
         <br>
         <hr>
-        <a mat-list-item routerLink="spotify/playlist/add"> Create New Playlist</a>
+        <button mat-icon-button (click)="openDialog()">
+          <mat-icon>library_add</mat-icon>
+          <span style="font-size:17px; padding-left: 7px;">Create Playlist</span>
+        </button>
       </mat-nav-list>
     </div>
-
+    <br>
   </mat-drawer>
-  <mat-drawer-content>
-    <div class="content">
+  <mat-drawer-content class="content" fxLayout="column">
+    <div>
+
+      <!--      <div class="login-component">-->
+      <!--        <mat-card class="example-card">-->
+      <!--          &lt;!&ndash;          <div mat-card-avatar src="{{userProfile.imageUrl}}"></div>&ndash;&gt;-->
+      <!--          <mat-card-header class="cardtextstuff">-->
+      <!--            &lt;!&ndash;            <img mat-card-image src="{{userProfile.imageUrl}}" alt="Photo of a Shiba Inu">&ndash;&gt;-->
+      <!--            <div mat-card-avatar class="example-header-image"-->
+      <!--                 style="background-image: url('{{userProfile.imageUrl}}'); background-size: cover;"></div>-->
+      <!--            <mat-card-title class="login-displayname">{{userProfile.displayName}}</mat-card-title>-->
+      <!--          </mat-card-header>-->
+      <!--        </mat-card>-->
+      <!--      </div>-->
+
       <div class="heading">
-        <h1>Playlist</h1>
-        <h3><img src="{{spotifyPlaylist.imageUrl}}" width="300" height="300"> <br> Playlist Name: {{spotifyPlaylist.name}} </h3>
         <br>
-        <h4>Description: {{spotifyPlaylist.description}}</h4>
+        <h2>Playlist</h2>
+        <h1><img src="{{spotifyPlaylist.imageUrl}}">
+          <br>{{spotifyPlaylist.name}}
+        </h1>
+        <h3>{{spotifyPlaylist.description}}
+          <!--          <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="deletePlaylist()">-->
+          <!--            <mat-icon>delete</mat-icon>-->
+          <!--          </button>
+          width="225" height="250"
+          -->
+        </h3>
+        <!--        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">-->
+        <!--          <mat-icon>more_horiz</mat-icon>-->
+        <!--        </button>-->
+        <br>
+      </div>
+      <div class="more-options">
+        <hr>
+        <button mat-icon-button [matMenuTriggerFor]="menu"
+                aria-label="Example icon button with a vertical three dot icon">
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deletePlaylist()">
+            <mat-icon>delete_outline</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+
+        <br>
+        <br>
       </div>
       <div class="table">
         <div cdkDropList class="songlist" (cdkDropListDropped)="drop($event)">
-<!--          <div class="example-box" *ngFor="let track of spotifyTrackList" cdkDrag>{{track.name}}</div>-->
-          <table mat-table [dataSource]="spotifyTrackList" class="mat-elevation-z8">
+          <table>
+            <tr>
+              <td>#</td>
+              <td></td>
+              <td>Title</td>
+              <td>Album</td>
+              <td>
+                <mat-icon>access_time</mat-icon>
+              </td>
+              <td>
+              </td>
+            </tr>
+            <tr *ngFor="let track of spotifyTrackList; let i = index" cdkDrag>
+              <td>{{i + 1}}</td>
+              <td><img src="{{track.album.imageUrl}}" width="100"></td>
+              <td><p>{{track.name}} <br> <span style="font-size:12px;">{{track.artistNames}} </span></p></td>
+              <td>{{track.album.name}}</td>
+              <td>{{transform(track.duration)}}</td>
+              <td>
+                <button mat-icon-button [matMenuTriggerFor]="menu"
+                        aria-label="Example icon button with a vertical three dot icon">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>perm_identity</mat-icon>
+                    <span>Go To Artist</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>album</mat-icon>
+                    <span>Go To Album</span>
+                  </button>
+                  <hr>
+                  <button mat-menu-item (click)="deleteTrackFromPlaylist(i)">
+                    <mat-icon>remove</mat-icon>
+                    <span>Remove From Playlist</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>playlist_add</mat-icon>
+                    <span>Add to Playlist</span>
+                  </button>
+                </mat-menu>
+              </td>
 
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-            <!-- Position Column -->
-            <ng-container matColumnDef="Album Image">
-              <th mat-header-cell *matHeaderCellDef> Album Img. </th>
-              <td mat-cell *matCellDef="let element"> {{element.album.imageUrl}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Name </th>
-              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="weight">
-              <th mat-header-cell *matHeaderCellDef> Weight </th>
-              <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="symbol">
-              <th mat-header-cell *matHeaderCellDef> Symbol </th>
-              <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </tr>
           </table>
-
-
-
-
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-export class SpotifyAlbum {
+export interface SpotifyAlbum {
   name: string;
   id: string;
   imageUrl: string;

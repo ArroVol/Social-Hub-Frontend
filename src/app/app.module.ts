@@ -40,7 +40,14 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {TimelineComponent} from './timeline/timeline.component';
-import {DataTableComponent} from './data-table/data-table.component';
+import {DataTablesModule} from 'angular-datatables';
+import {SpotifyCreatePlaylistComponent} from './spotify-create-playlist/spotify-create-playlist.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
+
+// MDB Angular Free
 
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
 
@@ -59,7 +66,8 @@ import {DataTableComponent} from './data-table/data-table.component';
     SpotifyLandingComponent,
     SpotifyPlaylistComponent,
     TimelineComponent,
-    DataTableComponent,
+    SpotifyCreatePlaylistComponent,
+    // DataTableComponent,
   ],
   imports: [
     HttpClientModule,
@@ -67,7 +75,6 @@ import {DataTableComponent} from './data-table/data-table.component';
     BrowserModule,
     DragDropModule,
     FormsModule,
-    // AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
     MatSelectModule,
@@ -85,7 +92,15 @@ import {DataTableComponent} from './data-table/data-table.component';
     MatSortModule,
     MatIconModule,
     AppRoutingModule,
+    MatMenuModule,
     RouterModule,
+    DataTablesModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatCardModule,
+
+
+    // DataTableComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import {SpotifyAlbum} from './SpotifyAlbum';
 
-export class SpotifyTrack {
+export interface SpotifyTrack {
+  id: string;
   name: string;
   artistNames: string[];
   spotifyUrl: string;
@@ -9,7 +10,5 @@ export class SpotifyTrack {
   explicit: boolean;
   popularity: number;
   album: SpotifyAlbum;
-
-  constructor() {
-  }
+  spotifyUri: string;
 }

@@ -1,8 +1,36 @@
-.nav-bar{
-  width: 20%;
-  height: 100%;
-  border: 10px;
-  border-right-color: #545454;
-  color: snow;
+/*.nav-bar {*/
+/*  width: 20%;*/
+/*  height: 100%;*/
+/*  border: 10px;*/
+/*  border-right-color: #545454;*/
+/*  color: snow;*/
+/*}*/
+
+.user-info {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.example-container {
+  display: flex;
+  height: 100%;
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  width: 100%;
+}
+
+.side {
+  padding: 30%;
+}
+
+.content {
+  display: flex;
+  height: 100%;
+}
+
+.content.heading {
+  align-items: center;
+  justify-content: center;
+  top: 0;
+}

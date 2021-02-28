@@ -1,44 +1,72 @@
-<!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"-->
-<!--      id="bootstrap-css">-->
-<!--<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
-<!--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+      id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-<div class="nav-bar">
-  <mat-nav-list>
-    <a mat-list-item routerLink="spotify/userinfo"> User Info</a>
-    <a mat-list-item routerLink="spotify/search"> Search Track</a>
-    <a mat-list-item routerLink="spotify/artist"> Search Artist</a>
-  </mat-nav-list>
-  <br>
-  <hr>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer mode="side" opened>
+    <div class="nav-bar">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/spotify/userinfo"> User Info</a>
+        <a mat-list-item routerLink="/spotify/search"> Search Track</a>
+        <a mat-list-item routerLink="/spotify/artist"> Search Artist</a>
+      </mat-nav-list>
+      <br>
+      <hr>
+      <h2>Playlists</h2>
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
+           (click)="routeToPlaylist(playlist.id)"> {{ playlist.name }} </a>
+        <br>
+        <hr>
+        <button mat-icon-button (click)="openDialog()">
+          <mat-icon>library_add</mat-icon>
+          <span style="font-size:17px; padding-left: 7px;">Create Playlist</span>
+        </button>
+      </mat-nav-list>
+    </div>
+    <br>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="user-info">
+      <div class="container-fluid well span6">
+        <div class="row-fluid">
+          <div class="span2">
+            <img src="{{spotifyUser.imageUrl}}" class="img-circle">
+          </div>
 
-  <h2>Playlists</h2>
-  <mat-nav-list>
-    <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
-       (click)="routeToPlaylist(playlist.id)"> {{ playlist.name }} </a>
-    <br><hr>
-    <a mat-list-item routerLink="spotify/playlist/add"> Create New Playlist</a>
-  </mat-nav-list>
+          <div class="span8">
+            <h3>{{spotifyUser.displayName}}</h3>
+            <h6>Email: {{spotifyUser.email}}</h6>
+            <h6>Spotify URL: {{spotifyUser.spotifyUrl}}</h6>
+            <h6>Country: {{spotifyUser.country}}</h6>
+            <h6>Birthdate: {{spotifyUser.birthdate}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
 
-</div>
 
+<!--<div class="nav-bar">-->
+<!--  <mat-nav-list>-->
+<!--    <a mat-list-item routerLink="/userinfo"> User Info</a>-->
+<!--    <a mat-list-item routerLink="/search"> Search Track</a>-->
+<!--    <a mat-list-item routerLink="/artist"> Search Artist</a>-->
+<!--  </mat-nav-list>-->
+<!--  <br>-->
+<!--  <hr>-->
 
-<!--<br><br>-->
-<!--<div class="container-fluid well span6">-->
-<!--  <div class="row-fluid">-->
-<!--    <div class="span2">-->
-<!--      <img src="{{spotifyUser.imageUrl}}" class="img-circle">-->
-<!--    </div>-->
+<!--  <h2>Playlists</h2>-->
+<!--  <mat-nav-list>-->
+<!--    <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"-->
+<!--       (click)="routeToPlaylist(playlist.id)"> {{ playlist.name }} </a>-->
+<!--    <br>-->
+<!--    <hr>-->
+<!--    <a mat-list-item routerLink="/spotify/playlist/add"> Create New Playlist</a>-->
+<!--  </mat-nav-list>-->
 
-<!--    <div class="span8">-->
-<!--      <h3>{{spotifyUser.displayName}}</h3>-->
-<!--      <h6>Email: {{spotifyUser.email}}</h6>-->
-<!--      <h6>Spotify URL: {{spotifyUser.spotifyUrl}}</h6>-->
-<!--      <h6>Country: {{spotifyUser.country}}</h6>-->
-<!--      <h6>Birthdate: {{spotifyUser.birthdate}}</h6>-->
-<!--      <h6><a href="#">More... </a></h6>-->
-<!--    </div>-->
-<!--  </div>-->
 <!--</div>-->
 
 <!--<table>-->

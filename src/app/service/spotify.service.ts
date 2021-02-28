@@ -36,9 +36,6 @@ export class SpotifyService {
   }
 
   getAuthorizationLink(): Observable<string> {
-    /*    this.httpOptions = {
-          headers: new HttpHeaders({'Content-Type':'text/plain'})
-        };*/
     const httpOptionsText = {
       headers: new HttpHeaders({
         Accept: 'text/plain',
@@ -51,7 +48,6 @@ export class SpotifyService {
     return this.http.get<string>(url, httpOptionsText)
       .pipe(
         tap(_ => console.log('fetched authorization link'))
-        // catchError(() => observableThrowError('get user by id error'))
       );
   }
 
@@ -102,5 +98,23 @@ export class SpotifyService {
       );
   }
 
+  createPlaylist(playlist_name: string, playlist_description: string): Observable<any> {
+    const url = `${this.spotifyUrl}/playlist/create/` + playlist_name + '/' + playlist_description;
+    // console.log(url);
+    // console.log('method Called with parameters: ' + playlist_name + ' , ' + playlist_description);
+    return this.http.post<any>(url, null);
+  }
+
+  reOrderPlaylist(playlist_id: string, range_start: number, insert_before: number): Observable<any> {
+    const url = `${this.spotifyUrl}/playlist/reorder/` + playlist_id + '/' + range_start + '/' + insert_before;
+    // console.log(url);
+    // console.log(range_start + ' ' + insert_before);
+    return this.http.put<any>(url, null);
+  }
+
+  removeTrackFromPlaylist(playlist_id: string, track_uri: string): Observable<any> {
+    const url = `${this.spotifyUrl}/playlist/remove/track/` + playlist_id + '/' + track_uri;
+    return this.http.put<any>(url, null);
+  }
 
 }
