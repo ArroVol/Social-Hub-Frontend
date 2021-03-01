@@ -12,9 +12,16 @@ import {tap} from 'rxjs/operators';
 })
 export class InstagramComponent implements OnInit {
 
+  constructor(private instagramService: InstagramService) { }
+
+
+
   instagramUser: InstagramUserInfo;
 
-  constructor(private instagramService: InstagramService) { }
+  images = new Array(18);
+
+
+
 
 
   ngOnInit(): void {
@@ -30,6 +37,11 @@ export class InstagramComponent implements OnInit {
 
   getMediaCount(): number {
     return this.instagramUser.mediaCount;
+  }
+
+  getImageUrl(pic: number): string{
+
+    return this.instagramUser.imageFeed[pic].toString().substring(15, this.instagramUser.imageFeed[pic].toString().search('width') - 1);
   }
 
 
