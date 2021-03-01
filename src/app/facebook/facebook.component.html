@@ -10,12 +10,22 @@
     <li><a id="fb-btn" (click)="submitLogin()">Login</a></li>
     <li><a id="logout" (click)="logout()">Logout</a></li>
     -->
+    <li><a id="fb-btn" (click)="getUsername()">Log in to Facebook</a></li>
   </div>
 </div>
 <div class="container">
-  <h3>{{facebookUser.facebookName}}</h3>
-  <h3>{{facebookUser.facebookToken}}</h3>
-  <h3>{{facebookUser.facebookEmail}}</h3>
+  <h1>
+    <img style="width: 100px; height: 100px" [src]="facebookUser.photoURL">
+    {{facebookUser.facebookName}}'s Facebook Posts
+  </h1>
+
+  <h3>{{facebookPosts.posts[0]}}</h3>
+  <h4>--{{facebookPosts.posts[1]}}</h4>
+  <h3>{{facebookPosts.posts[2]}}</h3>
+  <h4>--{{facebookPosts.posts[3]}}</h4>
+  <h3>{{facebookPosts.posts[4]}}</h3>
+  <h4>--{{facebookPosts.posts[5]}}</h4>
+
   <br>
   <div id="profile"></div>
   <br>

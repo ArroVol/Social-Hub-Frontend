@@ -4,4 +4,5 @@ export class FacebookUser{
   facebookToken: string;
   facebookEmail: string;
   facebookBirthday: string;
+  photoURL: string;
 }

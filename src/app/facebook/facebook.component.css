@@ -7,12 +7,34 @@ body{
   background-color: #1c1c1c;
   background-size: 1400px;
 }
+h1{
+  font-family: Khand, Impact;
+  color: black;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 50px;
+  font-weight: bold;
+  list-style: none;
+}
 
+h3{
+  color: black;
+  font-family: Khand, Impact;
+  font-size: 25px;
+  font-weight: bold;
+  text-decoration: underline dotted;
+}
+
+h4{
+  font-family: Khand, Impact;
+  font-size: 18px;
+}
 
 /*Navigation Style*/
 .topnav {
-  background-color: #1c1c1c;
+  background-color: #4267B2;
   overflow: hidden;
+  list-style: none;
 }
 
 /*Style for each menu option*/
@@ -21,15 +43,12 @@ body{
   color: white;
   font-family: Khand, Impact;
   text-align: center;
-  padding: 12px 14px;
-  border: 1px solid black;
+  padding: 10px 10px;
   font-size: 25px;
-  text-decoration: none;
 }
 
 .topnav a:hover {
-  background-color: darkgray;
-  color: black;
+  background-color: cornflowerblue;
 }
 
 .topnav a.active {
@@ -40,13 +59,13 @@ body{
 #fb-btn{
   margin-top: 18px;
   margin-right: 20px;
+  margin-bottom: 10px;
 }
 
 .container {
   position: absolute;
-  text-align: center;
-  background-color: darkgrey;
-  background-size: 1200px 1200px;
+  text-align: left;
+  background-color: lightsteelblue;
 }
 
 #centerTitle {
@@ -56,7 +75,6 @@ body{
   transform: translate(-50%, -50%);
   font-size: 120px;
   font-family: Khand;
-  text-shadow: 5px 5px #1c1c1c;
   text-decoration: underline ;
 }
 

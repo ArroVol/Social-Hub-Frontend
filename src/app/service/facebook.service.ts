@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {MessageService} from '../message.service';
 import {tap} from 'rxjs/operators';
 import {FacebookUser} from '../model/facebook/FacebookUser';
+import {FacebookPosts} from '../model/facebook/FacebookPosts';
 
 const headers = new HttpHeaders({'Access-Control-Allow-Origin': '*'});
 @Injectable({
@@ -27,4 +28,15 @@ export class FacebookService{
         // catchError(() => observableThrowError('get user by id error'))
       );
   }
+
+  getPosts(): Observable<FacebookPosts>{
+    console.log('Getting FB User Posts');
+    const url = `${this.facebookURL}/feed`;
+    return this.http.get<FacebookPosts>(url)
+      .pipe(
+        tap(_ => console.log('Got FB user posts'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
 }

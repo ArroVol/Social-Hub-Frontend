@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FacebookService} from '../service/facebook.service';
 import {FacebookUser} from '../model/facebook/FacebookUser';
+import {FacebookPosts} from '../model/facebook/FacebookPosts';
 
 @Component({
   selector: 'app-facebook',
@@ -9,12 +10,12 @@ import {FacebookUser} from '../model/facebook/FacebookUser';
 })
 export class FacebookComponent implements OnInit{
   facebookUser: FacebookUser;
+  facebookPosts: FacebookPosts;
 
   constructor(private facebookService: FacebookService) {
   }
 
   ngOnInit(): void {
-    this.getUsername();
   }
 
   getUsername(){
@@ -22,7 +23,16 @@ export class FacebookComponent implements OnInit{
       this.facebookUser = facebookUser;
     });
     console.log('Get username method called');
+    this.getPosts();
   }
+
+  getPosts(){
+    this.facebookService.getPosts().subscribe(facebookPosts => {
+      this.facebookPosts = facebookPosts;
+    });
+    console.log('Get posts method called');
+  }
+
 }
 /*
 declare var FB: any;
