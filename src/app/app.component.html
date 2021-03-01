@@ -1,24 +1,29 @@
-<!--<h1>{{title}}</h1>-->
-
-<mat-toolbar color="primary">
-  <div style="display: flex; justify-content: space-around">
-    <mat-toolbar-row>
-      <div style="float: right">Social Hub</div>
-    </mat-toolbar-row>
-    <mat-toolbar-row>
-<!--      <app-simple-form > </app-simple-form>-->
-    </mat-toolbar-row>
-  </div>
-</mat-toolbar>
-<nav>
-  <a routerLink="/twitter">Twitter</a>
-  <a routerLink="/facebook">Facebook</a>
-  <a routerLink="/dashboard">dashboard</a>
-  <a routerLink="/login-page">log in page</a>
-  <a routerLink="/account-information">Account information</a>
-  <a routerLink="/instagram">Instagram</a>
+<!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
 
 
+<mat-sidenav-container class="example-container" >
+  <mat-toolbar color="primary">
+    <div style="display: flex; justify-content: space-around">
+      <mat-toolbar-row>
+        <div style="float: right">Social Hub</div>
+      </mat-toolbar-row>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav mode="side" opened>
+    <nav>
+      <ul>
+        <li><a routerLink="/twitter">Twitter</a></li>
+        <li><a routerLink="/facebook">Facebook</a></li>
+        <li><a routerLink="/dashboard">dashboard</a></li>
+        <li><a routerLink="/account-information">Account information</a></li>
+        <li><a routerLink="/instagram">Instagram</a></li>
 
-</nav>
-<router-outlet></router-outlet>
+      </ul>
+    </nav>
+
+  </mat-sidenav>
+
+
+  <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>
+</mat-sidenav-container>
+

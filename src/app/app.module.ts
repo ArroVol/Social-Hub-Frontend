@@ -8,7 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +34,7 @@ import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AccountInformationComponent } from './account-information/account-information.component';
 import { InstagramComponent } from './instagram/instagram.component';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { InstagramComponent } from './instagram/instagram.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSidenavModule,
     MatIconModule,
     AppRoutingModule,
     RouterModule
