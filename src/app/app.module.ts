@@ -39,6 +39,10 @@ import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.compo
 
 import { TimelineComponent } from './timeline/timeline.component';
 import { DataTableComponent } from './data-table/data-table.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { InstagramComponent } from './instagram/instagram.component';
+import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
+
 
 // import { AboutComponent } from './about/about.component';
 
@@ -62,6 +66,8 @@ import { DataTableComponent } from './data-table/data-table.component';
   DataTableComponent,
     MessagesComponent,
     SpotifyComponent,
+    InstagramComponent,
+    AnimatedDigitComponent,
     // AboutComponent,
 
   ],
@@ -87,6 +93,7 @@ import { DataTableComponent } from './data-table/data-table.component';
     MatIconModule,
     AppRoutingModule,
     RouterModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

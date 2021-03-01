@@ -8,17 +8,24 @@
   <link href="instagram.component.css" rel="stylesheet" />
 </head>
 <body id="page-top">
-<img style="padding-left: 45%; width: 200px; height: 150px" src="{{instagramUser.profilePicUrl}}">
-<h4 style="padding-left: 45%">Follower Count: {{instagramUser.followerCount}}</h4>
-<h4 style="padding-left: 45%">Following Count: {{instagramUser.followingCount}}</h4>
+<div>
+  <img class="profilePic" src="{{instagramUser.profilePicUrl}}" alt="Avatar">
+
+</div>
+
+
+
+<h4 style="padding-left: 45%">Follower Count: <animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit></h4>
+<h4 style="padding-left: 45%">Following Count: <animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit></h4>
 <h3 style="padding-left: 45%">BIO: {{instagramUser.instaBio}}</h3>
 
 
 <div>
+
   <h3 style="padding-left: 45%"> Number of Images {{instagramUser.mediaCount}}</h3>
   <ul>
     <li *ngFor="let picture of images; let i = index">
-      <img style="padding-left: 35%; width: 500px; height: 500px" [src]="getImageUrl(i)">
+      <img style="width: 500px; height: 500px" [src]="getImageUrl(i)">
 
 
     </li>
