@@ -6,6 +6,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {FacebookComponent} from './facebook/facebook.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
+import {TimelineComponent} from './timeline/timeline.component';
+import {YoutubeComponent} from "./youtube/youtube.component";
 import {InstagramComponent} from './instagram/instagram.component';
 
 const routes: Routes = [
@@ -15,6 +17,9 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'facebook', component: FacebookComponent },
   { path: 'login-page', component: LoginPageComponent },
+  { path: 'account-information', component: AccountInformationComponent },
+  { path: 'timeline', component: TimelineComponent },
+  { path: 'youtube', component: YoutubeComponent },
   { path: 'account-information', component: AccountInformationComponent},
   { path: 'instagram', component: InstagramComponent},
 

@@ -1,0 +1,52 @@
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.small-table{
+  overflow-x: scroll !important;
+}
+
+.example-viewport {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+}
+
+.example-item {
+  height: 50px;
+}
+
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+div.ex1 {
+  background: #ccc;
+}
+
+img.profilePic {
+  border-radius: 50%;
+}
+
+.container{width:100%;}
+#left{float:left;}
+#right{float:right;}
+#center{margin:0 auto;width:100px;}
+
+.sub-cat {
+  float: left;
+  background: #ccc;
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 580px;
+  height: 680px;
+  overflow: scroll;
+}

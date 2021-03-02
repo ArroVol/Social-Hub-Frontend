@@ -33,6 +33,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AccountInformationComponent } from './account-information/account-information.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { YoutubeComponent } from "./youtube/youtube.component";
+import {SafePipe} from "./youtube/SafePipe.component";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {ScrollingModule} from "@angular/cdk/scrolling";
+//import { DataTableComponent } from './data-table/data-table.component';
 import { InstagramComponent } from './instagram/instagram.component';
 
 @NgModule({
@@ -47,6 +53,8 @@ import { InstagramComponent } from './instagram/instagram.component';
   LoginPageComponent,
   AccountInformationComponent,
   InstagramComponent,
+    YoutubeComponent,
+    SafePipe
   ],
   imports: [
     HttpClientModule,
@@ -69,7 +77,10 @@ import { InstagramComponent } from './instagram/instagram.component';
     MatSortModule,
     MatIconModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    MatGridListModule,
+    ScrollingModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
