@@ -46,6 +46,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
+import { InstagramComponent } from './instagram/instagram.component';
 
 // MDB Angular Free
 
@@ -67,6 +68,7 @@ import {MatCardModule} from '@angular/material/card';
     SpotifyPlaylistComponent,
     TimelineComponent,
     SpotifyCreatePlaylistComponent,
+    InstagramComponent
     // DataTableComponent,
   ],
   imports: [
@@ -75,6 +77,7 @@ import {MatCardModule} from '@angular/material/card';
     BrowserModule,
     DragDropModule,
     FormsModule,
+    // AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
     MatSelectModule,
@@ -105,8 +108,7 @@ import {MatCardModule} from '@angular/material/card';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
 
 // export class AppModule {
 //   loggedIn: string;

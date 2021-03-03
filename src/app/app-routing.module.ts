@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {TwitterComponent} from './twitter/twitter.component';
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
@@ -7,6 +7,7 @@ import {FacebookComponent} from './facebook/facebook.component';
 import {SpotifyComponent} from './spotify/spotify.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
+import {InstagramComponent} from './instagram/instagram.component';
 import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.component';
 import {SpotifyPlaylistComponent} from './spotify-playlist/spotify-playlist.component';
 import {TimelineComponent} from './timeline/timeline.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'login-page', component: LoginPageComponent},
   {path: 'account-information', component: AccountInformationComponent},
   {path: 'timeline', component: TimelineComponent},
+  { path: 'instagram', component: InstagramComponent},
 
 
   // {path: 'create-account', component: CreateAccountComponent},
@@ -35,5 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }
