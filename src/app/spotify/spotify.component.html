@@ -1,7 +1,7 @@
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
-      id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"-->
+<!--      id="bootstrap-css">-->
+<!--<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
+<!--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
 
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer mode="side" opened>
@@ -28,26 +28,28 @@
     <br>
   </mat-drawer>
   <mat-drawer-content>
-    <div class="user-info">
-      <div class="container-fluid well span6">
-        <div class="row-fluid">
-          <div class="span2">
-            <img src="{{spotifyUser.imageUrl}}" class="img-circle">
-          </div>
 
-          <div class="span8">
-            <h3>{{spotifyUser.displayName}}</h3>
-            <h6>Email: {{spotifyUser.email}}</h6>
-            <h6>Spotify URL: {{spotifyUser.spotifyUrl}}</h6>
-            <h6>Country: {{spotifyUser.country}}</h6>
-            <h6>Birthdate: {{spotifyUser.birthdate}}</h6>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <!--    <div class="user-info">-->
+    <!--      <div class="container-fluid well span6">-->
+    <!--        <div class="row-fluid">-->
+    <!--          <div class="span2">-->
+    <!--            <img src="{{spotifyUser.imageUrl}}" class="img-circle">-->
+    <!--          </div>-->
+
+    <!--          <div class="span8">-->
+    <!--            <h3>{{spotifyUser.displayName}}</h3>-->
+    <!--            <h6>Email: {{spotifyUser.email}}</h6>-->
+    <!--            <h6>Spotify URL: {{spotifyUser.spotifyUrl}}</h6>-->
+    <!--            <h6>Country: {{spotifyUser.country}}</h6>-->
+    <!--            <h6>Birthdate: {{spotifyUser.birthdate}}</h6>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </mat-drawer-content>
 </mat-drawer-container>
-
+{{spotifyUserPlaylist}}
 
 <!--<div class="nav-bar">-->
 <!--  <mat-nav-list>-->

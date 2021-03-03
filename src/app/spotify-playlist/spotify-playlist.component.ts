@@ -74,18 +74,33 @@ export class SpotifyPlaylistComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    if (event.previousIndex < event.currentIndex) {
+      this.reorderPlaylist(this.spotifyPlaylist.id, event.previousIndex, event.currentIndex + 1);
+    } else {
+      this.reorderPlaylist(this.spotifyPlaylist.id, event.previousIndex, event.currentIndex);
+    }
+    // console.log('previousIndex', event.previousIndex);
+    // console.log('currentIndex', event.currentIndex);
+    // this.reorderPlaylist(this.spotifyPlaylist.id, event.previousIndex, event.currentIndex);
     moveItemInArray(this.spotifyTrackList, event.previousIndex, event.currentIndex);
-    this.reorderPlaylist(this.spotifyPlaylist.id, event.previousIndex, event.currentIndex);
   }
 
   reorderPlaylist(playlist_id: string, range_start: number, insert_before: number) {
-    this.spotifyService.reOrderPlaylist(playlist_id, range_start, insert_before).subscribe(result => this.spotifyPlaylist = result);
+    this.spotifyService.reOrderPlaylist(playlist_id, range_start, insert_before).subscribe(result => {
+      this.spotifyPlaylist = result;
+      this.spotifyTrackList = result.tracks;
+    });
   }
 
   deleteTrackFromPlaylist(trackPosition: number) {
     console.log(this.spotifyTrackList[trackPosition].spotifyUri);
-    this.spotifyService.removeTrackFromPlaylist(this.spotifyPlaylist.id, this.spotifyTrackList[trackPosition].spotifyUri).subscribe(result => this.spotifyPlaylist = result);
-    this.routeToPlaylist(this.spotifyPlaylist.id);
+    this.spotifyService.removeTrackFromPlaylist(this.spotifyPlaylist.id, this.spotifyTrackList[trackPosition].spotifyUri).subscribe(result => {
+      this.spotifyPlaylist = result;
+      this.spotifyTrackList = result.tracks;
+      // console.log('Tracks: ', result.tracks);
+      // console.log(result);
+    });
+    // this.routeToPlaylist(this.spotifyPlaylist.id);
   }
 
   transform(input: string) {

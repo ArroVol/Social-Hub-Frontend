@@ -79,5 +79,6 @@ export class SpotifyComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(SpotifyCreatePlaylistComponent);
+
   }
 }
