@@ -305,10 +305,30 @@ body.segoe {
 }
 
 .posttweettacontainer2{
-  border-radius: 8px; border: 1px solid rgb(153, 153, 153); border-image: none; width:400px; line-height: 20px; box-shadow: 0px 0px 0px 1px dodgerblue; background-color: rgb(255, 255, 255);
+  border-radius: 8px; border: 1px solid rgb(153, 153, 153); border-image: none; width:380px; line-height: 20px; box-shadow: 0px 0px 0px 1px dodgerblue; background-color: rgb(255, 255, 255);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 }
 
 .followers{
   font-size: 16px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 6px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: rgb(0, 0, 0); line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
+  /*display: inline-block;*/
+  /*width: 50px;*/
+  /*border: 1px solid #000;*/
+  /*text-align: center;*/
+  margin-top: 3px;
+}
+.get-followers{
+  padding: 6px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: rgb(255, 255, 255); line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
+
+}
+
+.repeat{
+  /*margin-left: 15px;*/
+}
+
+.circle{
+  margin-left: 15px;
 }

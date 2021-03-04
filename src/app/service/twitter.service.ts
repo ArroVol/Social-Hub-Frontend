@@ -25,9 +25,7 @@ export class TwitterService {
   private twitterUrl = 'http://localhost:8080/api';
 
   constructor(
-    // private environment: Environment,
     private http: HttpClient,
-
     // private twitterUrl = 'http://localhost:8080/api/user',  // URL to web api
     private messageService: MessageService) {
   }
@@ -47,8 +45,6 @@ export class TwitterService {
   /** GET num of followers by id from the server */
   getTimeline(id: number): Observable<Tweet[]> {
     console.log('getting the users timeline in the twitter service');
-
-    // const url = `${this.twitterUrl}/user/${id}`;
     const url = `${this.twitterUrl}/twitter/full-timeline`;
 
     return this.http.get<Tweet[]>(url)
@@ -61,8 +57,6 @@ export class TwitterService {
   /** GET num of followers by id from the server */
   getNumFollowersById(id: number): Observable<number> {
     console.log('in the get followers by id');
-
-    // const url = `${this.twitterUrl}/user/${id}`;
     const url = `${this.twitterUrl}/twitter/followers`;
 
     return this.http.get<number>(url)
@@ -74,8 +68,6 @@ export class TwitterService {
   /** GET num of followers by id from the server */
   getUserTweetsById(id: number): Observable<Tweet[]> {
     console.log('in the get followers by id');
-
-    // const url = `${this.twitterUrl}/user/${id}`;
     const url = `${this.twitterUrl}/twitter/get-tweets`;
 
     return this.http.get<Tweet[]>(url)
@@ -87,8 +79,6 @@ export class TwitterService {
   /** GET num of followers by id from the server */
   getUserStatus(id: number): Observable<Status> {
     console.log('getting the users status in the twitter service');
-
-    // const url = `${this.twitterUrl}/user/${id}`;
     const url = `${this.twitterUrl}/twitter/status`;
 
     return this.http.get<Status>(url)
@@ -101,8 +91,6 @@ export class TwitterService {
   /** GET num of followers by id from the server */
   getRecentPost(id: number): Observable<BriefStatus> {
     console.log('getting the users status in the twitter service');
-
-    // const url = `${this.twitterUrl}/user/${id}`;
     const url = `${this.twitterUrl}/twitter/brief-status`;
 
     return this.http.get<BriefStatus>(url)
@@ -115,14 +103,11 @@ export class TwitterService {
   /** GET the user's status as a tweet object */
   getUserStatusAsTweet(id: number): Observable<Tweet> {
     console.log('getting the users status in the twitter service');
-
-    // const url = `${this.twitterUrl}/user/${id}`;
     const url = `${this.twitterUrl}/twitter/status-tweet`;
 
     return this.http.get<Tweet>(url)
       .pipe(
         tap(_ => console.log('fetched users status'))
-        // catchError(() => observableThrowError('get user by id error'))
       );
   }
 
@@ -133,7 +118,6 @@ export class TwitterService {
     return this.http.get<User>(url)
       .pipe(
         tap(_ => console.log('fetched user' ))
-        // catchError(() => observableThrowError('get user by id error'))
       );
   }
 

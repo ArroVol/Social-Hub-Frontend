@@ -1,174 +1,20 @@
-<!--<p>facebook works!</p>-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <title>SocialHub Login</title>-->
-<!--</head>-->
-<!--<style media="screen">-->
-<!--  /*Imported Google Fonts*/-->
-<!--  @import url(https://fonts.googleapis.com/css?family=Audiowide);-->
-<!--  @import url(https://fonts.googleapis.com/css?family=Pacifico);-->
-<!--  @import url(https://fonts.googleapis.com/css?family=Khand);-->
+<div class = "topnav">
+  <div style="float: left">
+    <!--
+    <fb:login-button
+      id = "fb-btn"
+      scope="public_profile,email,user_birthday,user_location,user_posts"
+      onlogin="checkLoginState();">
+    </fb:login-button>
+    -->
+    <li><a id="fb-btn" (click)="submitLogin()">Login</a></li>
+    <li><a id="logout" (click)="logout()">Logout</a></li>
+  </div>
+</div>
+<div class="container">
+  <br>
+  <div id="profile"></div>
+  <br>
+  <div id="feed"></div>
+</div>
 
-<!--  /*Background Image*/-->
-<!--  body{-->
-<!--    background-color: #1c1c1c;-->
-<!--    background-size: 1400px;-->
-<!--  }-->
-
-
-<!--  /*Navigation Style*/-->
-<!--  .topnav {-->
-<!--    background-color: #1c1c1c;-->
-<!--    overflow: hidden;-->
-<!--  }-->
-
-<!--  /*Style for each menu option*/-->
-<!--  .topnav a {-->
-<!--    float: left;-->
-<!--    color: white;-->
-<!--    font-family: Khand, Impact;-->
-<!--    text-align: center;-->
-<!--    padding: 12px 14px;-->
-<!--    border: 1px solid black;-->
-<!--    font-size: 25px;-->
-<!--    text-decoration: none;-->
-<!--  }-->
-
-<!--  .topnav a:hover {-->
-<!--    background-color: darkgray;-->
-<!--    color: black;-->
-<!--  }-->
-
-<!--  .topnav a.active {-->
-<!--    background-color: dodgerblue;-->
-<!--    color: white;-->
-<!--  }-->
-
-<!--  #fb-btn{-->
-<!--    margin-top: 18px;-->
-<!--    margin-right: 20px;-->
-<!--  }-->
-
-<!--  .container {-->
-<!--    position: relative;-->
-<!--    text-align: center;-->
-<!--    color: white;-->
-<!--  }-->
-
-<!--  .centerTitle {-->
-<!--    position: absolute;-->
-<!--    top: 48%;-->
-<!--    left: 49%;-->
-<!--    transform: translate(-50%, -50%);-->
-<!--    font-size: 120px;-->
-<!--    font-family: Khand;-->
-<!--    text-shadow: 5px 5px #1c1c1c;-->
-<!--    text-decoration: underline ;-->
-<!--  }-->
-
-<!--  .centerSubTitle{-->
-<!--    position: absolute;-->
-<!--    top: 62%;-->
-<!--    left: 49%;-->
-<!--    transform: translate(-50%, -50%);-->
-<!--    font-size: 50px;-->
-<!--    font-family: Khand;-->
-<!--    text-shadow: 5px 5px #1c1c1c;-->
-<!--  }-->
-
-
-<!--</style>-->
-<!--<body>-->
-<!--<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>-->
-<!--<script>-->
-<!--  window.fbAsyncInit = function() {-->
-<!--    FB.init({-->
-<!--      appId      : '2959296474304941',-->
-<!--      cookie     : true,-->
-<!--      xfbml      : true,-->
-<!--      version    : 'v9.0'-->
-<!--    });-->
-
-<!--    //FB.AppEvents.logPageView();-->
-
-<!--    FB.getLoginStatus(function(response) {-->
-<!--      statusChangeCallback(response);-->
-<!--    });-->
-<!--  };-->
-
-<!--  (function(d, s, id){-->
-<!--    var js, fjs = d.getElementsByTagName(s)[0];-->
-<!--    if (d.getElementById(id)) {return;}-->
-<!--    js = d.createElement(s); js.id = id;-->
-<!--    js.src = "https://connect.facebook.net/en_US/sdk.js";-->
-<!--    fjs.parentNode.insertBefore(js, fjs);-->
-<!--  }(document, 'script', 'facebook-jssdk'));-->
-
-<!--  function statusChangeCallback(response){-->
-<!--    if(response.status === 'connected'){-->
-<!--      console.log("Logged in and Authenticated")-->
-<!--      console.log("Access Token: " + response.authResponse.accessToken);-->
-<!--      setElements(true)-->
-<!--      testAPI();-->
-<!--    } else{-->
-<!--      console.log("Not Authenticated")-->
-<!--      setElements(false)-->
-<!--    }-->
-<!--  }-->
-
-<!--  function checkLoginState() {-->
-<!--    FB.getLoginStatus(function(response) {-->
-<!--      statusChangeCallback(response);-->
-<!--    });-->
-<!--  }-->
-
-<!--  function testAPI(){-->
-<!--    FB.api('/me?fields=name,email', function(response) {-->
-<!--      if (response && !response.error) {-->
-<!--        console.log("Name: " + response.name);-->
-<!--        console.log("Email: " + response.email)-->
-<!--      }-->
-<!--    })-->
-<!--  }-->
-
-<!--  function setElements(isLoggedIn){-->
-<!--    if(isLoggedIn){-->
-<!--      document.getElementById('logout').style.display = 'block';-->
-<!--      document.getElementById('fb-btn').style.display = 'none';-->
-<!--    } else {-->
-<!--      document.getElementById('logout').style.display = 'none';-->
-<!--      document.getElementById('fb-btn').style.display = 'block';-->
-<!--    }-->
-<!--  }-->
-
-<!--  function logout(){-->
-<!--    FB.logout(function(response){-->
-<!--      setElements(false);-->
-<!--      console.log("User logged out")-->
-<!--    });-->
-<!--  }-->
-
-<!--</script>-->
-
-
-<!--<div class = "topnav">-->
-<!--  <a class = "active" href="SocialHubLogin.html">Log in</a>-->
-<!--  <a href = "">Create an Account</a>-->
-<!--  <div style="float: right">-->
-<!--    <fb:login-button-->
-<!--      id = "fb-btn"-->
-<!--      scope="public_profile,email"-->
-<!--      onlogin="checkLoginState();">-->
-<!--    </fb:login-button>-->
-<!--    <li><a id="logout" href="#" onclick="logout()">Logout</a></li>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div class="container">-->
-<!--  <img src="lofi.gif" style="width:100%; opacity: 75%">-->
-<!--  <div class="centerTitle">SocialHub</div>-->
-<!--  <div class="centerSubTitle">The Place of Social Media Networking</div>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->

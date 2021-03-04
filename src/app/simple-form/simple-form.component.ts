@@ -12,8 +12,10 @@ import {User} from '../model/user/User';
 
         <div class="login-container" style="font-size: 10px; position: absolute; right: 40px; top: 12px">
       <input #userName placeholder="Email" id="user-name" />
-      <input type="password" #password placeholder="Password" id="password"  />
-<!--          <div *ngIf="!loggedIn">-->
+     <input type="password" #password placeholder="Password" id="password" />  
+<!--          <span *ngIf="!loggedIn"> <input type="password" #password placeholder="Password" id="password" />  </span>-->
+
+          <!--          <div *ngIf="!loggedIn">-->
       <button mat-button *ngIf="!loggedIn else notShow" (click)="submit(userName.value, password.value);">Sign in</button>
 <!--          </div>-->
           <ng-template #notShow>
