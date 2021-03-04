@@ -5,6 +5,12 @@ import {any} from 'codelyzer/util/function';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {SecureTwitter} from '../model/twitter/SecureTwitter';
+import {TwitterService} from '../service/twitter.service';
+import {MatRadioChange} from '@angular/material/radio';
+import {Preferences} from '../model/user/Preferences';
+import {PreferencesService} from '../service/preferences.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 // import {MDCTextField} from '@material/textfield';
 
 @Component({
@@ -12,8 +18,28 @@ import {MatTableDataSource} from '@angular/material/table';
   templateUrl: './account-information.component.html',
   styleUrls: ['./account-information.component.css']
 })
+
 export class AccountInformationComponent implements OnInit {
 
+  checked = false;
+  indeterminate = false;
+  labelPosition: string;
+  disabled = false;
+  consumerKey: string;
+  consumerSecret: string;
+  accessToken: string;
+  accessTokenSecret: string;
+  numberId: number;
+  socialOnStart: string;
+  radioChoice: string;
+
+  userId: number;
+  twitterLoggedIn: string;
+
+  preferences: Preferences;
+
+  twitterRegistered: boolean;
+  secureInformation: SecureTwitter;
   username: string;
   email: string;
   password: string;
@@ -58,7 +84,7 @@ export class AccountInformationComponent implements OnInit {
 
   displayElements() {
     this.arr = new Array<string>(4);
-    console.log('in dispaly elements');
+    console.log('in display elements');
     console.log(this.user.username);
     this.arr [0] = this.user.username;
     this.arr [1] = this.user.email;
@@ -101,19 +127,133 @@ export class AccountInformationComponent implements OnInit {
   // }
 
   // textField = new MDCTextField(document.querySelector('.mdc-text-field'));
-  constructor(private userService: UserService) { }
+  // tslint:disable-next-line:max-line-length
+  constructor(private userService: UserService, private twitterService: TwitterService, private preferencesService: PreferencesService, public snackBar: MatSnackBar) {
+
+  }
 
   ngOnInit(): void {
+    console.log(sessionStorage.getItem('userId'));
+    this.socialOnStart = sessionStorage.getItem('socialOnStart');
+    console.log('on initialize');
+
+
+    if (sessionStorage.getItem('twitterHandle') !== null){
+      console.log('handle not null');
+      this.twitterLoggedIn = 'true';
+    }
+    this.getPreferences();
     this.checkLogin();
     this.getUser();
+    this.checkTwitterRegistered();
   }
+
   checkLogin(){
     if (sessionStorage.getItem('username') != null){
       this.userSaved = true;
     }
   }
 
-  sendConsumerKey(value: any, value2: any, value3: any, value4: any) {
-    
+  sendConsumerKey(consumerKey: string, consumerSecret: string, accessToken: string, accessTokenSecret: string, twitterHandle: string) {
+    console.log('session storage of user Id: ' + sessionStorage.getItem('userId'));
+    // this.numberId = +sessionStorage.getItem('userId');
+    this.secureInformation = new SecureTwitter();
+    this.secureInformation.userId = sessionStorage.getItem('userId');
+    // this.secureInformation.userId = this.numberId;
+    this.secureInformation.consumerKey = consumerKey;
+    this.secureInformation.consumerSecret = consumerSecret;
+    this.secureInformation.accessToken = accessToken;
+    this.secureInformation.accessTokenSecret = accessTokenSecret;
+    this.secureInformation.twitterHandle = twitterHandle;
+
+    this.twitterService.sendSecure(this.secureInformation)
+      .subscribe(secureInformation => {
+        this.secureInformation = secureInformation;
+        sessionStorage.setItem('twitterHandle', twitterHandle);
+        if (this.secureInformation === null){
+          console.log('its null');
+        } else {
+          console.log(this.secureInformation.userId);
+          console.log(this.secureInformation.twitterHandle);
+          this.twitterRegistered = true;
+          this.twitterLoggedIn = 'true';
+        }
+      });
+
+  }
+
+  omit_special_char(event)
+  {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
+
+  private checkTwitterRegistered() {
+    this.userId = +sessionStorage.getItem('userId');
+    console.log('checking registered for twitter user id: ' + this.userId);
+    if (this.userId !== null){
+      // this.twitterService
+    }
+  }
+
+  radioChange($event: MatRadioChange) {
+    // this.socialOnStart = $event.value;
+    this.radioChoice = $event.value;
+    console.log(this.radioChoice);
+    console.log(this.socialOnStart);
+
+  }
+
+  saveSocialStartUp() {
+    console.log(this.radioChoice);
+
+    if (this.radioChoice !== undefined){
+      console.log('radio choice selected');
+      this.socialOnStart = this.radioChoice;
+      sessionStorage.setItem('socialOnStart', this.socialOnStart);
+      console.log('preferences changed');
+      this.preferences.onLogin = sessionStorage.getItem('socialOnStart');
+      this.preferences.userId = +sessionStorage.getItem('userId');
+      this.preferencesService.savePreferences(this.preferences)
+        .subscribe(preferences => {
+          this.preferences = preferences;
+          if (this.preferences === null){
+            console.log('preferences are null');
+          } else {
+            console.log(this.preferences.userId);
+            console.log(this.preferences.onLogin);
+            this.socialOnStart = this.preferences.onLogin;
+            console.log(this.socialOnStart);
+            this.snackBar.open('Saved Home Page Preference', 'close', {
+              duration: 3200,
+            });
+          }
+        });
+
+    }
+    // sessionStorage.setItem('socialOnStart', this.socialOnStart);
+    // if (sessionStorage.getItem('socialOnStart') !== null){
+    //   console.log('preferences changed');
+    // }
+  }
+
+   getPreferences() {
+    console.log('getting preferences');
+    this.preferencesService.getPreferencesById(sessionStorage.getItem('userId'))
+      .subscribe(preferences => {
+        this.preferences = preferences;
+        if (this.preferences === null){
+          console.log('preferences are null');
+          this.socialOnStart = null;
+          this.preferences = new Preferences();
+        } else {
+          console.log(this.preferences.userId);
+          console.log(this.preferences.onLogin);
+          // sessionStorage.setItem()
+          this.socialOnStart = this.preferences.onLogin;
+          console.log(this.socialOnStart);
+        }
+      });
   }
 }

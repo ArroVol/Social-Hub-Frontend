@@ -12,7 +12,7 @@ import {TimelineComponent} from './timeline/timeline.component';
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/login-page', pathMatch: 'full' },
   { path: 'twitter', component: TwitterComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'facebook', component: FacebookComponent },

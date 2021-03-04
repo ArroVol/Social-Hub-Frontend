@@ -39,6 +39,7 @@ import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.compo
 
 import { TimelineComponent } from './timeline/timeline.component';
 import { DataTableComponent } from './data-table/data-table.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 // import { AboutComponent } from './about/about.component';
 
@@ -62,6 +63,7 @@ import { DataTableComponent } from './data-table/data-table.component';
   DataTableComponent,
     MessagesComponent,
     SpotifyComponent,
+
     // AboutComponent,
 
   ],
@@ -87,6 +89,9 @@ import { DataTableComponent } from './data-table/data-table.component';
     MatIconModule,
     AppRoutingModule,
     RouterModule,
+    ReactiveFormsModule,
+    MatRadioModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

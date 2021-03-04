@@ -332,3 +332,9 @@ body.segoe {
 .circle{
   margin-left: 15px;
 }
+
+.full{
+  position: center;
+  /*float: right;*/
+  /*text-align: center;*/
+}

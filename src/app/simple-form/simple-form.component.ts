@@ -5,6 +5,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { ViewEncapsulation } from '@angular/core';
 import {UserService} from '../service/user.service';
 import {User} from '../model/user/User';
+import {PreferencesService} from '../service/preferences.service';
+import {Preferences} from '../model/user/Preferences';
 
 @Component({
   selector: 'app-simple-form',
@@ -12,7 +14,7 @@ import {User} from '../model/user/User';
 
         <div class="login-container" style="font-size: 10px; position: absolute; right: 40px; top: 12px">
       <input #userName placeholder="Email" id="user-name" />
-     <input type="password" #password placeholder="Password" id="password" />  
+     <input type="password" #password placeholder="Password" id="password" />
 <!--          <span *ngIf="!loggedIn"> <input type="password" #password placeholder="Password" id="password" />  </span>-->
 
           <!--          <div *ngIf="!loggedIn">-->
@@ -45,9 +47,11 @@ export class SimpleFormComponent implements OnInit {
   loggedIn: boolean;
   logOutButton: string;
   user: User;
+  preferences: Preferences;
+  socialOnStart: string;
 
-  constructor(private userService: UserService, public snackBar: MatSnackBar) {
-    if (sessionStorage.getItem('email') !== null){
+  constructor(private userService: UserService, public snackBar: MatSnackBar, private preferencesService: PreferencesService) {
+    if (sessionStorage.getItem('username') !== null){
       this.loggedIn = true;
     }
     this.logOutButton = 'Sign in';
@@ -71,42 +75,85 @@ export class SimpleFormComponent implements OnInit {
         duration: 3200,
       });
   }
-    this.delay(300);
+    // this.delay(300);
 
   }
 
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
+
 
   ngOnInit(): void {
   }
+  async delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 
   public async submit(email: string, password: string) {
+    console.log('attempting login');
     this.email = email;
     this.password = password;
     this.userService.getUserByLogin(email, password)
-      .subscribe(user => {
+      .subscribe(async user => {
         this.user = user;
+        console.log(this.user.email);
         sessionStorage.setItem('email', user.email);
-        // sessionStorage.setItem('studentFirstName', user.firstName);
+        sessionStorage.setItem('userId', user.userId.toString());
+        sessionStorage.setItem('username', user.username);
+        sessionStorage.setItem('userId', String(this.user.userId));
+        console.log('this is the users id: ' + user.userId);
         this.loggedIn = true;
         sessionStorage.setItem('loggedIn', String(this.loggedIn));
-        // window.location.reload();
+        console.log(sessionStorage.getItem('loggedIn'));
         this.openSnackBar('success');
-        // window.location.reload();
-        // this.openSnackBar('success');
+        await this.delay(1000);
+        // window.location.assign('/account-information');
+        if (this.user == null ){
+          console.log('log in failed');
+          this.openSnackBar('fail');
+        } else {
+          console.log('getting preferences');
+          this.preferencesService.getPreferencesById(sessionStorage.getItem('userId'))
+            .subscribe(preferences => {
+              this.preferences = preferences;
+              if (this.preferences === null){
+                console.log('preferences are null');
+                this.socialOnStart = null;
+                this.preferences = new Preferences();
+              } else {
+                console.log(this.preferences.userId);
+                console.log(this.preferences.onLogin);
+                sessionStorage.setItem('socialOnStart', this.preferences.onLogin);
+                // sessionStorage.setItem()
+                this.socialOnStart = this.preferences.onLogin;
+                console.log(this.socialOnStart);
+                if (sessionStorage.getItem('socialOnStart') !== null){
+                  console.log('social on start is not null');
+                  let location = sessionStorage.getItem('socialOnStart').toLowerCase();
+                  console.log(location);
+                  let dash = '/';
+                  let fullUrl = dash.concat(location);
+                  console.log(fullUrl);
+                  window.location.assign(fullUrl);
+                } else {
+                  console.log('social on start is null...');
+                  window.location.assign('/account-information');
+
+                }
+              }
+            });
+        }
       });
-    if (this.user == null && !this.loggedIn){
-      this.openSnackBar('fail');
-    }
+
+  if (!this.loggedIn){
+    this.openSnackBar('fail');
+
+  }
   }
 
   logOut() {
     this.loggedIn = false;
-    // this.user = null;
     sessionStorage.clear();
-    window.location.reload();
+    window.location.assign('/login-page');
+
   }
 
   checkLogIn() {

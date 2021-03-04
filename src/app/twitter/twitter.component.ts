@@ -16,6 +16,7 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class TwitterComponent implements OnInit {
 
+  loggedIntoTwitter: boolean;
   tweet: Tweet;
   briefStatus: BriefStatus;
   // status: string;
@@ -38,8 +39,23 @@ export class TwitterComponent implements OnInit {
    * On page open get the recent post from the user and the number of followers.
    */
   ngOnInit(): void {
+    if (sessionStorage.getItem('twitterHandle') !== null) {
+      this.loggedIntoTwitter = true;
+    }
     this.briefStatus = new BriefStatus();
-    this.twitterService.getRecentPost(1)
+    this.twitterService.getRecentPost(+sessionStorage.getItem('userId'))
+      .subscribe(briefStatus => {
+        this.briefStatus = briefStatus;
+        console.log(this.briefStatus.createdAt);
+      });
+    if (sessionStorage.getItem('twitterHandle') !== null){
+      this.twitterService.getRecentPostByHandle(sessionStorage.getItem('twitterHandle'))
+        .subscribe(briefStatus => {
+          this.briefStatus = briefStatus;
+          console.log(this.briefStatus.createdAt);
+        });
+    }
+    this.twitterService.getRecentPost(+sessionStorage.getItem('userId'))
       .subscribe(briefStatus => {
         this.briefStatus = briefStatus;
         console.log(this.briefStatus.createdAt);

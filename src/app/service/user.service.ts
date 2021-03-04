@@ -4,8 +4,10 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {User} from '../model/user/User';
 import {MessageService} from '../message.service';
+import {Tweet} from '../model/twitter/Tweet';
 
-const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
+  'Content-Type': 'application/json' });
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,20 @@ const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
  * The user service class.
  */
 export class UserService {
-  studentId: number;
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
+
+};
+  // httpOptions = {
+  //   headers: new HttpHeaders({'Content-Type': 'application/json'})
+  //     .set('Content-Type', 'undefined')
+  //     .set('Access-Control-Allow-Origin', '*')
+  //     .set('Access-Control-Allow-Methods', 'POST')
+  //     .set('Access-Control-Allow-Headers', 'Origin')
+  //     .set('Access-Control-Allow-Credentials', 'true')
+  // };
+
+
   private userUrl = 'http://localhost:8080/api';
 
   constructor(
@@ -43,13 +55,29 @@ export class UserService {
   saveUser(user: User): Observable<User> {
     console.log('*********"=');
     console.log(user.username);
+    console.log(user.email);
+    console.log('id: ' + user.userId);
+    user.userId = 1;
     const url = `${this.userUrl}/user/newUser`;
     return this.http.post<User>(url, JSON.stringify(user), {headers})
       .pipe(
-        tap(_ => console.log('sent the registration' ))
+        tap(_ => console.log('sent the user' ))
         // catchError(() => observableThrowError('get registration by id error'))
       );
   }
+
+  // /** Post registration by id from the server */
+  // postUserTweet(tweet: Tweet, id: number): Observable<Tweet> {
+  //   const url = `${this.twitterUrl}/twitter/post`;
+  //   console.log('in the twitter service post user tweet method');
+  //   console.log(tweet.tweetText);
+  //   return this.http.post<Tweet>(url, JSON.stringify(tweet), {headers})
+  //     .pipe(
+  //       tap(_ => console.log('sent the tweet' ))
+  //       // catchError(() => observableThrowError('get registration by id error'))
+  //     );
+  // }
+
 
   /** GET user by id from the server */
   getUserById(id: number): Observable<User> {

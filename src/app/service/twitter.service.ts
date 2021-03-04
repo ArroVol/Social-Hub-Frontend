@@ -7,6 +7,7 @@ import {MessageService} from '../message.service';
 import {Tweet} from '../model/twitter/Tweet';
 import {Status} from 'tslint/lib/runner';
 import {BriefStatus} from '../model/twitter/BriefStatus';
+import {SecureTwitter} from '../model/twitter/SecureTwitter';
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json' });
@@ -18,9 +19,10 @@ const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
  * The class that makes call to the backend that controls twitter calls.
  */
 export class TwitterService {
-  studentId: number;
+  userId: number;
+  twitterLoggedIn: boolean;
   httpOptions = {
-    headers: headers
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
   private twitterUrl = 'http://localhost:8080/api';
 
@@ -28,6 +30,7 @@ export class TwitterService {
     private http: HttpClient,
     // private twitterUrl = 'http://localhost:8080/api/user',  // URL to web api
     private messageService: MessageService) {
+    this.twitterLoggedIn = false;
   }
   /** Post registration by id from the server */
   postUserTweet(tweet: Tweet, id: number): Observable<Tweet> {
@@ -91,7 +94,19 @@ export class TwitterService {
   /** GET num of followers by id from the server */
   getRecentPost(id: number): Observable<BriefStatus> {
     console.log('getting the users status in the twitter service');
-    const url = `${this.twitterUrl}/twitter/brief-status`;
+    const url = `${this.twitterUrl}/twitter/brief-status/${id}`;
+
+    return this.http.get<BriefStatus>(url)
+      .pipe(
+        tap(_ => console.log('fetched users brief status'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
+  /** GET num of followers by id from the server */
+  getRecentPostByHandle(twitterHandle: string): Observable<BriefStatus> {
+    console.log('getting the users status in the twitter service');
+    const url = `${this.twitterUrl}/twitter/most-recent-post/${twitterHandle}`;
 
     return this.http.get<BriefStatus>(url)
       .pipe(
@@ -142,4 +157,26 @@ export class TwitterService {
       );
   }
 
+  sendSecure(secureInformation: SecureTwitter) {
+  this.userId = +sessionStorage.getItem('userId');
+  const url = `${this.twitterUrl}/twitter/capture/tokens`;
+  console.log('in the twitter service to send secure to the backend');
+  return this.http.post<SecureTwitter>(url, JSON.stringify(secureInformation), {headers})
+    .pipe(
+      tap(_ => console.log('sent the tweet' ))
+      // catchError(() => observableThrowError('get registration by id error'))
+    );
+  }
+
+  /** GET num of followers by id from the server */
+  checkTwitterRegistered(userId: number): Observable<number> {
+    console.log('getting the users timeline in the twitter service');
+    const url = `${this.twitterUrl}/twitter/secure/check/${userId}`;
+
+    return this.http.get<number>(url)
+      .pipe(
+        tap(_ => console.log('completed twitter check'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
 }

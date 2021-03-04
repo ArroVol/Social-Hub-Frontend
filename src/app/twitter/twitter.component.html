@@ -53,6 +53,8 @@
 <!--</mat-form-field>-->
 <br>
 <br>
+<div class="full">
+<div *ngIf="loggedIntoTwitter else notShow" >
 <div class="posttweettacontainer2">
 
   <div *ngIf="briefStatus != null" class="status">
@@ -129,8 +131,11 @@
         <ul id="tweetscontainer" class="tweetscontainer">
 
         </ul>
+
       </div>
+
     </div>
+
   </div>
 <!--</div>-->
 
@@ -194,7 +199,7 @@
 <!--<mat-icon>circle</mat-icon>-->
 
 
-<div class="mat-elevation-z2">
+<span class="mat-elevation-z2">
   <mat-table [dataSource]="listData"  matSort>
     <ng-container matColumnDef="content">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Content</mat-header-cell>
@@ -246,5 +251,10 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-</div>
+</span>
 
+</div>
+<ng-template #notShow>
+  <h1>Go to the account information page to log into your twitter account</h1>
+</ng-template>
+</div>

@@ -20,18 +20,17 @@
 <!--  </tr>-->
 <!--  </tbody>-->
 <!--</table>-->
-<br>
 
 <!--<button class="getUserInfo" *ngIf="userSaved == true" (click)="getUser()">Get Account Information</button>-->
-<br>
 <div *ngIf="userData !== null">
   <br>
   <h1>User Account Information</h1>
 
-  <table mdbTable>
+  <table class="styled-table">
     <thead>
     <tr>
       <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+
     </tr>
     </thead>
     <tbody>
@@ -41,34 +40,41 @@
       <td>{{arr[2]}}</td>
       <td>{{arr[3]}}</td>
     </tr>
+    <!-- and so on... -->
     </tbody>
   </table>
-</div>
-
-<div *ngIf="!twitterSetup; else displayTwitterInfo">
+<br>
+<h1>Connections</h1>
+<div class="center">
+<div *ngIf="twitterLoggedIn !== 'true'; else displayTwitterInfo">
   <span>
     Click the link to the twitter developer page to get your access tokens
   </span>
   <div></div>
   <a href="https://developer.twitter.com/en/portal/dashboard" target="_blank">Go To Developer Page</a>
 </div>
-
+<br>
 <div id="login-box">
   <div class="left">
 
-    <div >
-      <h1>Register Account information below</h1>
+    <div *ngIf="twitterLoggedIn !== 'true' else showTwitterInfo" >
+      <h1>Register Twitter Account Below</h1>
       <input #consumerKey type="text" name="consumerKey" placeholder="Consumer Key" />
-      <input #consumerSecret type="text" name="consumerSecret" placeholder="consumerSecret" />
-      <input #accessToken type="text" name="accessToken" placeholder="accessToken" />
-      <input #accessTokenSecret type="text" name="accessTokenSecret" placeholder="accessTokenSecret" />
-      <button class="submit" (click)="sendConsumerKey(consumerKey.value, consumerSecret.value, accessToken.value, accessTokenSecret.value)">Send Keys</button>
+      <input #consumerSecret type="text" name="consumerSecret" placeholder="Consumer Secret" />
+      <input #accessToken type="text" name="accessToken" placeholder="Access Token" />
+      <input #accessTokenSecret type="text" name="accessTokenSecret" placeholder="Access Token Secret" />
+      <input #twitterHandle type="text" name="twitterHandle" placeholder="@TwitterHandle" />
+
+      <button class="submit" (click)="sendConsumerKey(consumerKey.value, consumerSecret.value, accessToken.value, accessTokenSecret.value, twitterHandle.value)">Send Keys</button>
     </div>
   </div>
 
-<ng-template #displayTwitterInfo>
-  They have their access tokens
+<ng-template style="text-align: center" #displayTwitterInfo>
+  Twitter Currently Connected
 </ng-template>
+<br>
+  <ng-template #showTwitterInfo>
+  </ng-template>
 
 <!--<div class="mat-elevation-z2">-->
 <!--  <mat-table [dataSource]="listData"  matSort>-->
@@ -123,3 +129,24 @@
 <!--    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
 <!--  </mat-table>-->
 <!--</div>-->
+  <div *ngIf="socialOnStart !== null else noSocialSet">
+    {{socialOnStart}} is set as your default page on sign in
+  </div>
+  <ng-template #noSocialSet>
+    You have not set a login preference
+  </ng-template>
+  <br>
+  <section class="example-section">
+    <label class="example-margin">Set Home Page Preference:</label>
+    <mat-radio-group [(ngModel)]="labelPosition" (change)="radioChange($event)" >
+      <mat-radio-button class="example-margin" value="Twitter">Twitter</mat-radio-button>
+      <mat-radio-button class="example-margin" value="Facebook">Facebook</mat-radio-button>
+      <mat-radio-button class="example-margin" value="Spotify">Spotify</mat-radio-button>
+    </mat-radio-group>
+  </section>
+  <br>
+</div>
+  <button class="btn btn-success" (click)="saveSocialStartUp()">Save</button>
+<!--  <button class="btn btn-primary" (click)="goBack()">Cancel</button>-->
+</div>   <button class="btn btn-success" (click)="getPreferences()">get Preferences</button>
+</div>
