@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FacebookService} from '../service/facebook.service';
 import {FacebookUser} from '../model/facebook/FacebookUser';
 import {FacebookPosts} from '../model/facebook/FacebookPosts';
+import {FacebookPhotos} from '../model/facebook/FacebookPhotos';
+import {FacebookLogin} from '../model/facebook/FacebookLogin';
 
 @Component({
   selector: 'app-facebook',
@@ -11,11 +13,20 @@ import {FacebookPosts} from '../model/facebook/FacebookPosts';
 export class FacebookComponent implements OnInit{
   facebookUser: FacebookUser;
   facebookPosts: FacebookPosts;
+  facebookPhotos: FacebookPhotos;
+  facebookLogin: FacebookLogin;
 
   constructor(private facebookService: FacebookService) {
   }
 
   ngOnInit(): void {
+  }
+
+  login(){
+    this.facebookService.login().subscribe(loginDialogURL => {
+      this.facebookLogin = loginDialogURL;
+    });
+    window.location.href = this.facebookLogin.loginDialogURL;
   }
 
   getUsername(){
@@ -24,6 +35,8 @@ export class FacebookComponent implements OnInit{
     });
     console.log('Get username method called');
     this.getPosts();
+    this.getPhotos();
+    document.getElementById('subtitle').style.display = 'block';
   }
 
   getPosts(){
@@ -31,6 +44,13 @@ export class FacebookComponent implements OnInit{
       this.facebookPosts = facebookPosts;
     });
     console.log('Get posts method called');
+  }
+
+  getPhotos(){
+    this.facebookService.getPhotos().subscribe(facebookPhotos => {
+      this.facebookPhotos = facebookPhotos;
+    });
+    console.log('Get photos method called');
   }
 
 }

@@ -15,10 +15,19 @@
 </div>
 <div class="container">
   <h1>
-    <img style="width: 100px; height: 100px" [src]="facebookUser.photoURL">
-    {{facebookUser.facebookName}}'s Facebook Posts
+    <img id = "pfp" style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookUser.photoURL">
+    {{facebookUser.facebookName}}
   </h1>
 
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[0]">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[1]">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[2]">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[3]">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[4]">
+  <br>
+  <br>
+
+  <h2><div id = "subtitle">Recent posts</div></h2>
   <h3>{{facebookPosts.posts[0]}}</h3>
   <h4>--{{facebookPosts.posts[1]}}</h4>
   <h3>{{facebookPosts.posts[2]}}</h3>
@@ -26,7 +35,6 @@
   <h3>{{facebookPosts.posts[4]}}</h3>
   <h4>--{{facebookPosts.posts[5]}}</h4>
 
-  <br>
   <div id="profile"></div>
   <br>
   <div id="feed"></div>

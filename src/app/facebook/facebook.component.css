@@ -7,12 +7,23 @@ body{
   background-color: #1c1c1c;
   background-size: 1400px;
 }
+
 h1{
+   font-family: Khand, Impact;
+   color: black;
+   padding-top: 20px;
+   padding-bottom: 20px;
+   font-size: 75px;
+   font-weight: bold;
+   list-style: none;
+ }
+
+h2{
   font-family: Khand, Impact;
   color: black;
   padding-top: 20px;
   padding-bottom: 20px;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: bold;
   list-style: none;
 }
@@ -28,6 +39,11 @@ h3{
 h4{
   font-family: Khand, Impact;
   font-size: 18px;
+}
+
+img{
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 /*Navigation Style*/
@@ -62,9 +78,19 @@ h4{
   margin-bottom: 10px;
 }
 
+#pfp{
+  border-radius: 85%;
+}
+
+#subtitle{
+  display: none;
+}
+
 .container {
-  position: absolute;
-  text-align: left;
+  min-width: 100%;
+  min-height: 100%;
+  position: page;
+  text-align: center;
   background-color: lightsteelblue;
 }
 
