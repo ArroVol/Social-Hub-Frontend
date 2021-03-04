@@ -1,4 +1,8 @@
 /* AppComponent's private CSS styles */
+mat-toolbar{
+  background-color: #63d3b6;
+}
+
 h1 {
   font-size: 1.2em;
   margin-bottom: 0;
@@ -8,6 +12,9 @@ h2 {
   margin-top: 0;
   padding-top: 0;
 }
+/* apply CSS to the select tag of
+   .dropdown-container div*/
+
 nav a {
   padding: 5px 10px;
   text-decoration: none;
@@ -15,7 +22,12 @@ nav a {
   background-color: #eee;
   border-radius: 4px;
 }
-
+nav li{
+  list-style-type: none;
+}
+nav ul{
+  list-style-type: none;
+}
 nav a:hover {
   color: #039be5;
   background-color: #cfd8dc;
@@ -128,5 +140,11 @@ button.social-signin:active {
   right: 0;
   background: #eee;
 }
+
+.profilePic {
+  border-radius: 50%;
+  border-spacing: 300px;
+}
+
 
 

@@ -5,5 +5,7 @@ export class InstagramUserInfo{
   profilePicUrl: string;
   instaBio: string;
   imageFeed: string[];
+  displayName: string;
+  username: string;
   constructor(){}
 }

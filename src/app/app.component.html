@@ -1,6 +1,6 @@
 <!--<h1>{{title}}</h1>-->
-
-<mat-toolbar color="primary">
+<!-- Navbar brand -->
+<mat-toolbar>
   <div style="display: flex; justify-content: space-around">
     <mat-toolbar-row>
       <div style="float: right">Social Hub</div>
@@ -19,26 +19,36 @@
     <div style="display: flex; justify-content: space-around">
       <mat-toolbar-row>
         <div style="float: right">Social Hub</div>
+
       </mat-toolbar-row>
+
     </div>
   </mat-toolbar>
   <mat-sidenav mode="side" opened>
+    <ul  class="navbar-nav" >
+      <li>
+        <a>
+          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>
+        </a>
+      </li>
+    </ul>
     <nav>
+
+
+
       <ul>
 
-        <li><a routerLink="/twitter">Twitter</a></li>
-        <li><a routerLink="/facebook">Facebook</a></li>
-        <li><a routerLink="/dashboard">dashboard</a></li>
+        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>
+        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>
         <li><a routerLink="/login-page">log in page</a></li>
         <li><a routerLink="/account-information">Account information</a></li>
-        <li><a routerLink="/instagram">Instagram</a></li>
+        <li><a routerLink="/instagram"><img style="width: 10px" src="images/instagramIcon.png">Instagram</a></li>
         <li><a routerLink="/spotify">spotify</a></li>
         <li><a routerLink="/about">about</a></li>
         <li><a routerLink="/spotify/landing">spotify landing</a></li>
 
       </ul>
     </nav>
-
   </mat-sidenav>
 
 

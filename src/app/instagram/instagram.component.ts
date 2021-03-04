@@ -1,9 +1,7 @@
-import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, LOCALE_ID, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {InstagramService} from '../service/instagram.service';
-import {Observable} from 'rxjs';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
-import {HttpHeaders} from '@angular/common/http';
-import {tap} from 'rxjs/operators';
+import {DatePipe, formatDate, FormatWidth, getLocaleDateTimeFormat} from '@angular/common';
 
 @Component({
   selector: 'app-instagram',
@@ -11,25 +9,53 @@ import {tap} from 'rxjs/operators';
   styleUrls: ['./instagram.component.css']
 })
 export class InstagramComponent implements OnInit {
-  nums: Array<number> = [25, 76, 48];
+  nums: Array<number> = [1, 20, 48];
 
   @ViewChild('oneItem') oneItem: any;
   @ViewChildren('count') count: QueryList<any>;
 
-  constructor(private instagramService: InstagramService) { }
-
+  constructor(private instagramService: InstagramService) {
+  }
 
 
   instagramUser: InstagramUserInfo;
 
   images = new Array(18);
 
-
+  options = {
+    weekday: 'short',
+    year: 'numeric',
+    month: '2-digit',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  };
 
 
 
   ngOnInit(): void {
+
     this.getInstaUser();
+    this.storeImages();
+
+
+
+    // Function is defined
+    function hideloader() {
+
+      // Setting display of spinner
+      // element to none
+      document.getElementById('loading')
+        .style.display = 'none';
+    }
+  }
+
+
+  storeImages(): void {
+    for (let i = 0; i < this.getMediaCount(); i++) {
+      this.images[i] = this.getImageUrl(i);
+    }
   }
 
   getInstaUser() {
@@ -76,5 +102,8 @@ export class InstagramComponent implements OnInit {
     }, step);
   }
 
+  counter(i: number) {
+    return new Array(i);
+  }
 
 }
