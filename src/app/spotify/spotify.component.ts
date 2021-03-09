@@ -77,6 +77,7 @@ export class SpotifyComponent implements OnInit {
     this.router.navigate(['spotify/playlist'], navigationExtras);
   }
 
+
   openDialog() {
     this.dialog.open(SpotifyCreatePlaylistComponent);
 

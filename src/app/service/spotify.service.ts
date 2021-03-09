@@ -117,4 +117,50 @@ export class SpotifyService {
     return this.http.put<any>(url, null);
   }
 
+  //DONE:
+  // Create pipeline for update playlist, get artist by id, get albums of artist by id, and get tracks of artist by id
+  // No modifications of the models
+  // Create artist component
+
+
+  // NEED TO DO:
+  // Create update playlist Component -> modal follow the create playlist example
+
+  // Create an html css, etc for the artist page:
+  // Title: Artist image, name, popularity
+  // Popularity: Top Tracks in table
+  // Albums: All of em in a table
+
+  // Future sprint: pop the albums in a carousel?
+
+  getArtistById(artist_id: string): Observable<SpotifyArtist> {
+    const url = `${this.spotifyUrl}/artist/id/` + artist_id;
+    return this.http.get<SpotifyArtist>(url)
+      .pipe(
+        tap(_ => console.log('fetched spotify artist by id: ' + artist_id))
+      );
+  }
+
+  getArtistTopTracks(artist_id: string): Observable<SpotifyTrack[]> {
+    const url = `${this.spotifyUrl}/artist/tracks/` + artist_id;
+    return this.http.get<SpotifyTrack[]>(url)
+      .pipe(
+        tap(_ => console.log('fetched spotify artist tracks by id: ' + artist_id))
+      );
+  }
+
+  getArtistAlbums(artist_id: string): Observable<SpotifyAlbum[]> {
+    const url = `${this.spotifyUrl}/artist/albums/` + artist_id;
+    return this.http.get<SpotifyAlbum[]>(url)
+      .pipe(
+        tap(_ => console.log('fetched spotify artist albums by id: ' + artist_id))
+      );
+  }
+
+  updatePlaylistDetails(playlist_id: string, playlist_name: string, playlist_description: string): Observable<SpotifyPlaylist> {
+    const url = `${this.spotifyUrl}/playlist/update/` + playlist_id + '/' + playlist_name + '/' + playlist_description;
+    return this.http.put<any>(url, null);
+  }
+
+
 }

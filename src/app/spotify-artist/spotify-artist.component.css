@@ -1,0 +1,59 @@
+.example-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.heading img {
+  width: 30%;
+  height: 30%;
+}
+
+.navbar{
+  position: relative;
+  max-height: 100%;
+}
+
+.side {
+  padding: 30%;
+}
+
+.login-component {
+  margin-left: 80%;
+  margin-top: 20px;
+  margin-right: 2%;
+}
+
+.example-card {
+  display: flow-root;
+  max-height: 60px;
+  min-width: 0;
+  min-height: 0;
+
+}
+
+.cardtextstuff {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.example-header-image {
+
+}
+
+.content {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.heading {
+  margin-left: 30%;
+}
+
+.navbar {
+  align-items: center;
+  justify-content: center;
+}

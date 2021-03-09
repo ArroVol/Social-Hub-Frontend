@@ -1,25 +1,17 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-
 import {MessagesComponent} from './messages/messages.component';
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
-// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-// import { SimpleFormComponent } from './simple-form/simple-form.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-// import { CreateAccountComponent } from './create-account/create-account.component';
-// import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatProgressSpinnerModule, MatSpinner} from '@angular/material/progress-spinner';
-// import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
-// import { DataTableComponent } from './data-table/data-table.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
@@ -49,10 +41,9 @@ import {MatCardModule} from '@angular/material/card';
 import { InstagramComponent } from './instagram/instagram.component';
 import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel';
 import { DataTableComponent } from './data-table/data-table.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import { SpotifyArtistComponent } from './spotify-artist/spotify-artist.component';
 
-// MDB Angular Free
-
-// import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -73,7 +64,7 @@ import { DataTableComponent } from './data-table/data-table.component';
     InstagramComponent,
     InstagramComponent,DataTableComponent,
     MessagesComponent,
-    // DataTableComponent,
+    SpotifyArtistComponent,
   ],
   imports: [
     HttpClientModule,
@@ -104,9 +95,8 @@ import { DataTableComponent } from './data-table/data-table.component';
     MatFormFieldModule,
     MatDialogModule,
     MatCardModule,
+    MatExpansionModule,
 
-
-    // DataTableComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

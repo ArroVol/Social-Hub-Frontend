@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {SpotifyService} from '../service/spotify.service';
 import {switchMap} from 'rxjs/operators';
@@ -11,6 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {SpotifyCreatePlaylistComponent} from '../spotify-create-playlist/spotify-create-playlist.component';
 import {SpotifyUser} from '../model/spotify/SpotifyUser';
+import {MatAccordion} from '@angular/material/expansion';
 
 
 @Component({
@@ -20,6 +21,7 @@ import {SpotifyUser} from '../model/spotify/SpotifyUser';
 })
 export class SpotifyPlaylistComponent implements OnInit {
 
+  @ViewChild(MatAccordion) artistAccordion: MatAccordion;
   private playlist_id: string;
   spotifyPlaylist: SpotifyPlaylist;
   spotifyUserPlaylist: SpotifyPlaylist[];
@@ -57,6 +59,7 @@ export class SpotifyPlaylistComponent implements OnInit {
       this.spotifyPlaylist = spotifyPlaylist;
       this.spotifyTrackList = spotifyPlaylist.tracks;
       console.log(this.spotifyTrackList);
+      console.log(this.spotifyTrackList[0].artistInfo);
       // this.dataSource.data = spotifyPlaylist.tracks as SpotifyTrack[];
       // if (spotifyPlaylist.tracks != null && spotifyPlaylist.tracks.length > 0) {
       //   this.playlistExists = true;
@@ -64,6 +67,7 @@ export class SpotifyPlaylistComponent implements OnInit {
     });
     console.log('in spotify playlist component ts called get playlist by id: ' + playlistId);
   }
+
 
   getUserPlaylist() {
     this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => this.spotifyUserPlaylist = spotifyUserPlaylist);
@@ -124,6 +128,29 @@ export class SpotifyPlaylistComponent implements OnInit {
       }
     };
     this.router.navigate(['spotify/playlist'], navigationExtras);
+  }
+
+
+// Create component for updating the playlist
+  /**
+   * // TODO: Create component for updating playlist, create appropriate method in playlist ts, make a modal for it.
+   * // TODO: Research a way to take in a jpeg image and send it to the back-end as binary data, or modify the contract accordingly
+   * // TODO: Modify the add track to playlist mapping in the back-end, Create a service call to the add to track mapping, Create appropriate method here, allow user to add the track to another playlist they own
+   * // TODO: Styling
+   */
+
+
+  routeToArtist(artistId: string) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: artistId
+      }
+    };
+    this.router.navigate(['spotify/artist'], navigationExtras);
+  }
+
+  addToPlaylist(playlistId: string) {
+
   }
 
   openDialog() {
