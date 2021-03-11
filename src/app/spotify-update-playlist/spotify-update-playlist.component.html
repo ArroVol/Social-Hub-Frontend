@@ -7,12 +7,13 @@
     <form (ngSubmit)="submitForm(data.id)" [formGroup]="updatePlaylistForm">
       <mat-form-field appearance="fill">
         <mat-label>Playlist Name</mat-label>
-        <input matInput formControlName="playlist_name" required>
+        <input matInput formControlName="playlist_name" required placeholder="{{data.name}}">
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance=" fill">
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="playlist_description"></textarea>
+        <textarea matInput formControlName="playlist_description"
+                  placeholder="{{data.description}}"></textarea>
       </mat-form-field>
       <br>
       <mat-card-actions>

@@ -121,7 +121,6 @@ export class SpotifyPlaylistComponent implements OnInit {
 
 // Create component for updating the playlist
   /**
-   * // TODO: Create component for updating playlist, create appropriate method in playlist ts, make a modal for it.
    * // TODO: Research a way to take in a jpeg image and send it to the back-end as binary data, or modify the contract accordingly
    */
 
@@ -153,6 +152,8 @@ export class SpotifyPlaylistComponent implements OnInit {
     this.dialog.open(SpotifyUpdatePlaylistComponent, {
       data: {
         id: this.spotifyPlaylist.id,
+        name: this.spotifyPlaylist.name,
+        description: this.spotifyPlaylist.description
       }
     })
       .afterClosed().subscribe(playlist => {

@@ -7,6 +7,8 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 export interface DialogData {
   id: string;
+  name: string;
+  description: string;
 }
 
 @Component({
@@ -20,6 +22,7 @@ export class SpotifyUpdatePlaylistComponent implements OnInit {
   spotifyPlaylist: SpotifyPlaylist;
 
   constructor(private spotifyService: SpotifyService, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    // spotifyService.getPlaylistById(data.id).subscribe(playlist => this.spotifyPlaylist = playlist);
   }
 
   ngOnInit(): void {
@@ -34,9 +37,9 @@ export class SpotifyUpdatePlaylistComponent implements OnInit {
   submitForm(playlist_id: string) {
     let playlist_description = this.updatePlaylistForm.value['playlist_description'];
     if (playlist_description === null) {
-      playlist_description = "";
+      playlist_description = " ";
     }
-
+    console.log(playlist_description);
     if (this.updatePlaylistForm.valid) {
       this.spotifyService.updatePlaylistDetails(playlist_id, this.updatePlaylistForm.value['playlist_name'], playlist_description).subscribe(data => {
         this.spotifyPlaylist = data;

@@ -163,7 +163,8 @@ export class SpotifyService {
   }
 
   updatePlaylistDetails(playlist_id: string, playlist_name: string, playlist_description: string): Observable<SpotifyPlaylist> {
-    const url = `${this.spotifyUrl}/playlist/update/` + playlist_id + '/' + playlist_name + '/' + playlist_description;
+    const url = `${this.spotifyUrl}/playlist/update/` + playlist_id + '/' + encodeURIComponent(playlist_name) + '/' + encodeURIComponent(playlist_description);
+    console.log(url);
     return this.http.put<any>(url, null);
   }
 
