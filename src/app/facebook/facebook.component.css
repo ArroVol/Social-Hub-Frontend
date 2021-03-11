@@ -26,6 +26,7 @@ h2{
   font-size: 40px;
   font-weight: bold;
   list-style: none;
+  text-decoration: underline;
 }
 
 h3{
@@ -33,7 +34,7 @@ h3{
   font-family: Khand, Impact;
   font-size: 25px;
   font-weight: bold;
-  text-decoration: underline dotted;
+  text-decoration: underline;
 }
 
 h4{
@@ -71,15 +72,50 @@ img{
   background-color: dodgerblue;
   color: white;
 }
+a{
+  color: black;
+  font-family: Khand, Impact;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+a:hover{
+  color: cornflowerblue;
+  font-family: Khand, Impact;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+img{
+  margin-top: 10px;
+}
 
 #fb-btn{
+  float: left;
+  margin-top: 18px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+#fb-btn2{
+  float: left;
+  display: none;
+  margin-top: 18px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+#fb-btn3{
+  float: right;
+  display: none;
   margin-top: 18px;
   margin-right: 20px;
   margin-bottom: 10px;
 }
 
 #pfp{
-  border-radius: 85%;
+  border-radius: 90px;
+  border: black;
 }
 
 #subtitle{
@@ -87,10 +123,18 @@ img{
 }
 
 .container {
-  min-width: 100%;
+  min-width: 0%;
+  float: left;
+  width: 700px;
+  text-align: left;
+  background-color: lightsteelblue;
+}
+
+.container2 {
   min-height: 100%;
   position: page;
-  text-align: center;
+  right: 0px;
+  text-align: right;
   background-color: lightsteelblue;
 }
 

@@ -1,5 +1,4 @@
 <div class = "topnav">
-  <div style="float: left">
     <!--
     <fb:login-button
       id = "fb-btn"
@@ -10,30 +9,58 @@
     <li><a id="fb-btn" (click)="submitLogin()">Login</a></li>
     <li><a id="logout" (click)="logout()">Logout</a></li>
     -->
-    <li><a id="fb-btn" (click)="getUsername()">Log in to Facebook</a></li>
+    <a id="fb-btn" (click)="login()">Log in to Facebook</a>
+    <a id="fb-btn2" (click)="getUsername()">View Profile</a>
+    <a id="fb-btn3">Logout</a>
   </div>
-</div>
 <div class="container">
   <h1>
-    <img id = "pfp" style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookUser.photoURL">
+    <img id = "pfp" style="width: 175px; height: 175px; border: #1c1c1c" [src]="facebookUser.photoURL">
     {{facebookUser.facebookName}}
   </h1>
-
-  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[0]">
-  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[1]">
-  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[2]">
-  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[3]">
-  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[4]">
-  <br>
-  <br>
-
-  <h2><div id = "subtitle">Recent posts</div></h2>
   <h3>{{facebookPosts.posts[0]}}</h3>
   <h4>--{{facebookPosts.posts[1]}}</h4>
   <h3>{{facebookPosts.posts[2]}}</h3>
   <h4>--{{facebookPosts.posts[3]}}</h4>
   <h3>{{facebookPosts.posts[4]}}</h3>
   <h4>--{{facebookPosts.posts[5]}}</h4>
+  <br>
+  <br>
+  <a [href]="facebookPages.pageURLs[0]">
+    {{facebookPages.pageNames[0]}}
+  </a>
+</div>
+<div class ="container2">
+  <a [href]="facebookPhotos.photoURLs[0]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[0]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[1]" target="_blank">
+    <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[1]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[2]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[2]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[3]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[3]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[4]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[4]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[5]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[5]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[6]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[6]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[7]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[7]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[8]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[8]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[9]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[9]">
+  </a>
 
   <div id="profile"></div>
   <br>

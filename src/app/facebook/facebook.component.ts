@@ -4,6 +4,8 @@ import {FacebookUser} from '../model/facebook/FacebookUser';
 import {FacebookPosts} from '../model/facebook/FacebookPosts';
 import {FacebookPhotos} from '../model/facebook/FacebookPhotos';
 import {FacebookLogin} from '../model/facebook/FacebookLogin';
+import {FacebookPages} from '../model/facebook/FacebookPages';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-facebook',
@@ -15,11 +17,36 @@ export class FacebookComponent implements OnInit{
   facebookPosts: FacebookPosts;
   facebookPhotos: FacebookPhotos;
   facebookLogin: FacebookLogin;
+  facebookPages: FacebookPages;
+  verificationCode: string;
+  loggedIn: boolean;
 
-  constructor(private facebookService: FacebookService) {
+  constructor(private route: ActivatedRoute, private facebookService: FacebookService) {
   }
 
   ngOnInit(): void {
+
+    //Get verification code
+    this.route.queryParams.subscribe(params => {
+      let code = params['code'];
+      if (!code){
+        console.log('No code found');
+      } else{
+        this.loggedIn = true;
+        console.log(this.loggedIn);
+        this.verificationCode = code;
+        console.log('This is the code: ' + this.verificationCode);
+        this.facebookService.sendVerificationCode(this.verificationCode)
+          .subscribe(result => {
+            console.log('Result: ', result);
+          });
+        document.getElementById('fb-btn').style.display = 'none';
+        document.getElementById('fb-btn2').style.display = 'block';
+        document.getElementById('fb-btn3').style.display = 'block';
+        this.loggedIn = true;
+      }
+    });
+
   }
 
   login(){
@@ -36,7 +63,7 @@ export class FacebookComponent implements OnInit{
     console.log('Get username method called');
     this.getPosts();
     this.getPhotos();
-    document.getElementById('subtitle').style.display = 'block';
+    this.getPages();
   }
 
   getPosts(){
@@ -51,6 +78,13 @@ export class FacebookComponent implements OnInit{
       this.facebookPhotos = facebookPhotos;
     });
     console.log('Get photos method called');
+  }
+
+  getPages(){
+    this.facebookService.getPages().subscribe(facebookPages => {
+      this.facebookPages = facebookPages;
+    });
+    console.log('Get pages method called');
   }
 
 }
