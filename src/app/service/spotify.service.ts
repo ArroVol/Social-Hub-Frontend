@@ -117,6 +117,11 @@ export class SpotifyService {
     return this.http.put<any>(url, null);
   }
 
+  addTrackToPlaylist(playlist_id: string, track_uri: string): Observable<SpotifyPlaylist> {
+    const url = `${this.spotifyUrl}/playlist/add/track/` + playlist_id + '/' + track_uri;
+    return this.http.put<any>(url, null);
+  }
+
   //DONE:
   // Create pipeline for update playlist, get artist by id, get albums of artist by id, and get tracks of artist by id
   // No modifications of the models

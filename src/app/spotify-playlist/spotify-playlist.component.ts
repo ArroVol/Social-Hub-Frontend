@@ -12,6 +12,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {SpotifyCreatePlaylistComponent} from '../spotify-create-playlist/spotify-create-playlist.component';
 import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {MatAccordion} from '@angular/material/expansion';
+import {SpotifyUpdatePlaylistComponent} from "../spotify-update-playlist/spotify-update-playlist.component";
 
 
 @Component({
@@ -27,14 +28,7 @@ export class SpotifyPlaylistComponent implements OnInit {
   spotifyUserPlaylist: SpotifyPlaylist[];
   spotifyTrackList: SpotifyTrack[];
   userProfile: SpotifyUser;
-  // playlistExists = false;
 
-  // validatingForm: FormGroup;
-
-  // ELEMENT_DATA: SpotifyTrack[];
-  // columnsToDisplay: ['album', 'name', 'artistNames', 'duration'];
-  // // @ts-ignore
-  // dataSource = new MatTableDataSource<SpotifyTrack>(this.ELEMENT_DATA);
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router) {
   }
@@ -46,12 +40,7 @@ export class SpotifyPlaylistComponent implements OnInit {
       this.getUserPlaylist();
       this.getUserProfile();
     });
-    // this.getPlaylistById(this.playlist_id);
-    // this.getUserPlaylist();
-    // this.validatingForm = new FormGroup({
-    //   addPlaylistFormModalName: new FormControl('', Validators.required),
-    //   addPlaylistFormModalDescription: new FormControl('', Validators.required)
-    // });
+
   }
 
   getPlaylistById(playlistId: string) {
@@ -60,10 +49,7 @@ export class SpotifyPlaylistComponent implements OnInit {
       this.spotifyTrackList = spotifyPlaylist.tracks;
       console.log(this.spotifyTrackList);
       console.log(this.spotifyTrackList[0].artistInfo);
-      // this.dataSource.data = spotifyPlaylist.tracks as SpotifyTrack[];
-      // if (spotifyPlaylist.tracks != null && spotifyPlaylist.tracks.length > 0) {
-      //   this.playlistExists = true;
-      // }
+
     });
     console.log('in spotify playlist component ts called get playlist by id: ' + playlistId);
   }
@@ -115,6 +101,8 @@ export class SpotifyPlaylistComponent implements OnInit {
     return formatted_minutes + ':' + formatted_seconds;
   }
 
+
+  // change this up a bit
   deletePlaylist() {
     window.location.href = 'http://localhost:8080/spotify/playlist/remove/playlist/' + this.spotifyPlaylist.id;
   }
@@ -135,8 +123,6 @@ export class SpotifyPlaylistComponent implements OnInit {
   /**
    * // TODO: Create component for updating playlist, create appropriate method in playlist ts, make a modal for it.
    * // TODO: Research a way to take in a jpeg image and send it to the back-end as binary data, or modify the contract accordingly
-   * // TODO: Modify the add track to playlist mapping in the back-end, Create a service call to the add to track mapping, Create appropriate method here, allow user to add the track to another playlist they own
-   * // TODO: Styling
    */
 
 
@@ -149,11 +135,30 @@ export class SpotifyPlaylistComponent implements OnInit {
     this.router.navigate(['spotify/artist'], navigationExtras);
   }
 
-  addToPlaylist(playlistId: string) {
+  addToPlaylist(playlistId: string, track_uri: string) {
+    console.log('playlistId', playlistId);
+    console.log('track_uri', track_uri);
+    this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
+      console.log(result);
 
+
+    });
   }
 
   openDialog() {
     this.dialog.open(SpotifyCreatePlaylistComponent);
+  }
+
+  openUpdateDialog() {
+    this.dialog.open(SpotifyUpdatePlaylistComponent, {
+      data: {
+        id: this.spotifyPlaylist.id,
+      }
+    })
+      .afterClosed().subscribe(playlist => {
+      if (playlist != null) {
+        this.spotifyPlaylist = playlist;
+      }
+    });
   }
 }

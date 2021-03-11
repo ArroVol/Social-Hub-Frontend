@@ -89,4 +89,20 @@ export class SpotifyArtistComponent implements OnInit {
    * // TODO: Styling
    */
 
+  transform(input: string) {
+    let minutes: string | number = Math.floor((parseInt(input) / (1000 * 60)) % 60);
+    let seconds: string | number = Math.floor((parseInt(input) / 1000) % 60);
+    let formatted_minutes = (minutes < 10) ? '0' + minutes : minutes;
+    let formatted_seconds = (seconds < 10) ? '0' + seconds : seconds;
+    return formatted_minutes + ':' + formatted_seconds;
+  }
+
+  addToPlaylist(playlistId: string, track_uri: string) {
+    console.log('playlistId', playlistId);
+    console.log('track_uri', track_uri);
+    this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
+      console.log(result);
+
+    });
+  }
 }

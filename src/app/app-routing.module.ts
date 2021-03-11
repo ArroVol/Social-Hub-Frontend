@@ -13,6 +13,7 @@ import {SpotifyPlaylistComponent} from './spotify-playlist/spotify-playlist.comp
 import {TimelineComponent} from './timeline/timeline.component';
 import {SpotifyCreatePlaylistComponent} from './spotify-create-playlist/spotify-create-playlist.component';
 import {SpotifyArtistComponent} from "./spotify-artist/spotify-artist.component";
+import {SpotifyUpdatePlaylistComponent} from "./spotify-update-playlist/spotify-update-playlist.component";
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'spotify/playlist', component: SpotifyPlaylistComponent, pathMatch: 'prefix'},
   {path: 'spotify/artist', component: SpotifyArtistComponent, pathMatch: 'prefix'},
   {path: 'spotify/playlist/add', component: SpotifyCreatePlaylistComponent, pathMatch: 'full'},
+  {path: 'spotify/playlist/update', component: SpotifyUpdatePlaylistComponent, pathMatch: 'full'},
   {path: 'login-page', component: LoginPageComponent},
   {path: 'account-information', component: AccountInformationComponent},
   {path: 'timeline', component: TimelineComponent},

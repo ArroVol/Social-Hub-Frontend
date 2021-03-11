@@ -62,7 +62,7 @@
           <mat-icon>more_horiz</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="openUpdateDialog()">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
@@ -154,7 +154,7 @@
                       </mat-expansion-panel-header>
                       <mat-nav-list>
                         <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
-                           (click)="addToPlaylist(playlist.id)"> {{playlist.name}} </a>
+                           (click)="addToPlaylist(playlist.id, track.spotifyUri)"> {{playlist.name}} </a>
                       </mat-nav-list>
                     </mat-expansion-panel>
                   </mat-accordion>

@@ -24,5 +24,128 @@
   </mat-drawer>
   <mat-drawer-content class="content" fxLayout="column">
 
+    <div class="heading">
+      <br>
+      <h2>Artist</h2>
+      <h1><img src="{{spotifyArtist.imageUrl}}">
+        <br>
+        <span style="padding-left: 7px;">{{spotifyArtist.name}}</span>
+      </h1>
+      <h3 style="padding-left: 7px;"> Followers: {{spotifyArtist.followers | number}}
+      </h3>
+      <br>
+    </div>
+
+    <div>
+      <hr>
+      <button class="follow_button" mat-raised-button>Follow</button>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="header_menu">
+        <mat-icon>more_horiz</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <!-- If the artist is followed, should display unfollow?-->
+        <button mat-menu-item>
+          <mat-icon>favorite_border</mat-icon>
+          <span>Follow</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>share</mat-icon>
+          <span>Share</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div class="top-tracks">
+      <hr>
+      <h1>Popular</h1>
+      <br>
+      <table>
+        <tr>
+          <td>#</td>
+          <td></td>
+          <td>Title</td>
+          <td>Popularity</td>
+          <td>
+            <mat-icon>access_time</mat-icon>
+          </td>
+          <td>
+          </td>
+        </tr>
+        <tr *ngFor="let track of artistTopTracks; let i = index" class="tracksData">
+          <td>{{i + 1}}</td>
+          <td><img src="{{track.album.imageUrl}}" width="100"></td>
+          <td><p>{{track.name}} <br>
+            <span style="font-size:12px;" *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
+          </p></td>
+          <td>{{track.popularity | number}}</td>
+          <td>{{transform(track.duration)}}</td>
+          <td>
+            <button mat-icon-button [matMenuTriggerFor]="menu"
+                    aria-label="Example icon button with a vertical three dot icon">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>album</mat-icon>
+                <span>Go To Album</span>
+              </button>
+              <hr>
+              <mat-accordion class="example-headers-align" (click)="$event.stopPropagation();">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      <mat-icon>playlist_add</mat-icon>
+                      <span>Add to Playlist</span>
+                    </mat-panel-title>
+                    <!--                        <mat-panel-description>-->
+                    <!--                        </mat-panel-description>-->
+                  </mat-expansion-panel-header>
+                  <mat-nav-list>
+                    <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
+                       (click)="addToPlaylist(playlist.id, track.spotifyUri)"> {{playlist.name}} </a>
+                  </mat-nav-list>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </mat-menu>
+          </td>
+        </tr>
+      </table>
+      <br>
+    </div>
+    <div class="albums">
+      <hr>
+      <h1>Albums</h1>
+      <br>
+      <table>
+        <tr>
+          <td>#</td>
+          <td></td>
+          <td>Name</td>
+          <td>Label</td>
+          <td>Release Date</td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let album of artistAlbums; let i = index">
+          <td>{{i + 1}}</td>
+          <td><img src="{{album.imageUrl}}" width="100"></td>
+          <td>{{album.name}}</td>
+          <td>{{album.label}}</td>
+          <td>{{album.releaseDate}}</td>
+          <td>
+            <button mat-icon-button [matMenuTriggerFor]="menu"
+                    aria-label="Example icon button with a vertical three dot icon">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>album</mat-icon>
+                <span>Go To Album</span>
+              </button>
+            </mat-menu>
+          </td>
+        </tr>
+      </table>
+
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

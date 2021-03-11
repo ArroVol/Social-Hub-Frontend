@@ -1,10 +1,10 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Create New Playlist</mat-card-title>
+    <mat-card-title>Update Playlist</mat-card-title>
   </mat-card-header>
   <mat-card-content>
 
-    <form (ngSubmit)="submitForm()" [formGroup]="createPlaylistForm">
+    <form (ngSubmit)="submitForm(data.id)" [formGroup]="updatePlaylistForm">
       <mat-form-field appearance="fill">
         <mat-label>Playlist Name</mat-label>
         <input matInput formControlName="playlist_name" required>
@@ -17,8 +17,8 @@
       <br>
       <mat-card-actions>
         <button mat-button mat-dialog-close>Cancel</button>
-        <button type="submit" mat-raised-button color="primary" [disabled]="!createPlaylistForm.valid" mat-dialog-close>
-          Create Playlist
+        <button type="submit" mat-raised-button color="primary" [disabled]="!updatePlaylistForm.valid" mat-dialog-close>
+          Update Playlist
         </button>
       </mat-card-actions>
     </form>

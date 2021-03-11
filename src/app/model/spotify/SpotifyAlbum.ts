@@ -5,4 +5,7 @@ export interface SpotifyAlbum {
   artistNames: string[];
   spotifyUrl: string;
   spotifyUri: string;
+  releaseDate: string;
+  label: string;
+  generes: string[];
 }

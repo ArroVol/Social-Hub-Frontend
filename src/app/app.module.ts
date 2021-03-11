@@ -43,6 +43,7 @@ import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel'
 import { DataTableComponent } from './data-table/data-table.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 import { SpotifyArtistComponent } from './spotify-artist/spotify-artist.component';
+import { SpotifyUpdatePlaylistComponent } from './spotify-update-playlist/spotify-update-playlist.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { SpotifyArtistComponent } from './spotify-artist/spotify-artist.componen
     InstagramComponent,DataTableComponent,
     MessagesComponent,
     SpotifyArtistComponent,
+    SpotifyUpdatePlaylistComponent,
   ],
   imports: [
     HttpClientModule,
