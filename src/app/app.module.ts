@@ -39,7 +39,7 @@ import {AccountInformationComponent} from './account-information/account-informa
 import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
 
-
+import {MatCardModule} from '@angular/material/card';
 import { DataTableComponent } from './data-table/data-table.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { InstagramComponent } from './instagram/instagram.component';
@@ -71,6 +71,7 @@ import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
     InstagramComponent,
     AnimatedDigitComponent,
     LoadingAnimationComponent,
+
 
     // AboutComponent,
 
@@ -104,6 +105,8 @@ import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
     NavbarModule,
     WavesModule,
     ButtonsModule,
+    MatCardModule,
+
 
   ],
   providers: [],

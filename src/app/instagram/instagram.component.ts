@@ -1,7 +1,7 @@
 import {Component, LOCALE_ID, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {InstagramService} from '../service/instagram.service';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
-import {DatePipe, formatDate, FormatWidth, getLocaleDateTimeFormat} from '@angular/common';
+
 
 @Component({
   selector: 'app-instagram',
@@ -37,7 +37,8 @@ export class InstagramComponent implements OnInit {
   ngOnInit(): void {
 
     this.getInstaUser();
-    this.storeImages();
+    // this.storeImages();
+
 
 
 
@@ -71,7 +72,8 @@ export class InstagramComponent implements OnInit {
 
   getImageUrl(pic: number): string{
 
-    return this.instagramUser.imageFeed[pic].toString().substring(15, this.instagramUser.imageFeed[pic].toString().search('width') - 1);
+    return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
+      this.instagramUser.imageFeed[pic].toString().search('width') - 2);
   }
   animateCount() {
     // tslint:disable-next-line:variable-name
@@ -104,6 +106,46 @@ export class InstagramComponent implements OnInit {
 
   counter(i: number) {
     return new Array(i);
+  }
+
+  getFollowerProfilePic(pic: number): string{
+    return this.instagramUser.followerFeed[pic].toString().substring(
+      this.instagramUser.followerFeed[pic].toString().search('ProfilePic:') + 11,
+      this.instagramUser.imageFeed[pic].toString().length);
+  }
+
+  getComment(pic: number): string{
+    if (this.instagramUser.imageFeedComment[pic].toString().substring(
+      this.instagramUser.imageFeedComment[pic].toString().search('text=') + 5,
+      this.instagramUser.imageFeedComment[pic].toString().search(', type='))
+      === this.instagramUser.imageFeedCaption[pic]) {
+        return null;
+    }
+    else {
+        return this.instagramUser.imageFeedComment[pic].toString().substring(
+          this.instagramUser.imageFeedComment[pic].toString().search('text=') + 5,
+          this.instagramUser.imageFeedComment[pic].toString().search(', type='));
+    }
+
+  }
+
+getFollowerProfileName(pic: number): string{
+    if (this.instagramUser.followerFeed[pic].toString().substring(0,
+      this.instagramUser.followerFeed[pic].toString().search('ProfilePic:')) === null
+    || this.instagramUser.followerFeed[pic].toString().substring(0,
+        this.instagramUser.followerFeed[pic].toString().search('ProfilePic:')) === ' ') {
+
+      return 'No Name Listed';
+
+    } else {
+      return this.instagramUser.followerFeed[pic].toString().substring(0,
+        this.instagramUser.followerFeed[pic].toString().search('ProfilePic:'));
+
+    }
+  }
+
+  changeBio(bio: string){
+    this.instagramService.changeBio(bio);
   }
 
 }
