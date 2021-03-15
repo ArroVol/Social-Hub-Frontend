@@ -9,6 +9,7 @@ import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
 import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.component';
 import {InstagramComponent} from './instagram/instagram.component';
+import {InstagramSearchComponent} from './instagram-search/instagram-search.component';
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'login-page', component: LoginPageComponent },
   { path: 'account-information', component: AccountInformationComponent },
   { path: 'instagram', component: InstagramComponent },
+  { path: 'instagram-search', component: InstagramSearchComponent },
 
 
   // {path: 'create-account', component: CreateAccountComponent},

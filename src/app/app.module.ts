@@ -46,6 +46,7 @@ import { InstagramComponent } from './instagram/instagram.component';
 import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
 import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
+import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
 
 // import { AboutComponent } from './about/about.component';
 
@@ -71,6 +72,7 @@ import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
     InstagramComponent,
     AnimatedDigitComponent,
     LoadingAnimationComponent,
+    InstagramSearchComponent,
 
 
     // AboutComponent,

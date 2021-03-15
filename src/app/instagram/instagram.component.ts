@@ -9,6 +9,8 @@ import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
   styleUrls: ['./instagram.component.css']
 })
 export class InstagramComponent implements OnInit {
+  public show = false;
+  public buttonName: any = 'Change Bio';
   nums: Array<number> = [1, 20, 48];
 
   @ViewChild('oneItem') oneItem: any;
@@ -146,6 +148,18 @@ getFollowerProfileName(pic: number): string{
 
   changeBio(bio: string){
     this.instagramService.changeBio(bio);
+  }
+
+  toggle() {
+    this.show = !this.show;
+
+    // CHANGE THE NAME OF THE BUTTON.
+    if (this.show) {
+      this.buttonName = 'Hide';
+    }
+    else {
+      this.buttonName = 'Change Bio';
+    }
   }
 
 }

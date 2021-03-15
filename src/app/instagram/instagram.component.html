@@ -31,25 +31,30 @@
             <span style="padding-right: 50px" class="text-muted"> Following</span>
 
 
-        <h3 style="padding-right: 30px; padding-left: 50px">BIO: {{instagramUser.instaBio}}</h3>
-        <p>
-          <mat-form-field appearance="outline">
-            <mat-label>Change Bio</mat-label>
-            <input matInput placeholder="new bio here">
-            <input #todo matInput type="text" name="todo" value="Bio">
-            <mat-hint>Input new Bio for Instagram Page</mat-hint>
-            <mat-card-actions>
-              <button style=" display: block;  margin-left: auto; margin-right: auto;" (click)="changeBio(todo.value)" mat-button>Change</button>
-            </mat-card-actions>
-          </mat-form-field>
+          <h3 style="padding-right: 30px; padding-left: 50px">BIO: {{instagramUser.instaBio}}</h3>
 
-        </p>
+        <button mat-raised-button (click)="toggle()" id="bt">
+          {{buttonName}}
+        </button>
+
+
+
       </div>
     </div>
   </div>
 </div>
 
-
+<ng-container *ngIf="show">
+  <mat-form-field appearance="outline">
+    <mat-label>Change Bio</mat-label>
+    <input matInput placeholder="new bio here">
+    <input #todo matInput type="text" name="todo" value="Bio">
+    <mat-hint>Input new Bio for Instagram Page</mat-hint>
+    <mat-card-actions>
+      <button style=" display: block;  margin-left: auto; margin-right: auto;" (click)="changeBio(todo.value)" mat-button>Change</button>
+    </mat-card-actions>
+  </mat-form-field>
+</ng-container>
 <!--<div>-->
 <!--  <img class="profilePic" src="{{instagramUser.profilePicUrl}}" alt="Avatar">-->
 
@@ -78,6 +83,7 @@
 
 <!--</div>-->
 <section>
+
     <nav >
         <h2>Followers: {{instagramUser.followerFeed.length}}</h2>
         <ul *ngFor='let in of counter(18) ;let i = index'>

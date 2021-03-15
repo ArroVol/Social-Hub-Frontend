@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+table {
+  float: left;
+  width: 30%;
+  height: 500px; /* only for demonstration, should be removed */
+  overflow: auto;
+  margin-left: 20px;
+  padding: 20px;
+
+}
+
+/* Style the list inside the menu */
+
+
+article {
+  float: right;
+  padding: 10px;
+  width: 60%;
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
