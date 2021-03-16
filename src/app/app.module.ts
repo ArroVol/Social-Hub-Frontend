@@ -38,10 +38,20 @@ import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
 import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
-
 import {MatCardModule} from '@angular/material/card';
 import { DataTableComponent } from './data-table/data-table.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { FacebookComponent } from './facebook/facebook.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SimpleFormComponent } from './simple-form/simple-form.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { AccountInformationComponent } from './account-information/account-information.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { YoutubeComponent } from "./youtube/youtube.component";
+import {SafePipe} from "./youtube/SafePipe.component";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {ScrollingModule} from "@angular/cdk/scrolling";
+//import { DataTableComponent } from './data-table/data-table.component';
 import { InstagramComponent } from './instagram/instagram.component';
 import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
@@ -73,10 +83,10 @@ import { InstagramSearchComponent } from './instagram-search/instagram-search.co
     AnimatedDigitComponent,
     LoadingAnimationComponent,
     InstagramSearchComponent,
-
-
     // AboutComponent,
-
+  InstagramComponent,
+    YoutubeComponent,
+    SafePipe
   ],
   imports: [
     HttpClientModule,
@@ -108,7 +118,8 @@ import { InstagramSearchComponent } from './instagram-search/instagram-search.co
     WavesModule,
     ButtonsModule,
     MatCardModule,
-
+    MatGridListModule,
+    ScrollingModule,
 
   ],
   providers: [],

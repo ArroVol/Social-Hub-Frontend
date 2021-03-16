@@ -1,0 +1,55 @@
+<button (click)="getElements()">Log In </button>
+<br>
+<br>
+<div class = "ex1">
+  <center>
+<img class="profilePic" width="150" height="150" [src]="profilePic">
+  <h3> {{username}} </h3>
+    <a [href]="channelId"> {{channelId}}</a>
+  </center>
+</div>
+<div class = "container">
+  <div class="sub-cat">
+    <h1> My Videos </h1>
+    <ul class="no-bullets">
+      <li *ngFor="let video of videoArr;">
+        <iframe width="560" height="315" [src] = "video | safe" frameborder="0" allowfullscreen></iframe>
+      </li>
+    </ul>
+  </div>
+
+  <div class= "sub-cat">
+    <h1> My Playlists </h1>
+  <ul class="no-bullets">
+    <li *ngFor="let playlist of playlistArr;">
+      <iframe width="560" height="315" [src] = "playlist | safe" frameborder="0" allowfullscreen></iframe>
+    </li>
+  </ul>
+  </div>
+  <div class="sub-cat">
+    <h1> Liked Videos </h1>
+
+    <ul class="no-bullets">
+      <li *ngFor="let liked of likedArr;">
+        <iframe width="560" height="315" [src] = "liked | safe" frameborder="0" allowfullscreen></iframe>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!--<mat-grid-list cols="5" rowHeight="100px">
+  <mat-grid-tile
+    *ngFor="let tile of tiles"
+    [colspan]="tile.cols"
+    [rowspan]="tile.rows">
+    <cdk-virtual-scroll-viewport itemSize="560" class="example-viewport">
+      <div *cdkVirtualFor="let item of videoArr" class="example-item">
+        <iframe width="560" height="315" [src] = "item | safe" allowfullscreen></iframe>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </mat-grid-tile>
+</mat-grid-list>-->
+
+
+
+
