@@ -8,6 +8,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {CarouselModule, IconsModule, LogoComponent} from 'angular-bootstrap-md';
+import {PreloadersModule } from 'ng-uikit-pro-standard';
 
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
@@ -37,8 +39,13 @@ import {AccountInformationComponent} from './account-information/account-informa
 import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
 
-import { TimelineComponent } from './timeline/timeline.component';
+
 import { DataTableComponent } from './data-table/data-table.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { InstagramComponent } from './instagram/instagram.component';
+import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
+import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
+import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
 
 // import { AboutComponent } from './about/about.component';
 
@@ -58,10 +65,13 @@ import { DataTableComponent } from './data-table/data-table.component';
   SimpleFormComponent,
   LoginPageComponent,
   AccountInformationComponent,
-  TimelineComponent,
   DataTableComponent,
     MessagesComponent,
     SpotifyComponent,
+    InstagramComponent,
+    AnimatedDigitComponent,
+    LoadingAnimationComponent,
+
     // AboutComponent,
 
   ],
@@ -87,6 +97,14 @@ import { DataTableComponent } from './data-table/data-table.component';
     MatIconModule,
     AppRoutingModule,
     RouterModule,
+    CarouselModule,
+    MatSidenavModule,
+    PreloadersModule,
+    IconsModule,
+    NavbarModule,
+    WavesModule,
+    ButtonsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

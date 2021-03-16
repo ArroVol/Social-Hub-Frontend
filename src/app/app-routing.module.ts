@@ -8,7 +8,7 @@ import {SpotifyComponent} from './spotify/spotify.component';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
 import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.component';
-import {TimelineComponent} from './timeline/timeline.component';
+import {InstagramComponent} from './instagram/instagram.component';
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'spotify/landing', component: SpotifyLandingComponent, pathMatch: 'full' },
   { path: 'login-page', component: LoginPageComponent },
   { path: 'account-information', component: AccountInformationComponent },
-  { path: 'timeline', component: TimelineComponent },
+  { path: 'instagram', component: InstagramComponent },
 
 
   // {path: 'create-account', component: CreateAccountComponent},

@@ -12,4 +12,7 @@ import {NavbarService} from './service/navbar.service';
 export class AppComponent {
   title = 'Social Hub Club';
   hide = false;
+  template: `
+  <img src="../../images/instagramIcon.png">
+`;
 }
