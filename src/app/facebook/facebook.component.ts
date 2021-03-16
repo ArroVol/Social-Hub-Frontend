@@ -56,6 +56,18 @@ export class FacebookComponent implements OnInit{
     window.location.href = this.facebookLogin.loginDialogURL;
   }
 
+  logout(){
+    this.facebookService.login().subscribe(loginDialogURL => {
+      this.facebookLogin = loginDialogURL;
+    });
+    window.open(this.facebookLogin.logoutDialogURL);
+    window.location.href = 'http://localhost:4200/facebook';
+    console.log('Logout called');
+    document.getElementById('fb-btn').style.display = 'block';
+    document.getElementById('fb-btn2').style.display = 'none';
+    document.getElementById('fb-btn3').style.display = 'none';
+  }
+
   getUsername(){
     this.facebookService.getUserName().subscribe(facebookUser => {
       this.facebookUser = facebookUser;
