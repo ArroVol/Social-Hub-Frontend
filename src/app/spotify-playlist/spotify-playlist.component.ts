@@ -138,6 +138,10 @@ export class SpotifyPlaylistComponent implements OnInit {
     this.router.navigate(['spotify/artist'], navigationExtras);
   }
 
+  updatePlaylist(playlistId: string, playlistName: string, playlistDescription: string) {
+    this.spotifyService.updatePlaylistDetails(playlistId, playlistName, playlistDescription).subscribe((playlist) => this.spotifyPlaylist = playlist);
+  }
+
   addToPlaylist(playlistId: string, track_uri: string) {
     console.log('playlistId', playlistId);
     console.log('track_uri', track_uri);
@@ -162,10 +166,12 @@ export class SpotifyPlaylistComponent implements OnInit {
     })
       .afterClosed().subscribe(playlist => {
       console.log('dialogue return', playlist);
-      if (playlist != null && playlist != "") {
-        this.spotifyPlaylist = playlist;
+      if (playlist != null) {
+        this.updatePlaylist(playlist.id, playlist.name, playlist.description);
+        // this.spotifyPlaylist.name = playlist.name;
+        // this.spotifyPlaylist.description = playlist.description;
       } else {
-        this.getPlaylistById(this.spotifyPlaylist.id);
+        console.log('nope');
       }
     });
   }

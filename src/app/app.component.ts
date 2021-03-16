@@ -11,4 +11,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Social Hub Club';
   hide = false;
+  template: `
+  <img src="../../images/instagramIcon.png">
+`;
 }

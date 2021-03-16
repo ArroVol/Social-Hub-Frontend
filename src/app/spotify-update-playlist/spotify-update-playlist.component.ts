@@ -3,7 +3,7 @@ import {SpotifyService} from "../service/spotify.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {SpotifyPlaylist} from "../model/spotify/SpotifyPlaylist";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 export interface DialogData {
   id: string;
@@ -21,7 +21,7 @@ export class SpotifyUpdatePlaylistComponent implements OnInit {
   updatePlaylistForm: FormGroup;
   spotifyPlaylist: SpotifyPlaylist;
 
-  constructor(private spotifyService: SpotifyService, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  constructor(private spotifyService: SpotifyService, @Inject(MAT_DIALOG_DATA) public data: DialogData, public dialogRef: MatDialogRef<DialogData>) {
     // spotifyService.getPlaylistById(data.id).subscribe(playlist => this.spotifyPlaylist = playlist);
   }
 
@@ -35,24 +35,24 @@ export class SpotifyUpdatePlaylistComponent implements OnInit {
   }
 
   submitForm(playlist_id: string) {
-    let playlist_description = this.updatePlaylistForm.value['playlist_description'];
-    if (playlist_description === null) {
-      playlist_description = " ";
+    if (this.updatePlaylistForm.value['playlist_description'] == null) {
+      this.updatePlaylistForm.value['playlist_description'] = "";
     }
-    console.log(playlist_description);
+    this.data.name = this.updatePlaylistForm.value['playlist_name'];
+    this.data.description = this.updatePlaylistForm.value['playlist_description'];
+
     if (this.updatePlaylistForm.valid) {
-      this.spotifyService.updatePlaylistDetails(playlist_id, this.updatePlaylistForm.value['playlist_name'], playlist_description).subscribe(data => {
-        console.log('data', data);
-        this.spotifyPlaylist = data;
-      });
-    }
-    if (this.spotifyPlaylist == null) {
-      return this.spotifyService.getPlaylistById(playlist_id).subscribe(playlist => {
-        this.spotifyPlaylist = playlist;
-      });
+      console.log('mat dialog', this.data);
+      return this.dialogRef.close(this.data);
+      // this.spotifyService.updatePlaylistDetails(playlist_id, this.updatePlaylistForm.value['playlist_name'], this.updatePlaylistForm.value['playlist_description']).subscribe(data => {
+      //   console.log('data', data);
+      //   this.spotifyPlaylist = data;
+      // });
     } else {
-      return this.spotifyPlaylist;
+      return null;
     }
+    // console.log('mat dialog', this.data);
+    // return this.dialogRef.close(this.data);
   }
 
 }

@@ -38,12 +38,17 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
-import { InstagramComponent } from './instagram/instagram.component';
-import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel';
-import { DataTableComponent } from './data-table/data-table.component';
+import {InstagramComponent} from './instagram/instagram.component';
+import {MatCarousel, MatCarouselComponent} from '@ngbmodule/material-carousel';
+import {DataTableComponent} from './data-table/data-table.component';
 import {MatExpansionModule} from "@angular/material/expansion";
-import { SpotifyArtistComponent } from './spotify-artist/spotify-artist.component';
-import { SpotifyUpdatePlaylistComponent } from './spotify-update-playlist/spotify-update-playlist.component';
+import {SpotifyArtistComponent} from './spotify-artist/spotify-artist.component';
+import {SpotifyUpdatePlaylistComponent} from './spotify-update-playlist/spotify-update-playlist.component';
+import {CarouselModule, IconsModule, LogoComponent} from 'angular-bootstrap-md';
+import {PreloadersModule} from 'ng-uikit-pro-standard';
+import {AnimatedDigitComponent} from './animated-digit/animated-digit.component';
+import {LoadingAnimationComponent} from './loading-animation/loading-animation.component';
+import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
 
 
 @NgModule({
@@ -63,10 +68,12 @@ import { SpotifyUpdatePlaylistComponent } from './spotify-update-playlist/spotif
     TimelineComponent,
     SpotifyCreatePlaylistComponent,
     InstagramComponent,
-    InstagramComponent,DataTableComponent,
+    InstagramComponent, DataTableComponent,
     MessagesComponent,
     SpotifyArtistComponent,
     SpotifyUpdatePlaylistComponent,
+    AnimatedDigitComponent,
+    LoadingAnimationComponent,
   ],
   imports: [
     HttpClientModule,
@@ -98,10 +105,17 @@ import { SpotifyUpdatePlaylistComponent } from './spotify-update-playlist/spotif
     MatDialogModule,
     MatCardModule,
     MatExpansionModule,
+    CarouselModule,
+    PreloadersModule,
+    IconsModule,
+    NavbarModule,
+    WavesModule,
+    ButtonsModule,
 
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 

@@ -3,30 +3,90 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>SocialHub Page</title>
+  <title>Instagram Page</title>
 
   <link href="instagram.component.css" rel="stylesheet" />
 </head>
+
+
 <body id="page-top">
-<img style="padding-left: 45%; width: 200px; height: 150px" src="{{instagramUser.profilePicUrl}}">
-<h4 style="padding-left: 45%">Follower Count: {{instagramUser.followerCount}}</h4>
-<h4 style="padding-left: 45%">Following Count: {{instagramUser.followingCount}}</h4>
-<h3 style="padding-left: 45%">BIO: {{instagramUser.instaBio}}</h3>
+<div class="container bootstrap-snippet header-container">
+  <div class="bg-white">
+    <div class="container py-5">
+      <div class="media col-md-10 col-lg-8 col-xl-7 p-0 my-4 mx-auto">
+        <img src="{{instagramUser.profilePicUrl}}" alt class="d-block ui-w-100 rounded-circle">
+        <div class="media-body ml-5">
+          <h4 class="font-weight-bold mb-4">{{instagramUser.displayName}}</h4>
+
+          <h3 class="font-weight-bold mb-4">{{instagramUser.username}}</h3>
+          <div class="text-muted mb-4">
+            <h3>BIO: {{instagramUser.instaBio}}</h3>
+          </div>
+
+            <strong><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit></strong>
+            <span class="text-muted">followers</span>
 
 
-<div>
-  <h3 style="padding-left: 45%"> Number of Images {{instagramUser.mediaCount}}</h3>
-  <ul>
-    <li *ngFor="let picture of images; let i = index">
-      <img style="padding-left: 35%; width: 500px; height: 500px" [src]="getImageUrl(i)">
+            <strong><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit></strong>
+            <span class="text-muted">following</span>
 
-
-    </li>
-  </ul>
-
-
-
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<!--<div>-->
+<!--  <img class="profilePic" src="{{instagramUser.profilePicUrl}}" alt="Avatar">-->
+
+<!--</div>-->
+
+
+
+<!--<h4 style="padding-left: 45%">Follower Count: <animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit></h4>-->
+<!--<h4 style="padding-left: 45%">Following Count: <animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit></h4>-->
+<!--<h3 style="padding-left: 45%">BIO: {{instagramUser.instaBio}}</h3>-->
+
+
+<!--<div>-->
+
+<!--  <h3 style="padding-left: 45%"> Number of Images {{instagramUser.mediaCount}}</h3>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let picture of images; let i = index">-->
+<!--      <img style="width: 500px; height: 500px" [src]="getImageUrl(i)">-->
+
+
+<!--    </li>-->
+<!--  </ul>-->
+
+
+
+<!--</div>-->
+<mdb-carousel class="carousel slide carousel-fade" [type]="'carousel-thumbnails'" [animation]="'fade'">
+
+    <mdb-carousel-item *ngFor='let in of counter(18) ;let i = index'>
+      <img  style="display: block; margin-left: auto; margin-right: auto; height: 400px; width: 500px;" [src]="getImageUrl(i)" alt="First slide">
+    </mdb-carousel-item>
+
+<!--  <mdb-carousel-item>-->
+<!--    <img style="display: block; margin-left: auto; margin-right: auto; width: 500px;" [src]="getImageUrl(1)" alt="Second slide">-->
+<!--  </mdb-carousel-item>-->
+<!--  <mdb-carousel-item>-->
+<!--    <img style="display: block; margin-left: auto; margin-right: auto; width: 500px;" [src]="getImageUrl(2)" alt="Third slide">-->
+<!--  </mdb-carousel-item>-->
+<!--  <mdb-carousel-item>-->
+<!--    <img style="display: block; margin-left: auto; margin-right: auto; width: 500px;" [src]="getImageUrl(3)" alt="Third slide">-->
+<!--  </mdb-carousel-item>-->
+<!--  <mdb-carousel-item>-->
+<!--    <img style="display: block; margin-left: auto; margin-right: auto; width: 500px;" [src]="getImageUrl(4)" alt="Third slide">-->
+<!--  </mdb-carousel-item>-->
+<!--  <mdb-carousel-item>-->
+<!--    <img style="display: block; margin-left: auto; margin-right: auto; width: 500px;" [src]="getImageUrl(5)" alt="Third slide">-->
+<!--  </mdb-carousel-item>-->
+<!--  <mdb-carousel-item>-->
+<!--    <img style="display: block; margin-left: auto; margin-right: auto; width: 500px;" [src]="getImageUrl(6)" alt="Third slide">-->
+<!--  </mdb-carousel-item>-->
+</mdb-carousel>
+
 </body>
 
 

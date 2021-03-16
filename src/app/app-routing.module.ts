@@ -33,6 +33,8 @@ const routes: Routes = [
   {path: 'instagram', component: InstagramComponent},
 
 
+
+
   // {path: 'create-account', component: CreateAccountComponent},
 
 ];
