@@ -9,6 +9,11 @@
       <br>
       <hr>
       <h2>Playlists</h2>
+      <div *ngIf="isShown" class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only" id="loading"></span>
+        </div>
+      </div>
       <mat-nav-list>
         <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
            (click)="routeToPlaylist(playlist.id)"> {{playlist.name}} </a>

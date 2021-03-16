@@ -28,6 +28,7 @@ export class SpotifyPlaylistComponent implements OnInit {
   spotifyUserPlaylist: SpotifyPlaylist[];
   spotifyTrackList: SpotifyTrack[];
   userProfile: SpotifyUser;
+  isShown: boolean = true;
 
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router) {
@@ -47,8 +48,8 @@ export class SpotifyPlaylistComponent implements OnInit {
     this.spotifyService.getPlaylistById(playlistId).subscribe(spotifyPlaylist => {
       this.spotifyPlaylist = spotifyPlaylist;
       this.spotifyTrackList = spotifyPlaylist.tracks;
-      console.log(this.spotifyTrackList);
-      console.log(this.spotifyTrackList[0].artistInfo);
+      // console.log(this.spotifyTrackList);
+      // console.log(this.spotifyTrackList[0].artistInfo);
 
     });
     console.log('in spotify playlist component ts called get playlist by id: ' + playlistId);
@@ -56,7 +57,10 @@ export class SpotifyPlaylistComponent implements OnInit {
 
 
   getUserPlaylist() {
-    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => this.spotifyUserPlaylist = spotifyUserPlaylist);
+    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
+      this.spotifyUserPlaylist = spotifyUserPlaylist;
+      this.hideloader();
+    });
   }
 
   getUserProfile() {
@@ -157,9 +161,18 @@ export class SpotifyPlaylistComponent implements OnInit {
       }
     })
       .afterClosed().subscribe(playlist => {
-      if (playlist != null) {
+      console.log('dialogue return', playlist);
+      if (playlist != null && playlist != "") {
         this.spotifyPlaylist = playlist;
+      } else {
+        this.getPlaylistById(this.spotifyPlaylist.id);
       }
     });
+  }
+
+  hideloader() {
+    // document.getElementById('loading')
+    //   .style.display = 'none';
+    this.isShown = false;
   }
 }

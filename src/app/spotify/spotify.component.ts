@@ -20,6 +20,7 @@ export class SpotifyComponent implements OnInit {
   artistSearchName: string;
   trackQuery: SpotifyTrack[];
   trackSearchName: string;
+  isShown: boolean = true;
 
   spotifyUserPlaylist: SpotifyPlaylist[];
 
@@ -52,7 +53,10 @@ export class SpotifyComponent implements OnInit {
   }
 
   getUserPlaylist() {
-    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => this.spotifyUserPlaylist = spotifyUserPlaylist);
+    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
+      this.spotifyUserPlaylist = spotifyUserPlaylist;
+      this.hideloader();
+    });
   }
 
   // getAuthorizationLink() {
@@ -81,5 +85,11 @@ export class SpotifyComponent implements OnInit {
   openDialog() {
     this.dialog.open(SpotifyCreatePlaylistComponent);
 
+  }
+
+  hideloader() {
+    // document.getElementById('loading')
+    //   .style.display = 'none';
+    this.isShown = false;
   }
 }

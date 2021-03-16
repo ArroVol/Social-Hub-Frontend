@@ -23,6 +23,8 @@ export class SpotifyArtistComponent implements OnInit {
   spotifyArtist: SpotifyArtist;
   artistAlbums: SpotifyAlbum[];
   artistTopTracks: SpotifyTrack[];
+  isShown: boolean = true;
+
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router) {
   }
@@ -60,11 +62,16 @@ export class SpotifyArtistComponent implements OnInit {
   }
 
   getUserPlaylist() {
-    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => this.spotifyUserPlaylist = spotifyUserPlaylist);
+    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
+      this.spotifyUserPlaylist = spotifyUserPlaylist;
+      this.hideloader();
+    });
   }
 
   getUserProfile() {
-    this.spotifyService.getUserProfile().subscribe(userProfile => this.userProfile = userProfile);
+    this.spotifyService.getUserProfile().subscribe(userProfile =>
+      this.userProfile = userProfile
+    );
   }
 
   routeToPlaylist(playlistId: string) {
@@ -104,5 +111,11 @@ export class SpotifyArtistComponent implements OnInit {
       console.log(result);
 
     });
+  }
+
+  hideloader() {
+    // document.getElementById('loading')
+    //   .style.display = 'none';
+    this.isShown = false;
   }
 }

@@ -42,13 +42,13 @@ export class SpotifyUpdatePlaylistComponent implements OnInit {
     console.log(playlist_description);
     if (this.updatePlaylistForm.valid) {
       this.spotifyService.updatePlaylistDetails(playlist_id, this.updatePlaylistForm.value['playlist_name'], playlist_description).subscribe(data => {
+        console.log('data', data);
         this.spotifyPlaylist = data;
       });
     }
     if (this.spotifyPlaylist == null) {
       return this.spotifyService.getPlaylistById(playlist_id).subscribe(playlist => {
         this.spotifyPlaylist = playlist;
-        console.log(playlist);
       });
     } else {
       return this.spotifyPlaylist;
