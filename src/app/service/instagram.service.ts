@@ -32,4 +32,14 @@ export class InstagramService {
         // catchError(() => observableThrowError('get user by id error'))
       );
   }
+
+   changeBio(bio: string) {
+     console.log('changing bio');
+     const url = `${this.instagramUrl}/bioChange`;
+     return this.http.post<String>(url, bio)
+       .pipe(
+         tap(_ => console.log('sent Bio Change' ))
+         // catchError(() => observableThrowError('get registration by id error'))
+       );
+   }
 }

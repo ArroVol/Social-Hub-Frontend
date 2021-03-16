@@ -1,12 +1,12 @@
 <!--<h1>{{title}}</h1>-->
-
-<mat-toolbar color="primary">
+<!-- Navbar brand -->
+<mat-toolbar>
   <div style="display: flex; justify-content: space-around">
     <mat-toolbar-row>
       <div style="float: right">Social Hub</div>
     </mat-toolbar-row>
     <mat-toolbar-row>
-<!--      <app-simple-form > </app-simple-form>-->
+      <app-simple-form > </app-simple-form>
     </mat-toolbar-row>
   </div>
 </mat-toolbar>
@@ -18,10 +18,49 @@
   <a routerLink="/account-information">Account information</a>
   <a routerLink="/timeline">t</a>
   <a routerLink="/youtube">Youtube</a>
-
   <a routerLink="/instagram">Instagram</a>
 
+<!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
 
 
-</nav>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="example-container" >
+  <mat-toolbar color="primary">
+    <div style="display: flex; justify-content: space-around">
+      <mat-toolbar-row>
+        <div style="float: right">Social Hub</div>
+
+      </mat-toolbar-row>
+
+    </div>
+  </mat-toolbar>
+  <mat-sidenav mode="side" opened>
+    <ul  class="navbar-nav" >
+      <li>
+        <a>
+          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>
+        </a>
+      </li>
+    </ul>
+    <nav>
+
+
+
+      <ul>
+
+        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>
+        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>
+        <li><a routerLink="/login-page">log in page</a></li>
+        <li><a routerLink="/account-information">Account information</a></li>
+        <li><a routerLink="/instagram">Instagram</a></li>
+        <li><a routerLink="/instagram-search">Instagram Search</a></li>
+        <li><a routerLink="/spotify">spotify</a></li>
+        <li><a routerLink="/about">about</a></li>
+        <li><a routerLink="/spotify/landing">spotify landing</a></li>
+
+      </ul>
+    </nav>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>
+</mat-sidenav-container>

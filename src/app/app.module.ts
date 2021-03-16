@@ -8,6 +8,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {CarouselModule, IconsModule, LogoComponent} from 'angular-bootstrap-md';
+import {PreloadersModule } from 'ng-uikit-pro-standard';
 
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
@@ -28,6 +30,17 @@ import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
+import {FacebookComponent} from './facebook/facebook.component';
+import {SpotifyComponent} from './spotify/spotify.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {SimpleFormComponent} from './simple-form/simple-form.component';
+import {LoginPageComponent} from './login-page/login-page.component';
+import {AccountInformationComponent} from './account-information/account-information.component';
+import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
+// import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
+import { DataTableComponent } from './data-table/data-table.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { FacebookComponent } from './facebook/facebook.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SimpleFormComponent } from './simple-form/simple-form.component';
@@ -40,6 +53,12 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 //import { DataTableComponent } from './data-table/data-table.component';
 import { InstagramComponent } from './instagram/instagram.component';
+import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
+import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
+import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
+import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
+
+// import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -48,10 +67,23 @@ import { InstagramComponent } from './instagram/instagram.component';
     TwitterComponent,
     ThrowAwayPageComponent,
     FacebookComponent,
+    SpotifyComponent,
     DashboardComponent,
+    SimpleFormComponent,
+    LoginPageComponent,
+    AccountInformationComponent,
+    SpotifyLandingComponent,
   SimpleFormComponent,
   LoginPageComponent,
   AccountInformationComponent,
+  DataTableComponent,
+    MessagesComponent,
+    SpotifyComponent,
+    InstagramComponent,
+    AnimatedDigitComponent,
+    LoadingAnimationComponent,
+    InstagramSearchComponent,
+    // AboutComponent,
   InstagramComponent,
     YoutubeComponent,
     SafePipe
@@ -78,6 +110,14 @@ import { InstagramComponent } from './instagram/instagram.component';
     MatIconModule,
     AppRoutingModule,
     RouterModule,
+    CarouselModule,
+    MatSidenavModule,
+    PreloadersModule,
+    IconsModule,
+    NavbarModule,
+    WavesModule,
+    ButtonsModule,
+    MatCardModule,
     MatGridListModule,
     ScrollingModule,
 

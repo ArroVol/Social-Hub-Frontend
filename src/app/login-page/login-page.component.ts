@@ -76,15 +76,20 @@ export class LoginPageComponent implements OnInit {
           sessionStorage.setItem('username', this.newUser.username);
       } else {
           console.log('null user');
+          console.log(this.newUser.username);
+          console.log(this.newUser.email);
+          console.log(this.newUser.phoneNumber);
         }
-        if (this.newUser.username != null || this.newUser.email != null || this.newUser.phoneNumber != null) {
+        if (this.newUser.username !== null || this.newUser.email !== null || this.newUser.phoneNumber !== null) {
+          console.log('they arent null');
+          window.location.assign('/twitter');
           this.openSnackBar('Account Created');
         } else {
-          if (this.newUser.username) {
+          if (this.newUser.username == null) {
             this.parameterTaken = 'Username';
-          } else if (this.newUser.phoneNumber) {
+          } else if (this.newUser.phoneNumber == null) {
             this.parameterTaken = 'Phone Number';
-          } else if (this.newUser.email) {
+          } else if (this.newUser.email == null) {
             this.parameterTaken = 'Email';
           }
           this.openSnackBar('Account Creation Failed: ' + this.parameterTaken + ' Taken');
@@ -107,5 +112,9 @@ export class LoginPageComponent implements OnInit {
     // } else {
     //   this.openSnackBar('success');
     // }
+  }
+
+  changeWindow() {
+    window.location.assign('/twitter');
   }
 }
