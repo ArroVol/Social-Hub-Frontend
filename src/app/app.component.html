@@ -1,6 +1,39 @@
-<!--<h1>{{title}}</h1>-->
+<!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
 
-<mat-toolbar >
+<!--<mat-toolbar >-->
+<!--  <div style="display: flex; justify-content: space-around">-->
+<!--    <mat-toolbar-row>-->
+<!--      <div style="float: right">Social Hub</div>-->
+<!--    </mat-toolbar-row>-->
+<!--    <mat-toolbar-row>-->
+<!--      <app-simple-form > </app-simple-form>-->
+<!--    </mat-toolbar-row>-->
+<!--  </div>-->
+<!--</mat-toolbar>-->
+<!--<nav>-->
+<!--  <a routerLink="/twitter">Twitter</a>-->
+<!--  <a routerLink="/facebook">Facebook</a>-->
+<!--&lt;!&ndash;  <a routerLink="/dashboard">dashboard</a>&ndash;&gt;-->
+<!--  <a *ngIf="loggedIn !== 'true'" routerLink="/login-page">log in page</a>-->
+<!--  <a routerLink="/account-information">Account information</a>-->
+<!--  <a routerLink="/timeline">timeline</a>-->
+<!--  <a routerLink="/spotify">spotify</a>-->
+<!--  <a routerLink="/about">about</a>-->
+<!--  <a routerLink="/spotify/landing">spotify landing</a>-->
+
+<!--</nav>-->
+<!--<router-outlet></router-outlet>-->
+
+
+<!--<app-side-nav>-->
+
+<!--</app-side-nav>-->
+
+<!--<div *ngIf="loggedIn">-->
+
+<!--<h1>{{title}}</h1>-->
+<!-- Navbar brand -->
+<mat-toolbar>
   <div style="display: flex; justify-content: space-around">
     <mat-toolbar-row>
       <div style="float: right">Social Hub</div>
@@ -10,21 +43,56 @@
     </mat-toolbar-row>
   </div>
 </mat-toolbar>
-<nav>
-  <a routerLink="/twitter">Twitter</a>
-  <a routerLink="/facebook">Facebook</a>
-<!--  <a routerLink="/dashboard">dashboard</a>-->
-  <a *ngIf="loggedIn !== 'true'" routerLink="/login-page">log in page</a>
-  <a routerLink="/account-information">Account information</a>
-  <a routerLink="/timeline">timeline</a>
-  <a routerLink="/spotify">spotify</a>
-  <a routerLink="/about">about</a>
-  <a routerLink="/spotify/landing">spotify landing</a>
 
+<!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
 
+<mat-sidenav-container class="example-container" >
+<!--  <mat-sidenav-container *ngIf="loggedIn" class="example-container" >-->
 
+<!--  <mat-toolbar color="primary">-->
+<!--    <div style="display: flex; justify-content: space-around">-->
+<!--      <mat-toolbar-row>-->
+<!--        <div style="float: right">Social Hub</div>-->
 
+<!--      </mat-toolbar-row>-->
 
+<!--    </div>-->
+<!--  </mat-toolbar>-->
+<!--  <div *ngIf="loggedIn else oops" class="side-nav">-->
+  <span>Wait for it... {{ sideNav | async }}</span>
 
-</nav>
-<router-outlet></router-outlet>
+  <mat-sidenav *ngIf="displaySideNav" mode="side" opened>
+    <ul  class="navbar-nav" >
+      <li>
+        <a>
+          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>
+        </a>
+      </li>
+    </ul>
+    <nav>
+      <ul>
+        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>
+        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>
+<!--        <li><a *ngIf="loggedIn !== 'true'" routerLink="/login-page">log in page</a></li>-->
+        <li><a routerLink="/account-information">Account information</a></li>
+        <li><a routerLink="/instagram"><img style="width: 10px" >Instagram</a></li>
+        <li><a routerLink="/spotify">spotify</a></li>
+        <li><a routerLink="/about">about</a></li>
+        <li><a routerLink="/spotify/landing">spotify landing</a></li>
+        <li><a routerLink="/main">sample landing</a></li>
+
+      </ul>
+    </nav>
+  </mat-sidenav>
+<!--  </div>-->
+  <ng-template #oops>
+    oops
+  </ng-template>
+  <mat-sidenav-content>
+
+    <router-outlet>
+
+    </router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<!--</div>-->

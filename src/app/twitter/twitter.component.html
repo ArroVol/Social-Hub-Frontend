@@ -1,260 +1,314 @@
 
-<!--<button class="get-followers" (click)="getFollowerCount('1')">Search</button>-->
-<!--&lt;!&ndash;<div *ngIf="section">&ndash;&gt;-->
-<!--&lt;!&ndash;  {{section | json}}&ndash;&gt;-->
-<!--&lt;!&ndash;  <button (click)="add(section)">Add</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;<div> {{followerCount}}</div>&ndash;&gt;-->
-<!--<div *ngIf="followerCount != -1">-->
-<!--{{'You have this many followers: '}}-->
-<!--  {{followerCount}}-->
-<!--</div>-->
 
-<!--<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">-->
-
-<!--<div class="row">-->
-<!--  <div class="col-md-4"></div>-->
-<!--  <div class="container">-->
-<!--    <div class="col-md-4">-->
-<!--      <div class="panel panel-danger">-->
-<!--        <div class="panel-heading">-->
-<!--          <h3 class="panel-title"><i class="fa fa-twitter-square" aria-hidden="true"></i>-->
-<!--            Solodev Live-->
-<!--          </h3>-->
-<!--        </div>-->
-<!--        <div class="panel-body">-->
-<!--          <a class="twitter-timeline" data-width="100%" href="https://twitter.com/solodev">Tweets by solodev</a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="col-md-4">-->
-<!--  </div>-->
-<!--</div>-->
-<!--<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>-->
-
-<!--<button class="get-timeline" (click)="getUserStatus('1')">Get status</button>-->
-
-<!--<div *ngIf="status != null">-->
-<!--  {{'User status: '}}-->
-<!--  {{status | json}}-->
-
-<!--</div>-->
-<!--<p> </p>-->
-<!--<button class="get-status" (click)="getUserStatusAsTweet('1')">Get status Content</button>-->
-
-<!--<div *ngIf="tweet != null" class="centered">-->
-<!--  {{tweet.tweetText}}-->
-<!--</div>-->
-<!--<br>-->
-<!--<mat-form-field hintLabel="Max 300 characters">-->
-<!--  <input matInput #input maxlength="280" placeholder="Enter your tweet">-->
-<!--  <mat-hint align="end">{{input.value?.length || 0}}/280</mat-hint>-->
-<!--</mat-form-field>-->
-<br>
-<br>
-<div class="full">
-<div *ngIf="loggedIntoTwitter else notShow" >
-<div class="posttweettacontainer2">
-
-  <div *ngIf="briefStatus != null" class="status">
-    <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
-    <br>
-    {{briefStatus.text}} <br>
-
-    <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">circle</mat-icon> {{briefStatus.favoriteCount}}
-  </div>
-</div>
-<!--<button class="get-followers" (click)="getFollowerCount('1')">Search</button>-->
-
-<div>
-  <div class="wallcontainer">
-    <div class="profilecard">
-<!--      <div class="profilecardhead"></div>-->
-<!--      <div class="profilecardimagediv">-->
-<!--        <img src="http://3.bp.blogspot.com/-JCYefwq__2U/TxCfC3s1ZpI/AAAAAAAAKcM/u5mw7qPAL0w/s300-c/Camilla-Belle-6.jpg">-->
-<!--      </div>-->
-
-      <div class="profilecardnameidcont">
-        <div class="profilecardnamecont">
-          <span id="profilecardname"></span>
-        </div>
-        <span id="profilecarduid"></span>
-      </div>
-
-<!--      <div class="profilecardstatsdiv">-->
-<!--        <ul class="profilecardstatslist">-->
-<!--          <li class="profilecardstatslistitem">-->
-<!--								<span class="dispblk">-->
-<!--									<span class="statslistitemhead">Tweets</span>-->
-<!--									<span id="statslistitemcount" class="statslistitemcount">0</span>-->
-<!--								</span>-->
-<!--          </li>-->
-
-<!--          <li class="profilecardstatslistitem">-->
-<!--								<span class="dispblk">-->
-<!--									<span class="statslistitemhead">Following</span>-->
-<!--									<span class="statslistitemcount">35</span>-->
-<!--								</span>-->
-<!--          </li>-->
-<!--<br>-->
+<div class="row">
+  <div class="column-3">
+    <div *ngIf="twitterHandleFound else notShow" >
       <br>
-          <li class="profilecardstatslistitem">
-								<span class="dispblk">
-									<span class="statslistitemhead"> </span>
+
+      <h1 class="header"> {{twitterHandle}}'s Timeline</h1>
+      <mat-card class="most-recent">
+
+      <h2>Most Recent Post</h2>
+
+      <div class="posttweettacontainer2">
+
+
+          <div *ngIf="briefStatus != null else spin" class="status">
+        <div *ngIf="briefStatus else spin" class="status">
+
+          <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
+          <br>
+          {{briefStatus.text}} <br>
+
+          <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}
+        </div>
+      </div>
+      <ng-template #spin>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </ng-template>
+        <br>
+      <div>
+            <br>
+								<span class="dispblk2">
 									<span class="followers"> <div *ngIf="followerCount != -1">
                     Followers: {{followerCount}}
 </div></span>
 								</span>
-          </li>
-<!--        </ul>-->
-      </div>
-    </div>
-<br>
-<br>
-    <div class="rightcontainer">
-      <div class="posttweetcontainer">
-<!--        <img class="posttweetprofimg" src="http://3.bp.blogspot.com/-JCYefwq__2U/TxCfC3s1ZpI/AAAAAAAAKcM/u5mw7qPAL0w/s300-c/Camilla-Belle-6.jpg">-->
-        <div class="ml56px">
-          <div class="posttweettacontainer">
-            <textarea #tweetContent id="posttweetta" class="posttweetta" placeholder="What's happening?" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;"></textarea>
-            <div class="posttweetcountcont">
-              <span class="posttweetcount"><span id="totalchars">0</span>/280</span>
-            </div>
-          </div>
-          <div class="posttweetbutcont">
-            <button id="posttweetbut" class="posttweetbut" (click)="postUserTweet('1', tweetContent.value)">Tweet</button>
           </div>
         </div>
+        <br>
+      <br>
+      <br>
+      </mat-card>
+      <mat-card>
+      <div class="posttweettacontainer3" *ngFor="let briefStatus of briefStatusList">
+
+
+            <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
+            <br>
+            {{briefStatus.text}} <br>
+
+            <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}
+        <div></div>
+        <br> <br> <br>
+          </div>
+      </mat-card>
+        </div>
+        <ng-template #spin>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+        <div>
+        <br>
+        <div class="rightcontainer" *ngIf="developerMode">
+          <div class="posttweetcontainer">
+            <!--        <img class="posttweetprofimg" src="http://3.bp.blogspot.com/-JCYefwq__2U/TxCfC3s1ZpI/AAAAAAAAKcM/u5mw7qPAL0w/s300-c/Camilla-Belle-6.jpg">-->
+            <div class="ml56px">
+              <div class="posttweettacontainer">
+                <textarea #tweetContent id="posttweetta" class="posttweetta" placeholder="What's happening?" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;"></textarea>
+                <div class="posttweetcountcont">
+                  <span class="posttweetcount"><span id="totalchars">0</span>/280</span>
+                </div>
+              </div>
+              <div class="posttweetbutcont">
+                <button id="posttweetbut" class="posttweetbut" (click)="postUserTweet('1', tweetContent.value)">Tweet</button>
+              </div>
+            </div>
+
       </div>
-      <div>
-        <ul id="tweetscontainer" class="tweetscontainer">
 
-        </ul>
+      <br>
+      <p> </p>
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+</div>
 
+  <div class="column-2">
+    <br>
+    <h1 class="header">Goals</h1>
+    <mat-card>
+      <mat-card-content>
+        <h2 class="example-h2">Weekly Goals
+          <button (click)="updateGoals() "mat-icon-button aria-label="edit-handle-btn">
+            <mat-icon class="edit-btn" >edit</mat-icon>
+          </button>
+        </h2>
+
+        <section class="example-section">
+          <mat-form-field class="example-margin">
+            <mat-label>Current Followers Reached</mat-label>
+            <input matInput type="number" [(ngModel)]="value">
+          </mat-form-field>
+          <div></div>
+        </section>
+          <section class="example-section">
+          <mat-form-field class="example-margin">
+            <mat-label>Goal</mat-label>
+            <input matInput type="number" [(ngModel)]="max">
+          </mat-form-field>
+        </section>
+
+<!--        <section class="example-section">-->
+<!--          <mat-checkbox class="example-margin" [(ngModel)]="showTicks">Show ticks</mat-checkbox>-->
+<!--          <mat-checkbox class="example-margin" [(ngModel)]="autoTicks" *ngIf="showTicks">-->
+<!--            Auto ticks-->
+<!--          </mat-checkbox>-->
+<!--          <mat-form-field class="example-margin" *ngIf="showTicks && !autoTicks">-->
+<!--            <mat-label>Tick interval</mat-label>-->
+<!--            <input matInput type="number" [(ngModel)]="tickInterval">-->
+<!--          </mat-form-field>-->
+<!--        </section>-->
+
+<!--        <section class="example-section">-->
+<!--          <mat-checkbox class="example-margin" [(ngModel)]="thumbLabel">Show thumb label</mat-checkbox>-->
+<!--        </section>-->
+
+<!--        <section class="example-section">-->
+<!--          <mat-checkbox class="example-margin" [(ngModel)]="disabled">Disabled</mat-checkbox>-->
+<!--        </section>-->
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-result-card">
+      <mat-card-content>
+        <h2>Result</h2>
+
+        <mat-slider
+          class="example-margin"
+          [disabled]="disabled"
+          [invert]="invert"
+          [max]="max"
+          [min]="min"
+          [step]="step"
+          [thumbLabel]="thumbLabel"
+          [tickInterval]="getSliderTickInterval()"
+          [(ngModel)]="value"
+          [vertical]="vertical">
+        </mat-slider>
+      </mat-card-content>
+    </mat-card>
+    <section class="example-section">
+      <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="compareTwitter">Compare Twitter</mat-checkbox>
+    </section>
+    <div class="center" *ngIf="compareTwitter">
+      <h2> Search Twitter User </h2>
+            <input [(ngModel)]="otherHandle" #twitterHandle type="text" name="twitterHandle" placeholder='@twitter handle' />
+      <br>
+            <span class="set-twitter-box">
+              <br>
+          <button class="submit-btn" [disabled]="otherHandle === ''" (click)="getOtherUserTimeline(twitterHandle.value)">Search User</button>
+            </span>
+    </div>
+  </div>
+  <div class="column-3">
+<br>
+    <div *ngIf="otherBriefStatusList !== null">
+
+    <h1 class="header">{{otherHandle}}'s Timeline</h1>
+    <mat-card class="most-retweeted">
+        <h2>Most Retweeted Post</h2>
+
+        <div class="posttweettacontainer2">
+
+              <b>{{otherMostRetweeted.handle}}</b> <span style="color:#808080"> @{{otherMostRetweeted.screenName}} {{' * '}} {{otherMostRetweeted.createdAt.substring(0, 10)}} </span>
+              <br>
+              {{otherMostRetweeted.text}} <br>
+
+              <mat-icon class="repeat">repeat</mat-icon> {{otherMostRetweeted.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{otherMostRetweeted.favoriteCount}}
+          <ng-template #spin>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </ng-template>
+          <br>
+            <br>
+            <span class="dispblk2">
+									<span class="followers"> <div *ngIf="otherNumFollowers !== null">
+                    Followers: {{otherNumFollowers}}
+</div></span>
+								</span>
+          </div>
+    </mat-card>
+      <mat-card>
+        <div class="posttweettacontainer3" *ngFor="let briefStatus of otherBriefStatusList">
+
+
+          <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
+          <br>
+          {{briefStatus.text}} <br>
+
+          <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}
+          <div></div>
       </div>
-
+    </mat-card>
     </div>
 
-  </div>
-<!--</div>-->
 
+    <!--    <a class="twitter-timeline" href="https://twitter.com/SocialHubClub?ref_src=twsrc%5Etfw">Tweets by SocialHubClub</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+<!--    <a class="twitter-timeline" href="https://twitter.com/SocialHubClub?ref_src=twsrc%5Etfw">Tweets </a>-->
+<!--    <div class="center" *ngIf="compareTwitter">-->
+<!--      <h1> Compare Twitter </h1>-->
+<!--&lt;!&ndash;      <input [(ngModel)]="otherHandle" #twitterHandle type="text" name="twitterHandle" placeholder='@twitter handle' />&ndash;&gt;-->
+<!--&lt;!&ndash;      <span class="set-twitter-box">&ndash;&gt;-->
+<!--&lt;!&ndash;    <button class="submit-btn" [disabled]="otherHandle === ''" (click)="getOtherUserTimeline(twitterHandle.value)">Get User</button>&ndash;&gt;-->
+<!--&lt;!&ndash;      </span>&ndash;&gt;-->
+<!--    </div>-->
+
+    </div>
+<!--</div>-->
 <br>
-<!--<button class="get-timeline" (click)="getUserStatus('1')">Get status</button>-->
+<br>
 
-<!--<div *ngIf="status != null">-->
-<!--  {{'User status: '}}-->
-<!--  {{status | json}}-->
-
+<!--<div class="timeline-btn">-->
+<!--<button class="get-followers" (click)="getTimeline('1')">Get Timeline</button>-->
 <!--</div>-->
-<p> </p>
-<!--<button class="get-status" (click)="getUserStatusAsTweet('1')">Get status Content</button>-->
-
-<!--<div *ngIf="tweet != null" class="centered">-->
-<!--  {{tweet.tweetText}}-->
-<!--</div>-->
-
-<!--<mat-form-field hintLabel="Max 300 characters">-->
-<!--  <input matInput #input maxlength="280" placeholder="Enter your tweet">-->
-<!--  <mat-hint align="end">{{input.value?.length || 0}}/280</mat-hint>-->
-<!--</mat-form-field>-->
-
-
-<!--<button class="get-followers" (click)="getFollowerCount('1')">Get followers</button>-->
-<!--&lt;!&ndash;<div *ngIf="section">&ndash;&gt;-->
-<!--&lt;!&ndash;  {{section | json}}&ndash;&gt;-->
-<!--&lt;!&ndash;  <button (click)="add(section)">Add</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;<div> {{followerCount}}</div>&ndash;&gt;-->
-<!--<div *ngIf="followerCount != -1">-->
-<!--  {{'You have this many followers: '}}-->
-<!--  {{followerCount}}-->
-<!--</div>-->
-
-<button class="get-followers" (click)="getTimeline('1')">Get Timeline</button>
-
-<ul class="search-result">
+<!--<ul class="search-result">-->
+<!--&lt;!&ndash;  <li *ngFor="let timeline of timelineList$ | async" >&ndash;&gt;-->
+<!--&lt;!&ndash;    <a routerLink="/detail/{{hero.id}}">&ndash;&gt;-->
 <!--  <li *ngFor="let timeline of timelineList$ | async" >-->
-<!--    <a routerLink="/detail/{{hero.id}}">-->
-  <li *ngFor="let timeline of timelineList$ | async" >
 
-  {{timeline.tweetText}}
-    {{timeline.tweetCreator}}
-<!--    </a>-->
-  </li>
-</ul>
-<!--<div *ngFor='let tweets of timelineList'>-->
-<!--  {{tweets.tweetText}}-->
-<!--  {{tweets.tweetCreator}} </div>-->
-<br>
-<br>
+<!--  {{timeline.tweetText}}-->
+<!--    {{timeline.tweetCreator}}-->
+<!--&lt;!&ndash;    </a>&ndash;&gt;-->
+<!--  </li>-->
+<!--</ul>-->
+<!--&lt;!&ndash;<div *ngFor='let tweets of timelineList'>&ndash;&gt;-->
+<!--&lt;!&ndash;  {{tweets.tweetText}}&ndash;&gt;-->
+<!--&lt;!&ndash;  {{tweets.tweetCreator}} </div>&ndash;&gt;-->
+<!--<br>-->
+<!--<br>-->
 <!--<button class="get-timeline" (click)="getRecentPost('1')">Get recent Post</button>-->
 
 
 <!--<mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>-->
-<!--<button mat-icon-button color="accent"><mat-icon >thumb_up_alt</mat-icon></button>-->
+<!--    <mat-icon aria-hidden="false" aria-label="">edit</mat-icon>-->
+
+
+    <!--<button mat-icon-button color="accent"><mat-icon >thumb_up_alt</mat-icon></button>-->
 <!--<mat-icon>subdirectory_arrow_right</mat-icon>-->
 <!--<mat-icon>refresh</mat-icon>-->
 <!--<mat-icon>repeat</mat-icon>-->
 <!--<mat-icon>circle</mat-icon>-->
 
 
-<span class="mat-elevation-z2">
-  <mat-table [dataSource]="listData"  matSort>
-    <ng-container matColumnDef="content">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header>Content</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.tweetText}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="courseName">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let element"></mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="courseSubject">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let element"></mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="dayAndTime">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let element">}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="roomNo">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let element"></mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="sectionNo">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let element"></mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="semester">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let element"></mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
-      <mat-cell *matCellDef="let element"></mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let element">
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="loading">
-      <mat-footer-cell *matFooterCellDef colspan="2">
-        Loading data...
-      </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="noData">
-      <mat-footer-cell *matFooterCellDef colspan="2">
-        No data.
-      </mat-footer-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</span>
+<!--<span class="mat-elevation-z2">-->
+<!--  <mat-table [dataSource]="listData"  matSort>-->
+<!--    <ng-container matColumnDef="content">-->
+<!--      <mat-header-cell *matHeaderCellDef  mat-sort-header>Content</mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element">{{element.tweetText}}</mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="courseName">-->
+<!--      <mat-header-cell *matHeaderCellDef  mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="courseSubject">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="dayAndTime">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element">}</mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="roomNo">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="sectionNo">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="semester">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="status">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="actions">-->
+<!--      <mat-header-cell *matHeaderCellDef></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element">-->
+<!--      </mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="loading">-->
+<!--      <mat-footer-cell *matFooterCellDef colspan="2">-->
+<!--        Loading data...-->
+<!--      </mat-footer-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="noData">-->
+<!--      <mat-footer-cell *matFooterCellDef colspan="2">-->
+<!--        No data.-->
+<!--      </mat-footer-cell>-->
+<!--    </ng-container>-->
+<!--    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+<!--    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+<!--  </mat-table>-->
+<!--</span>-->
 
 </div>
 <ng-template #notShow>
   <h1>Go to the account information page to log into your twitter account</h1>
 </ng-template>
-</div>

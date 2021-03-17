@@ -8,6 +8,7 @@ import {Tweet} from '../model/twitter/Tweet';
 import {Status} from 'tslint/lib/runner';
 import {BriefStatus} from '../model/twitter/BriefStatus';
 import {SecureTwitter} from '../model/twitter/SecureTwitter';
+import {TwitterData} from '../model/twitter/TwitterData';
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json' });
@@ -58,9 +59,9 @@ export class TwitterService {
   }
 
   /** GET num of followers by id from the server */
-  getNumFollowersById(id: number): Observable<number> {
+  getNumFollowersByHandle(handle: string): Observable<number> {
     console.log('in the get followers by id');
-    const url = `${this.twitterUrl}/twitter/followers`;
+    const url = `${this.twitterUrl}/twitter/followers/${handle}`;
 
     return this.http.get<number>(url)
       .pipe(
@@ -115,6 +116,30 @@ export class TwitterService {
       );
   }
 
+  /** GET num of followers by id from the server */
+  getUserTimeline(twitterHandle: string): Observable<BriefStatus[]> {
+    console.log('getting the users status in the twitter service');
+    console.log(twitterHandle);
+    const url = `${this.twitterUrl}/twitter/user-timeline/${twitterHandle}`;
+
+    return this.http.get<BriefStatus[]>(url)
+      .pipe(
+        tap(_ => console.log('fetched users brief status'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+  // /** GET num of followers by id from the server */
+  // getTimeline(id: number): Observable<Tweet[]> {
+  //   console.log('getting the users timeline in the twitter service');
+  //   const url = `${this.twitterUrl}/twitter/full-timeline`;
+  //
+  //   return this.http.get<Tweet[]>(url)
+  //     .pipe(
+  //       tap(_ => console.log('fetched timeline'))
+  //       // catchError(() => observableThrowError('get user by id error'))
+  //     );
+  // }
+
   /** GET the user's status as a tweet object */
   getUserStatusAsTweet(id: number): Observable<Tweet> {
     console.log('getting the users status in the twitter service');
@@ -126,36 +151,6 @@ export class TwitterService {
       );
   }
 
-  /** GET user from the server */
-  getUser(email: string, password: string): Observable<User> {
-    console.log('in the get user');
-    const url = `${this.twitterUrl}/user/retrieve/${email}/${password}`;
-    return this.http.get<User>(url)
-      .pipe(
-        tap(_ => console.log('fetched user' ))
-      );
-  }
-
-  /** Post the user to the service */
-  postUser(user: User, studentId: number): Observable<User> {
-    const url = `${this.twitterUrl}/user/newUser`;
-    return this.http.post<User>(url, JSON.stringify(user), {headers})
-      .pipe(
-        tap(_ => console.log('sent the registration' ))
-        // catchError(() => observableThrowError('get registration by id error'))
-      );
-  }
-
-  /** GET user by id from the server */
-  getAllUsers(): Observable<User> {
-    console.log('getting all user in service.ts');
-    const url = `${this.twitterUrl}/user`;
-    return this.http.get<User>(url)
-      .pipe(
-        tap(_ => console.log('fetched user'))
-        // catchError(() => observableThrowError('get user by id error'))
-      );
-  }
 
   sendSecure(secureInformation: SecureTwitter) {
   this.userId = +sessionStorage.getItem('userId');
@@ -168,6 +163,17 @@ export class TwitterService {
     );
   }
 
+  sendUserTwitterData(twitterData: TwitterData): Observable<TwitterData>{
+    this.userId = +sessionStorage.getItem('userId');
+    const url = `${this.twitterUrl}/twitter/send/twitter-data`;
+    console.log('in the twitter service to send twitter data to the backend');
+    return this.http.put<TwitterData>(url, JSON.stringify(twitterData), {headers})
+      .pipe(
+        tap(_ => console.log('sent the tweet' ))
+        // catchError(() => observableThrowError('get registration by id error'))
+      );
+}
+
   /** GET num of followers by id from the server */
   checkTwitterRegistered(userId: number): Observable<number> {
     console.log('getting the users timeline in the twitter service');
@@ -176,6 +182,18 @@ export class TwitterService {
     return this.http.get<number>(url)
       .pipe(
         tap(_ => console.log('completed twitter check'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
+  /** GET num of followers by id from the server */
+  getTwitterData(userId: string): Observable<TwitterData> {
+    console.log('getting the users timeline in the twitter service');
+    const url = `${this.twitterUrl}/twitter/get/twitter-data/${userId}`;
+
+    return this.http.get<TwitterData>(url)
+      .pipe(
+        tap(_ => console.log('fetched timeline'))
         // catchError(() => observableThrowError('get user by id error'))
       );
   }

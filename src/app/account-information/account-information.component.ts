@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from '../model/user/User';
 import {UserService} from '../service/user.service';
-import {any} from 'codelyzer/util/function';
 import {MatSort} from '@angular/material/sort';
+// @ts-ignore
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {SecureTwitter} from '../model/twitter/SecureTwitter';
@@ -11,8 +11,18 @@ import {MatRadioChange} from '@angular/material/radio';
 import {Preferences} from '../model/user/Preferences';
 import {PreferencesService} from '../service/preferences.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TwitterData} from '../model/twitter/TwitterData';
+import {UserData} from '../login-page/login-page.component';
+import {AppComponent} from '../app.component';
 // import {MDCTextField} from '@material/textfield';
 
+//user-data.ts
+export class TwitterUserData {
+  constructor(
+    public handle: string,
+    s: string){}
+}
+// @ts-ignore
 @Component({
   selector: 'app-account-information',
   templateUrl: './account-information.component.html',
@@ -21,6 +31,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 export class AccountInformationComponent implements OnInit {
 
+  flag: any;
+  social: any;
+  twitterDataReturned: TwitterData;
   checked = false;
   indeterminate = false;
   labelPosition: string;
@@ -32,11 +45,22 @@ export class AccountInformationComponent implements OnInit {
   numberId: number;
   socialOnStart: string;
   radioChoice: string;
-
+  developerOptions: boolean;
   userId: number;
   twitterLoggedIn: string;
-
+  showHideDeveloper: boolean;
   preferences: Preferences;
+  twitterData: TwitterData;
+  twitterHandleFound: boolean;
+  twitterHandleSave: string;
+  // social: string;
+  Twitter: any;
+  Facebook: any;
+  Spotify: any;
+  twitterModel = new TwitterUserData('', '');
+
+  displayHandleChangeDiv: boolean;
+
 
   twitterRegistered: boolean;
   secureInformation: SecureTwitter;
@@ -67,7 +91,7 @@ export class AccountInformationComponent implements OnInit {
   getUser() {
     console.log('**************');
     console.log(sessionStorage.getItem('username'));
-    if (sessionStorage.getItem('username') != null){
+    if (sessionStorage.getItem('username') != null) {
       this.userSaved = true;
     }
     this.userService.getUserByUsername(sessionStorage.getItem('username'))
@@ -128,17 +152,21 @@ export class AccountInformationComponent implements OnInit {
 
   // textField = new MDCTextField(document.querySelector('.mdc-text-field'));
   // tslint:disable-next-line:max-line-length
-  constructor(private userService: UserService, private twitterService: TwitterService, private preferencesService: PreferencesService, public snackBar: MatSnackBar) {
-
+  constructor(private userService: UserService, private twitterService: TwitterService, private preferencesService: PreferencesService, public snackBar: MatSnackBar, private appComponent: AppComponent) {
+    this.displayHandleChangeDiv = false;
   }
 
   ngOnInit(): void {
+    console.log('on initialize in account information.ts');
     console.log(sessionStorage.getItem('userId'));
+    console.log(sessionStorage.getItem('username'));
+    this.appComponent.displaySideNav = true;
     this.socialOnStart = sessionStorage.getItem('socialOnStart');
-    console.log('on initialize');
+    this.developerOptions = false;
+    this.displayHandleChangeDiv = false;
+    this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
 
-
-    if (sessionStorage.getItem('twitterHandle') !== null){
+    if (sessionStorage.getItem('twitterHandle') !== null) {
       console.log('handle not null');
       this.twitterLoggedIn = 'true';
     }
@@ -146,10 +174,12 @@ export class AccountInformationComponent implements OnInit {
     this.checkLogin();
     this.getUser();
     this.checkTwitterRegistered();
+    this.getTwitterData();
+    this.social = 'Twitter';
   }
 
-  checkLogin(){
-    if (sessionStorage.getItem('username') != null){
+  checkLogin() {
+    if (sessionStorage.getItem('username') != null) {
       this.userSaved = true;
     }
   }
@@ -170,29 +200,30 @@ export class AccountInformationComponent implements OnInit {
       .subscribe(secureInformation => {
         this.secureInformation = secureInformation;
         sessionStorage.setItem('twitterHandle', twitterHandle);
-        if (this.secureInformation === null){
+        if (this.secureInformation === null) {
           console.log('its null');
         } else {
           console.log(this.secureInformation.userId);
           console.log(this.secureInformation.twitterHandle);
           this.twitterRegistered = true;
           this.twitterLoggedIn = 'true';
+          this.developerOptions = true;
+          sessionStorage.setItem('developerModeEnabled', 'true');
         }
       });
 
   }
 
-  omit_special_char(event)
-  {
+  omit_special_char(event) {
     var k;
     k = event.charCode;  //         k = event.keyCode;  (Both can be used)
-    return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
   }
 
   private checkTwitterRegistered() {
     this.userId = +sessionStorage.getItem('userId');
     console.log('checking registered for twitter user id: ' + this.userId);
-    if (this.userId !== null){
+    if (this.userId !== null) {
       // this.twitterService
     }
   }
@@ -208,7 +239,7 @@ export class AccountInformationComponent implements OnInit {
   saveSocialStartUp() {
     console.log(this.radioChoice);
 
-    if (this.radioChoice !== undefined){
+    if (this.radioChoice !== undefined) {
       console.log('radio choice selected');
       this.socialOnStart = this.radioChoice;
       sessionStorage.setItem('socialOnStart', this.socialOnStart);
@@ -218,7 +249,7 @@ export class AccountInformationComponent implements OnInit {
       this.preferencesService.savePreferences(this.preferences)
         .subscribe(preferences => {
           this.preferences = preferences;
-          if (this.preferences === null){
+          if (this.preferences === null) {
             console.log('preferences are null');
           } else {
             console.log(this.preferences.userId);
@@ -238,12 +269,12 @@ export class AccountInformationComponent implements OnInit {
     // }
   }
 
-   getPreferences() {
+  getPreferences() {
     console.log('getting preferences');
     this.preferencesService.getPreferencesById(sessionStorage.getItem('userId'))
       .subscribe(preferences => {
         this.preferences = preferences;
-        if (this.preferences === null){
+        if (this.preferences === null) {
           console.log('preferences are null');
           this.socialOnStart = null;
           this.preferences = new Preferences();
@@ -256,4 +287,75 @@ export class AccountInformationComponent implements OnInit {
         }
       });
   }
+
+  launchUpdateAccountPage() {
+    window.location.assign('/login-page');
+
+  }
+
+  showDeveloperOptions() {
+    console.log('show dev options..');
+    this.developerOptions = true;
+  }
+
+  sendTwitterHandle(twitterHandle: string) {
+    console.log('*************************');
+    console.log('sending twitter data!!!!!!');
+    this.twitterData = new TwitterData();
+    this.twitterData.userId = +sessionStorage.getItem('userId');
+    this.twitterData.twitterHandle = twitterHandle;
+    this.twitterService.sendUserTwitterData(this.twitterData)
+      .subscribe(twitterDataReturned => {
+        if (twitterDataReturned === null) {
+          console.log('return null twitter data');
+          this.snackBar.open('Did not find that twitter handle..', 'close', {
+            duration: 3200,
+          });
+        } else {
+          console.log(twitterDataReturned);
+          this.twitterData = twitterDataReturned;
+          console.log(this.twitterData.twitterHandle);
+          console.log(this.twitterData.followerCount);
+          sessionStorage.setItem('twitterHandle', this.twitterModel.handle);
+          sessionStorage.setItem('twitterFollowerCount', this.twitterData.followerCount.toString());
+          sessionStorage.setItem('twitterHandleFound', 'true');
+          // sessionStorage.setItem('twitterHandle', twitter)
+          this.snackBar.open('Found Your Handle', 'close', {
+            duration: 3200,
+          });
+        }
+        this.twitterHandleFound = true;
+
+      });
+  }
+
+  getTwitterData() {
+    console.log('in get twitter data...');
+    this.twitterService.getTwitterData(sessionStorage.getItem('userId'))
+      .subscribe(twitterDataReturned => {
+        if (twitterDataReturned === null) {
+          console.log('return null twitter data');
+        }
+        this.twitterData = twitterDataReturned;
+        this.twitterHandleSave = this.twitterData.twitterHandle;
+        console.log('the users handle..');
+        console.log(this.twitterHandleSave);
+        console.log(this.twitterData.twitterHandle);
+        sessionStorage.setItem('twitterHandleFound', 'true');
+      });
+  }
+
+  checkDefault(social: any): boolean {
+
+    if(this.socialOnStart === social){
+      return true;
+    }
+    return false;
+  }
+
+  changeToDifferentHandle() {
+    this.displayHandleChangeDiv = true;
+
+  }
+
 }

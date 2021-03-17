@@ -21,74 +21,34 @@
 <!--  </tbody>-->
 <!--</table>-->
 
-
 <!--<button class="getUserInfo" *ngIf="userSaved == true" (click)="getUser()">Get Account Information</button>-->
-<div class="row">
-  <div class="column-1">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>{{user.username}}</mat-card-title>
-        <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
-        <button class="edit-btn-card" (click)="launchUpdateAccountPage()"mat-icon-button aria-label="edit-handle-btn">
-          <mat-icon class="edit-btn" >edit</mat-icon>
-        </button>
-      </mat-card-header>
-<!--      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
-<!--      <mat-card-content>-->
-<!--        <p>-->
-<!--          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.-->
-<!--          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally-->
-<!--          bred for hunting.-->
-<!--        </p>-->
-<!--      </mat-card-content>-->
-<!--      <mat-card-actions>-->
-<!--        <button mat-button>LIKE</button>-->
-<!--        <button mat-button>SHARE</button>-->
-<!--      </mat-card-actions>-->
-    </mat-card>
-  </div>
-  <div class="column">
-    <br>
-    <h1 class="user-heading">User Account Information</h1>
-  </div>
-  <div class="column-3">
 
+<div *ngIf="userData !== null">
+  <br>
+  <h1>User Account Information</h1>
+
+  <table class="styled-table">
+    <thead>
+    <tr>
+      <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr mdbTableCol>
+      <th scope="row">{{arr[0]}}</th>
+      <td>{{arr[1]}}</td>
+      <td>{{arr[2]}}</td>
+      <td>{{arr[3]}}</td>
+    </tr>
+    <!-- and so on... -->
+    </tbody>
+  </table>
+  <div class="center2">
+  <span class="buttonb">
     <button class="btn btn-success" (click)="launchUpdateAccountPage()">Update Account Info</button>
-
-
+</span>
   </div>
-</div>
-
-<!--<div *ngIf="userData !== null">-->
-<!--  <br>-->
-<!--  <h1>User Account Information</h1>-->
-
-<!--  <table class="styled-table">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--      <th *ngFor="let head of headElements" scope="col">{{head}} </th>-->
-
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr mdbTableCol>-->
-<!--      <th scope="row">{{arr[0]}}</th>-->
-<!--      <td>{{arr[1]}}</td>-->
-<!--      <td>{{arr[2]}}</td>-->
-<!--      <td>{{arr[3]}}</td>-->
-<!--    </tr>-->
-<!--    &lt;!&ndash; and so on... &ndash;&gt;-->
-<!--    </tbody>-->
-<!--  </table>-->
-<!--  <div class="center2">-->
-<!--  <span class="buttonb">-->
-<!--&lt;!&ndash;    <button class="btn btn-success" (click)="launchUpdateAccountPage()">Update Account Info</button>&ndash;&gt;-->
-<!--</span>-->
-<!--  </div>-->
-
-
-
   <br>
 <h1>Connections</h1>
 <div class="center">
@@ -115,7 +75,7 @@
 <ng-template style="text-align: center" #displayTwitterInfo>
   Twitter Currently Connected
 </ng-template>
-<!--<br>-->
+<br>
   <ng-template #showTwitterInfo>
 
 <!--    {{twitterData.twitterHandle}}-->
@@ -129,10 +89,9 @@
     <div *ngIf="displayHandleChangeDiv" class="center3">
 
       <span> </span>
-      <input [(ngModel)]="twitterModel.handle" #twitterHandle type="text" name="twitterHandle" placeholder="{{twitterData.twitterHandle}}" />
-    <span class="set-twitter-box">
-    <button class="submit-btn" [disabled]="twitterModel.handle === ''" (click)="sendTwitterHandle(twitterHandle.value)">Set Twitter</button>
-      </span>
+      <input  #twitterHandle type="text" name="twitterHandle" placeholder="{{twitterData.twitterHandle}}" />
+
+    <button class="submit" (click)="sendTwitterHandle(twitterHandle.value)">Set Twitter</button>
     </div>
 
   </ng-template>
@@ -151,13 +110,67 @@
 <!--</div>-->
 
 
+<!--<div class="mat-elevation-z2">-->
+<!--  <mat-table [dataSource]="listData"  matSort>-->
+<!--    <ng-container matColumnDef="content">-->
+<!--      <mat-header-cell *matHeaderCellDef  mat-sort-header>Content</mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element">{{element.tweetText}}</mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="courseName">-->
+<!--      <mat-header-cell *matHeaderCellDef  mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="courseSubject">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="dayAndTime">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element">}</mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="roomNo">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="sectionNo">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="semester">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="status">-->
+<!--      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element"></mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="actions">-->
+<!--      <mat-header-cell *matHeaderCellDef></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let element">-->
+<!--      </mat-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="loading">-->
+<!--      <mat-footer-cell *matFooterCellDef colspan="2">-->
+<!--        Loading data...-->
+<!--      </mat-footer-cell>-->
+<!--    </ng-container>-->
+<!--    <ng-container matColumnDef="noData">-->
+<!--      <mat-footer-cell *matFooterCellDef colspan="2">-->
+<!--        No data.-->
+<!--      </mat-footer-cell>-->
+<!--    </ng-container>-->
+<!--    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+<!--    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+<!--  </mat-table>-->
+<!--</div>-->
   <div *ngIf="socialOnStart !== null else noSocialSet">
-<!--    {{socialOnStart}} is set as your default page on sign in-->
+    {{socialOnStart}} is set as your default page on sign in
   </div>
   <ng-template #noSocialSet>
     You have not set a login preference
-<!--    <br>-->
+    <br>
   </ng-template>
+  <br>
   <section class="example-section">
     <label class="example-margin">Set Home Page Preference:</label>
     <mat-radio-group [(ngModel)]="labelPosition" (change)="radioChange($event)" >
@@ -175,12 +188,15 @@
 <!--  <button class="btn btn-success" (click)="getPreferences()">get Preferences</button>-->
 <!--</div>-->
 </div>
-<!--</div>-->
+</div>
 <section class="example-section">
   <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="showHideDeveloper">Developer Options</mat-checkbox>
   <mat-checkbox class="example-margin" [disabled]="true">Disabled</mat-checkbox>
 </section>
 <br>
+<!--<label>-->
+<!--  <input type="checkbox" [(ngModel)]="showHideDeveloper"/> Pregnant-->
+<!--</label>-->
 <div class="center" *ngIf="showHideDeveloper">
   <div *ngIf="twitterLoggedIn !== 'true'; else displayTwitterInfo">
   <span>

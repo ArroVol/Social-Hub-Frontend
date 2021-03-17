@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
 
 import { MessagesComponent } from './messages/messages.component';
 import { AppComponent } from './app.component';
@@ -26,7 +27,6 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
 import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
 import {FacebookComponent} from './facebook/facebook.component';
 import {SpotifyComponent} from './spotify/spotify.component';
@@ -40,15 +40,36 @@ import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.compo
 import { TimelineComponent } from './timeline/timeline.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRippleModule} from '@angular/material/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialogModule } from '@angular/material/dialog';
+import {ModalModule} from 'angular-bootstrap-md';
+import { ModalComponent } from './modal/modal.component';
+import { UpdateAccountComponent } from './update-account/update-account.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import {MatListModule} from '@angular/material/list';
+import {MainComponent} from './main/main.component';
+import {HeaderComponent} from './header/header.component';
+import {LandingComponent} from './landing/landing.component';
+import {FooterComponent} from './footer/footer.component';
+import {NgxDropzoneModule} from 'ngx-dropzone';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 // import { AboutComponent } from './about/about.component';
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
+    ModalComponent,
     MessagesComponent,
     TwitterComponent,
-    ThrowAwayPageComponent,
     FacebookComponent,
     SpotifyComponent,
     DashboardComponent,
@@ -56,13 +77,22 @@ import {MatRadioModule} from '@angular/material/radio';
     LoginPageComponent,
     AccountInformationComponent,
     SpotifyLandingComponent,
-  SimpleFormComponent,
-  LoginPageComponent,
-  AccountInformationComponent,
-  TimelineComponent,
-  DataTableComponent,
+    SimpleFormComponent,
+    LoginPageComponent,
+    AccountInformationComponent,
+    TimelineComponent,
+    DataTableComponent,
     MessagesComponent,
     SpotifyComponent,
+    ModalComponent,
+    UpdateAccountComponent,
+    ImageUploadComponent,
+    MainComponent,
+    HeaderComponent,
+    LandingComponent,
+    FooterComponent,
+    SideNavComponent,
+    // MarkAsteriskDirective,
 
     // AboutComponent,
 
@@ -71,8 +101,12 @@ import {MatRadioModule} from '@angular/material/radio';
     HttpClientModule,
     BrowserModule,
     FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
     // AppRoutingModule,
+    ModalModule,
     BrowserAnimationsModule,
+    MatDialogModule,
     MatSliderModule,
     MatSelectModule,
     ReactiveFormsModule,
@@ -90,10 +124,21 @@ import {MatRadioModule} from '@angular/material/radio';
     AppRoutingModule,
     RouterModule,
     ReactiveFormsModule,
-    MatRadioModule
-
+    MatRadioModule,
+    MatSidenavModule,
+    MatCheckboxModule,
+    MatRippleModule,
+    MatProgressBarModule,
+    IconsModule,
+    InputUtilitiesModule,
+    MatListModule,
+    NgxDropzoneModule,
+    MatStepperModule,
   ],
-  providers: [],
+  providers: [ {
+    provide: STEPPER_GLOBAL_OPTIONS,
+    useValue: { displayDefaultIndicatorType: false }
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

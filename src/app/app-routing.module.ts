@@ -9,10 +9,11 @@ import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
 import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.component';
 import {TimelineComponent} from './timeline/timeline.component';
+import {MainComponent} from './main/main.component';
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
-  { path: '', redirectTo: '/login-page', pathMatch: 'full' },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'twitter', component: TwitterComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'facebook', component: FacebookComponent },
@@ -20,8 +21,7 @@ const routes: Routes = [
   { path: 'spotify/landing', component: SpotifyLandingComponent, pathMatch: 'full' },
   { path: 'login-page', component: LoginPageComponent },
   { path: 'account-information', component: AccountInformationComponent },
-  { path: 'timeline', component: TimelineComponent },
-
+  { path: 'main', component: MainComponent },
 
   // {path: 'create-account', component: CreateAccountComponent},
 
