@@ -12,6 +12,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {AppComponent} from '../app.component';
 import {GoalService} from '../service/goal.service';
 import {Goal} from '../model/user/Goal';
+import {MatRadioChange} from '@angular/material/radio';
 
 @Component({
   selector: 'app-twitter',
@@ -19,6 +20,8 @@ import {Goal} from '../model/user/Goal';
   styleUrls: ['./twitter.component.css']
 })
 export class TwitterComponent implements OnInit {
+
+  labelPosition: string;
 
   otherNumFollowers: number;
   otherMostRetweeted: BriefStatus;
@@ -60,6 +63,8 @@ export class TwitterComponent implements OnInit {
   tickInterval = 1;
   goalSet: boolean;
   userGoal: Goal;
+  radioChoice: string;
+
 
   getSliderTickInterval(): number | 'auto' {
     if (this.showTicks) {
@@ -292,6 +297,8 @@ export class TwitterComponent implements OnInit {
         if (this.userGoal !== null){
           console.log('its not null');
           this.goalSet = true;
+        } else {
+          console.log('null goals');
         }
         console.log(this.briefStatus.createdAt);
       });
@@ -300,4 +307,10 @@ export class TwitterComponent implements OnInit {
   updateGoals() {
 
 }
+  radioChange($event: MatRadioChange) {
+    // this.socialOnStart = $event.value;
+    this.radioChoice = $event.value;
+    console.log(this.radioChoice);
+
+  }
 }
