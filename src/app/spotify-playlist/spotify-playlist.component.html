@@ -27,21 +27,19 @@
     </div>
     <br>
   </mat-drawer>
-  <mat-drawer-content class="content" fxLayout="column">
-    <div>
+  <mat-drawer-content class="content">
 
-      <!--      <div class="login-component">-->
-      <!--        <mat-card class="example-card">-->
-      <!--          &lt;!&ndash;          <div mat-card-avatar src="{{userProfile.imageUrl}}"></div>&ndash;&gt;-->
-      <!--          <mat-card-header class="cardtextstuff">-->
-      <!--            &lt;!&ndash;            <img mat-card-image src="{{userProfile.imageUrl}}" alt="Photo of a Shiba Inu">&ndash;&gt;-->
-      <!--            <div mat-card-avatar class="example-header-image"-->
-      <!--                 style="background-image: url('{{userProfile.imageUrl}}'); background-size: cover;"></div>-->
-      <!--            <mat-card-title class="login-displayname">{{userProfile.displayName}}</mat-card-title>-->
-      <!--          </mat-card-header>-->
-      <!--        </mat-card>-->
-      <!--      </div>-->
+    <div class="card-container" fxLayout="row wrap" fxFlex="auto" fxFlexOffset="60" fxFlexAlign="baseline">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title class="card-head"><img src="{{userProfile.imageUrl}}"
+                                                 class="img-circle"> {{userProfile.displayName}}
+          </mat-card-title>
+        </mat-card-header>
+      </mat-card>
+    </div>
 
+    <div fxLayout="column">
       <div class="heading">
         <br>
         <h2>Playlist</h2>

@@ -49,6 +49,8 @@ import {PreloadersModule} from 'ng-uikit-pro-standard';
 import {AnimatedDigitComponent} from './animated-digit/animated-digit.component';
 import {LoadingAnimationComponent} from './loading-animation/loading-animation.component';
 import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
+import { SpotifyAddplaylistSnackbarComponent } from './spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
+import { SpotifyAddplaylistWarningComponent } from './spotify-addplaylist-warning/spotify-addplaylist-warning.component';
 
 
 @NgModule({
@@ -74,6 +76,8 @@ import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
     SpotifyUpdatePlaylistComponent,
     AnimatedDigitComponent,
     LoadingAnimationComponent,
+    SpotifyAddplaylistSnackbarComponent,
+    SpotifyAddplaylistWarningComponent,
   ],
   imports: [
     HttpClientModule,

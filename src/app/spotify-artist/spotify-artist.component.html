@@ -28,6 +28,15 @@
     <br>
   </mat-drawer>
   <mat-drawer-content class="content" fxLayout="column">
+    <div class="card-container" fxLayout="row wrap" fxFlex="auto" fxFlexOffset="60" fxFlexAlign="baseline">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title class="card-head"><img src="{{userProfile.imageUrl}}"
+                                                 class="img-circle"> {{userProfile.displayName}}
+          </mat-card-title>
+        </mat-card-header>
+      </mat-card>
+    </div>
 
     <div class="heading">
       <br>

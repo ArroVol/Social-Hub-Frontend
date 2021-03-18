@@ -13,6 +13,9 @@ import {SpotifyCreatePlaylistComponent} from '../spotify-create-playlist/spotify
 import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {MatAccordion} from '@angular/material/expansion';
 import {SpotifyUpdatePlaylistComponent} from "../spotify-update-playlist/spotify-update-playlist.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
+import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
 
 
 @Component({
@@ -31,7 +34,7 @@ export class SpotifyPlaylistComponent implements OnInit {
   isShown: boolean = true;
 
 
-  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router) {
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -122,13 +125,6 @@ export class SpotifyPlaylistComponent implements OnInit {
     this.router.navigate(['spotify/playlist'], navigationExtras);
   }
 
-
-// Create component for updating the playlist
-  /**
-   * // TODO: Research a way to take in a jpeg image and send it to the back-end as binary data, or modify the contract accordingly
-   */
-
-
   routeToArtist(artistId: string) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
@@ -139,17 +135,45 @@ export class SpotifyPlaylistComponent implements OnInit {
   }
 
   updatePlaylist(playlistId: string, playlistName: string, playlistDescription: string) {
-    this.spotifyService.updatePlaylistDetails(playlistId, playlistName, playlistDescription).subscribe((playlist) => this.spotifyPlaylist = playlist);
+    this.spotifyService.updatePlaylistDetails(playlistId, playlistName, playlistDescription).subscribe((playlist) => {
+      this.spotifyPlaylist = playlist;
+    });
+
   }
 
   addToPlaylist(playlistId: string, track_uri: string) {
-    console.log('playlistId', playlistId);
-    console.log('track_uri', track_uri);
-    this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
-      console.log(result);
+    // need the check here!
+    if (playlistId === this.spotifyPlaylist.id) {
+      if (this.checkMatchingTrackUri(track_uri)) {
+        this.openAddWarning(playlistId, track_uri);
+      } else {
+        this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
+          this.spotifyTrackList = result.tracks;
+          this.spotifyPlaylist = result;
+          this._snackBar.openFromComponent(SpotifyAddplaylistSnackbarComponent, {
+            duration: 3000,
+          });
 
+        });
+      }
+    } else {
+      this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
+        this._snackBar.openFromComponent(SpotifyAddplaylistSnackbarComponent, {
+          duration: 3000,
+        });
 
-    });
+      });
+    }
+
+  }
+
+  checkMatchingTrackUri(track_uri: string): boolean {
+    for (let track of this.spotifyTrackList) {
+      if (track.spotifyUri === track_uri) {
+        return true;
+      }
+    }
+    return false;
   }
 
   openDialog() {
@@ -168,17 +192,29 @@ export class SpotifyPlaylistComponent implements OnInit {
       console.log('dialogue return', playlist);
       if (playlist != null) {
         this.updatePlaylist(playlist.id, playlist.name, playlist.description);
-        // this.spotifyPlaylist.name = playlist.name;
-        // this.spotifyPlaylist.description = playlist.description;
       } else {
         console.log('nope');
       }
     });
   }
 
+  openAddWarning(playlistId: string, track_uri: string) {
+    this.dialog.open(SpotifyAddplaylistWarningComponent, {data: {accept: false}}).afterClosed().subscribe(value => {
+      if (value.accept != null && value.accept == true) {
+        this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
+          this.spotifyTrackList = result.tracks;
+          this.spotifyPlaylist = result;
+          this._snackBar.openFromComponent(SpotifyAddplaylistSnackbarComponent, {
+            duration: 3000,
+          });
+
+        });
+      }
+    })
+  }
+
   hideloader() {
-    // document.getElementById('loading')
-    //   .style.display = 'none';
     this.isShown = false;
   }
 }
+

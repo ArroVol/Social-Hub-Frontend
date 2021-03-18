@@ -9,6 +9,9 @@ import {SpotifyAlbum} from "../model/spotify/SpotifyAlbum";
 import {SpotifyTrack} from "../model/spotify/SpotifyTrack";
 import {SpotifyArtist} from "../model/spotify/SpotifyArtist";
 import {SpotifyCreatePlaylistComponent} from "../spotify-create-playlist/spotify-create-playlist.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
+import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
 
 @Component({
   selector: 'app-spotify-artist',
@@ -24,9 +27,10 @@ export class SpotifyArtistComponent implements OnInit {
   artistAlbums: SpotifyAlbum[];
   artistTopTracks: SpotifyTrack[];
   isShown: boolean = true;
+  tempSpotifyPlaylist: SpotifyPlaylist;
 
 
-  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router) {
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -90,8 +94,6 @@ export class SpotifyArtistComponent implements OnInit {
   }
 
   /**
-   * // TODO: Create a header: artist name, image, followers
-   * // TODO: Create a table for the top 10 tracks of an artist, allow the user to add those tracks to their own playlist, allow user to navigate to the artist as well
    * // TODO: Create a table for the albums: will be turned into a carousel in future sprints
    * // TODO: Styling
    */
@@ -104,18 +106,49 @@ export class SpotifyArtistComponent implements OnInit {
     return formatted_minutes + ':' + formatted_seconds;
   }
 
-  addToPlaylist(playlistId: string, track_uri: string) {
-    console.log('playlistId', playlistId);
-    console.log('track_uri', track_uri);
-    this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
-      console.log(result);
+  async addToPlaylist(playlistId: string, track_uri: string) {
+    let playlist = await this.findPlaylistById(playlistId);
+    let spotifyTrackList = playlist.tracks;
+    let check = await this.checkMatchingTrackUri(spotifyTrackList, track_uri);
+    if (check) {
+      this.openAddWarning(playlistId, track_uri);
+    } else {
+      this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
+        this._snackBar.openFromComponent(SpotifyAddplaylistSnackbarComponent, {
+          duration: 3000,
+        });
+      });
+    }
+  }
 
-    });
+  async findPlaylistById(playlist_id: string): Promise<SpotifyPlaylist> {
+    return this.spotifyService.getPlaylistByIdPromise(playlist_id);
+  }
+
+  async checkMatchingTrackUri(spotifyTrackList: SpotifyTrack[], track_uri: string) {
+
+    for (let track of spotifyTrackList) {
+      if (track.spotifyUri === track_uri) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  openAddWarning(playlistId: string, track_uri: string) {
+    this.dialog.open(SpotifyAddplaylistWarningComponent, {data: {accept: false}}).afterClosed().subscribe(value => {
+      if (value.accept != null && value.accept == true) {
+        this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
+          this._snackBar.openFromComponent(SpotifyAddplaylistSnackbarComponent, {
+            duration: 3000,
+          });
+
+        });
+      }
+    })
   }
 
   hideloader() {
-    // document.getElementById('loading')
-    //   .style.display = 'none';
     this.isShown = false;
   }
 }

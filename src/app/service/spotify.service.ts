@@ -89,6 +89,15 @@ export class SpotifyService {
       );
   }
 
+  getPlaylistByIdPromise(playlist_id: string): Promise<SpotifyPlaylist> {
+    console.log('getting spotify playlist by id: ' + playlist_id);
+    const url = `${this.spotifyUrl}/playlist/` + playlist_id;
+    return this.http.get<SpotifyPlaylist>(url)
+      .pipe(
+        tap(_ => console.log('fetched spotify playlist by id: ' + playlist_id))
+      ).toPromise();
+  }
+
   getAlbumById(album_id: string): Observable<SpotifyAlbum> {
     console.log('getting spotify album by id: ' + album_id);
     const url = `${this.spotifyUrl}/album/` + album_id;
