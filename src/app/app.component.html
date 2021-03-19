@@ -6,7 +6,7 @@
       <div style="float: right">Social Hub</div>
     </mat-toolbar-row>
     <mat-toolbar-row>
-      <app-simple-form > </app-simple-form>
+      <app-simple-form></app-simple-form>
     </mat-toolbar-row>
   </div>
 </mat-toolbar>
@@ -14,7 +14,7 @@
 <!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
 
 
-<mat-sidenav-container class="example-container" >
+<mat-sidenav-container class="example-container">
   <mat-toolbar color="primary">
     <div style="display: flex; justify-content: space-around">
       <mat-toolbar-row>
@@ -24,16 +24,16 @@
 
     </div>
   </mat-toolbar>
-  <mat-sidenav mode="side" opened>
-    <ul  class="navbar-nav" >
+  <mat-sidenav mode="side" opened #drawer>
+    <ul class="navbar-nav">
       <li>
         <a>
-          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>
+          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt=""
+                                          class="p-5 rounded-circle"></a>
         </a>
       </li>
     </ul>
     <nav>
-
 
 
       <ul>
@@ -46,11 +46,22 @@
         <li><a routerLink="/spotify">spotify</a></li>
         <li><a routerLink="/about">about</a></li>
         <li><a routerLink="/spotify/landing">spotify landing</a></li>
+        <!--        <li>-->
+        <!--          <button type="button" mat-button (click)="drawer.toggle()">-->
+        <!--            Toggle sidenav-->
+        <!--          </button>-->
+        <!--        </li>-->
 
       </ul>
     </nav>
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+
   </mat-sidenav>
 
 
-  <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>
