@@ -39,14 +39,31 @@ export class FacebookComponent implements OnInit{
         this.facebookService.sendVerificationCode(this.verificationCode)
           .subscribe(result => {
             console.log('Result: ', result);
+            this.getUsername();
           });
         document.getElementById('fb-btn').style.display = 'none';
         document.getElementById('fb-btn2').style.display = 'block';
         document.getElementById('fb-btn3').style.display = 'block';
+        document.getElementById('postForm').style.display = 'block';
+        document.getElementById('head').style.display = 'block';
+        document.getElementById('container').style.display = 'block';
+        document.getElementById('container2').style.display = 'block';
+        document.getElementById('postTitle').style.display = 'block';
+        document.getElementById('pageTitle').style.display = 'block';
+        document.getElementById('likeTitle').style.display = 'block';
+
         this.loggedIn = true;
       }
     });
 
+  }
+
+  submitPost(s: string){
+    console.log(s);
+    this.facebookService.sendPostMessage(s)
+      .subscribe(result => {
+        console.log('Message Sent');
+      });
   }
 
   login(){
@@ -66,6 +83,13 @@ export class FacebookComponent implements OnInit{
     document.getElementById('fb-btn').style.display = 'block';
     document.getElementById('fb-btn2').style.display = 'none';
     document.getElementById('fb-btn3').style.display = 'none';
+    document.getElementById('postForm').style.display = 'none';
+    document.getElementById('head').style.display = 'none';
+    document.getElementById('container').style.display = 'none';
+    document.getElementById('container2').style.display = 'none';
+    document.getElementById('postTitle').style.display = 'none';
+    document.getElementById('pageTitle').style.display = 'none';
+    document.getElementById('likeTitle').style.display = 'none';
   }
 
   getUsername(){

@@ -45,6 +45,18 @@ export class FacebookService{
       );
   }
 
+  sendPostMessage(msg: string): Observable<string>{
+    const body = JSON.stringify(msg);
+    const url = `${this.facebookURL}/post`;
+    //headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT')
+    console.log('In facebook service, posting message');
+    return this.http.post<string>(url, body, {headers})
+      .pipe(
+        tap(_ => console.log('sent message' ))
+        // catchError(() => observableThrowError('get registration by id error'))
+      );
+  }
+
   getUserName(): Observable<FacebookUser>{
     console.log('Getting FB User');
     const url = `${this.facebookURL}/username`;
