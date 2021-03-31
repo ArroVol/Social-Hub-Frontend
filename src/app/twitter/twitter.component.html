@@ -42,26 +42,32 @@
       <br>
       <br>
       </mat-card>
+
+
+
       <section class="example-section">
         <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="showTimeline">Show Timeline</mat-checkbox>
       </section>
-<!--      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">-->
+      <cdk-virtual-scroll-viewport class="scroll" *ngIf="showTimeline" itemSize="20" class="example-viewport">
 
-      <mat-card class="basic-card" *ngIf="showTimeline">
-      <div class="posttweettacontainer3" *ngFor="let briefStatus of briefStatusList">
+      <span *ngIf="showTimeline" >
+<!--      <mat-card class="basic-card" *ngIf="showOtherTimeline">-->
+        <div style="padding-bottom: 10px"  *ngFor="let briefStatus of briefStatusList">
 
-
-            <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
-            <br>
+          <mat-card class="basic-card" >
+          <div class="posttweettacontainer3">
+          <b>{{briefStatus.handle}}</b> <span style="padding-bottom: 10px"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
+          <br>
             {{briefStatus.text}} <br>
-        <div class="icons-twitter">
-            <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}
-        </div>
+<div class="icons-twitter">
+          <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}
+</div>
+</div>
           <div></div>
-        <br> <br> <br>
-          </div>
-      </mat-card>
-<!--      </cdk-virtual-scroll-viewport>-->
+          </mat-card>
+      </div>
+        </span>
+      </cdk-virtual-scroll-viewport>
 
     </div>
         <ng-template #spin>
@@ -186,7 +192,7 @@
 <!--            <button style="padding-left: 50px" (click)="handle.value=''">-->
 <!--              <mat-icon >clear</mat-icon>-->
 <!--            </button>-->
-            <input #handle (keyup)="onKey($event)" type="text" [(ngModel)]="searchFriend" matInput [formControl]="myControl" [matAutocomplete]="auto" >
+            <input #handle (keyup)="onKey($event)" type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" >
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
 <!--                {{incrementor + 1}} {{option.name}}-->
@@ -196,14 +202,14 @@
             </mat-autocomplete>
 
           </mat-form-field>
-          <button class="search-user" [disabled] ="!searchFriend" (click)="getOtherUserTimeline(handle.value)">Get Friend</button>
+          <button class="search-user" (click)="getOtherUserTimeline(handle.value)">Get Friend</button>
 
         </form>
 <!--        <button (click)="getFriendsList()"> Get Friends List </button>-->
 <!--        <div>-->
 <!--          <button class="search-user" [disabled]="otherHandle === ''" (click)="getOtherUserTimeline(handle.value)">Get Friend's Timeline</button>-->
          <div>
-           <button class="clear" [disabled] ="!searchFriend" (click)="clearFields(handle.value)">Clear field</button>
+           <button class="clear"  (click)="clearFields(handle.value)">Clear field</button>
          </div>
 <!--        </div>-->
       </mat-card-content>
@@ -324,6 +330,7 @@
         </mat-button-toggle-group>
 <!--        <p>Chosen value is {{fontStyleControl.value}}</p>-->
       </section>
+
 
       <section class="example-section">
         <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="showOtherTimeline">Show Timeline</mat-checkbox>

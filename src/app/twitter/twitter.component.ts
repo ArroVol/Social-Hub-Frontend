@@ -37,7 +37,7 @@ export class CdkVirtualScrollOverviewExample {
   selector: 'app-twitter',
   templateUrl: './twitter.component.html',
   styleUrls: ['./twitter.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
 export class TwitterComponent implements OnInit {
@@ -308,13 +308,13 @@ export class TwitterComponent implements OnInit {
         console.log('*********************');
         console.log(this.otherMostRetweeted.text);
         console.log(this.otherMostRetweeted.retweetCount);
-        if (this.otherMostRetweeted.retweetCount === 0){
-
-        } else if (this.otherMostFavorited.favoriteCount === 0 && this.otherMostRetweeted.retweetCount > 0) {
-          this.otherBriefStatusList = this.otherBriefStatusList.slice(1);
-        } else {
-          this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
-        }
+        // if (this.otherMostRetweeted.retweetCount === 0){
+        //
+        // } else if (this.otherMostFavorited.favoriteCount === 0 && this.otherMostRetweeted.retweetCount > 0) {
+        //   this.otherBriefStatusList = this.otherBriefStatusList.slice(1);
+        // } else {
+        this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
+        // }
 
         for (let i = 0; i < this.otherBriefStatusList.length; i++){
           // console.log(this.otherBriefStatusList[i].text);
@@ -441,7 +441,7 @@ export class TwitterComponent implements OnInit {
 
   onKey($event: KeyboardEvent) {
     // if value is not empty the set click to false otherwise true
-    this.click = (event.target as HTMLInputElement).value === '' ? true:false;
+    this.click = (event.target as HTMLInputElement).value === '' ? true : false;
   }
   onButtonClick(){
     this.click = !this.click;
