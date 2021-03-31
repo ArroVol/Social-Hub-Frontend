@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
-
+import * as moment from 'moment';
 import { MessagesComponent } from './messages/messages.component';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -57,10 +57,17 @@ import {MainComponent} from './main/main.component';
 import {HeaderComponent} from './header/header.component';
 import {LandingComponent} from './landing/landing.component';
 import {FooterComponent} from './footer/footer.component';
-import {NgxDropzoneModule} from 'ngx-dropzone';
+// import {NgxDropzoneModule} from 'ngx-dropzone';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {NgxDropzoneModule} from 'ngx-dropzone';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {Moment} from 'moment';
+import {MomentModule} from 'ngx-moment';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 // import { AboutComponent } from './about/about.component';
 
 // @ts-ignore
@@ -134,6 +141,11 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
     MatListModule,
     NgxDropzoneModule,
     MatStepperModule,
+    MatTreeModule,
+    MatAutocompleteModule,
+    MomentModule,
+    MatButtonToggleModule,
+    ScrollingModule
   ],
   providers: [ {
     provide: STEPPER_GLOBAL_OPTIONS,
