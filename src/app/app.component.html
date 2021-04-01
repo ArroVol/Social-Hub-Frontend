@@ -3,37 +3,39 @@
 <mat-toolbar>
   <div style="display: flex; justify-content: space-around">
     <mat-toolbar-row>
+      <button style="padding: 0" type="button" mat-button (click)="drawer.toggle()">
+        <span class="material-icons">
+            reorder
+        </span>
+      </button>
       <div style="float: right">Social Hub</div>
+
+
     </mat-toolbar-row>
     <mat-toolbar-row>
       <app-simple-form > </app-simple-form>
     </mat-toolbar-row>
   </div>
 </mat-toolbar>
-<nav>
-  <a routerLink="/twitter">Twitter</a>
-  <a routerLink="/facebook">Facebook</a>
-  <a routerLink="/dashboard">dashboard</a>
-  <a routerLink="/login-page">log in page</a>
-  <a routerLink="/account-information">Account information</a>
-  <a routerLink="/timeline">t</a>
-  <a routerLink="/youtube">Youtube</a>
-  <a routerLink="/instagram">Instagram</a>
-
-<!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
 
 
 <mat-sidenav-container class="example-container" >
   <mat-toolbar color="primary">
     <div style="display: flex; justify-content: space-around">
       <mat-toolbar-row>
-        <div style="float: right">Social Hub</div>
+        <div style="float: right">Social Hub
+
+        </div>
 
       </mat-toolbar-row>
 
     </div>
   </mat-toolbar>
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav mode="side" opened #drawer>
+
+
+
+
     <ul  class="navbar-nav" >
       <li>
         <a>
@@ -46,16 +48,45 @@
 
 
       <ul>
+        <li>
+          <button class="TwitterMenuButton" mat-button routerLink="/twitter">Twitter</button>
+        </li>
+<!--        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>-->
+        <li>
+          <button class="FBMenuButton" mat-button routerLink="/facebook">Facebook</button>
+        </li>
+<!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
+        <li>
+          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta">Instagram</button>
+          <mat-menu #menuInsta="matMenu">
+            <button mat-menu-item><a routerLink="/instagram">Instagram</a></button>
+            <button mat-menu-item><a routerLink="/instagram-search">Instagram Search</a></button>
+          </mat-menu>
+        </li>
+<!--        <li><a routerLink="/instagram">Instagram</a></li>-->
+<!--        <li><a routerLink="/instagram-search">Instagram Search</a></li>-->
+        <li>
+          <button class="SpotifyMenuButton" mat-button [matMenuTriggerFor]="menuSpotify">Spotify</button>
+          <mat-menu #menuSpotify="matMenu">
+            <button mat-menu-item><a routerLink="/spotify">spotify</a></button>
+            <button mat-menu-item><a routerLink="/spotify/landing">spotify landing</a></button>
+          </mat-menu>
+        </li>
 
-        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>
-        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>
-        <li><a routerLink="/login-page">log in page</a></li>
-        <li><a routerLink="/account-information">Account information</a></li>
-        <li><a routerLink="/instagram">Instagram</a></li>
-        <li><a routerLink="/instagram-search">Instagram Search</a></li>
-        <li><a routerLink="/spotify">spotify</a></li>
-        <li><a routerLink="/about">about</a></li>
-        <li><a routerLink="/spotify/landing">spotify landing</a></li>
+        <li>
+          <button class="YTMenuButton" mat-button routerLink="/twitter">YouTube</button>
+        </li>
+
+        <li>
+          <button class="UserMenuButton" mat-button [matMenuTriggerFor]="menuUser">User Settings</button>
+          <mat-menu #menuUser="matMenu">
+            <button mat-menu-item><a routerLink="/login-page">log in page</a></button>
+            <button mat-menu-item><a routerLink="/account-information">Account information</a></button>
+            <button mat-menu-item><a routerLink="/about">about</a></button>
+          </mat-menu>
+        </li>
+<!--        <li><a routerLink="/spotify">spotify</a></li>-->
+<!--        <li><a routerLink="/spotify/landing">spotify landing</a></li>-->
 
       </ul>
     </nav>

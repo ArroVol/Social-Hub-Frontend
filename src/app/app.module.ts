@@ -41,6 +41,8 @@ import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.compo
 import {MatCardModule} from '@angular/material/card';
 import { DataTableComponent } from './data-table/data-table.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 import { TimelineComponent } from './timeline/timeline.component';
 import { YoutubeComponent } from './youtube/youtube.component';
@@ -48,11 +50,13 @@ import {SafePipe} from './youtube/SafePipe.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 //import { DataTableComponent } from './data-table/data-table.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { InstagramComponent } from './instagram/instagram.component';
 import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
 import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
 import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
+
 
 // import { AboutComponent } from './about/about.component';
 
@@ -95,9 +99,11 @@ import { InstagramSearchComponent } from './instagram-search/instagram-search.co
     ReactiveFormsModule,
     MatToolbarModule,
     MatInputModule,
+    MatMenuModule,
     MatButtonModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatButtonToggleModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatTableModule,

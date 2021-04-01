@@ -1,6 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {InstagramService} from '../service/instagram.service';
+import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
+import {InstagramComponent} from '../instagram/instagram.component';
 
 export interface PeriodicElement {
   name: string;
@@ -28,7 +31,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 
-export class InstagramSearchComponent implements AfterViewInit {
+export class InstagramSearchComponent  extends InstagramComponent implements OnInit  {
   public show = false;
   public buttonName: any = 'Show';
   displayedColumns: string[] = ['position', 'name'];
@@ -36,28 +39,11 @@ export class InstagramSearchComponent implements AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() { }
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
 
   counter(i: number) {
     return new Array(i);
   }
 
 
-
-
-  toggle() {
-    this.show = !this.show;
-
-    // CHANGE THE NAME OF THE BUTTON.
-    if (this.show) {
-      this.buttonName = 'Hide';
-    }
-    else {
-      this.buttonName = 'Show';
-    }
-  }
 }

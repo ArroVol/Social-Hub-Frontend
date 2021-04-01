@@ -11,36 +11,29 @@
 
 <body id="page-top">
 <div class="container bootstrap-snippet header-container">
-  <div class="bg-white">
-    <div class=" py-5" style="background-color: mediumvioletred; width: 100%">
-      <div class="media col-md-10 col-lg-8 col-xl-7 p-0 my-4 " >
-        <img src="{{instagramUser.profilePicUrl}}" alt class="d-block ui-w-100 rounded-circle">
-
-          <h4 style="padding-right: 50px; padding-left: 50px" class="font-weight-bold mb-4">{{instagramUser.displayName}}</h4>
-
-          <h3 class="font-weight-bold mb-4">{{instagramUser.username}}</h3>
+  <div class="headerImage">
+    <div class="py-5" style=" width: 100% ; height: 200px">
+      <img src="{{instagramUser.profilePicUrl}}" alt class="profilePic" style=" float: top; float: left; margin-top: 0 ">
+      <div class="media col-md-10 col-lg-8 col-xl-7 p-0 my-4 "  >
 
 
+          <h4 style="margin-top: 30px; padding-right: 50px; padding-left: 220px; font-size: 30px" class="font-weight-bold mb-4">{{instagramUser.displayName}}</h4>
 
 
-            <strong><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit></strong>
-            <span style="padding-right: 50px" class="text-muted"> Followers </span>
+            <strong style="margin-top: 20px; font-size: 40px"><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit></strong>
+            <span style="margin-top: 30px;  padding-right: 50px; font-size: 30px" class="text-muted"> Followers </span>
 
-
-            <strong><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit></strong>
-            <span style="padding-right: 50px" class="text-muted"> Following</span>
-
-
-          <h3 style="padding-right: 30px; padding-left: 50px">BIO: {{instagramUser.instaBio}}</h3>
-
-        <button mat-raised-button (click)="toggleChanges()" id="bt">
-          {{buttonName}}
-        </button>
-
-
-
+            <strong style="margin-top: 20px; font-size: 40px"><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit></strong>
+            <span style="margin-top: 30px; padding-right: 50px; font-size: 30px" class="text-muted"> Following</span>
       </div>
+      <h3  style=" color: #ffffff; display: block;  margin-left: 25%; margin-right: auto; font-size: 20px" >BIO: {{instagramUser.instaBio}}</h3>
+
     </div>
+    <button style="background: snow;  float: top; " (click)="toggleChanges()" id="bt">
+      <span class="material-icons">
+            create
+      </span>
+    </button>
   </div>
 </div>
 
@@ -92,17 +85,7 @@
 <!--</div>-->
 <section>
 
-    <nav >
-        <h2>Followers: {{instagramUser.followerFeed.length}}</h2>
-        <ul *ngFor='let in of counter(18) ;let i = index'>
-          <li><img style="display: block;  width: 70px;"  alt="Avatar" class="image" [src]="getFollowerProfilePic(i)"></li>
-            <li>{{getFollowerProfileName(i)}}</li>
-        </ul>
-
-    </nav>
-
-
-    <article>
+    <nav style="background: snow">
       <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
 
         <mdb-carousel-item  *ngFor='let in of counter(18) ;let i = index'>
@@ -114,26 +97,97 @@
             </div>
           </div>
           <footer style=" display: block;  margin-left: auto; margin-right: auto;">Comments: {{getComment(i)}}</footer>
-          </mdb-carousel-item>
+        </mdb-carousel-item>
       </mdb-carousel>
+
+
+    </nav>
+
+
+    <article>
+      <nav style="background: snow">
+        <h2>Followers: {{instagramUser.followerFeed.length}}</h2>
+        <ul *ngFor='let in of counter(18) ;let i = index'>
+          <li>
+            <mat-card class="example-card">
+              <mat-card-header>
+                <img style="display: block;  width: 70px;"  alt="Avatar" class="image"
+                     mat-card-avatar [src]= "getFollowerProfilePic(i)" >
+                <mat-card-title>{{getFollowerProfileName(i)}}</mat-card-title>
+              </mat-card-header>
+            </mat-card>
+          </li>
+<!--          <li><img style="display: block;  width: 70px;"  alt="Avatar" class="image" [src]="getFollowerProfilePic(i)"></li>-->
+<!--          <li>{{getFollowerProfileName(i)}}</li>-->
+        </ul>
+      </nav>
+
     </article>
 
 
 </section>
 
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <mat-label>Enter Instagram Username:</mat-label>
-    <input #todo matInput type="text" name="todo">
-    <mat-card-actions>
-      <button  (click)="userSearch(todo.value)" mat-button>Search</button>
-    </mat-card-actions>
-  </mat-form-field>
-</form>
-<ng-container *ngIf="showSearch">
-  <h4>{{instagramUserSearch.displayName}}</h4>
+<!--<form class="example-form">-->
+<!--  <mat-form-field class="example-full-width">-->
+<!--    <mat-label>Enter Instagram Username:</mat-label>-->
+<!--    <input #todo matInput type="text" name="todo">-->
+<!--    <mat-card-actions>-->
+<!--      <button matSuffix style=" display: block;  margin-left: auto; margin-right: auto;"  (click)="userSearch(todo.value)" mat-button>-->
+<!--        <mat-icon  matSuffix>search</mat-icon>-->
+<!--      </button>-->
 
-</ng-container>
+<!--    </mat-card-actions>-->
+
+
+<!--  </mat-form-field>-->
+<!--</form>-->
+
+<!--<ng-container *ngIf="showSearch">-->
+<!--  <h4>User : {{instagramUserSearch.displayName}}</h4>-->
+
+
+
+<!--  <div class="container bootstrap-snippet header-container">-->
+<!--    <div class="headerImage">-->
+<!--      <div class="py-5" style=" width: 100%">-->
+<!--        <div class="media col-md-10 col-lg-8 col-xl-7 p-0 my-4 " >-->
+<!--          <img style="padding-right: 50px" src="{{instagramUserSearch.profilePicUrl}}" alt class="d-block ui-w-100 rounded-circle">-->
+
+<!--          <h4 style="padding-right: 50px; padding-left: 50px" class="font-weight-bold mb-4">{{instagramUserSearch.displayName}}</h4>-->
+
+<!--          <h3 class="font-weight-bold mb-4"style=" font-size: 40px" >{{instagramUserSearch.username}}</h3>-->
+
+
+
+
+
+
+<!--          <strong style=" font-size: 20px"><animated-digit [digit]="instagramUserSearch.followerCount" [duration]="1000"></animated-digit></strong>-->
+<!--          <span style="padding-right: 50px; font-size: 20px" class="text-muted"> Followers </span>-->
+
+
+<!--          <strong style=" font-size: 20px"><animated-digit [digit]="instagramUserSearch.followingCount" [duration]="1000"></animated-digit></strong>-->
+<!--          <span style="padding-right: 50px; font-size: 20px" class="text-muted"> Following</span>-->
+
+
+
+
+
+
+
+
+<!--        </div>-->
+<!--        <h3  style=" color: #ffffff; display: block;  margin-left: 25%; margin-right: auto;" >BIO: {{instagramUserSearch.instaBio}}</h3>-->
+
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+
+<!--</ng-container>-->
 <!--  <mdb-carousel-item>-->
 <!--    <img style="display: block; margin-left: auto;  width: 500px;" [src]="getImageUrl(1)" alt="Second slide">-->
 <!--  </mdb-carousel-item>-->
@@ -155,12 +209,6 @@
 
 
 </body>
-
-
-
-
-
-
 </html>
 <!--<button (click)="getInstaUser()"></button>-->
 
