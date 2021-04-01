@@ -1,12 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {InstagramService} from '../service/instagram.service';
-import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
-import {InstagramComponent} from '../instagram/instagram.component';
-import {YoutubeComponent} from '../youtube/youtube.component';
-import {Youtube} from '../model/youtube/Youtube';
+// @ts-ignore
+import { Component, OnInit } from '@angular/core';
+import {Channel} from '../model/youtube/Channel';
 import {YoutubeService} from '../service/youtube.service';
-import {Channel} from '../../../../../Downloads/Project/Social-Hub-Frontend/src/app/model/youtube/Channel';
+import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
 
+// @ts-ignore
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

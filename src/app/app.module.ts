@@ -27,7 +27,7 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
 import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
+// import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
 import {SpotifyComponent} from './spotify/spotify.component';
 import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
@@ -49,16 +49,13 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InstagramComponent } from './instagram/instagram.component';
 import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
-import {NavbarModule, WavesModule, ButtonsModule, CarouselModule, IconsModule} from 'angular-bootstrap-md';
+import {NavbarModule, WavesModule, ButtonsModule, CarouselModule} from 'angular-bootstrap-md';
 import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
-import { DataTableComponent } from './data-table/data-table.component';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRippleModule} from '@angular/material/core';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
-import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule } from '@angular/material/dialog';
 import {ModalModule} from 'angular-bootstrap-md';
@@ -79,8 +76,6 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {Moment} from 'moment';
 import {MomentModule} from 'ngx-moment';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {ScrollingModule} from '@angular/cdk/scrolling';
 // import { AboutComponent } from './about/about.component';
 import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -92,7 +87,7 @@ import {PreloadersModule} from 'ng-uikit-pro-standard';
     ModalComponent,
     MessagesComponent,
     TwitterComponent,
-    ThrowAwayPageComponent,
+    // ThrowAwayPageComponent,
     FacebookComponent,
     SpotifyComponent,
     DashboardComponent,
@@ -116,13 +111,16 @@ import {PreloadersModule} from 'ng-uikit-pro-standard';
     FooterComponent,
     SideNavComponent,
     // MarkAsteriskDirective,
-
+    MainComponent,
     // AboutComponent,
     InstagramComponent,
     YoutubeComponent,
     SafePipe,
     CollectionComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoadingAnimationComponent,
+    InstagramSearchComponent,
+    AnimatedDigitComponent
   ],
   imports: [
     HttpClientModule,
@@ -161,7 +159,7 @@ import {PreloadersModule} from 'ng-uikit-pro-standard';
     MatGridListModule,
     ScrollingModule,
     MatCardModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
     ReactiveFormsModule,
     MatRadioModule,
     MatSidenavModule,
