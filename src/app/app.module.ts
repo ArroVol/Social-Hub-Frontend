@@ -27,17 +27,30 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
 import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
-import {FacebookComponent} from './facebook/facebook.component';
 import {SpotifyComponent} from './spotify/spotify.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {SimpleFormComponent} from './simple-form/simple-form.component';
-import {LoginPageComponent} from './login-page/login-page.component';
-import {AccountInformationComponent} from './account-information/account-information.component';
 import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
-
+import {MatCardModule} from '@angular/material/card';
+import { DataTableComponent } from './data-table/data-table.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { FacebookComponent } from './facebook/facebook.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import { SimpleFormComponent } from './simple-form/simple-form.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { AccountInformationComponent } from './account-information/account-information.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import { YoutubeComponent } from './youtube/youtube.component';
+import {SafePipe} from './youtube/SafePipe.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+//import { DataTableComponent } from './data-table/data-table.component';
+import { InstagramComponent } from './instagram/instagram.component';
+import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
+import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
+import {NavbarModule, WavesModule, ButtonsModule, CarouselModule, IconsModule} from 'angular-bootstrap-md';
+import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -69,14 +82,17 @@ import {MomentModule} from 'ngx-moment';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 // import { AboutComponent } from './about/about.component';
+import {CollectionComponent} from './collection/collection.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {PreloadersModule} from 'ng-uikit-pro-standard';
 
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
     ModalComponent,
     MessagesComponent,
     TwitterComponent,
+    ThrowAwayPageComponent,
     FacebookComponent,
     SpotifyComponent,
     DashboardComponent,
@@ -102,7 +118,11 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     // MarkAsteriskDirective,
 
     // AboutComponent,
-
+    InstagramComponent,
+    YoutubeComponent,
+    SafePipe,
+    CollectionComponent,
+    DashboardComponent
   ],
   imports: [
     HttpClientModule,
@@ -130,6 +150,18 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatIconModule,
     AppRoutingModule,
     RouterModule,
+    CarouselModule,
+    MatSidenavModule,
+    PreloadersModule,
+    IconsModule,
+    NavbarModule,
+    WavesModule,
+    ButtonsModule,
+    MatCardModule,
+    MatGridListModule,
+    ScrollingModule,
+    MatCardModule,
+    MatButtonToggleModule
     ReactiveFormsModule,
     MatRadioModule,
     MatSidenavModule,

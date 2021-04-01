@@ -1,4 +1,3 @@
-// @ts-ignore
 import { Component } from '@angular/core';
 import {NavbarService} from './service/navbar.service';
 import {TwitterService} from './service/twitter.service';
@@ -21,6 +20,9 @@ export class AppComponent {
 
   title = 'Social Hub Club';
   hide = false;
+  template: `
+  <img src="../../images/instagramIcon.png">
+`;
 
   // loggedIn: string;
   loggedIn = false;
@@ -79,4 +81,5 @@ export class AppComponent {
   get filter() {
     return this.loggedIn$.asObservable();
   }
+
 }
