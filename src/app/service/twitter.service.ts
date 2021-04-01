@@ -9,6 +9,7 @@ import {Status} from 'tslint/lib/runner';
 import {BriefStatus} from '../model/twitter/BriefStatus';
 import {SecureTwitter} from '../model/twitter/SecureTwitter';
 import {TwitterData} from '../model/twitter/TwitterData';
+import {RankData} from '../twitter/twitter.component';
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json' });
@@ -208,6 +209,18 @@ export class TwitterService {
     const url = `${this.twitterUrl}/twitter/get-friends-list/${twitterHandle}`;
 
     return this.http.get<string[]>(url)
+      .pipe(
+        tap(_ => console.log('fetched users brief status'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
+  getRankingList(twitterHandle: string): Observable<RankData[]> {
+    console.log('getting the users ranking list in the twitter service');
+    console.log(twitterHandle);
+    const url = `${this.twitterUrl}/twitter/get-rankings/${twitterHandle}`;
+
+    return this.http.get<RankData[]>(url)
       .pipe(
         tap(_ => console.log('fetched users brief status'))
         // catchError(() => observableThrowError('get user by id error'))

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {TwitterService} from '../service/twitter.service';
 import {Tweet} from '../model/twitter/Tweet';
 import {Status} from 'tslint/lib/runner';
@@ -21,6 +21,11 @@ import {ChangeDetectionStrategy} from '@angular/core';
 import {Moment} from 'moment';
 import * as moment from 'moment';
 
+export interface RankData {
+  rank: string;
+  name: string;
+  followerCount: string;
+}
 
 export interface State {
   flag: string;
@@ -40,7 +45,7 @@ export class CdkVirtualScrollOverviewExample {
   // changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class TwitterComponent implements OnInit {
+export class TwitterComponent implements AfterViewInit, OnInit {
 
   myControl = new FormControl();
   options: User[] = [
@@ -57,8 +62,10 @@ export class TwitterComponent implements OnInit {
 
   ];
   click = true;
-
+  displayedColumns: string[] = ['rank', 'name', 'followerCount'];
+  dataSource: MatTableDataSource<any>;
   // showingOther = 'Most Retweeted Post';
+  rankingList: RankData[];
   showingOther: string;
   searchFriend = '';
   showOtherMostFavorited: boolean;
@@ -67,7 +74,6 @@ export class TwitterComponent implements OnInit {
   filteredOptions: Observable<User[]>;
   labelPosition: string;
   showRanking: boolean;
-  // endDate: Date;
   otherNumFollowers: number;
   otherMostRetweeted: BriefStatus;
   otherMostFavorited: BriefStatus;
@@ -93,7 +99,7 @@ export class TwitterComponent implements OnInit {
   timelineList$: Observable<Tweet[]>;
   // twitter: Twitter;
   // displayedColumns: string[] = ['content', 'creator'];
-  displayedColumns: string[] = ['content', 'courseName', 'courseSubject', 'dayAndTime', 'roomNo', 'sectionNo', 'semester', 'status', 'actions'];
+  // displayedColumns: string[] = ['content', 'courseName', 'courseSubject', 'dayAndTime', 'roomNo', 'sectionNo', 'semester', 'status', 'actions'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -114,7 +120,6 @@ export class TwitterComponent implements OnInit {
   userGoal: Goal;
   radioChoice: string;
   incrementor = 0;
-  // startDate: moment.Moment = moment(Date.now());
   currentDate: Moment;
   endDate: Moment;
   endDateString: string;
@@ -130,8 +135,18 @@ export class TwitterComponent implements OnInit {
 
   constructor(private twitterService: TwitterService, private appComponent: AppComponent,
               private goalService: GoalService,
-              private builder: FormBuilder) { }
+              private builder: FormBuilder) {
+    // this.dataSource = this.friendsList;
+  }
 
+
+
+
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
   /**
    * On page open get the recent post from the user and the number of followers.
    */
@@ -297,27 +312,19 @@ export class TwitterComponent implements OnInit {
     this.otherBriefStatusList = null;
     this.otherMostRetweeted = null;
     this.otherHandle = otherTwitterHandle;
-    console.log('getting the another users timeline...');
-    console.log(otherTwitterHandle);
     this.twitterService.getUserTimeline(otherTwitterHandle)
       .subscribe(otherTimeline => {
         this.otherBriefStatusList = otherTimeline;
-        console.log('the length  of hte users timeline list: ' + this.otherBriefStatusList.length);
         this.otherMostRetweeted = this.otherBriefStatusList[0];
         this.otherMostFavorited = this.otherBriefStatusList[1];
-        console.log('*********************');
-        console.log(this.otherMostRetweeted.text);
-        console.log(this.otherMostRetweeted.retweetCount);
-        // if (this.otherMostRetweeted.retweetCount === 0){
-        //
-        // } else if (this.otherMostFavorited.favoriteCount === 0 && this.otherMostRetweeted.retweetCount > 0) {
-        //   this.otherBriefStatusList = this.otherBriefStatusList.slice(1);
-        // } else {
-        this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
-        // }
+        if (this.otherMostRetweeted.retweetCount === 0){
 
+        } else if (this.otherMostFavorited.favoriteCount === 0 && this.otherMostRetweeted.retweetCount > 0) {
+          this.otherBriefStatusList = this.otherBriefStatusList.slice(1);
+        } else {
+        this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
+        }
         for (let i = 0; i < this.otherBriefStatusList.length; i++){
-          // console.log(this.otherBriefStatusList[i].text);
         }
 
         this.twitterService.getNumFollowersByHandle(otherTwitterHandle)
@@ -335,37 +342,17 @@ export class TwitterComponent implements OnInit {
       .subscribe(goal => {
         this.userGoal = goal;
         if (this.userGoal !== null){
-          console.log('its not null');
           this.goalSet = true;
-          console.log(this.userGoal.goalEndNumber);
-          console.log(this.userGoal.goalStartNumber);
-
-          // this.endDate = this.userGoal.startDate + 7;
-          // this.endDate = this.userGoal.startDate. + 7;
-
-          // this.value = this.userGoal.goalEndNumber - this.userGoal.goalStartNumber - this.max;
           this.value = this.followerCount - this.userGoal.goalStartNumber;
-          console.log('follower value: ' + this.followerCount);
-          console.log('goal start num value: ' + this.userGoal.goalStartNumber);
-
-          console.log('goal value: ' + this.value);
-          console.log('getting start date');
-          console.log(this.userGoal.startDate);
           this.endDate = moment(this.userGoal.startDate);
-          console.log(this.endDate.toDate());
           console.log(this.endDate.calendar() + '  : end date');
           this.endDate = this.endDate.add(7, 'days');
           console.log('finalend date: ' + this.endDate.format('YYYY-MM-DD'));
           this.endDateString = this.endDate.format('YYYY-MM-DD');
-         // this.endDate = moment().format('M/D/YYYY');
-          // this.currentDate = this.currentDate.add(7, 'days');
-          // this.endDate = this.endDate+ 7;
-          // this.endDate = this.userGoal.startDate.getDate().toString();
 
         } else {
           console.log('null goals');
         }
-        // console.log(this.briefStatus.createdAt);
       });
   }
 
@@ -381,12 +368,10 @@ export class TwitterComponent implements OnInit {
     this.userGoal.totalTwitterFollowers = this.followerCount;
     this.userGoal.userId = +sessionStorage.getItem('userId');
     this.userGoal.startDate = new Date();
-    console.log('sending goals');
     this.goalService.setGoals(this.userGoal)
       .subscribe(goal => {
         this.userGoal = goal;
         if (this.userGoal !== null){
-          console.log('its not null');
           this.goalSet = true;
         } else {
           console.log('null goals');
@@ -395,10 +380,7 @@ export class TwitterComponent implements OnInit {
       });
   }
   radioChange($event: MatRadioChange) {
-    // this.socialOnStart = $event.value;
     this.radioChoice = $event.value;
-    console.log(this.radioChoice);
-
   }
 
   displayFn(user: User): string {
@@ -407,7 +389,6 @@ export class TwitterComponent implements OnInit {
 
   private _filter(name: string): User[] {
     const filterValue = name.toLowerCase();
-
     return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
@@ -420,9 +401,6 @@ export class TwitterComponent implements OnInit {
         if (friendsList !== null) {
         for (let i = 0; i < friendsList.length; i++){
           console.log(friendsList[i]);
-          // this.options = new class implements User {
-          //   name: string;
-          // }
           this.options[i].name = friendsList[i];
         }
         }
@@ -451,4 +429,34 @@ export class TwitterComponent implements OnInit {
    value = '';
    this.searchFriend = '';
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  getFriendsRankingList(){
+    console.log('getting ranking list');
+    this.twitterService.getRankingList(sessionStorage.getItem('twitterHandle'))
+      .subscribe(rankingList => {
+        this.rankingList = rankingList;
+        this.rankingList = this.rankingList.reverse();
+        if (rankingList !== null) {
+          this.incrementor = 0;
+          for (let i = 0; i < rankingList.length; i++){
+            console.log(rankingList[i]);
+            this.incrementor += 1;
+            rankingList[i].rank = this.incrementor.toString();
+          }
+          this.dataSource = new MatTableDataSource<any>(this.rankingList);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        }
+      });
+  }
+
 }
