@@ -1,6 +1,7 @@
 import {Component, LOCALE_ID, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {InstagramService} from '../service/instagram.service';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
+import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
 
 
 @Component({
@@ -9,7 +10,8 @@ import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
   styleUrls: ['./instagram.component.css']
 })
 export class InstagramComponent implements OnInit {
-  public show = false;
+  public showChanges = false;
+  public showSearch = false;
   public buttonName: any = 'Change Bio';
   nums: Array<number> = [1, 20, 48];
 
@@ -22,17 +24,12 @@ export class InstagramComponent implements OnInit {
 
   instagramUser: InstagramUserInfo;
 
+  instagramUserSearch: InstagramUserSearchInfo;
+
   images = new Array(18);
 
-  options = {
-    weekday: 'short',
-    year: 'numeric',
-    month: '2-digit',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  };
+  bio: String;
+
 
 
 
@@ -68,6 +65,24 @@ export class InstagramComponent implements OnInit {
     console.log('Get User Profile Called!');
   }
 
+  userSearch(user: string){
+    this.instagramService.getSearchInsta(user).subscribe(user => {
+      this.instagramUserSearch = user;
+      console.log('Get Search User Profile Called!');
+      console.log(this.instagramUserSearch.displayName);
+    });
+
+    this.showSearch = !this.showSearch;
+
+    // CHANGE THE NAME OF THE BUTTON.
+    if (this.showSearch) {
+      this.buttonName = 'Hide';
+    }
+    else {
+      this.buttonName = 'Change Bio';
+    }
+  }
+
   getMediaCount(): number {
     return this.instagramUser.mediaCount;
   }
@@ -76,6 +91,13 @@ export class InstagramComponent implements OnInit {
 
     return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
       this.instagramUser.imageFeed[pic].toString().search('width') - 2);
+  }
+
+  getSearchImageUrl(pic: number): string{
+
+    return this.instagramUserSearch.imageFeed[pic].toString().substring(
+      this.instagramUserSearch.imageFeed[pic].toString().search('url') + 4,
+      this.instagramUserSearch.imageFeed[pic].toString().search('width') - 2);
   }
   animateCount() {
     // tslint:disable-next-line:variable-name
@@ -147,19 +169,30 @@ getFollowerProfileName(pic: number): string{
   }
 
   changeBio(bio: string){
-    this.instagramService.changeBio(bio);
+    this.instagramService.changeBio(bio).subscribe(bio => {
+      this.bio = bio;
+    });
+
   }
 
-  toggle() {
-    this.show = !this.show;
+
+
+
+  toggleChanges() {
+    this.showChanges = !this.showChanges;
 
     // CHANGE THE NAME OF THE BUTTON.
-    if (this.show) {
+    if (this.showChanges) {
       this.buttonName = 'Hide';
     }
     else {
       this.buttonName = 'Change Bio';
     }
+  }
+
+
+  toggleSearch() {
+
   }
 
 }

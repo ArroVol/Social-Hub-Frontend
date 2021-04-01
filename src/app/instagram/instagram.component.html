@@ -12,7 +12,7 @@
 <body id="page-top">
 <div class="container bootstrap-snippet header-container">
   <div class="bg-white">
-    <div class="container py-5" style="background-color: mediumvioletred">
+    <div class=" py-5" style="background-color: mediumvioletred; width: 100%">
       <div class="media col-md-10 col-lg-8 col-xl-7 p-0 my-4 " >
         <img src="{{instagramUser.profilePicUrl}}" alt class="d-block ui-w-100 rounded-circle">
 
@@ -33,7 +33,7 @@
 
           <h3 style="padding-right: 30px; padding-left: 50px">BIO: {{instagramUser.instaBio}}</h3>
 
-        <button mat-raised-button (click)="toggle()" id="bt">
+        <button mat-raised-button (click)="toggleChanges()" id="bt">
           {{buttonName}}
         </button>
 
@@ -44,14 +44,22 @@
   </div>
 </div>
 
-<ng-container *ngIf="show">
-  <mat-form-field appearance="outline">
+<ng-container class="example-form"   *ngIf="showChanges">
+  <mat-form-field class="example-full-width"  appearance="outline">
     <mat-label>Change Bio</mat-label>
-    <input matInput placeholder="new bio here">
-    <input #todo matInput type="text" name="todo" value="Bio">
+    <input #todo matInput type="text" name="todo">
     <mat-hint>Input new Bio for Instagram Page</mat-hint>
     <mat-card-actions>
       <button style=" display: block;  margin-left: auto; margin-right: auto;" (click)="changeBio(todo.value)" mat-button>Change</button>
+    </mat-card-actions>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Change Display Name</mat-label>
+    <input #todo matInput type="text" name="todo">
+    <mat-hint>Input new Display Name for Instagram Page</mat-hint>
+    <mat-card-actions>
+      <button style=" display: block;  margin-left: auto; margin-right: auto;"  mat-button>Change</button>
     </mat-card-actions>
   </mat-form-field>
 </ng-container>
@@ -113,6 +121,19 @@
 
 </section>
 
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Enter Instagram Username:</mat-label>
+    <input #todo matInput type="text" name="todo">
+    <mat-card-actions>
+      <button  (click)="userSearch(todo.value)" mat-button>Search</button>
+    </mat-card-actions>
+  </mat-form-field>
+</form>
+<ng-container *ngIf="showSearch">
+  <h4>{{instagramUserSearch.displayName}}</h4>
+
+</ng-container>
 <!--  <mdb-carousel-item>-->
 <!--    <img style="display: block; margin-left: auto;  width: 500px;" [src]="getImageUrl(1)" alt="Second slide">-->
 <!--  </mdb-carousel-item>-->
@@ -134,6 +155,7 @@
 
 
 </body>
+
 
 
 
