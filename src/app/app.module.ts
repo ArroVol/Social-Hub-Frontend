@@ -51,6 +51,7 @@ import {LoadingAnimationComponent} from './loading-animation/loading-animation.c
 import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
 import { SpotifyAddplaylistSnackbarComponent } from './spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
 import { SpotifyAddplaylistWarningComponent } from './spotify-addplaylist-warning/spotify-addplaylist-warning.component';
+import { SpotifyFollowedTracksComponent } from './spotify-followed-tracks/spotify-followed-tracks.component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { SpotifyAddplaylistWarningComponent } from './spotify-addplaylist-warnin
     LoadingAnimationComponent,
     SpotifyAddplaylistSnackbarComponent,
     SpotifyAddplaylistWarningComponent,
+    SpotifyFollowedTracksComponent,
   ],
   imports: [
     HttpClientModule,

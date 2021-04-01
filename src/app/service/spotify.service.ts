@@ -177,5 +177,40 @@ export class SpotifyService {
     return this.http.put<any>(url, null);
   }
 
+  //TODO: Add methods to follow artist, check followed artists, and get saved tracks
+  //TODO: Modify Artist page, Create saved tracks page
+
+  followArtist(artist_id: string): Observable<Boolean> {
+    const url = `${this.spotifyUrl}/artist/follow/` + artist_id;
+    return this.http.put<any>(url, null)
+      .pipe(
+        tap(_ => console.log('followed artist by id: ' + artist_id))
+      );
+  }
+
+  unfollowArtist(artist_id: string): Observable<Boolean> {
+    const url = `${this.spotifyUrl}/artist/unfollow/` + artist_id;
+    return this.http.put<any>(url, null)
+      .pipe(
+        tap(_ => console.log('unfollowed artist by id: ' + artist_id))
+      );
+  }
+
+  checkFollowArtist(artist_id: string): Observable<Boolean> {
+    const url = `${this.spotifyUrl}/artist/follow/contains/` + artist_id;
+    return this.http.get<Boolean>(url)
+      .pipe(
+        tap(_ => console.log('checked artist by id: ' + artist_id))
+      );
+  }
+
+  getUserFollowedTracks(): Observable<SpotifyTrack[]> {
+    const url = `${this.spotifyUrl}/user/get/follow/tracks/`;
+    return this.http.get<SpotifyTrack[]>(url)
+      .pipe(
+        tap(_ => console.log('retrieved user followed tracks'))
+      );
+  }
+
 
 }

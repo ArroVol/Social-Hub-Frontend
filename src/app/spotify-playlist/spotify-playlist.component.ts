@@ -1,4 +1,4 @@
-import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
+import {Component, Injectable, NgZone, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {SpotifyService} from '../service/spotify.service';
 import {switchMap} from 'rxjs/operators';
@@ -26,6 +26,7 @@ import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning
 export class SpotifyPlaylistComponent implements OnInit {
 
   @ViewChild(MatAccordion) artistAccordion: MatAccordion;
+
   private playlist_id: string;
   spotifyPlaylist: SpotifyPlaylist;
   spotifyUserPlaylist: SpotifyPlaylist[];
@@ -33,8 +34,14 @@ export class SpotifyPlaylistComponent implements OnInit {
   userProfile: SpotifyUser;
   isShown: boolean = true;
 
+  trackSearchGroup: FormGroup;
+  trackQueryResult: SpotifyTrack[];
+  trackQuery: string;
+  hideSearchBar: boolean = true;
+  timeout: any = null;
 
-  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar) {
+
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar, public lc: NgZone) {
   }
 
   ngOnInit(): void {
@@ -43,6 +50,9 @@ export class SpotifyPlaylistComponent implements OnInit {
       this.getPlaylistById(this.playlist_id = this.route.snapshot.queryParamMap.get('id'));
       this.getUserPlaylist();
       this.getUserProfile();
+    });
+    this.trackSearchGroup = new FormGroup({
+      'track_name': new FormControl(null, Validators.minLength(1))
     });
 
   }
@@ -167,6 +177,26 @@ export class SpotifyPlaylistComponent implements OnInit {
 
   }
 
+  queryTrackByName(track_name: string) {
+    this.timeout = null;
+    if(this.timeout){
+      window.clearTimeout(this.timeout);
+    }
+
+    this.timeout = window.setTimeout(() => {
+      this.timeout = null;
+      this.lc.run(() => this.spotifyService.getTrackQuery(track_name).subscribe(resultingTrackList => this.trackQueryResult = resultingTrackList));
+    },1000);
+
+    // this.spotifyService.getTrackQuery(track_name).subscribe(resultingTrackList => this.trackQueryResult = resultingTrackList);
+  }
+
+  clearSearchQuery() {
+    this.trackQuery = "";
+    this.trackQueryResult = null;
+
+  }
+
   checkMatchingTrackUri(track_uri: string): boolean {
     for (let track of this.spotifyTrackList) {
       if (track.spotifyUri === track_uri) {
@@ -216,5 +246,7 @@ export class SpotifyPlaylistComponent implements OnInit {
   hideloader() {
     this.isShown = false;
   }
+
+
 }
 

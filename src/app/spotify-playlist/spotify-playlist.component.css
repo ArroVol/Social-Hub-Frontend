@@ -150,6 +150,29 @@ table {
   text-align: center;
 }
 
+.search_option button {
+  margin-left: 85%;
+}
+
+.search_input h2 {
+  margin-left: 30px;
+}
+
+.search_input form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin-left: 30px;
+}
+
+.search_input_field {
+  width: 100%;
+}
+
+.cancel_search_button {
+  margin-left: 50%;
+}
+
 /*tr.example-detail-row {*/
 /*  height: 0;*/
 /*}*/

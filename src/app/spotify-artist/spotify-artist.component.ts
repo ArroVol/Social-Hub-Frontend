@@ -28,6 +28,7 @@ export class SpotifyArtistComponent implements OnInit {
   artistTopTracks: SpotifyTrack[];
   isShown: boolean = true;
   tempSpotifyPlaylist: SpotifyPlaylist;
+  followed: boolean;
 
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar) {
@@ -35,13 +36,19 @@ export class SpotifyArtistComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      let artist_id = this.route.snapshot.queryParamMap.get('id')
-      this.getArtistById(artist_id);
-      this.getArtistTopTracks(artist_id);
-      this.getArtistAlbums(artist_id);
-      this.getUserPlaylist();
-      this.getUserProfile();
-    })
+        let artist_id = this.route.snapshot.queryParamMap.get('id')
+        this.getArtistById(artist_id);
+        this.getArtistTopTracks(artist_id);
+        this.getArtistAlbums(artist_id);
+        this.getUserPlaylist();
+        this.getUserProfile();
+        this.checkFollowed(artist_id);
+      }
+    );
+  }
+
+  checkFollowed(artist_id: string) {
+    this.spotifyService.checkFollowArtist(artist_id).subscribe(check => this.followed = check.valueOf());
   }
 
   getArtistTopTracks(artist_id: string) {
@@ -146,6 +153,18 @@ export class SpotifyArtistComponent implements OnInit {
         });
       }
     })
+  }
+
+  followArtist() {
+    console.log('Inside FOllow Artist');
+    this.spotifyService.followArtist(this.spotifyArtist.id).subscribe(result => console.log('followArtist', result));
+    this.followed = true;
+  }
+
+  unfollowArtist() {
+    console.log('Inside unfollow Artist');
+    this.spotifyService.unfollowArtist(this.spotifyArtist.id).subscribe(result => console.log('unfollowArtist', result));
+    this.followed = false;
   }
 
   hideloader() {
