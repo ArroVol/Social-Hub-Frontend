@@ -1,5 +1,9 @@
+mat-button-toggle-group {
+  margin-left: 12px;
+}
+
 .example-container {
-  height: 300px;
+  height: 400px;
   overflow: auto;
 }
 
@@ -9,9 +13,6 @@ table {
 
 .small-table{
   overflow-x: scroll !important;
-}
-.example-card{
-  margin-top: 10px;
 }
 
 .example-viewport {
@@ -31,27 +32,41 @@ ul.no-bullets {
 }
 
 div.ex1 {
-  background: #ccc;
+  width: 100%;
+  /*  background-color: #b22222;*/
+  overflow: hidden;
 }
 
 img.profilePic {
   border-radius: 50%;
 }
 
-.container{width:100%; display: flex;}
-
-#container{width:100%; }
+.container{width:100%;}
 #left{float:left;}
 #right{float:right;}
-#center{margin:0 auto}
+#center{margin:0 auto;width:100px;}
 
+#smallProfile {
+  border: 2px #1d2124;
+}
 .sub-cat {
   float: left;
   background: #ccc;
   padding: 5px 10px;
   margin-right: 10px;
   margin-top: 10px;
-  width: 580px;
-  height: 680px;
+  width: 400px;
+  height: 225px;
   overflow: scroll;
 }
+
+.example-card {
+  margin-top: 10px;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+

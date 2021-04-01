@@ -4,23 +4,150 @@
 
 <!--<button class="change-window"(click)="changeWindow()"> Change window </button>-->
 <!--<button class="get-status" (click)="getUserStatusAsTweet('1')">Get status Content</button>-->
+<div class="full">
+  <div id="login-box">
+    <div class="left">
 
-<div id="login-box">
-  <div class="left">
-
-    <div *ngIf="loggedIn !== 'true' else notShow">
-      <h1>Register Account information below</h1>
-      <input #username type="text" name="userName" placeholder="Username" />
-      <input #firstName type="text" name="firstName" placeholder="First Name" />
-      <input #lastName type="text" name="lastName" placeholder="Last Name" />
-      <input #email type="text" name="email" placeholder="E-mail" />
-      <input #phoneNumber type="text" name="phoneNumber" placeholder="PhoneNumber" />
-      <input type="password" name="password" placeholder="Password" />
-      <input #password type="password" name="password2" placeholder="Retype password" />
-      <button class="submit" (click)="add(username.value, password.value, email.value, firstName.value, lastName.value, phoneNumber.value)">Create Account</button>
+      <div *ngIf="loggedIn !== 'true' else notShow">
+        <h1 class="header">Register Account information below</h1>
+        <input #username type="text" (keypress)="omit_special_char($event)" name="userName" minlength="3" placeholder="Username" />
+        <input #firstName type="text" name="firstName" placeholder="First Name" />
+        <input #lastName type="text" name="lastName" placeholder="Last Name" />
+        <input #email type="text" placeholder="E-mail" #firstEmail="ngModel" [class.is-invalid]="firstEmail.invalid && firstEmail.touched" required
+               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" name="primaryEmail"
+               [(ngModel)]="userModel.primaryAddress" />
+        <div *ngIf="firstEmail.errors && (firstEmail.invalid || firstEmail.touched)">
+          <small class="text-danger" *ngIf="firstEmail.errors.required">Email is required</small>
+          <small class="text-danger" *ngIf="firstEmail.errors.pattern">Please provide a valid email address ex. speh@gmail.com</small>
+        </div>
+        <!--      <input #email type="text" name="email" placeholder="E-mail" />-->
+        <input #phoneNumber type="text" (keypress)="omit_special_char($event)" name="phoneNumber" placeholder="Phone Number" />
+        <form [formGroup]="myForm">
+          <mat-form-field class="example-form">
+            <input type="password" matInput placeholder="Password" formControlName="password" required>
+            <mat-error *ngIf="myForm.hasError('required', 'password')">
+              Please enter a password
+            </mat-error>
+          </mat-form-field>
+          <div></div>
+          <mat-form-field class="example-form">
+            <input type="password" #password matInput placeholder="Confirm Password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="myForm.hasError('notSame')">
+              Passwords do not match
+            </mat-error>
+          </mat-form-field>
+        </form>
+        <button class="submit" (click)="add(username.value, password.value, email.value, firstName.value, lastName.value, phoneNumber.value)">Create Account</button>
+      </div>
     </div>
-  </div>
 
+    <!--  <input [class.is-invalid] = "userEmails.get('primaryEmail').invalid && userEmails.get('primaryEmail').touched"-->
+    <!--         type="email" class="form-control" formControlName="primaryEmail" />-->
+
+    <!--  &lt;!&ndash;app.component.html&ndash;&gt;-->
+    <!--  <div class="container-fluid">-->
+    <!--    <form #usersEmail="ngForm">-->
+    <!--      <h2>Please provide your email address</h2>-->
+
+    <!--      <div class="form-group">-->
+    <!--        <label>Primary Email:</label>-->
+    <!--        <input type="email" #firstEmail="ngModel" [class.is-invalid]="firstEmail.invalid && firstEmail.touched" required-->
+    <!--               pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" class="form-control" name="primaryEmail"-->
+    <!--               [(ngModel)]="userModel.primaryAddress" />-->
+
+    <!--        <div *ngIf="firstEmail.errors && (firstEmail.invalid || firstEmail.touched)">-->
+    <!--          <small class="text-danger" *ngIf="firstEmail.errors.pattern">Please provide a valid email address</small>-->
+    <!--        </div>-->
+
+    <!--      </div>-->
+    <!--    </form>-->
+    <!--  </div>-->
+
+
+    <!--  <div class="container">-->
+    <!--    <h1>Add user</h1>-->
+    <!--    <form #f="ngForm" novalidate (ngSubmit)="save(f.value, f.valid)">-->
+    <!--      <div class="form-group">-->
+    <!--        <label for="">Username</label>-->
+    <!--        <input type="text" class="form-control" name="username" [ngModel]="user.username"-->
+    <!--               required minlength="5" maxlength="8" #username="ngModel">-->
+    <!--        <small [hidden]="username.valid || (username.pristine && !f.submitted)" class="text-danger">-->
+    <!--          Username is required (minimum 5 characters).-->
+    <!--        </small>-->
+    <!--        &lt;!&ndash;<pre *ngIf="username.errors" class="margin-20">{{ username.errors | json }}</pre>&ndash;&gt;-->
+    <!--      </div>-->
+    <!--      <div class="form-group">-->
+    <!--        <label for="">Email</label>-->
+    <!--        <input type="email" class="form-control" name="email" [ngModel]="user.email"-->
+    <!--               required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">-->
+    <!--        <small [hidden]="email.valid || (email.pristine && !f.submitted)" class="text-danger">-->
+    <!--          Email is required and format should be <i>john@doe.com</i>.-->
+    <!--        </small>-->
+    <!--        &lt;!&ndash;<pre *ngIf="email.errors" class="margin-20">{{ email.errors | json }}</pre>&ndash;&gt;-->
+    <!--      </div>-->
+    <!--      <div class="form-group">-->
+    <!--        <label for="">Password</label>-->
+    <!--        <input type="password" class="form-control" name="password" [ngModel]="user.password"-->
+    <!--               required validateEqual="confirmPassword" reverse="true" #password="ngModel">-->
+    <!--        <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">-->
+    <!--          Password is required-->
+    <!--        </small>-->
+    <!--        &lt;!&ndash;<pre *ngIf="password.errors" class="margin-20">{{ password.errors | json }}</pre>&ndash;&gt;-->
+    <!--      </div>-->
+    <!--      <div class="form-group">-->
+    <!--        <label for="">Retype password</label>-->
+    <!--        <input type="password" class="form-control" name="confirmPassword" [ngModel]="user.password"-->
+    <!--               required validateEqual="password" reverse="false" #confirmPassword="ngModel">-->
+    <!--        <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)" class="text-danger">-->
+    <!--          Password mismatch-->
+    <!--        </small>-->
+    <!--        &lt;!&ndash;<pre *ngIf="confirmPassword.errors" class="margin-20">{{ confirmPassword.errors | json }}</pre>&ndash;&gt;-->
+    <!--      </div>-->
+    <!--      <button type="submit" class="btn btn-default">Submit</button>-->
+    <!--      <div class="margin-20" *ngIf="f">-->
+    <!--        <div>Form details:-</div>-->
+    <!--        <pre>Is form valid?: <br>{{f.valid | json}}</pre>-->
+    <!--        <pre>Is form submitted?: <br>{{f.submitted | json}}</pre>-->
+    <!--        <pre>submitted value: <br>{{f.value | json}}</pre>-->
+    <!--      </div>-->
+    <!--    </form>-->
+    <!--  </div>-->
+    <!--  <div>-->
+    <!--    <h1>Add user</h1>-->
+    <!--    <form #f=”ngForm” novalidate>-->
+    <!--      &lt;!&ndash; form model here &ndash;&gt;-->
+    <!--    </form>-->
+    <!--  </div>-->
+
+    <!--  <div>-->
+    <!--    <label>Username</label>-->
+    <!--    <input type=”text” name=”username” [ngModel]='user.username'-->
+    <!--           required minlength="5" maxlength="8" #username='ngModel'>-->
+    <!--    <small [hidden]='username.valid || (username.pristine &&-->
+    <!--           !f.submitted)'>-->
+    <!--      Username is required (minimum 5 characters).-->
+    <!--    </small>-->
+    <!--  </div>-->
+    <!--  <pre *ngIf="username.errors">{{ username.errors | json }}</pre>-->
+
+    <!--  <form class="example-form">-->
+    <!--    <mat-form-field class="example-full-width">-->
+    <!--&lt;!&ndash;      <mat-label>Favorite food</mat-label>&ndash;&gt;-->
+    <!--&lt;!&ndash;      <input #username type="text" name="userName" placeholder="Username" />&ndash;&gt;-->
+    <!--&lt;!&ndash;      <input #firstName type="text" name="firstName" placeholder="First Name" />&ndash;&gt;-->
+    <!--&lt;!&ndash;      <input #lastName type="text" name="lastName" placeholder="Last Name" />&ndash;&gt;-->
+    <!--&lt;!&ndash;      <input #email type="text" name="email" placeholder="E-mail" />&ndash;&gt;-->
+    <!--&lt;!&ndash;      <input #phoneNumber type="text" name="phoneNumber" placeholder="PhoneNumber" />&ndash;&gt;-->
+    <!--&lt;!&ndash;      <input type="password" name="password" placeholder="Password" />&ndash;&gt;-->
+    <!--&lt;!&ndash;      <input #password type="password" name="password2" placeholder="Retype password" />&ndash;&gt;-->
+    <!--      <input #username matInput placeholder="Username">-->
+    <!--      <input #firstName matInput placeholder="First Name" />-->
+    <!--    </mat-form-field>-->
+    <!--  </form>-->
+    <ng-template #notShow>
+      <h1>Update Info already logged in</h1>
+    </ng-template>
+  </div>
 
 <!--  <form class="example-form">-->
 <!--    <mat-form-field class="example-full-width">-->

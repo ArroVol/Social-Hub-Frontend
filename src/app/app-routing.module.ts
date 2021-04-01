@@ -9,8 +9,9 @@ import {LoginPageComponent} from './login-page/login-page.component';
 import {AccountInformationComponent} from './account-information/account-information.component';
 import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.component';
 import {TimelineComponent} from './timeline/timeline.component';
-import {YoutubeComponent} from "./youtube/youtube.component";
+import {YoutubeComponent} from './youtube/youtube.component';
 import {InstagramComponent} from './instagram/instagram.component';
+import {CollectionComponent} from './collection/collection.component';
 import {InstagramSearchComponent} from './instagram-search/instagram-search.component';
 
 const routes: Routes = [
@@ -29,6 +30,9 @@ const routes: Routes = [
   { path: 'youtube', component: YoutubeComponent },
   { path: 'account-information', component: AccountInformationComponent},
   { path: 'instagram', component: InstagramComponent},
+  { path: 'collection', component: CollectionComponent}
+
+
 
 
   // {path: 'create-account', component: CreateAccountComponent},

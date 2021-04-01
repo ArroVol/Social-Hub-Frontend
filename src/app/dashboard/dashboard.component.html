@@ -1,30 +1,85 @@
-<h3>The Social Hub</h3>
+<h1 align="center" style="padding-top: 40px; font-size: 30px;"> {{getUsername()}} My Dashboard</h1>
+<div id="snapshot">
+  <div style="margin-bottom: 10px; padding-bottom: 10px; width: 70px; background-color: whitesmoke; border-radius: 5px; padding-top: 10px;">
+    <img src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png" style="width: 70px; height: 40px;">
+  </div>
+
+  <div style="display: flex; margin-top: 10px;">
+  <mat-card class = "example-card" style="float: left">
+    <mat-card-title>
+      <h1 class="title">Video Insights </h1>
+    </mat-card-title>
+      <mat-card-subtitle style="margin-top: 10px">
+        <mat-select [(value)]="selectedVideo" style="background-color: #f3f3f3; padding-bottom: 10px; border-radius: 5px">
+          <mat-option value = "mostRecent"> Most Recent </mat-option>
+          <mat-option value = "oldest"> Oldest </mat-option>
+          <mat-option value = "minLiked"> Least Liked Video </mat-option>
+          <mat-option value = "mostLiked"> Most Liked Video </mat-option>
+          <mat-option value = "mostViewed"> Most Viewed </mat-option>
+          <mat-option value = "leastViewed"> Least Viewed </mat-option>
+          <mat-option value = "leastDisliked"> Least Disliked Video </mat-option>
+          <mat-option value = "mostDisliked"> Most Disliked Video </mat-option>
+        </mat-select>
+      </mat-card-subtitle>
+      <mat-card-content style="background-color: transparent; padding-top: 10px; padding-left: 15px; padding-right: 15px;">
+        <iframe frameborder="0" *ngIf="selectedVideo == 'mostRecent'" mat-card-image width="325" height="210" [src]="channel.videos[0].videoId | safe"  allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'oldest'" mat-card-image width="325" height="210" [src]="channel.videos[channel.videos.length - 1].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'minLiked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinLikes()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'mostLiked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxLikes()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'mostViewed'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxViews()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'leastViewed'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinViews()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'leastDisliked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinDislikes()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'mostDisliked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxDislikes()].videoId | safe" allowfullscreen> </iframe>
+      </mat-card-content>
+    </mat-card>
+    <div>
+        <mat-card class="example-card" style="margin-left: 40px; margin-right: 0;">
+          <h1 class="title"> Channel Insights</h1>
+          <mat-card-title>
+            <img mat-card-avatar [src]="channel.profilePhoto">
+            {{channel.username}}
+          </mat-card-title>
+
+          <mat-card-content style="border-top:1px solid red;">
+            <h3> Subscriber Count: {{channel.subscriberCount}}</h3>
+            <h3> View Count: {{channel.viewCount}}</h3>
+            <h3> Video Count: {{channel.videoCount}}</h3>
+          </mat-card-content>
+
+        </mat-card>
+
+      </div>
+  </div>
+
+
+</div>
 <!--<div class="grid grid-pad">-->
 <!--</div>-->
-<mat-card class="example-card">
-  <mat-card-header>
-    <img mat-card-avatar [src]= "instagramUser.profilePicUrl" >
-    <mat-card-title>{{instagramUser.displayName}}</mat-card-title>
-    <mat-card-subtitle><img style="width: 10px" src="images/instagramIcon.png">Instagram Page</mat-card-subtitle>
-  </mat-card-header>
-  <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
+<!--<mat-card class="example-card">-->
+<!--  <mat-card-header>-->
+<!--    <img mat-card-avatar [src]= "instagramUser.profilePicUrl" >-->
+<!--    <mat-card-title>{{instagramUser.displayName}}</mat-card-title>-->
+<!--    <mat-card-subtitle><img style="width: 10px" src="images/instagramIcon.png">Instagram Page</mat-card-subtitle>-->
+<!--  </mat-card-header>-->
+<!--  <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">-->
 
-    <mdb-carousel-item  *ngFor='let in of counter(18) ;let i = index'>
-      <img style="width: 200px; height: 200px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >
+<!--    <mdb-carousel-item  *ngFor='let in of counter(18) ;let i = index'>-->
+<!--      <img style="width: 200px; height: 200px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >-->
 
-    </mdb-carousel-item>
-  </mdb-carousel>
-  <mat-card-content style=" display: block;  margin-left: auto; margin-right: auto;">
+<!--    </mdb-carousel-item>-->
+<!--  </mdb-carousel>-->
+<!--  <mat-card-content style=" display: block;  margin-left: auto; margin-right: auto;">-->
 
-    <strong><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit>Followers</strong>
-    <span style="padding-right: 50px" class="text-muted">  </span>
+<!--    <strong><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit>Followers</strong>-->
+<!--    <span style="padding-right: 50px" class="text-muted">  </span>-->
 
-    <br>
-    <span style="padding: 50px" class="text-muted"> </span>
-    <strong style="padding-top: 50px"><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit> Following</strong>
+<!--    <br>-->
+<!--    <span style="padding: 50px" class="text-muted"> </span>-->
+<!--    <strong style="padding-top: 50px"><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit> Following</strong>-->
 
-  </mat-card-content>
-  <mat-card-actions>
-    <button style=" display: block;  margin-left: auto; margin-right: auto;" routerLink="/instagram" mat-button>Instagram Page</button>
-  </mat-card-actions>
-</mat-card>
+<!--  </mat-card-content>-->
+<!--  <mat-card-actions>-->
+<!--    <button style=" display: block;  margin-left: auto; margin-right: auto;" routerLink="/instagram" mat-button>Instagram Page</button>-->
+<!--  </mat-card-actions>-->
+<!--</mat-card>-->
+

@@ -1,0 +1,31 @@
+<h1 align="center" style="font-size: 30px; padding-top: 30px;"> Media Collection</h1>
+
+<p align="center" style="padding-top: 20px;">
+  <mat-button-toggle-group multiple = "true" name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="Youtube" (click)="clicked()">Youtube</mat-button-toggle>
+    <mat-button-toggle value="Twitter">Twitter</mat-button-toggle>
+    <mat-button-toggle value="Instagram">Instagram</mat-button-toggle>
+    <mat-button-toggle value="Facebook">Facebook</mat-button-toggle>
+  </mat-button-toggle-group>
+</p>
+
+<div *ngIf="isClicked" style="margin-top: 20px;">
+  <ul class = "no-bullets">
+    <li *ngFor="let video of channel.videos;">
+      <mat-card class="example-card">
+        <mat-card-title>
+          {{channel.username}}
+        </mat-card-title>
+        <mat-card-subtitle>
+          Published on: {{video.videoDetails.published.substr(0,10)}}
+        </mat-card-subtitle>
+        <iframe mat-card-image width="300" height="300" [src]="video.videoId | safe" allowfullscreen> </iframe>
+        <mat-card-content>
+          <p>
+            {{video.videoDescription}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </li>
+  </ul>
+</div>
