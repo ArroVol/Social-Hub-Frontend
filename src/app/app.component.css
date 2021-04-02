@@ -203,6 +203,7 @@ button.social-signin:active {
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 10px;
+  width: 120px;
 }
 
 .FBMenuButton {
@@ -211,6 +212,7 @@ button.social-signin:active {
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 10px;
+  width: 120px;
 }
 
 .SpotifyMenuButton {
@@ -219,6 +221,7 @@ button.social-signin:active {
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 10px;
+  width: 120px;
 }
 
 .YTMenuButton {
@@ -227,6 +230,7 @@ button.social-signin:active {
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 10px;
+  width: 120px;
 }
 
 .UserMenuButton {
@@ -235,7 +239,41 @@ button.social-signin:active {
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 10px;
+  width: 120px;
 }
+
+.fbIcon {
+  background: url('https://api.iconify.design/mdi:facebook.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:facebook.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.ytIcon {
+  background: url('https://api.iconify.design/mdi:youtube.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:youtube.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.instaIcon {
+  background: url('https://api.iconify.design/mdi:instagram.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:instagram.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.twitterIcon {
+  background: url('https://api.iconify.design/mdi:twitter.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:twitter.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.spotifyIcon {
+  background: url('https://api.iconify.design/mdi:spotify.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:spotify.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+
+
 
 
 
