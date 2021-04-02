@@ -20,6 +20,7 @@ export class FacebookComponent implements OnInit{
   facebookPages: FacebookPages;
   verificationCode: string;
   loggedIn: boolean;
+  currentPage: string;
 
   constructor(private route: ActivatedRoute, private facebookService: FacebookService) {
   }
@@ -40,6 +41,9 @@ export class FacebookComponent implements OnInit{
           .subscribe(result => {
             console.log('Result: ', result);
             this.getUsername();
+            this.getPosts();
+            this.getPhotos();
+            this.getPages();
           });
         document.getElementById('fb-btn').style.display = 'none';
         document.getElementById('fb-btn2').style.display = 'block';
@@ -60,6 +64,8 @@ export class FacebookComponent implements OnInit{
 
   submitPost(s: string){
     console.log(s);
+    s += '*' + this.currentPage;
+    console.log('Current Page is: ' + this.currentPage);
     this.facebookService.sendPostMessage(s)
       .subscribe(result => {
         console.log('Message Sent');
@@ -97,9 +103,6 @@ export class FacebookComponent implements OnInit{
       this.facebookUser = facebookUser;
     });
     console.log('Get username method called');
-    this.getPosts();
-    this.getPhotos();
-    this.getPages();
   }
 
   getPosts(){

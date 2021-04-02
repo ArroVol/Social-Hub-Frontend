@@ -38,9 +38,15 @@
   <div id = "pageTitle">
     Facebook Pages
   </div>
-  <a [href]="facebookPages.pageURLs[0]" target="_blank">
-    -{{facebookPages.pageNames[0]}}
-  </a>
+  <mat-form-field appearance="fill">
+    <mat-label>Your Facebook Pages</mat-label>
+    <mat-select [(value)]="currentPage">
+      <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+        {{page}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>{{currentPage}}</div>
   <form id = "postForm" class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Post to Page</mat-label>

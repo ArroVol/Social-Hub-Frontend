@@ -46,6 +46,7 @@ import { InstagramComponent } from './instagram/instagram.component';
 import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
 import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
+import {MatCardModule} from '@angular/material/card';
 
 // import { AboutComponent } from './about/about.component';
 
@@ -75,37 +76,38 @@ import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
     // AboutComponent,
 
   ],
-  imports: [
-    HttpClientModule,
-    BrowserModule,
-    FormsModule,
-    // AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSliderModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatToolbarModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatProgressSpinnerModule,
-    MatSnackBarModule,
-    MatToolbarModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatIconModule,
-    AppRoutingModule,
-    RouterModule,
-    CarouselModule,
-    MatSidenavModule,
-    PreloadersModule,
-    IconsModule,
-    NavbarModule,
-    WavesModule,
-    ButtonsModule,
+    imports: [
+        HttpClientModule,
+        BrowserModule,
+        FormsModule,
+        // AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSliderModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatToolbarModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule,
+        MatToolbarModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatIconModule,
+        AppRoutingModule,
+        RouterModule,
+        CarouselModule,
+        MatSidenavModule,
+        PreloadersModule,
+        IconsModule,
+        NavbarModule,
+        WavesModule,
+        ButtonsModule,
+        MatCardModule,
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
