@@ -4,6 +4,8 @@ export class Goal {
   startDate: Date;
   goalStartNumber: number;
   userId: number;
+  goalMaxNumber: number;
+  goalType: string;
 
   constructor(){}
 }

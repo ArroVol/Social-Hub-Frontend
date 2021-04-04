@@ -59,9 +59,15 @@
 <!--    </div>-->
 <!--  </mat-toolbar>-->
 <!--  <div *ngIf="loggedIn else oops" class="side-nav">-->
-  <span>Wait for it... {{ sideNav | async }}</span>
 
-  <mat-sidenav *ngIf="displaySideNav" mode="side" opened>
+<!--  <span>Wait for it... {{ sideNav | async }}</span>-->
+
+
+
+  <mat-sidenav *ngIf="displaySideNav" mode="side" opened #drawer>
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
     <ul  class="navbar-nav" >
       <li>
         <a>

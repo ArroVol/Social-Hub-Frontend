@@ -58,10 +58,12 @@ export class InstagramComponent implements OnInit {
     }
   }
 
-  getInstaUser() {
+  getInstaUser(): InstagramUserInfo {
     this.instagramService.getInsta().subscribe(instagramUser => {
       this.instagramUser = instagramUser;
+      return this.instagramUser;
     });
+    return this.instagramUser;
     console.log('Get User Profile Called!');
   }
 

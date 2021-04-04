@@ -18,7 +18,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 // import { CreateAccountComponent } from './create-account/create-account.component';
 // import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatProgressSpinnerModule, MatSpinner} from '@angular/material/progress-spinner';
+// import {MatProgressSpinnerModule, MatSpinner} from '@angular/material/progress-spinner';
 // import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 // import { DataTableComponent } from './data-table/data-table.component';
 import { MatTableModule } from '@angular/material/table';
@@ -54,8 +54,9 @@ import { InstagramSearchComponent } from './instagram-search/instagram-search.co
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRippleModule} from '@angular/material/core';
+//****
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-
+//****
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule } from '@angular/material/dialog';
 import {ModalModule} from 'angular-bootstrap-md';
@@ -139,7 +140,7 @@ import {PreloadersModule} from 'ng-uikit-pro-standard';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatProgressSpinnerModule,
+    // MatProgressSpinnerModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatTableModule,

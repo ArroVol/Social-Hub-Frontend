@@ -61,6 +61,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     {name: ''},
 
   ];
+  compareSelfTwitter: boolean;
+  goalType: string;
   click = true;
   displayedColumns: string[] = ['rank', 'name', 'followerCount'];
   dataSource: MatTableDataSource<any>;
@@ -102,6 +104,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   // displayedColumns: string[] = ['content', 'courseName', 'courseSubject', 'dayAndTime', 'roomNo', 'sectionNo', 'semester', 'status', 'actions'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('handle') handle; // accessing the reference element
+
 
   listData: MatTableDataSource<any>;
   developerMode = false;
@@ -363,6 +367,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   sendGoals(){
     console.log('this is the goal num: ' + this.max);
     this.userGoal = new Goal();
+    this.userGoal.goalMaxNumber = this.max;
+    this.userGoal.goalType = this.radioChoice;
     this.userGoal.goalStartNumber = this.followerCount;
     this.userGoal.goalEndNumber = this.followerCount + this.max;
     this.userGoal.totalTwitterFollowers = this.followerCount;
@@ -380,6 +386,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
       });
   }
   radioChange($event: MatRadioChange) {
+    console.log($event.value);
     this.radioChoice = $event.value;
   }
 
@@ -428,6 +435,9 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   clearFields(value: string) {
    value = '';
    this.searchFriend = '';
+   this.handle.nativeElement.value = '';
+   this.otherBriefStatusList = null;
+   // this.handle = '';
   }
 
   applyFilter(event: Event) {
@@ -457,6 +467,13 @@ export class TwitterComponent implements AfterViewInit, OnInit {
           this.dataSource.paginator = this.paginator;
         }
       });
+  }
+  checkDefault(type: any): boolean {
+
+    if(this.goalType === type){
+      return true;
+    }
+    return false;
   }
 
 }
