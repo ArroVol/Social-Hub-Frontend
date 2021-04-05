@@ -1,0 +1,26 @@
+// command "yarn dev" to launch
+using material ui
+components folder for any reusable aspect in the app
+root parts need to be lower case ex. "chat.js", "index.js" 
+in the components folder we can make them upper case
+
+//Firebase 
+amped up noSQL
+firebase - an amazing suite of tools
+like authentication/ real time fire store database (like amped up noSQL)
+
+//Important (package-lock, yarn-lock)
+you should not have both package-lock and yarn-lock
+only should have one or the other
+so delete one (package-lock) then do a command "yarn" to fix up the packages
+
+//for server side rendering - next.js provides 2 solutions 
+//(static site generation) - if we dont server side it will become static 
+this means these are static assets that get cashed 
+unlike a chat that needs to be server side rendered.
+how to determine where we do what?
+next.js takes care of this for us based on the functions we use.
+get static props means the page is static, by default its static 
+as soon as you use get server side props it will change the page to be rendered. it will rebuild the page on the server 
+it will then deliver it to the client.
+main benefit - you dotn need to wait for the assets, everything is populated for you.
