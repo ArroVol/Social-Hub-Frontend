@@ -2,6 +2,7 @@
 <!--<div class="grid grid-pad">-->
 <!--</div>-->
 <mat-card class="example-card">
+  <div id = "fbCard">
   <mat-card-header>
     <img mat-card-avatar [src]= "facebookUser.photoURL" >
     <mat-card-title id = "title">{{facebookUser.facebookName}}</mat-card-title>
@@ -39,4 +40,10 @@
   <mat-card-actions>
     <button style=" display: block;  margin-left: auto; margin-right: auto;" routerLink="/facebook" mat-button>View Facebook</button>
   </mat-card-actions>
+  </div>
+  <div id = "fbCardLogin">
+  <mat-card-actions>
+    <button style=" display: block;  margin-left: auto; margin-right: auto;" (click)="login()" mat-button>Login to Facebook</button>
+  </mat-card-actions>
+  </div>
 </mat-card>

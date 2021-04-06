@@ -22,12 +22,28 @@ export class FacebookComponent implements OnInit{
   loggedIn: boolean;
   currentPage: string;
 
-  constructor(private route: ActivatedRoute, private facebookService: FacebookService) {
+  constructor(protected route: ActivatedRoute, protected facebookService: FacebookService) {
   }
 
   ngOnInit(): void {
+    this.getUsername();
+    this.getPosts();
+    this.getPhotos();
+    this.getPages();
+    document.getElementById('fb-btn').style.display = 'none';
+    document.getElementById('fb-btn2').style.display = 'block';
+    document.getElementById('fb-btn3').style.display = 'block';
+    document.getElementById('postForm').style.display = 'block';
+    document.getElementById('head').style.display = 'block';
+    document.getElementById('container').style.display = 'block';
+    document.getElementById('container2').style.display = 'block';
+    document.getElementById('postTitle').style.display = 'block';
+    document.getElementById('pageTitle').style.display = 'block';
+    document.getElementById('likeTitle').style.display = 'block';
+
 
     //Get verification code
+    /**
     this.route.queryParams.subscribe(params => {
       let code = params['code'];
       if (!code){
@@ -59,7 +75,7 @@ export class FacebookComponent implements OnInit{
         this.loggedIn = true;
       }
     });
-
+*/
   }
 
   submitPost(s: string){
@@ -84,7 +100,7 @@ export class FacebookComponent implements OnInit{
       this.facebookLogin = loginDialogURL;
     });
     window.open(this.facebookLogin.logoutDialogURL);
-    window.location.href = 'http://localhost:4200/facebook';
+    window.location.href = 'http://localhost:4200/dashboard';
     console.log('Logout called');
     document.getElementById('fb-btn').style.display = 'block';
     document.getElementById('fb-btn2').style.display = 'none';

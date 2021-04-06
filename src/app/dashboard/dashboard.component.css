@@ -92,6 +92,14 @@ h4 {
   font-size: 17px;
 }
 
+#fbCard{
+  display: none;
+}
+
+#fbCardLogin{
+  display: block;
+}
+
 li{
   color: black;
   font-family: Khand, Impact;
