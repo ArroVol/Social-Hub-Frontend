@@ -3,7 +3,8 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {MessagesComponent} from './messages/messages.component';
 import {AppComponent} from './app.component';
-import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
+// import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
+import {InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
 import * as moment from 'moment';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
@@ -20,7 +21,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
 import {TwitterComponent} from './twitter/twitter.component';
 import {AppRoutingModule} from './app-routing.module';
-import {ThrowAwayPageComponent} from './throw-away-page/throw-away-page.component';
+// import {ThrowAwayPageComponent} from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
 import {FacebookComponent} from './facebook/facebook.component';
 import {SpotifyComponent} from './spotify/spotify.component';
@@ -31,11 +32,11 @@ import {AccountInformationComponent} from './account-information/account-informa
 import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.component';
 import {SpotifyPlaylistComponent} from './spotify-playlist/spotify-playlist.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
+// import {MatListModule} from '@angular/material/list';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {TimelineComponent} from './timeline/timeline.component';
 import {DataTablesModule} from 'angular-datatables';
-import { YoutubeComponent } from './youtube/youtube.component';
+import {YoutubeComponent} from './youtube/youtube.component';
 import {SafePipe} from './youtube/SafePipe.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -59,14 +60,14 @@ import {PreloadersModule} from 'ng-uikit-pro-standard';
 import {AnimatedDigitComponent} from './animated-digit/animated-digit.component';
 import {LoadingAnimationComponent} from './loading-animation/loading-animation.component';
 import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
-import { SpotifyAddplaylistSnackbarComponent } from './spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
-import { SpotifyAddplaylistWarningComponent } from './spotify-addplaylist-warning/spotify-addplaylist-warning.component';
-import { SpotifyFollowedTracksComponent } from './spotify-followed-tracks/spotify-followed-tracks.component';
+import {SpotifyAddplaylistSnackbarComponent} from './spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
+import {SpotifyAddplaylistWarningComponent} from './spotify-addplaylist-warning/spotify-addplaylist-warning.component';
+import {SpotifyFollowedTracksComponent} from './spotify-followed-tracks/spotify-followed-tracks.component';
 import {ModalModule} from 'angular-bootstrap-md';
-import { SideNavComponent } from './side-nav/side-nav.component';
-import { ModalComponent } from './modal/modal.component';
-import { UpdateAccountComponent } from './update-account/update-account.component';
-import { ImageUploadComponent } from './image-upload/image-upload.component';
+import {SideNavComponent} from './side-nav/side-nav.component';
+import {ModalComponent} from './modal/modal.component';
+import {UpdateAccountComponent} from './update-account/update-account.component';
+import {ImageUploadComponent} from './image-upload/image-upload.component';
 import {MatListModule} from '@angular/material/list';
 import {MainComponent} from './main/main.component';
 import {HeaderComponent} from './header/header.component';
@@ -82,8 +83,8 @@ import {MomentModule} from 'ngx-moment';
 // import { AboutComponent } from './about/about.component';
 import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {PreloadersModule} from 'ng-uikit-pro-standard';
-import { OnePostComponent } from './one-post/one-post.component';
+// import { OnePostComponent } from './one-post/one-post.component';
+import {InstagramSearchComponent} from "./instagram-search/instagram-search.component";
 
 @NgModule({
   declarations: [
@@ -91,7 +92,7 @@ import { OnePostComponent } from './one-post/one-post.component';
     ModalComponent,
     MessagesComponent,
     TwitterComponent,
-    ThrowAwayPageComponent,
+    // ThrowAwayPageComponent,
     FacebookComponent,
     SpotifyComponent,
     DashboardComponent,
@@ -136,7 +137,7 @@ import { OnePostComponent } from './one-post/one-post.component';
     FormsModule,
     MatCardModule,
     MatFormFieldModule,
-    // AppRoutingModule,
+    AppRoutingModule,
     ModalModule,
     BrowserAnimationsModule,
     MatDialogModule,
@@ -155,7 +156,6 @@ import { OnePostComponent } from './one-post/one-post.component';
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    AppRoutingModule,
     MatMenuModule,
     RouterModule,
     DataTablesModule,
@@ -191,11 +191,12 @@ import { OnePostComponent } from './one-post/one-post.component';
     MatButtonToggleModule,
     ScrollingModule
   ],
-  providers: [ {
+  providers: [{
     provide: STEPPER_GLOBAL_OPTIONS,
-    useValue: { displayDefaultIndicatorType: false }
+    useValue: {displayDefaultIndicatorType: false}
   }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 

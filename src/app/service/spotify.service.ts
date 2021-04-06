@@ -177,9 +177,6 @@ export class SpotifyService {
     return this.http.put<any>(url, null);
   }
 
-  //TODO: Add methods to follow artist, check followed artists, and get saved tracks
-  //TODO: Modify Artist page, Create saved tracks page
-
   followArtist(artist_id: string): Observable<Boolean> {
     const url = `${this.spotifyUrl}/artist/follow/` + artist_id;
     return this.http.put<any>(url, null)
@@ -211,6 +208,10 @@ export class SpotifyService {
         tap(_ => console.log('retrieved user followed tracks'))
       );
   }
+
+  // TODO: Create method to follow a track, and create method to get related artists
+  // TODO: Refactor code
+  // TODO: Style the shit outta the artist page and sidenav; further, create a search module
 
 
 }
