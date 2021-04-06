@@ -56,11 +56,11 @@
   justify-content: center;
 }
 
-table {
-  width: 100%;
-  /*margin: 200px;*/
-  padding-left: 50px;
-}
+/*table {*/
+/*  width: 100%;*/
+/*  !*margin: 200px;*!*/
+/*  padding-left: 50px;*/
+/*}*/
 
 .tracksData:hover {
   box-sizing: border-box;
@@ -124,6 +124,57 @@ table {
   text-align: center;
 }
 
-.table h1 {
-  padding-left: 15px;
+/*.table h1 {*/
+/*  padding-left: 15px;*/
+/*}*/
+
+/*.header {*/
+/*  max-height: 30%;*/
+/*}*/
+
+.artist_info {
+  margin-left: 2%;
+  margin-top: 2%;
 }
+
+.artist_info img {
+  border-radius: 50%;
+  height: 220px;
+}
+
+.artist_info_content {
+  margin-top: -5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.follow_share_action_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.popular_tracks {
+  max-height: 20%;
+  background-color: #0b2e13;
+}
+
+.artist_info_container {
+  background-color: #3b1d11;
+
+}
+
+.songlist {
+  overflow-y: auto;
+  margin-right: 2%;
+  margin-top: 2%;
+  margin-left: 2%;
+  width: 100%;
+}
+
+
+
+
+
