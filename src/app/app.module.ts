@@ -81,6 +81,7 @@ import {MomentModule} from 'ngx-moment';
 import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {PreloadersModule} from 'ng-uikit-pro-standard';
+import { OnePostComponent } from './one-post/one-post.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +122,8 @@ import {PreloadersModule} from 'ng-uikit-pro-standard';
     DashboardComponent,
     LoadingAnimationComponent,
     InstagramSearchComponent,
-    AnimatedDigitComponent
+    AnimatedDigitComponent,
+    OnePostComponent
   ],
   imports: [
     HttpClientModule,

@@ -20,8 +20,10 @@ import {ChangeDetectionStrategy} from '@angular/core';
 // import moment from 'moment';
 import {Moment} from 'moment';
 import * as moment from 'moment';
+import {Snackbar} from "@material-ui/core";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
-export interface RankData {
+export class RankData {
   rank: string;
   name: string;
   followerCount: string;
@@ -98,6 +100,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   followerCount: number;
   timelineList: Tweet[];
   reactiveForm: FormGroup;
+  rankData: RankData;
   timelineList$: Observable<Tweet[]>;
   // twitter: Twitter;
   // displayedColumns: string[] = ['content', 'creator'];
@@ -139,7 +142,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
 
   constructor(private twitterService: TwitterService, private appComponent: AppComponent,
               private goalService: GoalService,
-              private builder: FormBuilder) {
+              private builder: FormBuilder,
+              public snackBar: MatSnackBar) {
     // this.dataSource = this.friendsList;
   }
 
@@ -148,7 +152,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
 
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   /**
@@ -158,6 +162,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     this.reactiveForm = this.builder.group({
       age: [null, Validators.required]
     });
+    // this.rankData = new RankData();
+    this.rankingList = new Array as RankData[];
     this.showingOther = 'Most Retweeted Post';
     this.currentDate = moment(Date.now());
     console.log(this.currentDate.calendar());
@@ -189,6 +195,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
           this.briefStatus = briefStatus;
           console.log(this.briefStatus.createdAt);
         });
+      this.getFriendsRankingList();
     }
 
     this.twitterService.getNumFollowersByHandle(sessionStorage.getItem('twitterHandle'))
@@ -288,7 +295,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
         this.timelineList = tweet;
         this.listData = new MatTableDataSource<any>(this.timelineList);
         this.listData.sort = this.sort;
-        this.listData.paginator = this.paginator;
+        // this.listData.paginator = this.paginator;
         console.log(this.timelineList.length);
         // console.log('status text: ' + this.tweet.tweetText);
         for (let i = 0; i < this.timelineList.length; i++){
@@ -450,6 +457,9 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   }
 
   getFriendsRankingList(){
+    console.log(this.rankingList.length)
+    if(this.rankingList.length === 0) {
+
     console.log('getting ranking list');
     this.twitterService.getRankingList(sessionStorage.getItem('twitterHandle'))
       .subscribe(rankingList => {
@@ -463,10 +473,13 @@ export class TwitterComponent implements AfterViewInit, OnInit {
             rankingList[i].rank = this.incrementor.toString();
           }
           this.dataSource = new MatTableDataSource<any>(this.rankingList);
-          this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         }
       });
+    } else {
+      this.openSnackBar('No friends to display, Add friends on Twitter to get started!');
+    }
   }
   checkDefault(type: any): boolean {
 
@@ -474,6 +487,12 @@ export class TwitterComponent implements AfterViewInit, OnInit {
       return true;
     }
     return false;
+  }
+
+  openSnackBar(status: string) {
+    this.snackBar.open(status, 'close', {
+      duration: 2500,
+    });
   }
 
 }

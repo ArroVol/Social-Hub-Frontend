@@ -332,6 +332,15 @@
   cursor: default;
 
 }
+
+.followers-header{
+  font-size: 12px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 6px 15px; border-radius: 90px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: black; line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
+  cursor: default;
+  /*padding-left: 20px;*/
+  margin-left: 20px;
+}
 .get-followers{
   padding: 6px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: rgb(255, 255, 255); line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
 
@@ -660,4 +669,8 @@ td, th {
 th {
   background-color: whitesmoke;
 
+}
+
+.example-spacer {
+  flex: 1 1 auto;
 }
