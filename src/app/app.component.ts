@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {NavbarService} from './service/navbar.service';
 import {TwitterService} from './service/twitter.service';
 import {BehaviorSubject} from 'rxjs';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 
 // @ts-ignore
 @Component({

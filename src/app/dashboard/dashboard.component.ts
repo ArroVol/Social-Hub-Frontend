@@ -7,10 +7,10 @@ import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
 import {InstagramComponent} from '../instagram/instagram.component';
 import {TwitterService} from '../service/twitter.service';
 import {BriefStatus} from '../model/twitter/BriefStatus';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
-import {Moment} from 'moment';
+// import {Moment} from 'moment';
 import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
 // @ts-ignore
 @Component({
@@ -46,8 +46,8 @@ channel: Channel;
   otherMostFavorited: BriefStatus;
   userGoal: Goal;
   goalSet: boolean;
-  currentDate: Moment;
-  endDate: Moment;
+  // currentDate: Moment;
+  // endDate: Moment;
   endDateString: string;
   autoTicks = false;
   disabled = false;
@@ -206,7 +206,7 @@ channel: Channel;
         console.log(this.twitterFollowerCount);
         // this.checkForGoals();
         // this.getUserTimeline();
-        this.checkForGoals();
+        // this.checkForGoals();
       });
   }
 
@@ -238,27 +238,27 @@ channel: Channel;
       });
   }
 
-  checkForGoals() {
-    console.log('checkign for goals');
-    this.goalService.getGoalByUserId(sessionStorage.getItem('userId'))
-      .subscribe(goal => {
-        this.userGoal = goal;
-        if (this.userGoal !== null){
-          this.goalSet = true;
-          this.value = this.twitterFollowerCount - this.userGoal.goalStartNumber;
-          console.log('current numbr');
-          console.log(this.value);
-          this.endDate = moment(this.userGoal.startDate);
-          console.log(this.endDate.calendar() + '  : end date');
-          this.endDate = this.endDate.add(7, 'days');
-          console.log('finalend date: ' + this.endDate.format('YYYY-MM-DD'));
-          this.endDateString = this.endDate.format('YYYY-MM-DD');
-
-        } else {
-          console.log('null goals');
-        }
-      });
-  }
+  // checkForGoals() {
+  //   console.log('checkign for goals');
+  //   this.goalService.getGoalByUserId(sessionStorage.getItem('userId'))
+  //     .subscribe(goal => {
+  //       this.userGoal = goal;
+  //       if (this.userGoal !== null){
+  //         this.goalSet = true;
+  //         this.value = this.twitterFollowerCount - this.userGoal.goalStartNumber;
+  //         console.log('current numbr');
+  //         console.log(this.value);
+  //         this.endDate = moment(this.userGoal.startDate);
+  //         console.log(this.endDate.calendar() + '  : end date');
+  //         this.endDate = this.endDate.add(7, 'days');
+  //         console.log('finalend date: ' + this.endDate.format('YYYY-MM-DD'));
+  //         this.endDateString = this.endDate.format('YYYY-MM-DD');
+  //
+  //       } else {
+  //         console.log('null goals');
+  //       }
+  //     });
+  // }
   getSliderTickInterval(): number | 'auto' {
     if (this.showTicks) {
       return this.autoTicks ? 'auto' : this.tickInterval;

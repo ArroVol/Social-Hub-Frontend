@@ -1,8 +1,14 @@
-import {Component, LOCALE_ID, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, Inject, LOCALE_ID, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {InstagramService} from '../service/instagram.service';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
 import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {InstagramSearchComponent} from '../instagram-search/instagram-search.component';
 
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-instagram',
@@ -10,6 +16,9 @@ import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInf
   styleUrls: ['./instagram.component.css']
 })
 export class InstagramComponent implements OnInit {
+
+  constructor(private instagramService: InstagramService, public dialog: MatDialog,  ) {
+  }
   public showChanges = false;
   public showSearch = false;
   public buttonName: any = 'Change';
@@ -17,9 +26,6 @@ export class InstagramComponent implements OnInit {
 
   @ViewChild('oneItem') oneItem: any;
   @ViewChildren('count') count: QueryList<any>;
-
-  constructor(private instagramService: InstagramService) {
-  }
 
 
   instagramUser: InstagramUserInfo;
@@ -29,6 +35,9 @@ export class InstagramComponent implements OnInit {
   images = new Array(18);
 
   bio: String;
+
+  animal: string;
+  name: string;
 
 
 
@@ -217,4 +226,18 @@ getFollowerProfileName(pic: number): string{
 
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(InstagramSearchComponent, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
+
 }
+

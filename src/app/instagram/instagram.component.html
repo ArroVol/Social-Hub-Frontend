@@ -106,7 +106,11 @@
 
     <article>
       <nav style="background: snow">
-        <h2>Followers: {{instagramUser.followerFeed.length}}</h2>
+        <h2>Followers: {{instagramUser.followerFeed.length}} <button mat-raised-button (click)="openDialog()">
+          <span class="material-icons">
+            search
+          </span>
+        </button></h2>
         <ul *ngFor='let in of counter(18) ;let i = index'>
           <li>
             <mat-card class="example-card">

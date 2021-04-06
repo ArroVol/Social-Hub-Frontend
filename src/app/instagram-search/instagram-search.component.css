@@ -1,172 +1,168 @@
 
 
 .profilePic {
-  border-radius: 50%;
-  border-spacing: 80px;
-  position: absolute;
-  margin-right: 0;
-  margin-top: 0;
+  border-radius: 20%;
 }
-.headerImage{
-  color: #fff;
-  background-image: url("images/insatgramBackgroundGradient.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-body{
-  background:transparent;
-}
-.header-container{
-  margin-top:10px;
-}
-.text-white {
-  color: #fff !important;
-}
-.ui-bg-overlay-container, .ui-bg-video-container {
-  position: relative;
-}
-.ui-bg-cover {
+/*.headerImage{*/
+/*  color: #fff;*/
+/*  background-image: url("images/insatgramBackgroundGradient.jpg");*/
+/*  background-repeat: no-repeat;*/
+/*  background-size: cover;*/
+/*}*/
+/*body{*/
+/*  background:transparent;*/
+/*}*/
+/*.header-container{*/
+/*  margin-top:10px;*/
+/*}*/
+/*.text-white {*/
+/*  color: #fff !important;*/
+/*}*/
+/*.ui-bg-overlay-container, .ui-bg-video-container {*/
+/*  position: relative;*/
+/*}*/
+/*.ui-bg-cover {*/
 
-  background-position: center center;
-  background-size: cover;
-}
-.ui-bg-overlay-container .ui-bg-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-}
+/*  background-position: center center;*/
+/*  background-size: cover;*/
+/*}*/
+/*.ui-bg-overlay-container .ui-bg-overlay {*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*  right: 0;*/
+/*  bottom: 0;*/
+/*  left: 0;*/
+/*  display: block;*/
+/*}*/
 
-.bg-dark {
-}
-.opacity-50 {
-  opacity: .5 !important;
-}
-.bg-dark {
-}
-.ui-bg-overlay-container>*, .ui-bg-video-container>* {
-  position: relative;
-}
-@media (min-width: 5000px){
-  .container, .container-fluid {
-    padding-right: 2rem;
-    padding-left: 2rem;
-  }
-}
+/*.bg-dark {*/
+/*}*/
+/*.opacity-50 {*/
+/*  opacity: .5 !important;*/
+/*}*/
+/*.bg-dark {*/
+/*}*/
+/*.ui-bg-overlay-container>*, .ui-bg-video-container>* {*/
+/*  position: relative;*/
+/*}*/
+/*@media (min-width: 5000px){*/
+/*  .container, .container-fluid {*/
+/*    padding-right: 2rem;*/
+/*    padding-left: 2rem;*/
+/*  }*/
+/*}*/
 
-.media, .media>:not(.media-body), .jumbotron, .card {
-  -ms-flex-negative: 1;
-  flex-shrink: 1;
-}
-.d-flex, .d-inline-flex, .media, .media>:not(.media-body), .jumbotron, .card {
-  -ms-flex-negative: 1;
-  flex-shrink: 1;
-}
-.ui-w-100 {
-  width: 200px !important;
-  height: auto;
-}
-.font-weight-bold {
-  font-weight: 700 !important;
-}
-.opacity-75 {
-  opacity: .75 !important;
-}
+/*.media, .media>:not(.media-body), .jumbotron, .card {*/
+/*  -ms-flex-negative: 1;*/
+/*  flex-shrink: 1;*/
+/*}*/
+/*.d-flex, .d-inline-flex, .media, .media>:not(.media-body), .jumbotron, .card {*/
+/*  -ms-flex-negative: 1;*/
+/*  flex-shrink: 1;*/
+/*}*/
+/*.ui-w-100 {*/
+/*  width: 200px !important;*/
+/*  height: auto;*/
+/*}*/
+/*.font-weight-bold {*/
+/*  font-weight: 700 !important;*/
+/*}*/
+/*.opacity-75 {*/
+/*  opacity: .75 !important;*/
+/*}*/
 
-#loading{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #19692c;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
-}
+/*#loading{*/
+/*  position: absolute;*/
+/*  left: 50%;*/
+/*  top: 50%;*/
+/*  z-index: 1;*/
+/*  width: 150px;*/
+/*  height: 150px;*/
+/*  margin: -75px 0 0 -75px;*/
+/*  border: 16px solid #f3f3f3;*/
+/*  border-radius: 50%;*/
+/*  border-top: 16px solid #19692c;*/
+/*  width: 120px;*/
+/*  height: 120px;*/
+/*  animation: spin 2s linear infinite;*/
+/*}*/
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-article nav {
-  float: right;
-  width: 30%;
-  height: 555px; /* only for demonstration, should be removed */
-  padding: 20px;
-  overflow: auto;
+/*@keyframes spin {*/
+/*  0% { transform: rotate(0deg); }*/
+/*  100% { transform: rotate(360deg); }*/
+/*}*/
+/*article nav {*/
+/*  float: right;*/
+/*  width: 30%;*/
+/*  height: 555px; !* only for demonstration, should be removed *!*/
+/*  padding: 20px;*/
+/*  overflow: auto;*/
 
-}
+/*}*/
 
-/* Style the list inside the menu */
-article nav ul {
-  list-style-type: none;
-  padding: 0;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+/*!* Style the list inside the menu *!*/
+/*article nav ul {*/
+/*  list-style-type: none;*/
+/*  padding: 0;*/
+/*  display: block;*/
+/*  margin-left: auto;*/
+/*  margin-right: auto;*/
+/*}*/
 
-nav {
-  float: left;
-  padding: 20px;
-  width: 70%;
-}
+/*nav {*/
+/*  float: left;*/
+/*  padding: 20px;*/
+/*  width: 70%;*/
+/*}*/
 
-/* Clear floats after the columns */
-section::after {
-  content: "";
-  display: table;
-  clear: both;
-}
+/*!* Clear floats after the columns *!*/
+/*section::after {*/
+/*  content: "";*/
+/*  display: table;*/
+/*  clear: both;*/
+/*}*/
 
 
-@media (max-width: 600px) {
-  nav, article {
-    width: 100%;
+/*@media (max-width: 600px) {*/
+/*  nav, article {*/
+/*    width: 100%;*/
 
-  }
-}
+/*  }*/
+/*}*/
 
-mdb-carousel .carousel-indicators {
-  display: none;
-}
+/*mdb-carousel .carousel-indicators {*/
+/*  display: none;*/
+/*}*/
 
 
 
-.image {
-  opacity: 1;
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: .5s ease;
-  backface-visibility: hidden;
-}
+/*.image {*/
+/*  opacity: 1;*/
+/*  display: block;*/
+/*  width: 100%;*/
+/*  height: auto;*/
+/*  transition: .5s ease;*/
+/*  backface-visibility: hidden;*/
+/*}*/
 
-.middle {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
+/*.middle {*/
+/*  transition: .5s ease;*/
+/*  opacity: 0;*/
+/*  position: absolute;*/
+/*  top: 50%;*/
+/*  left: 50%;*/
+/*  transform: translate(-50%, -50%);*/
+/*  -ms-transform: translate(-50%, -50%);*/
+/*  text-align: center;*/
+/*}*/
 
 
-.text {
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
-  padding: 16px 32px;
-}
+/*.text {*/
+/*  background-color: #4CAF50;*/
+/*  color: white;*/
+/*  font-size: 16px;*/
+/*  padding: 16px 32px;*/
+/*}*/
 
 button {
 

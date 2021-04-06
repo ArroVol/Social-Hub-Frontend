@@ -9,7 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {CarouselModule} from 'angular-bootstrap-md';
+import {CarouselModule,  LogoComponent} from 'angular-bootstrap-md';
 
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
@@ -90,7 +90,6 @@ import {FooterComponent} from './footer/footer.component';
     ModalComponent,
     MessagesComponent,
     TwitterComponent,
-    // ThrowAwayPageComponent,
     FacebookComponent,
     SpotifyComponent,
     DashboardComponent,
@@ -98,10 +97,10 @@ import {FooterComponent} from './footer/footer.component';
     LoginPageComponent,
     AccountInformationComponent,
     SpotifyLandingComponent,
-  SimpleFormComponent,
-  LoginPageComponent,
-  AccountInformationComponent,
-  DataTableComponent,
+    SimpleFormComponent,
+    LoginPageComponent,
+    AccountInformationComponent,
+    DataTableComponent,
     MessagesComponent,
     SpotifyComponent,
     ModalComponent,
@@ -182,10 +181,13 @@ import {FooterComponent} from './footer/footer.component';
     MatButtonToggleModule,
     ScrollingModule
   ],
-  providers: [ {
+  providers: [{
     provide: STEPPER_GLOBAL_OPTIONS,
-    useValue: { displayDefaultIndicatorType: false }
+    useValue: {displayDefaultIndicatorType: false}
   }],
+  exports: [
+    AnimatedDigitComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

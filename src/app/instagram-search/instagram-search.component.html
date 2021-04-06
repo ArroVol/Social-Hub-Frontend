@@ -15,27 +15,34 @@
 
 <ng-container *ngIf="showSearch">
 
+  <mat-card class="example-card">
 
-  <div class="container bootstrap-snippet header-container">
-    <div class="headerImage">
-      <div class="py-5" style=" width: 100% ; height: 200px">
-        <img src="{{instagramUserSearch.profilePicUrl}}" alt class="profilePic" style=" float: top; float: left; margin-top: 0 ">
-        <div class="media col-md-10 col-lg-8 col-xl-7 p-0 my-4 "  >
+    <mat-card-header>
+      <img mat-card-avatar src="{{instagramUserSearch.profilePicUrl}}" alt class="profilePic"  >
+      <mat-card-title>{{instagramUserSearch.displayName}}</mat-card-title>
+    </mat-card-header>
+    <div >
+      <div class="headerImage">
+        <div class="py-5" style=" width: 100% ; height: 200px">
+<!--          <img src="{{instagramUserSearch.profilePicUrl}}" alt class="profilePic" >-->
+          <div>
 
 
-          <h4 style="margin-top: 30px; padding-right: 50px; padding-left: 220px; font-size: 30px" class="font-weight-bold mb-4">{{instagramUserSearch.displayName}}</h4>
+<!--            <h4 style="margin-top: 30px; padding-right: 50px; padding-left: 220px; font-size: 10px" class="font-weight-bold mb-4">{{instagramUserSearch.displayName}}</h4>-->
 
 
-          <strong style="margin-top: 20px; font-size: 40px"><animated-digit [digit]="instagramUserSearch.followerCount" [duration]="1000"></animated-digit></strong>
-          <span style="margin-top: 30px;  padding-right: 50px; font-size: 30px" class="text-muted"> Followers </span>
+            <strong style="margin-top: 20px; font-size: 15px"><animated-digit [digit]="instagramUserSearch.followerCount" [duration]="1000"></animated-digit></strong>
+            <span style="margin-top: 30px;  padding-right: 20px; font-size: 10px" class="text-muted"> Followers </span>
 
-          <strong style="margin-top: 20px; font-size: 40px"><animated-digit [digit]="instagramUserSearch.followingCount" [duration]="1000"></animated-digit></strong>
-          <span style="margin-top: 30px; padding-right: 50px; font-size: 30px" class="text-muted"> Following</span>
+            <strong style="margin-top: 20px; font-size: 15px"><animated-digit [digit]="instagramUserSearch.followingCount" [duration]="1000"></animated-digit></strong>
+            <span style="margin-top: 30px; padding-right: 20px; font-size: 10px" class="text-muted"> Following</span>
+          </div>
+          <h3  style=" color: #ffffff; display: block;  margin-left: 25%; margin-right: auto; font-size: 20px" >BIO: {{instagramUserSearch.instaBio}}</h3>
+
         </div>
-        <h3  style=" color: #ffffff; display: block;  margin-left: 25%; margin-right: auto; font-size: 20px" >BIO: {{instagramUserSearch.instaBio}}</h3>
 
       </div>
-
+      <button mat-raised-button>Follow</button>
     </div>
-  </div>
+  </mat-card>
 </ng-container>
