@@ -15,6 +15,10 @@ import {SpotifyCreatePlaylistComponent} from './spotify-create-playlist/spotify-
 import {SpotifyArtistComponent} from "./spotify-artist/spotify-artist.component";
 import {SpotifyUpdatePlaylistComponent} from "./spotify-update-playlist/spotify-update-playlist.component";
 import {SpotifyFollowedTracksComponent} from "./spotify-followed-tracks/spotify-followed-tracks.component";
+import {MainComponent} from './main/main.component';
+import {YoutubeComponent} from './youtube/youtube.component';
+import {CollectionComponent} from './collection/collection.component';
+import {InstagramSearchComponent} from './instagram-search/instagram-search.component';
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
@@ -33,6 +37,9 @@ const routes: Routes = [
   {path: 'account-information', component: AccountInformationComponent},
   {path: 'timeline', component: TimelineComponent},
   {path: 'instagram', component: InstagramComponent},
+  { path: 'instagram-search', component: InstagramSearchComponent },
+  { path: 'youtube', component: YoutubeComponent },
+  { path: 'collection', component: CollectionComponent}
 
 
   // {path: 'create-account', component: CreateAccountComponent},
@@ -43,5 +50,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }

@@ -3,6 +3,8 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {MessagesComponent} from './messages/messages.component';
 import {AppComponent} from './app.component';
+import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
+import * as moment from 'moment';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
@@ -33,6 +35,14 @@ import {MatListModule} from '@angular/material/list';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {TimelineComponent} from './timeline/timeline.component';
 import {DataTablesModule} from 'angular-datatables';
+import { YoutubeComponent } from './youtube/youtube.component';
+import {SafePipe} from './youtube/SafePipe.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRippleModule} from '@angular/material/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SpotifyCreatePlaylistComponent} from './spotify-create-playlist/spotify-create-playlist.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -52,11 +62,33 @@ import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
 import { SpotifyAddplaylistSnackbarComponent } from './spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
 import { SpotifyAddplaylistWarningComponent } from './spotify-addplaylist-warning/spotify-addplaylist-warning.component';
 import { SpotifyFollowedTracksComponent } from './spotify-followed-tracks/spotify-followed-tracks.component';
-
+import {ModalModule} from 'angular-bootstrap-md';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import { ModalComponent } from './modal/modal.component';
+import { UpdateAccountComponent } from './update-account/update-account.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import {MatListModule} from '@angular/material/list';
+import {MainComponent} from './main/main.component';
+import {HeaderComponent} from './header/header.component';
+import {LandingComponent} from './landing/landing.component';
+import {FooterComponent} from './footer/footer.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {NgxDropzoneModule} from 'ngx-dropzone';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {Moment} from 'moment';
+import {MomentModule} from 'ngx-moment';
+// import { AboutComponent } from './about/about.component';
+import {CollectionComponent} from './collection/collection.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {PreloadersModule} from 'ng-uikit-pro-standard';
+import { OnePostComponent } from './one-post/one-post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ModalComponent,
     MessagesComponent,
     TwitterComponent,
     ThrowAwayPageComponent,
@@ -69,6 +101,8 @@ import { SpotifyFollowedTracksComponent } from './spotify-followed-tracks/spotif
     SpotifyLandingComponent,
     SpotifyPlaylistComponent,
     TimelineComponent,
+    LoginPageComponent,
+    AccountInformationComponent,
     SpotifyCreatePlaylistComponent,
     InstagramComponent,
     InstagramComponent, DataTableComponent,
@@ -80,6 +114,19 @@ import { SpotifyFollowedTracksComponent } from './spotify-followed-tracks/spotif
     SpotifyAddplaylistSnackbarComponent,
     SpotifyAddplaylistWarningComponent,
     SpotifyFollowedTracksComponent,
+    ModalComponent,
+    UpdateAccountComponent,
+    ImageUploadComponent,
+    MainComponent,
+    HeaderComponent,
+    LandingComponent,
+    FooterComponent,
+    SideNavComponent,
+    YoutubeComponent,
+    SafePipe,
+    CollectionComponent,
+    DashboardComponent,
+    InstagramSearchComponent,
   ],
   imports: [
     HttpClientModule,
@@ -87,7 +134,12 @@ import { SpotifyFollowedTracksComponent } from './spotify-followed-tracks/spotif
     BrowserModule,
     DragDropModule,
     FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    // AppRoutingModule,
+    ModalModule,
     BrowserAnimationsModule,
+    MatDialogModule,
     MatSliderModule,
     MatSelectModule,
     ReactiveFormsModule,
@@ -117,11 +169,33 @@ import { SpotifyFollowedTracksComponent } from './spotify-followed-tracks/spotif
     NavbarModule,
     WavesModule,
     ButtonsModule,
-
+    MatCardModule,
+    MatGridListModule,
+    ScrollingModule,
+    MatCardModule,
+    MatButtonToggleModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatSidenavModule,
+    MatCheckboxModule,
+    MatRippleModule,
+    MatProgressBarModule,
+    IconsModule,
+    InputUtilitiesModule,
+    MatListModule,
+    NgxDropzoneModule,
+    MatStepperModule,
+    MatTreeModule,
+    MatAutocompleteModule,
+    MomentModule,
+    MatButtonToggleModule,
+    ScrollingModule
   ],
-  providers: [],
+  providers: [ {
+    provide: STEPPER_GLOBAL_OPTIONS,
+    useValue: { displayDefaultIndicatorType: false }
+  }],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
 

@@ -1,6 +1,8 @@
 /*import '@angular/material/prebuilt-themes/blue.css';*/
 
 /*@import '~@angular/material/theming';*/
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 /* Global Styles */
@@ -9,6 +11,11 @@ h1 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 250%;
 }
+
+#left{float:left;width:100px;}
+#right{float:right;width:100px;}
+#center{margin:0 auto;width:300px;}
+
 h2, h3 {
   color: #444;
   font-family: Arial, Helvetica, sans-serif;

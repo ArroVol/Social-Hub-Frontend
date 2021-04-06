@@ -1,0 +1,35 @@
+<!--  <h1>View And Update Account Information</h1>-->
+<!--  <div class="update-form" >-->
+<!--    <form #userForm='ngForm'>-->
+<!--      <mat-hint>Username</mat-hint>-->
+<!--      <input #username type="text" (keypress)="omit_special_char($event)" name="userName" minlength="4" placeholder="{{user.username}}" />-->
+<!--      <div *ngIf="firstEmail.errors && (firstEmail.invalid || firstEmail.touched)">-->
+<!--        <mat-hint>Email</mat-hint>-->
+<!--      </div>-->
+<!--      <small class="text-danger" *ngIf="firstEmail.errors.pattern">Please provide a valid email address ex. speh@gmail.com</small>-->
+<!--      <input #email type="text" placeholder="E-mail" #firstEmail="ngModel" [class.is-invalid]="firstEmail.invalid && firstEmail.touched" required-->
+<!--             pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" name="primaryEmail"-->
+<!--             [(ngModel)]="userModel.email" placeholder="{{user.email}}" />-->
+<!--      <mat-hint>Phone Number</mat-hint>-->
+<!--      <input #phoneNumber type="text" name="lastName" placeholder="{{user.phoneNumber}}" />-->
+<!--      <mat-hint>Password</mat-hint>-->
+<!--      <input #password type="password" name="lastName" placeholder="{{user.password}}" />-->
+<!--    </form>-->
+
+<!--  </div>-->
+
+<!--  <div class="update-btn">-->
+<!--    <button class="submit" (click)="update(username.value, email.value, phoneNumber.value, password.value)">Update Account</button>-->
+<!--  </div>-->
+
+<!--  <form class="example-form">-->
+<!--    <mat-form-field class="example-full-width">-->
+<!--      <mat-label>Favorite food</mat-label>-->
+<!--      <input matInput placeholder="Ex. Pizza" value="Sushi">-->
+<!--    </mat-form-field>-->
+
+<!--    <mat-form-field class="example-full-width">-->
+<!--      <mat-label>Leave a comment</mat-label>-->
+<!--      <textarea matInput placeholder="Ex. It makes me feel..."></textarea>-->
+<!--    </mat-form-field>-->
+<!--  </form>-->

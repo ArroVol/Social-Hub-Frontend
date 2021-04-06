@@ -1,1 +1,340 @@
 
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+h1{
+  position: center;
+  text-align: center;
+}
+ng-template{
+  position: center;
+  text-align: center;
+}
+
+div{
+  /*position: center;*/
+  /*text-align: center;*/
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #DDD;
+  font-size: 16px;
+  color: #222;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+input[type="text"],
+input[type='number'],
+input[type="password"] {
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  padding: 4px;
+  width: 300px;
+  height: 32px;
+  border: none;
+  border-bottom: 1px solid #AAA;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  transition: 0.2s ease;
+  text-align: center;
+
+
+}
+
+input[type="text"]:focus,
+input[type='number']:focus,
+input[type="password"]:focus {
+  border-bottom: 2px solid #16a085;
+  color: #16a085;
+  transition: 0.2s ease;
+  text-align: center;
+
+}
+
+input[type="submit"] {
+  margin-top: 28px;
+  width: 120px;
+  height: 32px;
+  background: #16a085;
+  border: none;
+  border-radius: 2px;
+  color: #FFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: 0.1s ease;
+  cursor: pointer;
+  text-align: center;
+
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+  opacity: 0.8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: 0.1s ease;
+}
+
+input[type="submit"]:active {
+  opacity: 1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: 0.1s ease;
+}
+
+button.submit {
+  margin-bottom: 20px;
+  width: 220px;
+  height: 36px;
+  border: none;
+  border-radius: 2px;
+  color: #FFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: 0.2s ease;
+  cursor: pointer;
+  background: #32508E;
+
+
+}
+
+button.submit:hover,
+button.submit:focus {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: 0.2s ease;
+}
+
+button.submit:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: 0.2s ease;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+  /*display: flex;*/
+  /*align-content: center;*/
+  /*align-items: center;*/
+  height: 20px;
+  position: center;
+  text-align: center;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+body {
+  background: #ccc;
+}
+.wrap {
+  width: 300px;
+  margin: 0 auto;
+  background: white;
+}
+table {
+  /*border: 1px solid red;*/
+  margin: 5px 0;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.many-cells td {
+  padding: 5px;
+  border: 1px solid green;
+}
+.odd th, .odd td {
+  background: #eee;
+}
+
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+  background-color:cornflowerblue;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: thin solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+/*.styled-table tbody tr:last-of-type {*/
+/*  !*color:cornflowerblue}*!*/
+/*.styled-table tbody tr.active-row {*/
+/*  font-weight: bold;*/
+/*  !*color:cornflowerblue*!*/
+/*}*/
+.center {
+  margin: auto;
+  width: 60%;
+  border: 2px solid dodgerblue;
+  padding: 10px;
+  text-align: center;
+
+}
+.example-section{
+  position: center;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.box {
+  position: center;
+
+}
+.update-button {
+  position: center;
+
+}
+
+.buttonb {
+  position: center;
+  text-align: center;
+  margin: auto;
+}
+.btn btn-success{
+  position: center;
+  text-align: center;
+  margin: auto;
+  max-width: 280px;
+  height: 65px;
+}
+
+.center2 {
+  margin: auto;
+  width: 60%;
+  /*padding-left: 10px;*/
+  text-align: center;
+  /*position:absolute;*/
+  /*right:100px;*/
+  /*top:30px;*/
+}
+.center3 {
+  margin: auto;
+  width: 60%;
+  padding-left: 50px;
+  text-align: center;
+  /*position:absolute;*/
+  /*right:100px;*/
+  /*top:30px;*/
+}
+
+.twitter-handle-display{
+  color: black;
+}
+
+.edit-btn{
+  color: #1e7e34;
+  size: 40px;
+  box-sizing: 40px;
+}
+
+.example-card {
+  max-width: 280px;
+  height: 65px;
+
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.user-heading{
+  /*position:absolute;*/
+
+}
+.column {
+  float: left;
+  width: 33.33%;
+}
+
+.column-3{
+  /*padding-right: 100px;*/
+  padding-left: 100px;
+  padding-top: 30px;
+  width: 33.33%;
+
+}
+
+.column-1{
+  /*padding-right: 100px;*/
+  /*padding-left: 100px;*/
+  padding-top: 30px;
+  width: 33.33%;
+  padding-left: 50px;
+
+}
+
+.edit-btn-card{
+  padding-left: 10px;
+  transform: scale(1.1);
+
+}
+
+.user-heading{
+  padding-top: 25px;
+}
+.submit-btn{
+  margin-bottom: 20px;
+  width: 220px;
+  height: 36px;
+  border: none;
+  border-radius: 2px;
+  color: #FFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: 0.2s ease;
+  cursor: pointer;
+  background: #32508E;
+
+  /*padding-left: 60px;*/
+}
+
+.set-twitter-box{
+  padding-left: -150px;
+  padding-right: 40px;
+
+}

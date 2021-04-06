@@ -1,9 +1,11 @@
 export class User {
+  userId: number;
   username: string;
-  // userId: number;
   email: string;
   password: string;
   phoneNumber: string;
+  // confirmPassword: string;
+
   // firstName: string;
   // lastName: string;
   constructor(){}

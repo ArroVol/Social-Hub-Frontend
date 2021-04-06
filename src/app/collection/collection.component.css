@@ -1,0 +1,72 @@
+mat-button-toggle-group {
+  margin-left: 12px;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.small-table{
+  overflow-x: scroll !important;
+}
+
+.example-viewport {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+}
+
+.example-item {
+  height: 50px;
+}
+
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+div.ex1 {
+  width: 100%;
+  /*  background-color: #b22222;*/
+  overflow: hidden;
+}
+
+img.profilePic {
+  border-radius: 50%;
+}
+
+.container{width:100%;}
+#left{float:left;}
+#right{float:right;}
+#center{margin:0 auto;width:100px;}
+
+#smallProfile {
+  border: 2px #1d2124;
+}
+.sub-cat {
+  float: left;
+  background: #ccc;
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 400px;
+  height: 225px;
+  overflow: scroll;
+}
+
+.example-card {
+  margin-top: 10px;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+

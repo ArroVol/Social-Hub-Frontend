@@ -13,55 +13,59 @@
 
 <!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
 
+<mat-sidenav-container class="example-container" >
+<!--  <mat-sidenav-container *ngIf="loggedIn" class="example-container" >-->
 
-<mat-sidenav-container class="example-container">
-  <mat-toolbar color="primary">
-    <div style="display: flex; justify-content: space-around">
-      <mat-toolbar-row>
-        <div style="float: right">Social Hub</div>
+<!--  <mat-toolbar color="primary">-->
+<!--    <div style="display: flex; justify-content: space-around">-->
+<!--      <mat-toolbar-row>-->
+<!--        <div style="float: right">Social Hub</div>-->
 
-      </mat-toolbar-row>
+<!--      </mat-toolbar-row>-->
 
-    </div>
-  </mat-toolbar>
-  <mat-sidenav mode="side" opened #drawer>
-    <ul class="navbar-nav">
+<!--    </div>-->
+<!--  </mat-toolbar>-->
+<!--  <div *ngIf="loggedIn else oops" class="side-nav">-->
+
+<!--  <span>Wait for it... {{ sideNav | async }}</span>-->
+
+
+
+  <mat-sidenav *ngIf="displaySideNav" mode="side" opened #drawer>
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+    <ul  class="navbar-nav" >
       <li>
         <a>
-          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt=""
-                                          class="p-5 rounded-circle"></a>
+          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>
         </a>
       </li>
     </ul>
     <nav>
-
-
       <ul>
-
         <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>
         <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>
-        <li><a routerLink="/login-page">log in page</a></li>
+<!--        <li><a *ngIf="loggedIn !== 'true'" routerLink="/login-page">log in page</a></li>-->
         <li><a routerLink="/account-information">Account information</a></li>
-        <li><a routerLink="/instagram"><img style="width: 10px" src="images/instagramIcon.png">Instagram</a></li>
+        <li><a routerLink="/instagram"><img style="width: 10px" >Instagram</a></li>
         <li><a routerLink="/spotify">spotify</a></li>
         <li><a routerLink="/about">about</a></li>
         <li><a routerLink="/spotify/landing">spotify landing</a></li>
-        <!--        <li>-->
-        <!--          <button type="button" mat-button (click)="drawer.toggle()">-->
-        <!--            Toggle sidenav-->
-        <!--          </button>-->
-        <!--        </li>-->
+        <li><a routerLink="/main">sample landing</a></li>
 
       </ul>
     </nav>
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button>
-
   </mat-sidenav>
-
-
+<!--  </div>-->
+  <ng-template #oops>
+    oops
+  </ng-template>
   <mat-sidenav-content>
-    <router-outlet></router-outlet>
+
+    <router-outlet>
+
+    </router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<!--</div>-->
