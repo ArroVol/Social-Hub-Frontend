@@ -1,20 +1,109 @@
 <div class = "topnav">
-  <div style="float: left">
     <!--
     <fb:login-button
       id = "fb-btn"
       scope="public_profile,email,user_birthday,user_location,user_posts"
       onlogin="checkLoginState();">
     </fb:login-button>
-    -->
+
     <li><a id="fb-btn" (click)="submitLogin()">Login</a></li>
     <li><a id="logout" (click)="logout()">Logout</a></li>
+    -->
+    <a id="fb-btn" (click)="login()">Log in to Facebook</a>
+    <div id="fb-btn2">Welcome, {{facebookUser.facebookName}}</div>
+    <a id="fb-btn3" (click)="logout()">Logout</a>
   </div>
+<div id = "head">
+<header>
+<div class="overlay">
+  <h1>
+    <img id = "pfp" style="width: 175px; height: 175px; border: #1c1c1c" [src]="facebookUser.photoURL">
+    {{facebookUser.facebookName}}
+  </h1>
 </div>
-<div class="container">
+</header>
+</div>
+<div id = "container" class = "container">
   <br>
-  <div id="profile"></div>
+  <div id = "postTitle">
+    Most Recent Posts
+  </div>
+  <h3>{{facebookPosts.posts[0]}}</h3>
+  <h4>-{{facebookPosts.posts[1]}}</h4>
+  <h3>{{facebookPosts.posts[2]}}</h3>
+  <h4>-{{facebookPosts.posts[3]}}</h4>
+  <h3>{{facebookPosts.posts[4]}}</h3>
+  <h4>-{{facebookPosts.posts[5]}}</h4>
   <br>
-  <div id="feed"></div>
+  <div id = "pageTitle">
+    Facebook Pages
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Your Facebook Pages</mat-label>
+    <mat-select [(value)]="currentPage" multiple>
+      <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+        {{page}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>{{currentPage}}</div>
+  <form id = "postForm" class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Post to Page</mat-label>
+      <input #postMessage matInput placeholder="Your Post Here">
+    </mat-form-field>
+    <button (click)="submitPost(postMessage.value)">Post to Page</button>
+  </form>
+  <br>
+  <div id = "likeTitle">
+    Liked Facebook Pages
+  </div>
+  <div id = "likeList">
+    <ul *ngFor='let like of facebookPages.likedNames; let i = index'>
+    <a [href]="facebookPages.likedLinks[i]" target="_blank">{{like}}</a>
+    </ul>
+  </div>
+  <!--
+  <a [href]="facebookPages.likedLinks[0]" target="_blank">
+    <h3>{{facebookPages.likedNames[0]}}</h3>
+  </a>
+  <a [href]="facebookPages.likedLinks[1]" target="_blank">
+    <h3>{{facebookPages.likedNames[1]}}</h3>
+  </a>
+  <a [href]="facebookPages.likedLinks[2]" target="_blank">
+    <h3>{{facebookPages.likedNames[2]}}</h3>
+  </a>
+  -->
+</div>
+<div id = "container2" class ="container2">
+  <a [href]="facebookPhotos.photoURLs[0]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[0]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[1]" target="_blank">
+    <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[1]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[2]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[2]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[3]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[3]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[4]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[4]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[5]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[5]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[6]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[6]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[7]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[7]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[8]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[8]">
+  </a>
+
 </div>
 
