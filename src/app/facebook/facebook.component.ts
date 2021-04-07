@@ -6,6 +6,7 @@ import {FacebookPhotos} from '../model/facebook/FacebookPhotos';
 import {FacebookLogin} from '../model/facebook/FacebookLogin';
 import {FacebookPages} from '../model/facebook/FacebookPages';
 import { ActivatedRoute } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-facebook',
@@ -22,7 +23,7 @@ export class FacebookComponent implements OnInit{
   loggedIn: boolean;
   currentPage: string;
 
-  constructor(protected route: ActivatedRoute, protected facebookService: FacebookService) {
+  constructor(private snackBar: MatSnackBar, protected route: ActivatedRoute, protected facebookService: FacebookService) {
   }
 
   ngOnInit(): void {
@@ -85,7 +86,14 @@ export class FacebookComponent implements OnInit{
     this.facebookService.sendPostMessage(s)
       .subscribe(result => {
         console.log('Message Sent');
+        this.openSnackBar('Post Successfully Created', 'Done');
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 
   login(){

@@ -242,23 +242,17 @@ img{
 
 #likeList{
   width: 200px;
-  height: 150px;
+  height: 100px;
   overflow-y: auto;
 }
 
 #likeList a {
-  background-color: #eee;
   color: black;
   display: block;
-  padding: 12px;
   text-decoration: none;
 }
 
 #likeList a:hover {
-  background-color: #ccc;
+  color: blue;
 }
 
-#likeList a.active {
-  background-color: #4CAF50;
-  color: white;
-}

@@ -38,9 +38,10 @@
   <div id = "pageTitle">
     Facebook Pages
   </div>
+
   <mat-form-field appearance="fill">
     <mat-label>Your Facebook Pages</mat-label>
-    <mat-select [(value)]="currentPage">
+    <mat-select [(value)]="currentPage" multiple>
       <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
         {{page}}
       </mat-option>
@@ -59,8 +60,8 @@
     Liked Facebook Pages
   </div>
   <div id = "likeList">
-    <ul *ngFor='let like of facebookPages.likedNames'>
-    <a href="#">{{like}}</a>
+    <ul *ngFor='let like of facebookPages.likedNames; let i = index'>
+    <a [href]="facebookPages.likedLinks[i]" target="_blank">{{like}}</a>
     </ul>
   </div>
   <!--
