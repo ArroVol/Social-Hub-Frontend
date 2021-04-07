@@ -56,12 +56,6 @@
   justify-content: center;
 }
 
-/*table {*/
-/*  width: 100%;*/
-/*  !*margin: 200px;*!*/
-/*  padding-left: 50px;*/
-/*}*/
-
 .tracksData:hover {
   box-sizing: border-box;
   border-radius: 4px;
@@ -113,24 +107,32 @@
   height: auto;
 }
 
-.img-circle {
-  vertical-align: middle;
-  width: 50px;
-  height: 50px;
+.nav_user_info img {
   border-radius: 50%;
+  width: 125px;
+  margin-left: 1%;
+  margin-top: 2%;
+  margin-right: 1%;
+}
+
+.nav_user_info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.nav_user_info h1, .nav_user_info h4 {
+  margin-left: 2%;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-head {
   text-align: center;
 }
-
-/*.table h1 {*/
-/*  padding-left: 15px;*/
-/*}*/
-
-/*.header {*/
-/*  max-height: 30%;*/
-/*}*/
 
 .artist_info {
   margin-left: 2%;
@@ -156,22 +158,99 @@
   justify-content: space-between;
 }
 
-.popular_tracks {
+.popular_tracks_container {
   max-height: 20%;
-  background-color: #0b2e13;
+  /*background-color: #0b2e13;*/
+}
+
+.popular_tracks {
+  margin-top: 1%;
+  margin-right: 1%;
 }
 
 .artist_info_container {
-  background-color: #3b1d11;
+  /*background-color: #3b1d11;*/
 
 }
 
 .songlist {
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   margin-right: 2%;
-  margin-top: 2%;
-  margin-left: 2%;
   width: 100%;
+}
+
+.discography_container {
+  background-color: #FFFFFF;
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-right: 1%;
+  border-radius: 5px;
+  border: 2px solid snow;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.related_artist_container {
+  background-color: #FFFFFF;
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-right: 1%;
+  border-radius: 5px;
+  border: 2px solid snow;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.discography_table {
+
+}
+
+.discography_card {
+  margin-right: 5%;
+  /*max-height: 200px;*/
+}
+
+.related_artists_card {
+  margin-right: 5%;
+}
+
+.discography_card_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.related_artists_card_content img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.discography_table_container {
+  width: 95%;
+  overflow-x: auto;
+  margin-left: 2.5%;
+}
+
+.related_artists_table_container {
+  width: 95%;
+  overflow-x: auto;
+  margin-left: 2.5%;
+
+}
+
+.discography_card_album_details {
+  white-space: nowrap;
+  width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.related_artists_card_details {
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 

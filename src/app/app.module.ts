@@ -189,7 +189,7 @@ import {InstagramSearchComponent} from "./instagram-search/instagram-search.comp
     MatAutocompleteModule,
     MomentModule,
     MatButtonToggleModule,
-    ScrollingModule
+    ScrollingModule,
   ],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS,

@@ -212,6 +212,30 @@ export class SpotifyService {
   // TODO: Create method to follow a track, and create method to get related artists
   // TODO: Refactor code
   // TODO: Style the shit outta the artist page and sidenav; further, create a search module
+  followTrack(track_id: string): Observable<Boolean> {
+    const url = `${this.spotifyUrl}/user/favourite/track/` + track_id;
+    return this.http.put<Boolean>(url, null).pipe(tap(_ => console.log('followed track by id: ' + track_id)));
+  }
+
+  unfollowTrack(track_id: string): Observable<Boolean> {
+    const url = `${this.spotifyUrl}/user/unfavourite/track/` + track_id;
+    return this.http.put<Boolean>(url, null).pipe(tap(_ => console.log('unfollowed track by id: ' + track_id)));
+  }
+
+  checkFollowedTrackByPromise(track_id: string): Promise<Boolean> {
+    const url = `${this.spotifyUrl}/user/check/favourite/track/` + track_id;
+    return this.http.get<Boolean>(url).pipe(tap(_ => console.log('checked if track followed: ' + track_id))).toPromise();
+  }
+
+  checkFollowedTrack(track_id: string): Observable<Boolean> {
+    const url = `${this.spotifyUrl}/user/check/favourite/track/` + track_id;
+    return this.http.get<Boolean>(url).pipe(tap(_ => console.log('checked if track followed: ' + track_id)));
+  }
+
+  getRelatedArtists(artist_id: string): Observable<SpotifyArtist[]> {
+    const url = `${this.spotifyUrl}/artist/related/` + artist_id;
+    return this.http.get<SpotifyArtist[]>(url).pipe();
+  }
 
 
 }

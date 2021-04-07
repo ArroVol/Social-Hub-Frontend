@@ -1,39 +1,47 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer mode="side" opened position="end">
     <div class="nav-bar">
-      <mat-nav-list>
-        <a mat-list-item routerLink="/spotify/">
-          <mat-icon>home</mat-icon>
-          <span style="font-size:17px; padding-left: 15px;">Home</span></a>
-        <a mat-list-item routerLink="/spotify/search"> Search Track</a>
-        <a mat-list-item routerLink="/spotify/artist"> Search Artist</a>
-        <br>
-        <a mat-list-item (click)="openCreatePlaylistDialog()">
-          <mat-icon>library_add</mat-icon>
-          <span style="font-size:17px; padding-left: 15px;">Create Playlist</span>
-        </a>
-        <a mat-list-item routerLink="/spotify/user/follow/tracks">
-          <mat-icon>favorite</mat-icon>
-          <span style="font-size:17px; padding-left: 15px;">Liked Songs</span>
-        </a>
-      </mat-nav-list>
-      <hr>
-      <h2 style="padding-left: 10px;">Playlists</h2>
-      <div *ngIf="isShown" class="d-flex justify-content-center">
-        <div class="spinner-border" role="status">
-          <span class="sr-only" id="loading"></span>
-        </div>
+
+      <div class="nav_user_info">
+        <img src="{{userProfile.imageUrl}}">
+        <h1 style="margin-top: -2%;">{{userProfile.displayName}}</h1>
+        <h4 style="margin-top: -10%;">{{userProfile.email}}</h4>
       </div>
-      <mat-nav-list>
-        <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
-           (click)="routeToPlaylist(playlist.id)"> {{ playlist.name }} </a>
-        <br>
-        <!--        <hr>-->
-        <!--        <button mat-icon-button (click)="openDialog()" style="padding-left: 7px;">-->
-        <!--          <mat-icon>library_add</mat-icon>-->
-        <!--          <span style="font-size:17px; padding-left: 7px;">Create Playlist</span>-->
-        <!--        </button>-->
-      </mat-nav-list>
+      <div>
+        <h1 style="text-align: center; font-size: 15px;">MENU</h1>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/spotify/" style="margin-top: -15%">
+            <mat-icon>home</mat-icon>
+            <span style="font-size:17px; padding-left: 15px;">Home</span></a>
+          <a mat-list-item routerLink="/spotify/search">
+            <mat-icon>search</mat-icon>
+            <span style="font-size:17px; padding-left: 15px;">Search</span></a>
+          <br>
+          <h1 style="text-align: center; font-size: 15px;">LIBRARY</h1>
+          <a mat-list-item routerLink="/spotify/user/follow/tracks" style="margin-top: -15%">
+            <mat-icon>favorite</mat-icon>
+            <span style="font-size:17px; padding-left: 15px;">Favourites</span>
+          </a>
+          <br>
+          <h1 style="text-align: center; font-size: 15px;">PLAYLIST</h1>
+          <a mat-list-item (click)="openCreatePlaylistDialog()">
+            <mat-icon>library_add</mat-icon>
+            <span style="font-size:17px; padding-left: 15px;">Create New</span>
+          </a>
+        </mat-nav-list>
+        <div *ngIf="isShown" class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only" id="loading"></span>
+          </div>
+        </div>
+        <mat-nav-list>
+          <div style="height: 150px; overflow-y: auto;">
+            <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
+               (click)="routeToPlaylist(playlist.id)">
+              {{ playlist.name }} </a>
+          </div>
+        </mat-nav-list>
+      </div>
     </div>
     <br>
   </mat-drawer>
@@ -80,61 +88,108 @@
         </mat-card>
       </div>
 
-      <div class="popular_tracks" fxLayout="column" style="width: 68%;">
-        <h1>Most Popular</h1>
-        <table class="songlist">
-          <!--            <tr>-->
-          <!--              <td>#</td>-->
-          <!--              <td></td>-->
-          <!--              <td>Title</td>-->
-          <!--              <td>-->
-          <!--                <mat-icon>access_time</mat-icon>-->
-          <!--              </td>-->
-          <!--              <td>-->
-          <!--              </td>-->
-          <!--            </tr>-->
-          <tbody style="height: 120px; overflow-y: auto;">
-          <tr *ngFor="let track of artistTopTracks; let i = index" class="tracksData">
-            <td>{{i + 1}}</td>
-            <td><img src="{{track.album.imageUrl}}" width="100"></td>
-            <td><p>{{track.name}} <br>
-              <span style="font-size:12px;" *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
-            </p></td>
-            <td>{{transform(track.duration)}}</td>
-            <td>
-              <button mat-icon-button [matMenuTriggerFor]="menu"
-                      aria-label="Example icon button with a vertical three dot icon">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item>
-                  <mat-icon>album</mat-icon>
-                  <span>Go To Album</span>
-                </button>
-                <hr>
-                <mat-accordion class="example-headers-align" (click)="$event.stopPropagation();">
-                  <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        <mat-icon>playlist_add</mat-icon>
-                        <span>Add to Playlist</span>
-                      </mat-panel-title>
-                      <!--                        <mat-panel-description>-->
-                      <!--                        </mat-panel-description>-->
-                    </mat-expansion-panel-header>
-                    <mat-nav-list>
-                      <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
-                         (click)="addToPlaylist(playlist.id, track.spotifyUri)"> {{playlist.name}} </a>
-                    </mat-nav-list>
-                  </mat-expansion-panel>
-                </mat-accordion>
-              </mat-menu>
+      <div class="popular_tracks_container" fxLayout="column" style="width: 68%; height: 370px;">
+        <mat-card class="popular_tracks">
+          <mat-card-title>
+            <h1 style="font-size: 30px;">Most Popular</h1>
+            <h4 style="font-size: 15px; margin-top: -2%;">10 Songs</h4>
+          </mat-card-title>
+          <mat-card-content>
+            <div style=" width: 100%; height: 250px; overflow-y:auto;">
+              <table class="songlist">
+                <tr *ngFor="let track of artistTopTracks; let i = index" class="tracksData">
+                  <td>{{i + 1}}</td>
+                  <td><img src="{{track.album.imageUrl}}" width="75"></td>
+                  <td><p>{{track.name}} <br>
+                    <span style="font-size:12px;"
+                          *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
+                  </p></td>
+                  <td>{{transform(track.duration)}}</td>
+                  <td>
+                    <button mat-icon-button [matMenuTriggerFor]="menu"
+                            aria-label="Example icon button with a vertical three dot icon">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item>
+                        <mat-icon>album</mat-icon>
+                        <span>Go To Album</span>
+                      </button>
+                      <hr>
+                      <button mat-menu-item (click)="followTrackRequest(track.id)">
+                        <mat-icon>favorite</mat-icon>
+                        <span>Favourite Track</span>
+                      </button>
+                      <mat-accordion class="example-headers-align">
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              <mat-icon>playlist_add</mat-icon>
+                              <span>Add to Playlist</span>
+                            </mat-panel-title>
+                            <!--                        <mat-panel-description>-->
+                            <!--                        </mat-panel-description>-->
+                          </mat-expansion-panel-header>
+                          <mat-nav-list>
+                            <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
+                               (click)="addToPlaylist(playlist.id, track.spotifyUri)"> {{playlist.name}} </a>
+                          </mat-nav-list>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                    </mat-menu>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="discography_container">
+      <h1 style="font-size: 30px; margin-left: 1%; margin-top: 1%;">Discography</h1>
+      <div class="discography_table_container">
+        <table class="discography_table">
+          <tr>
+            <td *ngFor="let album of artistAlbums">
+              <mat-card class="discography_card">
+                <mat-card-title>
+                </mat-card-title>
+                <mat-card-content class="discography_card_content">
+                  <img src="{{album.imageUrl}}" width="125">
+                  <div class="discography_card_album_details" fxLayout="column">
+                    <h1 style="font-size: 15px;">{{album.name}}</h1>
+                    <h4 style="font-size: 13px; margin-top: -10%;">{{album.releaseDate}}</h4>
+                  </div>
+                </mat-card-content>
+              </mat-card>
             </td>
           </tr>
-          </tbody>
-
         </table>
       </div>
+    </div>
+    <div class="related_artist_container">
+      <h1 style="font-size: 30px; margin-left: 1%; margin-top: 1%;">Similar Artists</h1>
+      <div class="related_artists_table_container">
+        <table class="related_artists_table">
+          <tr>
+            <td *ngFor="let artist of relatedArtists">
+              <mat-card class="related_artists_card">
+                <mat-card-title>
+                </mat-card-title>
+                <mat-card-content class="related_artists_card_content">
+                  <img src="{{artist.imageUrl}}" width="150" style="border-radius: 50%;">
+                  <div class="related_artists_card_details" fxLayout="column">
+                    <h1 style="font-size: 18px;">{{artist.name}}</h1>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
     </div>
 
 
@@ -266,39 +321,39 @@
     <!--      </table>-->
     <!--      <br>-->
     <!--    </div>-->
-    <div class="table">
-      <hr>
-      <h1>Discography</h1>
-      <br>
-      <table class="songlist">
-        <tr>
-          <td>#</td>
-          <td></td>
-          <td>Name</td>
-          <td>Label</td>
-          <td>Release Date</td>
-          <td></td>
-        </tr>
-        <tr *ngFor="let album of artistAlbums; let i = index">
-          <td>{{i + 1}}</td>
-          <td><img src="{{album.imageUrl}}" width="100"></td>
-          <td>{{album.name}}</td>
-          <td>{{album.label}}</td>
-          <td>{{album.releaseDate}}</td>
-          <td>
-            <button mat-icon-button [matMenuTriggerFor]="menu"
-                    aria-label="Example icon button with a vertical three dot icon">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon>album</mat-icon>
-                <span>Go To Album</span>
-              </button>
-            </mat-menu>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <!--    <div class="table">-->
+    <!--      <hr>-->
+    <!--      <h1>Discography</h1>-->
+    <!--      <br>-->
+    <!--      <table class="songlist">-->
+    <!--        <tr>-->
+    <!--          <td>#</td>-->
+    <!--          <td></td>-->
+    <!--          <td>Name</td>-->
+    <!--          <td>Label</td>-->
+    <!--          <td>Release Date</td>-->
+    <!--          <td></td>-->
+    <!--        </tr>-->
+    <!--        <tr *ngFor="let album of artistAlbums; let i = index">-->
+    <!--          <td>{{i + 1}}</td>-->
+    <!--          <td><img src="{{album.imageUrl}}" width="100"></td>-->
+    <!--          <td>{{album.name}}</td>-->
+    <!--          <td>{{album.label}}</td>-->
+    <!--          <td>{{album.releaseDate}}</td>-->
+    <!--          <td>-->
+    <!--            <button mat-icon-button [matMenuTriggerFor]="menu"-->
+    <!--                    aria-label="Example icon button with a vertical three dot icon">-->
+    <!--              <mat-icon>more_vert</mat-icon>-->
+    <!--            </button>-->
+    <!--            <mat-menu #menu="matMenu">-->
+    <!--              <button mat-menu-item>-->
+    <!--                <mat-icon>album</mat-icon>-->
+    <!--                <span>Go To Album</span>-->
+    <!--              </button>-->
+    <!--            </mat-menu>-->
+    <!--          </td>-->
+    <!--        </tr>-->
+    <!--      </table>-->
+    <!--    </div>-->
   </mat-drawer-content>
 </mat-drawer-container>

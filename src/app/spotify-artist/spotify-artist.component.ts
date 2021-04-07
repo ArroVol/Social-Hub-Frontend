@@ -12,6 +12,7 @@ import {SpotifyCreatePlaylistComponent} from "../spotify-create-playlist/spotify
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
 import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-spotify-artist',
@@ -26,6 +27,8 @@ export class SpotifyArtistComponent implements OnInit {
   spotifyArtist: SpotifyArtist;
   artistAlbums: SpotifyAlbum[];
   artistTopTracks: SpotifyTrack[];
+  relatedArtists: SpotifyArtist[];
+
   isShown: boolean = true;
   tempSpotifyPlaylist: SpotifyPlaylist;
   followed: boolean;
@@ -43,6 +46,7 @@ export class SpotifyArtistComponent implements OnInit {
         this.getUserPlaylist();
         this.getUserProfile();
         this.checkFollowed(artist_id);
+        this.getRelatedArtists(artist_id);
       }
     );
   }
@@ -100,11 +104,6 @@ export class SpotifyArtistComponent implements OnInit {
     this.dialog.open(SpotifyCreatePlaylistComponent);
   }
 
-  /**
-   * // TODO: Create a table for the albums: will be turned into a carousel in future sprints
-   * // TODO: Styling
-   */
-
   transform(input: string) {
     let minutes: string | number = Math.floor((parseInt(input) / (1000 * 60)) % 60);
     let seconds: string | number = Math.floor((parseInt(input) / 1000) % 60);
@@ -159,15 +158,55 @@ export class SpotifyArtistComponent implements OnInit {
     console.log('Inside FOllow Artist');
     this.spotifyService.followArtist(this.spotifyArtist.id).subscribe(result => console.log('followArtist', result));
     this.followed = true;
+    this._snackBar.open(this.spotifyArtist.name + " has been followed!", '', {duration: 2000,});
   }
 
   unfollowArtist() {
     console.log('Inside unfollow Artist');
     this.spotifyService.unfollowArtist(this.spotifyArtist.id).subscribe(result => console.log('unfollowArtist', result));
     this.followed = false;
+    this._snackBar.open(this.spotifyArtist.name + " has been unfollowed!", '', {duration: 2000,});
   }
+
+  getRelatedArtists(artist_id: string) {
+    console.log('Inside related Artists method');
+    this.spotifyService.getRelatedArtists(artist_id).subscribe(result => this.relatedArtists = result);
+  }
+
+  async checkFollowedTrackByPromise(track_id: string) {
+    return this.spotifyService.checkFollowedTrackByPromise(track_id);
+  }
+
+  // checkFollowedTrack(track_id: string) {
+  //   let flag = false;
+  //   this.spotifyService.checkFollowedTrack(track_id).subscribe(result => flag = result.valueOf());
+  //   return flag;
+  // }
+
+  async followTrackRequest(track_id: string) {
+    let flag = await this.checkFollowedTrackByPromise(track_id);
+    if (flag) {
+      this.unfollowTrack(track_id);
+    } else {
+      this.followTrack(track_id);
+    }
+  }
+
+  followTrack(track_id: string) {
+    this.spotifyService.followTrack(track_id).subscribe();
+    this._snackBar.open('Song has been favourited!', '', {duration: 2000,});
+  }
+
+  unfollowTrack(track_id: string) {
+    this.spotifyService.unfollowTrack(track_id).subscribe();
+    this._snackBar.open('Song has been unfavourited!', '', {duration: 2000,});
+
+  }
+
 
   hideloader() {
     this.isShown = false;
   }
+
+
 }

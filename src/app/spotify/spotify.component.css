@@ -75,3 +75,26 @@
   height: 50px;
   border-radius: 50%;
 }
+
+.nav_user_info img {
+  border-radius: 50%;
+  width: 125px;
+  margin-left: 1%;
+  margin-top: 2%;
+  margin-right: 1%;
+}
+
+.nav_user_info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.nav_user_info h1, .nav_user_info h4 {
+  margin-left: 2%;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
