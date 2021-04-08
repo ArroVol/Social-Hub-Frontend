@@ -9,7 +9,7 @@ import {Status} from 'tslint/lib/runner';
 import {BriefStatus} from '../model/twitter/BriefStatus';
 import {Video} from '../model/youtube/Video';
 import {Youtube} from '../model/youtube/Youtube';
-import {Channel} from '../../../../../Downloads/Project/Social-Hub-Frontend/src/app/model/youtube/Channel';
+import {Channel} from '../model/youtube/Channel';
 
 const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

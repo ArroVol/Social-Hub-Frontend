@@ -5,7 +5,7 @@ import {InstagramComponent} from '../instagram/instagram.component';
 import {YoutubeComponent} from '../youtube/youtube.component';
 import {Youtube} from '../model/youtube/Youtube';
 import {YoutubeService} from '../service/youtube.service';
-import {Channel} from '../../../../../Downloads/Project/Social-Hub-Frontend/src/app/model/youtube/Channel';
+import {Channel} from '../model/youtube/Channel';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +17,6 @@ import {Channel} from '../../../../../Downloads/Project/Social-Hub-Frontend/src/
  */
 export class DashboardComponent implements OnInit {
   channel: Channel;
-
   constructor(private youtubeService: YoutubeService) {
   }
 
@@ -25,8 +24,17 @@ export class DashboardComponent implements OnInit {
   instagramUser: InstagramUserInfo;
   selected = 'channelInsights';
   selectedVideo = 'mostRecent';
+  isMinWidth = true;
   ngOnInit(): void {
     this.getChannel();
+
+    window.addEventListener('resize', (e) => {
+      if (window.matchMedia('(min-width: 1050px)').matches) {
+        this.isMinWidth = true;
+      } else {
+        this.isMinWidth = false;
+      }
+    });
   }
   getChannel() {
     this.youtubeService.getChannelInfo().subscribe(channel => {

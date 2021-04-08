@@ -4,12 +4,6 @@ import {Video} from '../model/youtube/Video';
 import {Channel} from '../model/youtube/Channel';
 import {YoutubeComponent} from '../youtube/youtube.component';
 
-export interface Tile {
-  cols: number;
-  rows: number;
-  videoArr: String[];
-}
-
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
@@ -18,6 +12,7 @@ export interface Tile {
 export class CollectionComponent implements OnInit {
   isClicked = false;
   channel: Channel;
+  videoArr = [];
   constructor(private youtubeService: YoutubeService) {
   }
 
@@ -36,6 +31,7 @@ export class CollectionComponent implements OnInit {
   getChannel() {
     this.youtubeService.getChannelInfo().subscribe(channel => {
       this.channel = JSON.parse(channel.toString());
+      this.videoArr = this.channel.videos;
     });
   }
 }
