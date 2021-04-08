@@ -1,6 +1,7 @@
 import {Component, LOCALE_ID, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {InstagramService} from '../service/instagram.service';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
+import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
 
 
 @Component({
@@ -9,8 +10,9 @@ import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
   styleUrls: ['./instagram.component.css']
 })
 export class InstagramComponent implements OnInit {
-  public show = false;
-  public buttonName: any = 'Change Bio';
+  public showChanges = false;
+  public showSearch = false;
+  public buttonName: any = 'Change';
   nums: Array<number> = [1, 20, 48];
 
   @ViewChild('oneItem') oneItem: any;
@@ -22,17 +24,12 @@ export class InstagramComponent implements OnInit {
 
   instagramUser: InstagramUserInfo;
 
+  instagramUserSearch: InstagramUserSearchInfo;
+
   images = new Array(18);
 
-  options = {
-    weekday: 'short',
-    year: 'numeric',
-    month: '2-digit',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  };
+  bio: String;
+
 
 
 
@@ -68,6 +65,24 @@ export class InstagramComponent implements OnInit {
     console.log('Get User Profile Called!');
   }
 
+  userSearch(user: string){
+    this.instagramService.getSearchInsta(user).subscribe(user => {
+      this.instagramUserSearch = user;
+      console.log('Get Search User Profile Called!');
+      console.log(this.instagramUserSearch.displayName);
+    });
+
+    this.showSearch = !this.showSearch;
+
+    // CHANGE THE NAME OF THE BUTTON.
+    if (this.showSearch) {
+      this.buttonName = 'Hide';
+    }
+    else {
+      this.buttonName = 'Change';
+    }
+  }
+
   getMediaCount(): number {
     return this.instagramUser.mediaCount;
   }
@@ -76,6 +91,13 @@ export class InstagramComponent implements OnInit {
 
     return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
       this.instagramUser.imageFeed[pic].toString().search('width') - 2);
+  }
+
+  getSearchImageUrl(pic: number): string{
+
+    return this.instagramUserSearch.imageFeed[pic].toString().substring(
+      this.instagramUserSearch.imageFeed[pic].toString().search('url') + 4,
+      this.instagramUserSearch.imageFeed[pic].toString().search('width') - 2);
   }
   animateCount() {
     // tslint:disable-next-line:variable-name
@@ -115,6 +137,11 @@ export class InstagramComponent implements OnInit {
       this.instagramUser.followerFeed[pic].toString().search('ProfilePic:') + 11,
       this.instagramUser.imageFeed[pic].toString().length);
   }
+  getUserFollowerProfilePic(pic: number): string{
+    return this.instagramUserSearch.followerFeed[pic].toString().substring(
+      this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:') + 11,
+      this.instagramUserSearch.imageFeed[pic].toString().length);
+  }
 
   getComment(pic: number): string{
     if (this.instagramUser.imageFeedComment[pic].toString().substring(
@@ -146,20 +173,46 @@ getFollowerProfileName(pic: number): string{
     }
   }
 
-  changeBio(bio: string){
-    this.instagramService.changeBio(bio);
+  getUserFollowerProfileName(pic: number): string{
+    if (this.instagramUserSearch.followerFeed[pic].toString().substring(0,
+      this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:')) === null
+      || this.instagramUserSearch.followerFeed[pic].toString().substring(0,
+        this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:')) === ' ') {
+
+      return 'No Name Listed';
+
+    } else {
+      return this.instagramUserSearch.followerFeed[pic].toString().substring(0,
+        this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:'));
+
+    }
   }
 
-  toggle() {
-    this.show = !this.show;
+  changeBio(bio: string){
+    this.instagramService.changeBio(bio).subscribe(bio => {
+      this.bio = bio;
+    });
+
+  }
+
+
+
+
+  toggleChanges() {
+    this.showChanges = !this.showChanges;
 
     // CHANGE THE NAME OF THE BUTTON.
-    if (this.show) {
+    if (this.showChanges) {
       this.buttonName = 'Hide';
     }
     else {
-      this.buttonName = 'Change Bio';
+      this.buttonName = 'Change';
     }
+  }
+
+
+  toggleSearch() {
+
   }
 
 }
