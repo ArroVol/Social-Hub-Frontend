@@ -1,6 +1,56 @@
 <h3>The Social Hub</h3>
 <!--<div class="grid grid-pad">-->
 <!--</div>-->
+
+<!--THIS IS THE FACEBOOK CARD-->
+<mat-card class="example-card2">
+  <div id = "fbCard">
+    <mat-card-header>
+      <img mat-card-avatar [src]= "facebookUser.photoURL" >
+      <mat-card-title id = "title">{{facebookUser.facebookName}}</mat-card-title>
+      <mat-card-subtitle id = "subtitle">Total Friends: {{facebookUser.friendCount}}</mat-card-subtitle>
+    </mat-card-header>
+    <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[0]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[1]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[2]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[3]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[4]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+    </mdb-carousel>
+    <hr>
+    <h3>Facebook Pages</h3>
+    <li><a [href]="facebookPages.pageURLs[0]" target="_blank">
+      {{facebookPages.pageNames[0]}}
+    </a>
+      : {{facebookPages.pageFans[0]}} fans</li>
+    <li>
+      <a [href]="facebookPages.pageURLs[1]" target="_blank">
+        {{facebookPages.pageNames[1]}}
+      </a>
+      : {{facebookPages.pageFans[1]}} fans</li>
+
+    <mat-card-actions>
+      <button style=" display: block;  margin-left: auto; margin-right: auto;" routerLink="/facebook" mat-button>View Facebook</button>
+    </mat-card-actions>
+  </div>
+  <div id = "fbCardLogin">
+    <mat-card-actions>
+      <button style=" display: block;  margin-left: auto; margin-right: auto;" (click)="loginFB()" mat-button>Login to Facebook</button>
+    </mat-card-actions>
+  </div>
+</mat-card>
+<!--FACEBOOK CARD END-->
+
 <mat-card class="example-card">
   <mat-card-header>
     <img mat-card-avatar [src]= "instagramUser.profilePicUrl" >
@@ -370,3 +420,4 @@
 <!--    </section>-->
 <!--  </mat-card>-->
 <!--</div>-->
+

@@ -3,7 +3,7 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
 @import url(https://fonts.googleapis.com/css?family=Khand);
 
-[class*='col-'] {
+/*[class*='col-'] {*/
 
 .example-card {
   width: 350px;

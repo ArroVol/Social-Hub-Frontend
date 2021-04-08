@@ -12,6 +12,13 @@ import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 // import {Moment} from 'moment';
 import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
+import {FacebookService} from '../service/facebook.service';
+import {FacebookUser} from '../model/facebook/FacebookUser';
+import {FacebookPhotos} from '../model/facebook/FacebookPhotos';
+import { ActivatedRoute } from '@angular/router';
+import {FacebookLogin} from '../model/facebook/FacebookLogin';
+import {FacebookPages} from '../model/facebook/FacebookPages';
+
 // @ts-ignore
 @Component({
   selector: 'app-dashboard',
@@ -26,11 +33,17 @@ export class DashboardComponent implements OnInit {
   public showSearch = false;
   public buttonName: any = 'Change';
 channel: Channel;
+  facebookUser: FacebookUser;
+  facebookLogin: FacebookLogin;
+  facebookPhotos: FacebookPhotos;
+  facebookPages: FacebookPages;
+  verificationCode: string;
 
   // tslint:disable-next-line:max-line-length
   constructor(
     private youtubeService: YoutubeService, private twitterService: TwitterService,
-    private goalService: GoalService, private instagramService: InstagramService) {
+    private goalService: GoalService, private instagramService: InstagramService,
+    protected route: ActivatedRoute, protected facebookService: FacebookService) {
   }
   instagramUser: InstagramUserInfo;
 
@@ -72,6 +85,27 @@ channel: Channel;
 
   ngOnInit(): void {
 
+    //THIS IS FOR FACEBOOK LOGIN
+    this.route.queryParams.subscribe(params => {
+      let code = params['code'];
+      if (!code){
+        console.log('No code found');
+      } else{
+        this.verificationCode = code;
+        console.log('This is the code: ' + this.verificationCode);
+        this.facebookService.sendVerificationCode(this.verificationCode)
+          .subscribe(result => {
+            console.log('Result: ', result);
+            this.getFBUsername();
+            this.getFBPhotos();
+            this.getFBPages();
+            document.getElementById('fbCard').style.display = 'block';
+            document.getElementById('fbCardLogin').style.display = 'none';
+          });
+      }
+    });
+    //FB LOGIN END
+
     this.getInstaUser();
     this.getChannel();
     // this.instagramUser = this.instagramComponent.getInstaUser();
@@ -83,6 +117,35 @@ channel: Channel;
     this.getUserTimeline();
 
   }
+
+  loginFB(){
+    this.facebookService.login().subscribe(loginDialogURL => {
+      this.facebookLogin = loginDialogURL;
+    });
+    window.location.href = this.facebookLogin.loginDialogURL;
+  }
+
+  getFBUsername(){
+    this.facebookService.getUserName().subscribe(facebookUser => {
+      this.facebookUser = facebookUser;
+    });
+    console.log('Get username method called');
+  }
+
+  getFBPhotos(){
+    this.facebookService.getPhotos().subscribe(facebookPhotos => {
+      this.facebookPhotos = facebookPhotos;
+    });
+    console.log('Get photos method called');
+  }
+
+  getFBPages(){
+    this.facebookService.getPages().subscribe(facebookPages => {
+      this.facebookPages = facebookPages;
+    });
+    console.log('Get pages method called');
+  }
+
   getChannel() {
     this.youtubeService.getChannelInfo().subscribe(channel => {
       this.channel = JSON.parse(channel.toString());
