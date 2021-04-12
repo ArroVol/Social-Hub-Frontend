@@ -10,8 +10,6 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
-
-
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,7 +29,12 @@ import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
 // import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
+import {FacebookComponent} from './facebook/facebook.component';
 import {SpotifyComponent} from './spotify/spotify.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {SimpleFormComponent} from './simple-form/simple-form.component';
+import {LoginPageComponent} from './login-page/login-page.component';
+import {AccountInformationComponent} from './account-information/account-information.component';
 import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
@@ -73,6 +76,8 @@ import {FooterComponent} from './footer/footer.component';
 // import {NgxDropzoneModule} from 'ngx-dropzone';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MomentModule} from 'ngx-moment';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {NgxDropzoneModule} from 'ngx-dropzone';
 import {MatTreeModule} from '@angular/material/tree';
@@ -84,9 +89,6 @@ import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {PreloadersModule} from 'ng-uikit-pro-standard';
 import { OnePostComponent } from './one-post/one-post.component';
-import { GoalModalComponent } from './goal-modal/goal-modal.component';
-import {MatTabsModule} from "@angular/material/tabs";
-import {DragDropDirective} from "./one-post/dragdrop.component";
 
 @NgModule({
   declarations: [
@@ -128,12 +130,9 @@ import {DragDropDirective} from "./one-post/dragdrop.component";
     LoadingAnimationComponent,
     InstagramSearchComponent,
     AnimatedDigitComponent,
-    OnePostComponent,
-    GoalModalComponent,
-    DragDropDirective
+    OnePostComponent
   ],
   imports: [
-    MatTabsModule,
     HttpClientModule,
     BrowserModule,
     FormsModule,
@@ -148,6 +147,7 @@ import {DragDropDirective} from "./one-post/dragdrop.component";
     ReactiveFormsModule,
     MatToolbarModule,
     MatInputModule,
+    MatMenuModule,
     MatButtonModule,
     MatSelectModule,
     // MatProgressSpinnerModule,
@@ -192,6 +192,9 @@ import {DragDropDirective} from "./one-post/dragdrop.component";
     provide: STEPPER_GLOBAL_OPTIONS,
     useValue: { displayDefaultIndicatorType: false }
   }],
+  exports: [
+    AnimatedDigitComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

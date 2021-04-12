@@ -1,6 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {InstagramService} from '../service/instagram.service';
+import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
+import {InstagramComponent} from '../instagram/instagram.component';
+import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
+import {MatDialog} from '@angular/material/dialog';
 
 export interface PeriodicElement {
   name: string;
@@ -28,7 +33,12 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 
-export class InstagramSearchComponent implements AfterViewInit {
+export class InstagramSearchComponent implements OnInit  {
+
+  constructor(private instagramService: InstagramService, public dialog: MatDialog,  ) {
+  }
+  public showChanges = false;
+  public showSearch = false;
   public show = false;
   public buttonName: any = 'Show';
   displayedColumns: string[] = ['position', 'name'];
@@ -36,28 +46,42 @@ export class InstagramSearchComponent implements AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() { }
+  instagramUserSearch: InstagramUserSearchInfo;
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
 
   counter(i: number) {
     return new Array(i);
   }
 
+  ngOnInit(): void {
+  }
 
+  userSearch(user: string){
+    this.instagramService.getSearchInsta(user).subscribe(user => {
+      this.instagramUserSearch = user;
+      console.log('Get Search User Profile Called!');
+      console.log(this.instagramUserSearch.displayName);
+    });
 
-
-  toggle() {
-    this.show = !this.show;
+    this.showSearch = !this.showSearch;
 
     // CHANGE THE NAME OF THE BUTTON.
-    if (this.show) {
+    if (this.showSearch) {
       this.buttonName = 'Hide';
     }
     else {
-      this.buttonName = 'Show';
+      this.buttonName = 'Change';
     }
   }
+
+  getSearchImageUrl(pic: number): string{
+
+    return this.instagramUserSearch.imageFeed[pic].toString().substring(
+      this.instagramUserSearch.imageFeed[pic].toString().search('url') + 4,
+      this.instagramUserSearch.imageFeed[pic].toString().search('width') - 2);
+  }
+
+
+
+
 }

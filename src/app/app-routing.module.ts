@@ -16,6 +16,7 @@ import {CollectionComponent} from './collection/collection.component';
 import {InstagramSearchComponent} from './instagram-search/instagram-search.component';
 import {OnePostComponent} from "./one-post/one-post.component";
 
+
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
   { path: '', redirectTo: '/main', pathMatch: 'full' },

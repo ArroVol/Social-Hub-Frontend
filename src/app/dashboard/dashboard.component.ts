@@ -21,11 +21,20 @@ import {Moment} from 'moment';
  * The Class for the dashboard component.
  */
 export class DashboardComponent implements OnInit {
+  public showChanges = false;
+  public showSearch = false;
+  public buttonName: any = 'Change';
 channel: Channel;
 
   constructor(private youtubeService: YoutubeService, private twitterService: TwitterService, private goalService: GoalService) {
   }
+  instagramUser: InstagramUserInfo;
 
+  instagramUserSearch: InstagramUserSearchInfo;
+
+  images = new Array(18);
+
+  bio: String;
   otherHandle: string;
   otherBriefStatusList: BriefStatus[];
   otherNumFollowers: number;
@@ -57,6 +66,8 @@ channel: Channel;
   counter: [];
   twitterFollowerCount;
   ngOnInit(): void {
+
+    this.getInstaUser();
     this.getChannel();
     // this.instagramUser = this.instagramComponent.getInstaUser();
     // this.counter = this.instagramComponent.counter(0);
@@ -192,28 +203,18 @@ channel: Channel;
   }
 
   getUserTimeline() {
-    this.otherBriefStatusList = null;
-    this.otherMostRetweeted = null;
-    this.twitterHandle = sessionStorage.getItem('twitterHandle');
+    console.log('getting the users timeline...');
     this.twitterService.getUserTimeline(this.twitterHandle)
-      .subscribe(otherTimeline => {
-        this.otherBriefStatusList = otherTimeline;
-        this.otherMostRetweeted = this.otherBriefStatusList[0];
-        this.otherMostFavorited = this.otherBriefStatusList[1];
-        if (this.otherMostRetweeted.retweetCount === 0){
+      .subscribe(timeline => {
+        this.briefStatusList = timeline;
+        console.log('the length  of hte users timeline list: ' + this.briefStatusList.length);
+        this.briefStatusList = this.briefStatusList.slice(1);
 
-        } else if (this.otherMostFavorited.favoriteCount === 0 && this.otherMostRetweeted.retweetCount > 0) {
-          this.otherBriefStatusList = this.otherBriefStatusList.slice(1);
-        } else {
-          this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
+        for (let i = 0; i < this.briefStatusList.length; i++){
+          console.log(this.briefStatusList[i].text);
         }
-        // this.showOtherDiv = true;
+        this.getOtherUserTimeline('SocialHubClub');
 
-        this.twitterService.getNumFollowersByHandle(this.twitterHandle)
-          .subscribe(otherNumFollowers => {
-            this.otherNumFollowers = otherNumFollowers;
-            console.log('other num followers: ' + this.otherNumFollowers);
-          });
 
       });
   }
@@ -237,7 +238,6 @@ channel: Channel;
         if (this.userGoal !== null){
           this.goalSet = true;
           this.value = this.twitterFollowerCount - this.userGoal.goalStartNumber;
-          this.max = this.userGoal.goalMaxNumber;
           console.log('current numbr');
           console.log(this.value);
           this.endDate = moment(this.userGoal.startDate);
@@ -290,4 +290,143 @@ channel: Channel;
 
       });
   }
+
+
+
+
+
+
+
+  // Instagram Dashboard
+
+
+  storeImages(): void {
+    for (let i = 0; i < this.getMediaCount(); i++) {
+      this.images[i] = this.getImageUrl(i);
+    }
+  }
+
+  getInstaUser(): InstagramUserInfo {
+    this.instagramService.getInsta().subscribe(instagramUser => {
+      this.instagramUser = instagramUser;
+      return this.instagramUser;
+    });
+    return this.instagramUser;
+    console.log('Get User Profile Called!');
+  }
+
+  userSearch(user: string){
+    this.instagramService.getSearchInsta(user).subscribe(user => {
+      this.instagramUserSearch = user;
+      console.log('Get Search User Profile Called!');
+      console.log(this.instagramUserSearch.displayName);
+    });
+
+    this.showSearch = !this.showSearch;
+
+    // CHANGE THE NAME OF THE BUTTON.
+    if (this.showSearch) {
+      this.buttonName = 'Hide';
+    }
+    else {
+      this.buttonName = 'Change';
+    }
+  }
+
+  getMediaCount(): number {
+    return this.instagramUser.mediaCount;
+  }
+
+  getImageUrl(pic: number): string{
+
+    return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
+      this.instagramUser.imageFeed[pic].toString().search('width') - 2);
+  }
+
+
+  counterFunc(end: number, element: any, duration: number) {
+    let range, current: number, step, timer;
+
+    range = end - 0;
+    current = 0;
+    step = Math.abs(Math.floor(duration / range));
+
+    timer = setInterval(() => {
+      current += 1;
+      element.nativeElement.textContent = current;
+      if (current == end) {
+        clearInterval(timer);
+      }
+    }, step);
+  }
+
+  counterInstagram(i: number) {
+    return new Array(i);
+  }
+
+  getFollowerProfilePic(pic: number): string{
+    return this.instagramUser.followerFeed[pic].toString().substring(
+      this.instagramUser.followerFeed[pic].toString().search('ProfilePic:') + 11,
+      this.instagramUser.imageFeed[pic].toString().length);
+  }
+  getUserFollowerProfilePic(pic: number): string{
+    return this.instagramUserSearch.followerFeed[pic].toString().substring(
+      this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:') + 11,
+      this.instagramUserSearch.imageFeed[pic].toString().length);
+  }
+
+  getComment(pic: number): string{
+    if (this.instagramUser.imageFeedComment[pic].toString().substring(
+      this.instagramUser.imageFeedComment[pic].toString().search('text=') + 5,
+      this.instagramUser.imageFeedComment[pic].toString().search(', type='))
+      === this.instagramUser.imageFeedCaption[pic]) {
+      return null;
+    }
+    else {
+      return this.instagramUser.imageFeedComment[pic].toString().substring(
+        this.instagramUser.imageFeedComment[pic].toString().search('text=') + 5,
+        this.instagramUser.imageFeedComment[pic].toString().search(', type='));
+    }
+
+  }
+
+  getFollowerProfileName(pic: number): string{
+    if (this.instagramUser.followerFeed[pic].toString().substring(0,
+      this.instagramUser.followerFeed[pic].toString().search('ProfilePic:')) === null
+      || this.instagramUser.followerFeed[pic].toString().substring(0,
+        this.instagramUser.followerFeed[pic].toString().search('ProfilePic:')) === ' ') {
+
+      return 'No Name Listed';
+
+    } else {
+      return this.instagramUser.followerFeed[pic].toString().substring(0,
+        this.instagramUser.followerFeed[pic].toString().search('ProfilePic:'));
+
+    }
+  }
+
+
+  changeBio(bio: string){
+    this.instagramService.changeBio(bio).subscribe(bio => {
+      this.bio = bio;
+    });
+
+  }
+
+
+
+
+  toggleChanges() {
+    this.showChanges = !this.showChanges;
+
+    // CHANGE THE NAME OF THE BUTTON.
+    if (this.showChanges) {
+      this.buttonName = 'Hide';
+    }
+    else {
+      this.buttonName = 'Change';
+    }
+  }
+
+
 }

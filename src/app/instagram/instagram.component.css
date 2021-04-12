@@ -1,13 +1,23 @@
+
+
 .profilePic {
   border-radius: 50%;
   border-spacing: 80px;
+  position: absolute;
+  margin-right: 0;
+  margin-top: 0;
 }
-
+.headerImage{
+  color: #fff;
+  background-image: url("images/insatgramBackgroundGradient.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 body{
   background:transparent;
 }
 .header-container{
-  margin-top:20px;
+  margin-top:10px;
 }
 .text-white {
   color: #fff !important;
@@ -16,7 +26,7 @@ body{
   position: relative;
 }
 .ui-bg-cover {
-  background-color: transparent;
+
   background-position: center center;
   background-size: cover;
 }
@@ -30,13 +40,11 @@ body{
 }
 
 .bg-dark {
-  background-color: rgba(24,28,33,0.9) !important;
 }
 .opacity-50 {
   opacity: .5 !important;
 }
 .bg-dark {
-  background-color: rgba(24,28,33,0.9) !important;
 }
 .ui-bg-overlay-container>*, .ui-bg-video-container>* {
   position: relative;
@@ -87,17 +95,17 @@ body{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-nav {
-  float: left;
+article nav {
+  float: right;
   width: 30%;
-  height: 500px; /* only for demonstration, should be removed */
+  height: 555px; /* only for demonstration, should be removed */
   padding: 20px;
   overflow: auto;
 
 }
 
 /* Style the list inside the menu */
-nav ul {
+article nav ul {
   list-style-type: none;
   padding: 0;
   display: block;
@@ -105,8 +113,8 @@ nav ul {
   margin-right: auto;
 }
 
-article {
-  float: right;
+nav {
+  float: left;
   padding: 20px;
   width: 70%;
 }
@@ -160,18 +168,15 @@ mdb-carousel .carousel-indicators {
   padding: 16px 32px;
 }
 
-.mat-raised-button {
-  margin: 8px 8px 8px 0;
-  justify-content: center;
-  width: 300px;
+button {
+
+
 }
 
 .example-form {
   min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .example-full-width {
