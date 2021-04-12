@@ -10,6 +10,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
+
+
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -82,6 +84,9 @@ import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {PreloadersModule} from 'ng-uikit-pro-standard';
 import { OnePostComponent } from './one-post/one-post.component';
+import { GoalModalComponent } from './goal-modal/goal-modal.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import {DragDropDirective} from "./one-post/dragdrop.component";
 
 @NgModule({
   declarations: [
@@ -123,9 +128,12 @@ import { OnePostComponent } from './one-post/one-post.component';
     LoadingAnimationComponent,
     InstagramSearchComponent,
     AnimatedDigitComponent,
-    OnePostComponent
+    OnePostComponent,
+    GoalModalComponent,
+    DragDropDirective
   ],
   imports: [
+    MatTabsModule,
     HttpClientModule,
     BrowserModule,
     FormsModule,

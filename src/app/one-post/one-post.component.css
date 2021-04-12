@@ -1,0 +1,222 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.panel-heading {
+  background-color: #1da1f2 !important;
+  color: #1da1f2 !important;
+}
+.panel {
+  margin-top: 25px;
+}
+
+.posttweetcountcont{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.posttweetta{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+blockquote.twitter-tweet {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  border-color: #eee #ddd #bbb;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  margin: 10px 5px;
+  padding: 0 16px 16px 16px;
+  max-width: 468px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+blockquote.twitter-tweet p {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+blockquote.twitter-tweet a {
+  color: inherit;
+  font-weight: normal;
+  text-decoration: none;
+  outline: 0 none;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+blockquote.twitter-tweet a:hover,
+blockquote.twitter-tweet a:focus {
+  text-decoration: underline;
+}
+
+*.posttweettacontainer{
+  border-radius: 8px; border: 1px solid rgb(153, 153, 153); border-image: none; width:580px; line-height: 20px; box-shadow: 0px 0px 0px 1px dodgerblue; background-color: rgb(255, 255, 255);
+}
+
+.posttweetta{
+  border-width: 1px 1px 0px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; border-style: solid solid none; border-color: rgb(230, 236, 240) rgb(230, 236, 240) currentColor; margin: 0px; padding: 8px; outline: 0px; border-radius: 8px; border-image: none; width: 100%; height: 50px; font-family: "Segoe UI",Arial,sans-serif; font-size: 14px; box-sizing: border-box; opacity: 0.8; background-color: rgb(255, 255, 255);
+}
+
+.posttweetcountcont{
+  overflow: hidden; margin-top: 10px;
+}
+
+.posttweetcount{
+  margin-right: 10px; display: block; float: right;
+}
+
+.posttweetbutcont{
+  overflow: hidden; margin-top: 10px; width:580px;
+}
+
+.posttweetbut{
+  padding: 6px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: rgb(255, 255, 255); line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: right; box-shadow: none; background-color: rgb(173, 216, 255);
+}
+
+.tweetscontainer{
+  background: rgb(255, 255, 255); list-style: none; margin: 0px; padding: 0px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.tweetcontainer{
+  margin: 0px; padding: 10px; overflow: hidden; border-bottom-color: rgb(230, 236, 240); border-bottom-width: 1px; border-bottom-style: solid; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.tweetprofimg{
+  border-radius: 50%; width: 48px; height: 48px; margin-right: 10px; float: left;
+}
+
+.tweetprofname{
+  color:#14171a;font-size:14px;font-weight:bold;
+}
+
+.tweetprofuid{
+  color:#657786;font-size:14px;margin-left:5px;
+}
+
+.tweetstats{
+  margin-right: 30px; cursor: pointer;
+}
+
+.tweetstats i{
+  color: rgb(101, 119, 134); font-size: 16px;
+}
+
+.tweetstatscount{
+  color: rgb(101, 119, 134); line-height: 1; font-size: 12px; font-weight: bold; margin-left: 6px;
+}
+
+.rightcontainer{
+  width:50%;
+}
+
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: whitesmoke;
+  border: 2px solid grey;
+  margin-left: 10px;
+  margin-top: 2px;
+  border-radius: 2px;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: 1px solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.example-list-section{
+  display:inline;
+
+}
+
+
+img {
+  border-style: solid;
+  border-width: 5px;
+  height: 250px;
+  width:250px;
+  margin: auto;
+}
+
+.upload-btn-div{
+  align-content: end;
+  position: sticky;
+  margin-left: 150px;
+}

@@ -192,18 +192,28 @@ channel: Channel;
   }
 
   getUserTimeline() {
-    console.log('getting the users timeline...');
+    this.otherBriefStatusList = null;
+    this.otherMostRetweeted = null;
+    this.twitterHandle = sessionStorage.getItem('twitterHandle');
     this.twitterService.getUserTimeline(this.twitterHandle)
-      .subscribe(timeline => {
-        this.briefStatusList = timeline;
-        console.log('the length  of hte users timeline list: ' + this.briefStatusList.length);
-        this.briefStatusList = this.briefStatusList.slice(1);
+      .subscribe(otherTimeline => {
+        this.otherBriefStatusList = otherTimeline;
+        this.otherMostRetweeted = this.otherBriefStatusList[0];
+        this.otherMostFavorited = this.otherBriefStatusList[1];
+        if (this.otherMostRetweeted.retweetCount === 0){
 
-        for (let i = 0; i < this.briefStatusList.length; i++){
-          console.log(this.briefStatusList[i].text);
+        } else if (this.otherMostFavorited.favoriteCount === 0 && this.otherMostRetweeted.retweetCount > 0) {
+          this.otherBriefStatusList = this.otherBriefStatusList.slice(1);
+        } else {
+          this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
         }
-        this.getOtherUserTimeline('SocialHubClub');
+        // this.showOtherDiv = true;
 
+        this.twitterService.getNumFollowersByHandle(this.twitterHandle)
+          .subscribe(otherNumFollowers => {
+            this.otherNumFollowers = otherNumFollowers;
+            console.log('other num followers: ' + this.otherNumFollowers);
+          });
 
       });
   }
@@ -227,6 +237,7 @@ channel: Channel;
         if (this.userGoal !== null){
           this.goalSet = true;
           this.value = this.twitterFollowerCount - this.userGoal.goalStartNumber;
+          this.max = this.userGoal.goalMaxNumber;
           console.log('current numbr');
           console.log(this.value);
           this.endDate = moment(this.userGoal.startDate);

@@ -226,4 +226,17 @@ export class TwitterService {
         // catchError(() => observableThrowError('get user by id error'))
       );
   }
+
+  getTwitterTokens(): Observable<SecureTwitter> {
+    console.log('getting the users ranking list in the twitter service');
+    const url = `${this.twitterUrl}/twitter/get-twitter-tokens/${sessionStorage.getItem('twitterId')}`;
+
+    return this.http.get<SecureTwitter>(url)
+      .pipe(
+        tap(_ => console.log('fetched users secure twitter data'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
+
 }

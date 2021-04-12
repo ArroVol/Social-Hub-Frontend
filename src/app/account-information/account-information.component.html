@@ -185,7 +185,7 @@
 </section>
 <br>
 <div class="center" *ngIf="showHideDeveloper">
-  <div *ngIf="twitterLoggedIn !== 'true'; else displayTwitterInfo">
+  <div *ngIf="!developerOptions else displayTwitterInfo">
   <span>
     Click the link to the twitter developer page to get your access tokens
   </span>
@@ -196,7 +196,7 @@
   <div id="login-box2">
     <div class="left">
       <div class="centered">
-        <div *ngIf="twitterLoggedIn !== 'true' else showTwitterInfo" >
+        <div *ngIf="!developerOptions else showTwitterInfo" >
           <h1>Register Twitter Account Below</h1>
           <div class="center3">
 
