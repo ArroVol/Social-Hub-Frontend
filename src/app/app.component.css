@@ -530,6 +530,12 @@ button.social-signin:active {
   vertical-align: -0.125em;
 }
 
+.dashboardIcon {
+  background: url('https://api.iconify.design/ic:sharp-dashboard.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/ic:sharp-dashboard.svg?height=24');
+  vertical-align: -0.125em;
+}
+
 .ytIcon {
   background: url('https://api.iconify.design/mdi:youtube.svg') no-repeat center center / contain;
   content: url('https://api.iconify.design/mdi:youtube.svg?height=24');

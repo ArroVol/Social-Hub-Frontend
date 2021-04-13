@@ -36,13 +36,27 @@
 
             <strong style="margin-top: 20px; font-size: 15px"><animated-digit [digit]="instagramUserSearch.followingCount" [duration]="1000"></animated-digit></strong>
             <span style="margin-top: 30px; padding-right: 20px; font-size: 10px" class="text-muted"> Following</span>
+
+            <p  style="  display: block;  font-size: 10px" >BIO: {{instagramUserSearch.instaBio}}</p>
           </div>
-          <h3  style=" color: #ffffff; display: block;  margin-left: 25%; margin-right: auto; font-size: 20px" >BIO: {{instagramUserSearch.instaBio}}</h3>
+
 
         </div>
 
       </div>
-      <button mat-raised-button>Follow</button>
+
     </div>
+
+
   </mat-card>
+<!--  <button mat-raised-button  *ngIf="followStatus" (click)="unFollowUser(todo.value)">-->
+<!--    <mat-icon></mat-icon>-->
+<!--    Unfollow-->
+<!--  </button>-->
+
+<!--  *ngIf="!followStatus"-->
+  <button mat-raised-button  (click)="followUser(todo.value)">
+    <mat-icon><span class="followIcon"></span></mat-icon>
+    Follow
+  </button>
 </ng-container>

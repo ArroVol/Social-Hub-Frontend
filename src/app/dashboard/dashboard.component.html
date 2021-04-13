@@ -1,30 +1,28 @@
 <h3>The Social Hub</h3>
 <!--<div class="grid grid-pad">-->
 <!--</div>-->
-<mat-card class="example-card">
+<mat-card class="example-card headerImage">
+
   <mat-card-header>
     <img mat-card-avatar [src]= "instagramUser.profilePicUrl" >
     <mat-card-title>{{instagramUser.displayName}}</mat-card-title>
+
+    <strong style="padding-right: 5px;"><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit>Followers</strong>
+    <span  class="text-muted">  </span>
+
+    <span  class="text-muted"> </span>
+    <strong  ><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit> Following</strong>
   </mat-card-header>
   <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
 
     <mdb-carousel-item  *ngFor='let in of counterInstagram(18) ;let i = index'>
-      <img style="width: 200px; height: 200px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >
+      <img style="width: 300px; height: 300px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >
 
     </mdb-carousel-item>
   </mdb-carousel>
-  <mat-card-content style=" display: block;  margin-left: auto; margin-right: auto;">
 
-    <strong><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit>Followers</strong>
-    <span style="padding-right: 50px" class="text-muted">  </span>
-
-    <br>
-    <span style="padding: 50px" class="text-muted"> </span>
-    <strong style="padding-top: 50px"><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit> Following</strong>
-
-  </mat-card-content>
   <mat-card-actions>
-    <button style=" display: block;  margin-left: auto; margin-right: auto;" routerLink="/instagram" mat-button>Instagram Page</button>
+    <button style=" display: block;  margin-left: auto; margin-right: auto;" routerLink="/instagram" mat-button><span class="instaIcon"></span></button>
   </mat-card-actions>
 </mat-card>
 

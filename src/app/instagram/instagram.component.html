@@ -86,20 +86,21 @@
 <section>
 
     <nav style="background: snow">
-      <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
+      <div>
+        <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
 
-        <mdb-carousel-item  *ngFor='let in of counter(18) ;let i = index'>
-          <img style="width: 500px; height: 500px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >
-          <div class="carousel-caption">
-            <div class="animated fadeInDown delay-1s">
-              <h3 class="h3-responsive" style="color: #ffffff; background-color: #000000">{{instagramUser.imageFeedCaption[i]}}</h3>
+          <mdb-carousel-item  *ngFor='let in of counter(18) ;let i = index'>
+            <img style="width: 550px; height: 500px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >
+            <div class="carousel-caption">
+              <div class="animated fadeInDown delay-1s">
+                <h3 class="h3-responsive" style="color: #ffffff; background-color: #000000">{{instagramUser.imageFeedCaption[i]}}</h3>
 
+              </div>
             </div>
-          </div>
-          <footer style=" display: block;  margin-left: auto; margin-right: auto;">Comments: {{getComment(i)}}</footer>
-        </mdb-carousel-item>
-      </mdb-carousel>
-
+            <footer style=" display: block;  margin-left: auto; margin-right: auto;">Comments: {{getComment(i)}}</footer>
+          </mdb-carousel-item>
+        </mdb-carousel>
+      </div>
 
     </nav>
 

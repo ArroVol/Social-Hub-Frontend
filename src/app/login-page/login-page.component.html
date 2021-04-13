@@ -71,12 +71,12 @@
           <small class="text-danger"*ngIf="myForm.hasError('notSame')">
             Passwords do not match
           </small>
-          <input #password type="password" required [(ngModel)]="userModel.password"  minlength="4" #password matInput placeholder="Confirm Password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+<!--          <input #password type="password" required [(ngModel)]="userModel.password"  minlength="4" #password matInput placeholder="Confirm Password" formControlName="confirmPassword" [errorStateMatcher]="matcher">-->
 
         </form>
           <div class="update-btn1">
             <!--    <button class="submit" (click)="update(username.value, email.value, phoneNumber.value, password.value)">Update Account</button>-->
-            <button [disabled]="userModel.name.length < 4 && !userModel.email.includes('.com') && userModel.phoneNumber.length < 10 && myForm.invalid" class="submit" (click)="update(username.value, email.value, phoneNumber.value, password.value )">Update Account</button>
+<!--            <button [disabled]="userModel.name.length < 4 && !userModel.email.includes('.com') && userModel.phoneNumber.length < 10 && myForm.invalid" class="submit" (click)="update(username.value, email.value, phoneNumber.value, password.value )">Update Account</button>-->
 
           </div>
         </div>

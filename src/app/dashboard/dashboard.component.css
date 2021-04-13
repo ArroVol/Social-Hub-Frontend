@@ -1,10 +1,23 @@
 
 .example-card {
-  width: 350px;
-  height: 325px;
+  width: 400px;
+  height: 400px;
   margin-left: 5px;
   background-color: white;
   box-shadow: 0 0 5px black;
+}
+
+.headerImage{
+  color: #fff;
+  background-image: url("images/insatgramBackgroundGradient.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.instaIcon {
+  background: url('https://api.iconify.design/mdi:instagram.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:instagram.svg?height=24');
+  vertical-align: -0.125em;
 }
 
 .example-header-image {
