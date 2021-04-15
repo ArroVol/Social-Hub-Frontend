@@ -23,7 +23,7 @@
           </a>
           <br>
           <h1 style="text-align: center; font-size: 15px;">PLAYLIST</h1>
-          <a mat-list-item (click)="openDialog()">
+          <a mat-list-item (click)="openDialog()" style="margin-top: -15%">
             <mat-icon>library_add</mat-icon>
             <span style="font-size:17px; padding-left: 15px;">Create New</span>
           </a>
@@ -45,17 +45,6 @@
     <br>
   </mat-drawer>
   <mat-drawer-content class="content">
-
-    <div class="card-container" fxLayout="row wrap" fxFlex="auto" fxFlexOffset="60" fxFlexAlign="baseline">
-      <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title class="card-head"><img src="{{userProfile.imageUrl}}"
-                                                 class="img-circle"> {{userProfile.displayName}}
-          </mat-card-title>
-        </mat-card-header>
-      </mat-card>
-    </div>
-
     <div fxLayout="column">
       <div class="heading">
         <br>
@@ -185,75 +174,7 @@
             </tr>
           </table>
         </div>
-        <div class="searchtrack">
-          <br>
-          <hr>
-          <div class="search_option" *ngIf="hideSearchBar">
-            <button mat-raised-button color="primary" (click)="hideSearchBar = false">Find More</button>
-          </div>
-          <div class="search_input" *ngIf="!hideSearchBar">
-            <h2>Let's find something for your playlist
-              <span class="cancel_search_button">
-              <button mat-button *ngIf="trackQueryResult == null" matSuffix mat-icon-button
-                      aria-label="Clear"
-                      (click)="hideSearchBar = true">
-                <mat-icon>close</mat-icon>
-              </button>
-                </span>
-            </h2>
-            <form>
-              <mat-form-field class="search_input_field">
-                <mat-label>
-                  <mat-icon>search</mat-icon>
-                </mat-label>
-                <input matInput placeholder="Search for songs" #trackquery (keyup)="queryTrackByName(trackquery.value)"
-                       autofocus>
-                <button mat-button *ngIf="trackquery.value" matSuffix mat-icon-button aria-label="Clear"
-                        (click)="clearSearchQuery(); trackquery.value = '';">
-                  <mat-icon>close</mat-icon>
-                </button>
-              </mat-form-field>
-            </form>
-            <!--            <mat-icon>search</mat-icon>-->
-            <!--            <input matInput placeholder="Search for songs" #trackquery-->
-            <!--                   (keyup)="queryTrackByName(trackquery.value)">-->
-            <!--            <button mat-raised-button color="primary" (click)="queryTrackByName(trackquery.value)">Search</button>-->
-            <br>
-            <br>
-          </div>
-          <div class="search_result" *ngIf="trackQueryResult!=null">
-            <div class="table">
-              <div class="songlist">
-                <table>
-                  <tr>
-                    <td>#</td>
-                    <td></td>
-                    <td>Title</td>
-                    <td>Album</td>
-                    <td>
-                    </td>
-                  </tr>
-                  <tr *ngFor="let track of trackQueryResult; let i = index" cdkDrag>
-                    <!-- Make sure values is actually what ya want -->
-                    <td>{{i + 1}}</td>
-                    <td><img src="{{track.album.imageUrl}}" width="100"></td>
-                    <td><p>{{track.name}} <br>
-                      <span style="font-size:12px;"
-                            *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
-                    </p></td>
-                    <td>{{track.album.name}}</td>
-                    <td>
-                      <button mat-raised-button color="primary"
-                              (click)="addToPlaylist(spotifyPlaylist.id, track.spotifyUri)">
-                        Add
-                      </button>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </mat-drawer-content>

@@ -27,6 +27,7 @@ export class SpotifyArtistComponent implements OnInit {
   spotifyArtist: SpotifyArtist;
   artistAlbums: SpotifyAlbum[];
   artistTopTracks: SpotifyTrack[];
+  artistTopTracksFavourites: Boolean[];
   relatedArtists: SpotifyArtist[];
 
   isShown: boolean = true;
@@ -59,7 +60,11 @@ export class SpotifyArtistComponent implements OnInit {
     this.spotifyService.getArtistTopTracks(artist_id).subscribe(spotifyTracks => {
       this.artistTopTracks = spotifyTracks;
       console.log('spotifyTracks', spotifyTracks);
+      this.getFavouritedTracks(spotifyTracks.map(track => track.id));
     });
+
+    // await this.getFavouritedTracks(this.artistTopTracks.);
+
   }
 
   getArtistById(artist_id: string) {
@@ -98,6 +103,17 @@ export class SpotifyArtistComponent implements OnInit {
       }
     };
     this.router.navigate(['spotify/playlist'], navigationExtras);
+  }
+
+  routeToArtist(artist_id: string) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: artist_id
+      }
+    };
+    this.router.navigate(['spotify/artist'], navigationExtras);
   }
 
   openCreatePlaylistDialog() {
@@ -173,8 +189,13 @@ export class SpotifyArtistComponent implements OnInit {
     this.spotifyService.getRelatedArtists(artist_id).subscribe(result => this.relatedArtists = result);
   }
 
-  async checkFollowedTrackByPromise(track_id: string) {
+  async checkFollowedTrackByPromise(track_id: string[]) {
     return this.spotifyService.checkFollowedTrackByPromise(track_id);
+  }
+
+  getFavouritedTracks(track_ids: string[]) {
+    return this.spotifyService.checkFollowedTrack(track_ids).subscribe(result => console.log('favourited array', this.artistTopTracksFavourites = result));
+    // console.log('favourited array', this.artistTopTracksFavourites);
   }
 
   // checkFollowedTrack(track_id: string) {
@@ -183,14 +204,14 @@ export class SpotifyArtistComponent implements OnInit {
   //   return flag;
   // }
 
-  async followTrackRequest(track_id: string) {
-    let flag = await this.checkFollowedTrackByPromise(track_id);
-    if (flag) {
-      this.unfollowTrack(track_id);
-    } else {
-      this.followTrack(track_id);
-    }
-  }
+  // async followTrackRequest(track_id: string[]) {
+  //   let flag = await this.checkFollowedTrackByPromise(track_id);
+  //   if (flag) {
+  //     this.unfollowTrack(track_id);
+  //   } else {
+  //     this.followTrack(track_id);
+  //   }
+  // }
 
   followTrack(track_id: string) {
     this.spotifyService.followTrack(track_id).subscribe();

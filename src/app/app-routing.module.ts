@@ -19,6 +19,7 @@ import {MainComponent} from './main/main.component';
 import {YoutubeComponent} from './youtube/youtube.component';
 import {CollectionComponent} from './collection/collection.component';
 import {InstagramSearchComponent} from './instagram-search/instagram-search.component';
+import {SpotifySearchComponent} from "./spotify-search/spotify-search.component";
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
@@ -30,16 +31,16 @@ const routes: Routes = [
   {path: 'spotify/landing', component: SpotifyLandingComponent, pathMatch: 'full'},
   {path: 'spotify/playlist', component: SpotifyPlaylistComponent, pathMatch: 'prefix'},
   {path: 'spotify/artist', component: SpotifyArtistComponent, pathMatch: 'prefix'},
-  {path: 'spotify/playlist/add', component: SpotifyCreatePlaylistComponent, pathMatch: 'full'},
-  {path: 'spotify/playlist/update', component: SpotifyUpdatePlaylistComponent, pathMatch: 'full'},
-  {path: 'spotify/user/follow/tracks', component: SpotifyFollowedTracksComponent, pathMatch: 'full'},
+  // {path: 'spotify/playlist/add', component: SpotifyCreatePlaylistComponent, pathMatch: 'full'},
+  // {path: 'spotify/playlist/update', component: SpotifyUpdatePlaylistComponent, pathMatch: 'full'},
+  {path: 'spotify/search', component: SpotifySearchComponent, pathMatch: 'full'},
   {path: 'login-page', component: LoginPageComponent},
   {path: 'account-information', component: AccountInformationComponent},
   {path: 'timeline', component: TimelineComponent},
   {path: 'instagram', component: InstagramComponent},
-  { path: 'instagram-search', component: InstagramSearchComponent },
-  { path: 'youtube', component: YoutubeComponent },
-  { path: 'collection', component: CollectionComponent}
+  {path: 'instagram-search', component: InstagramSearchComponent},
+  {path: 'youtube', component: YoutubeComponent},
+  {path: 'collection', component: CollectionComponent}
 
 
   // {path: 'create-account', component: CreateAccountComponent},
@@ -50,4 +51,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

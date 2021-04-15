@@ -25,7 +25,7 @@
           <h1 style="text-align: center; font-size: 15px;">PLAYLIST</h1>
           <a mat-list-item (click)="openDialog()">
             <mat-icon>library_add</mat-icon>
-            <span style="font-size:17px; padding-left: 15px;">Create New</span>
+            <span style="font-size:16px; padding-left: 15px;">Create New</span>
           </a>
         </mat-nav-list>
         <div *ngIf="isShown" class="d-flex justify-content-center">
@@ -46,119 +46,187 @@
   </mat-drawer>
   <mat-drawer-content>
 
-    <div class="card-container" fxLayout="column" fxLayoutAlign="space-evenly end">
-      <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title><img src="{{spotifyUser.imageUrl}}" class="img-circle"> {{spotifyUser.displayName}}
-          </mat-card-title>
-        </mat-card-header>
-      </mat-card>
+    <div class="home_page_container" fxLayout="column">
+
+      <div class="new_releases_container">
+        <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">New Album Releases</h1>
+        <div class="new_releases_table_container">
+          <table>
+            <tr>
+              <td *ngFor="let album of newRealeaseAlbums" class="new_releases_card_container">
+                <mat-card class="new_releases_card">
+                  <mat-card-content class="new_releases_content">
+                    <img src="{{album.imageUrl}}" width="125">
+                    <div fxLayout="column">
+                      <h1
+                        style="font-size: 14px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
+                        {{album.name}}</h1>
+                      <h4
+                        style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -28%;">
+                        {{album.artistNames}}</h4>
+                    </div>
+                  </mat-card-content>
+                  <mat-card-footer class="new_releases_footer">
+                    <!--                    <div class="new_releases_album_details" fxLayout="column">-->
+                    <!--                      <h1-->
+                    <!--                        style="font-size: 15px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: ">-->
+                    <!--                        {{album.name}}</h1>-->
+                    <!--                    </div>-->
+                  </mat-card-footer>
+                </mat-card>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="featured_playlist_container">
+        <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">Featured Playlists</h1>
+        <div class="featured_playlist_table_container">
+          <table>
+            <tr>
+              <td *ngFor="let playlist of featuredPlaylists" class="featured_playlist_card_container"
+                  #playlistToolTip="matTooltip"
+                  matTooltip="{{playlist.description}}">
+                <mat-card class="featured_playlist_card" (click)="routeToPlaylist(playlist.id);">
+                  <mat-card-content class="featured_playlist_content">
+                    <img src="{{playlist.imageUrl}}" width="125">
+                    <div fxLayout="column">
+                      <h1
+                        style="font-size: 14px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
+                        {{playlist.name}}</h1>
+                      <h4
+                        style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -28%;">
+                        {{playlist.owerName}}</h4>
+                    </div>
+                  </mat-card-content>
+                  <mat-card-footer class="featured_playlist_footer">
+                  </mat-card-footer>
+                </mat-card>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="user_tracks_container">
+
+        <div class="user_top_tracks_container">
+          <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">Your Top Tracks</h1>
+          <h4 style="font-size: 15px; margin-top: -3%; margin-left: 1%;">{{userTopTracks.length}} Songs</h4>
+          <div class="user_top_tracks" style=" width: 100%; height: 250px; overflow-y:auto;">
+            <table class="songlist">
+              <tr *ngFor="let track of userTopTracks; let i = index" class="tracksData">
+                <td>{{i + 1}}</td>
+                <td><img src="{{track.album.imageUrl}}" width="75"></td>
+                <td><p>{{track.name}} <br>
+                  <span style="font-size:12px;"
+                        *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
+                </p></td>
+                <td>{{transform(track.duration)}}</td>
+                <td>
+                  <button mat-icon-button [matMenuTriggerFor]="artistMenu"
+                          #artistToolTip="matTooltip"
+                          matTooltip="Get more information on the artist(s)">
+                    <mat-icon>person_outline</mat-icon>
+                  </button>
+                  <mat-menu #artistMenu="matMenu">
+                    <button mat-menu-item *ngFor="let artist of track.artistInfo | keyvalue"
+                            (click)="routeToArtist(artist.key)">
+                      {{artist.value}}
+                    </button>
+                  </mat-menu>
+                </td>
+                <td>
+                  <button mat-icon-button *ngIf="!userTopTracksFavourites[i]"
+                          (click)="followTrack(track.id); userTopTracksFavourites[i] = true;"
+                          #favouritesToolTip="matTooltip"
+                          matTooltip="Favourite this Track">
+                    <mat-icon>favorite_border</mat-icon>
+                  </button>
+                  <button mat-icon-button *ngIf="userTopTracksFavourites[i]"
+                          (click)="unfollowTrack(track.id); userTopTracksFavourites[i] = false;"
+                          color="warn" #favouritesToolTip="matTooltip" matTooltip="Favourite this Track">
+                    <mat-icon>favorite</mat-icon>
+                  </button>
+                </td>
+                <td>
+                  <button mat-icon-button [matMenuTriggerFor]="playlistMenu"
+                          #playlistToolTip="matTooltip"
+                          matTooltip="Add this track to your playlist">
+                    <mat-icon>playlist_add</mat-icon>
+                  </button>
+                  <mat-menu #playlistMenu="matMenu">
+                    <button mat-menu-item *ngFor="let playlist of spotifyUserPlaylist"
+                            (click)="addToPlaylist(playlist.id, track.spotifyUri)">
+                      {{playlist.name}}
+                    </button>
+                  </mat-menu>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="user_recent_tracks_container">
+          <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">Recently Played</h1>
+          <h4 style="font-size: 15px; margin-top: -3%; margin-left: 1%;">{{userRecentTracks.length}} Songs</h4>
+          <div class="user_recent_tracks">
+            <table class="songlist">
+              <tr *ngFor="let track of userRecentTracks; let i = index" class="tracksData">
+                <td>{{i + 1}}</td>
+                <td><img src="{{track.album.imageUrl}}" width="75"></td>
+                <td><p>{{track.name}} <br>
+                  <span style="font-size:12px;"
+                        *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
+                </p></td>
+                <td>{{transform(track.duration)}}</td>
+                <td>
+                  <button mat-icon-button [matMenuTriggerFor]="artistMenu"
+                          #artistToolTip="matTooltip"
+                          matTooltip="Get more information on the artist(s)">
+                    <mat-icon>person_outline</mat-icon>
+                  </button>
+                  <mat-menu #artistMenu="matMenu">
+                    <button mat-menu-item *ngFor="let artist of track.artistInfo | keyvalue"
+                            (click)="routeToArtist(artist.key)">
+                      {{artist.value}}
+                    </button>
+                  </mat-menu>
+                </td>
+                <td>
+                  <button mat-icon-button *ngIf="!userRecentTracksFavourites[i]"
+                          (click)="followTrack(track.id); userRecentTracksFavourites[i] = true;"
+                          #favouritesToolTip="matTooltip"
+                          matTooltip="Favourite this Track">
+                    <mat-icon>favorite_border</mat-icon>
+                  </button>
+                  <button mat-icon-button *ngIf="userRecentTracksFavourites[i]"
+                          (click)="unfollowTrack(track.id); userRecentTracksFavourites[i] = false;"
+                          color="warn" #favouritesToolTip="matTooltip"
+                          matTooltip="Favourite this Track">
+                    <mat-icon>favorite</mat-icon>
+                  </button>
+                </td>
+                <td>
+                  <button mat-icon-button [matMenuTriggerFor]="playlistMenu"
+                          #playlistToolTip="matTooltip"
+                          matTooltip="Add this track to your playlist">
+                    <mat-icon>playlist_add</mat-icon>
+                  </button>
+                  <mat-menu #playlistMenu="matMenu">
+                    <button mat-menu-item *ngFor="let playlist of spotifyUserPlaylist"
+                            (click)="addToPlaylist(playlist.id, track.spotifyUri)">
+                      {{playlist.name}}
+                    </button>
+                  </mat-menu>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
-
-    <!--        <div class="user-info">-->
-    <!--          <div class="container-fluid well span6">-->
-    <!--            <div class="row-fluid">-->
-    <!--              <div class="span2">-->
-    <!--                <img src="{{spotifyUser.imageUrl}}" class="img-circle">-->
-    <!--              </div>-->
-
-    <!--              <div class="span8">-->
-    <!--                <h3>{{spotifyUser.displayName}}</h3>-->
-    <!--                <h6>Email: {{spotifyUser.email}}</h6>-->
-    <!--                <h6>Spotify URL: {{spotifyUser.spotifyUrl}}</h6>-->
-    <!--                <h6>Country: {{spotifyUser.country}}</h6>-->
-    <!--                <h6>Birthdate: {{spotifyUser.birthdate}}</h6>-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
   </mat-drawer-content>
 </mat-drawer-container>
-
-<!--<div class="nav-bar">-->
-<!--  <mat-nav-list>-->
-<!--    <a mat-list-item routerLink="/userinfo"> User Info</a>-->
-<!--    <a mat-list-item routerLink="/search"> Search Track</a>-->
-<!--    <a mat-list-item routerLink="/artist"> Search Artist</a>-->
-<!--  </mat-nav-list>-->
-<!--  <br>-->
-<!--  <hr>-->
-
-<!--  <h2>Playlists</h2>-->
-<!--  <mat-nav-list>-->
-<!--    <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"-->
-<!--       (click)="routeToPlaylist(playlist.id)"> {{ playlist.name }} </a>-->
-<!--    <br>-->
-<!--    <hr>-->
-<!--    <a mat-list-item routerLink="/spotify/playlist/add"> Create New Playlist</a>-->
-<!--  </mat-nav-list>-->
-
-<!--</div>-->
-
-<!--<table>-->
-<!--  <thead>-->
-<!--  <th>Name</th>-->
-<!--  <th>URL</th>-->
-<!--  <th>Image</th>-->
-<!--  </thead>-->
-<!--  <tbody *ngFor="let playlist of spotifyUserPlaylist">-->
-<!--  <tr>-->
-<!--    <td (click) = routeToPlaylist(playlist.id)> {{playlist.name}}</td>-->
-<!--    <td>{{playlist.spotifyUrl}}</td>-->
-<!--    <td><img src="{{playlist.imageUrl}}"></td>-->
-<!--  </tr>-->
-<!--&lt;!&ndash;  <tr *ngFor="let track of playlist.tracks">&ndash;&gt;-->
-<!--&lt;!&ndash;    <td>{{track.name}}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;    <td>{{track.artistNames}}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;    <td>{{track.spotifyUrl}}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;    <td>{{track.duration}}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;  </tr>&ndash;&gt;-->
-<!--  </tbody>-->
-<!--</table>-->
-
-<!--<div class="form-inline justify-content-center mb-3">-->
-<!--  <input type="search" #newquery [value]="artistSearchName"-->
-<!--         class="form-control form-control-lg w-75"-->
-<!--         placeholder="enter artist name...">-->
-<!--  <button (click)="queryArtist(newquery.value)" class="btn btn-primary btn-lg ml-3" type="button">Search</button>-->
-<!--</div>-->
-<!--  <table>-->
-<!--    <thead>-->
-<!--    <th>Name</th>-->
-<!--    <th>URL</th>-->
-<!--    <th>Followers</th>-->
-<!--    <th>Image</th>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr *ngFor="let artist of artistQuery">-->
-<!--      <td>{{artist.name}}</td>-->
-<!--      <td>{{artist.spotifyUrl}}</td>-->
-<!--      <td>{{artist.followers}}</td>-->
-<!--      <td><img src="{{artist.imageUrl}}"></td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--  </table>-->
-
-<!--<div class="form-inline justify-content-center mb-3">-->
-<!--  <input type="search" #trackquery [value]="trackSearchName"-->
-<!--         class="form-control form-control-lg w-75"-->
-<!--         placeholder="enter song title name...">-->
-<!--  <button (click)="queryTrack(trackquery.value)" class="btn btn-primary btn-lg ml-3" type="button">Search</button>-->
-<!--</div>-->
-<!--<table>-->
-<!--  <thead>-->
-<!--  <th>Name</th>-->
-<!--  <th>Artists Name</th>-->
-<!--  <th>Spotify Url</th>-->
-<!--  <th>Duration</th>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-<!--  <tr *ngFor="let track of trackQuery">-->
-<!--    <td>{{track.name}}</td>-->
-<!--    <td>{{track.artistNames}}</td>-->
-<!--    <td>{{track.spotifyUrl}}</td>-->
-<!--    <td>{{track.duration}} ms</td>-->
-<!--  </tr>-->
-<!--  </tbody>-->
-<!--</table>-->

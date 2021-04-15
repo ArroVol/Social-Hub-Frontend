@@ -24,7 +24,7 @@
           </a>
           <br>
           <h1 style="text-align: center; font-size: 15px;">PLAYLIST</h1>
-          <a mat-list-item (click)="openCreatePlaylistDialog()">
+          <a mat-list-item (click)="openCreatePlaylistDialog()" style="margin-top: -15%">
             <mat-icon>library_add</mat-icon>
             <span style="font-size:17px; padding-left: 15px;">Create New</span>
           </a>
@@ -47,15 +47,7 @@
   </mat-drawer>
 
   <mat-drawer-content class="content" fxLayout="column">
-    <!--    <div class="card-container" fxLayout="row wrap" fxFlex="auto" fxFlexOffset="60" fxFlexAlign="baseline">-->
-    <!--      <mat-card class="example-card">-->
-    <!--        <mat-card-header>-->
-    <!--          <mat-card-title class="card-head"><img src="{{userProfile.imageUrl}}"-->
-    <!--                                                 class="img-circle"> {{userProfile.displayName}}-->
-    <!--          </mat-card-title>-->
-    <!--        </mat-card-header>-->
-    <!--      </mat-card>-->
-    <!--    </div>-->
+
     <div class=header fxLayout="row" style="display: flex; flex-direction: row; justify-content:space-between;">
       <div class="artist_info_container" style="width: 30%">
         <mat-card class="artist_info" fxLayout="column">
@@ -106,36 +98,26 @@
                   </p></td>
                   <td>{{transform(track.duration)}}</td>
                   <td>
+                    <button mat-icon-button *ngIf="!artistTopTracksFavourites[i]"
+                            (click)="followTrack(track.id); artistTopTracksFavourites[i] = true;">
+                      <mat-icon>favorite_border</mat-icon>
+                    </button>
+                    <button mat-icon-button *ngIf="artistTopTracksFavourites[i]"
+                            (click)="unfollowTrack(track.id); artistTopTracksFavourites[i] = false;"
+                            color="warn">
+                      <mat-icon>favorite</mat-icon>
+                    </button>
+                  </td>
+                  <td>
                     <button mat-icon-button [matMenuTriggerFor]="menu"
                             aria-label="Example icon button with a vertical three dot icon">
-                      <mat-icon>more_vert</mat-icon>
+                      <mat-icon>playlist_add</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                      <button mat-menu-item>
-                        <mat-icon>album</mat-icon>
-                        <span>Go To Album</span>
+                      <button mat-menu-item *ngFor="let playlist of spotifyUserPlaylist"
+                              (click)="addToPlaylist(playlist.id, track.spotifyUri)">
+                        {{playlist.name}}
                       </button>
-                      <hr>
-                      <button mat-menu-item (click)="followTrackRequest(track.id)">
-                        <mat-icon>favorite</mat-icon>
-                        <span>Favourite Track</span>
-                      </button>
-                      <mat-accordion class="example-headers-align">
-                        <mat-expansion-panel>
-                          <mat-expansion-panel-header>
-                            <mat-panel-title>
-                              <mat-icon>playlist_add</mat-icon>
-                              <span>Add to Playlist</span>
-                            </mat-panel-title>
-                            <!--                        <mat-panel-description>-->
-                            <!--                        </mat-panel-description>-->
-                          </mat-expansion-panel-header>
-                          <mat-nav-list>
-                            <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
-                               (click)="addToPlaylist(playlist.id, track.spotifyUri)"> {{playlist.name}} </a>
-                          </mat-nav-list>
-                        </mat-expansion-panel>
-                      </mat-accordion>
                     </mat-menu>
                   </td>
                 </tr>
@@ -159,7 +141,7 @@
                   <img src="{{album.imageUrl}}" width="125">
                   <div class="discography_card_album_details" fxLayout="column">
                     <h1 style="font-size: 15px;">{{album.name}}</h1>
-                    <h4 style="font-size: 13px; margin-top: -10%;">{{album.releaseDate}}</h4>
+                    <h4 style="font-size: 13px; margin-top: -10%;">{{album.releaseDate | date : 'yyyy'}}</h4>
                   </div>
                 </mat-card-content>
               </mat-card>
@@ -174,11 +156,11 @@
         <table class="related_artists_table">
           <tr>
             <td *ngFor="let artist of relatedArtists">
-              <mat-card class="related_artists_card">
+              <mat-card class="related_artists_card" (click)="routeToArtist(artist.id)">
                 <mat-card-title>
                 </mat-card-title>
                 <mat-card-content class="related_artists_card_content">
-                  <img src="{{artist.imageUrl}}" width="150" style="border-radius: 50%;">
+                  <img src="{{artist.imageUrl}}" width="175" height="175" style="border-radius: 50%;">
                   <div class="related_artists_card_details" fxLayout="column">
                     <h1 style="font-size: 18px;">{{artist.name}}</h1>
                   </div>

@@ -115,7 +115,7 @@
   margin-right: 1%;
 }
 
-.nav_user_info{
+.nav_user_info {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -210,6 +210,11 @@
 
 .related_artists_card {
   margin-right: 5%;
+}
+
+.related_artists_card:hover {
+  background-color: slategray;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .discography_card_content {

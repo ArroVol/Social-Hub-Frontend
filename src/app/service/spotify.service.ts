@@ -8,6 +8,7 @@ import {tap} from 'rxjs/operators';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
 import {SpotifyPlaylist} from '../model/spotify/SpotifyPlaylist';
 import {SpotifyAlbum} from '../model/spotify/SpotifyAlbum';
+import {SpotifyPlaylistSnapshot} from "../model/spotify/SpotifyPlaylistSnapshot";
 
 const headers = new HttpHeaders({'Access-Control-Allow-Origin': '*'});
 
@@ -131,22 +132,6 @@ export class SpotifyService {
     return this.http.put<any>(url, null);
   }
 
-  //DONE:
-  // Create pipeline for update playlist, get artist by id, get albums of artist by id, and get tracks of artist by id
-  // No modifications of the models
-  // Create artist component
-
-
-  // NEED TO DO:
-  // Create update playlist Component -> modal follow the create playlist example
-
-  // Create an html css, etc for the artist page:
-  // Title: Artist image, name, popularity
-  // Popularity: Top Tracks in table
-  // Albums: All of em in a table
-
-  // Future sprint: pop the albums in a carousel?
-
   getArtistById(artist_id: string): Observable<SpotifyArtist> {
     const url = `${this.spotifyUrl}/artist/id/` + artist_id;
     return this.http.get<SpotifyArtist>(url)
@@ -222,19 +207,41 @@ export class SpotifyService {
     return this.http.put<Boolean>(url, null).pipe(tap(_ => console.log('unfollowed track by id: ' + track_id)));
   }
 
-  checkFollowedTrackByPromise(track_id: string): Promise<Boolean> {
+  checkFollowedTrackByPromise(track_id: string[]): Promise<Boolean[]> {
     const url = `${this.spotifyUrl}/user/check/favourite/track/` + track_id;
-    return this.http.get<Boolean>(url).pipe(tap(_ => console.log('checked if track followed: ' + track_id))).toPromise();
+    return this.http.get<Boolean[]>(url).pipe(tap(_ => console.log('checked if track followed: ' + track_id))).toPromise();
   }
 
-  checkFollowedTrack(track_id: string): Observable<Boolean> {
+  checkFollowedTrack(track_id: string[]): Observable<Boolean[]> {
     const url = `${this.spotifyUrl}/user/check/favourite/track/` + track_id;
-    return this.http.get<Boolean>(url).pipe(tap(_ => console.log('checked if track followed: ' + track_id)));
+    return this.http.get<Boolean[]>(url).pipe(tap(_ => console.log('checked if track followed: ' + track_id)));
   }
 
   getRelatedArtists(artist_id: string): Observable<SpotifyArtist[]> {
     const url = `${this.spotifyUrl}/artist/related/` + artist_id;
     return this.http.get<SpotifyArtist[]>(url).pipe();
+  }
+
+  getNewReleases(): Observable<SpotifyAlbum[]> {
+    const url = `${this.spotifyUrl}/get/top/albums`;
+    return this.http.get<SpotifyAlbum[]>(url).pipe();
+  }
+
+  getUserTopTracks(): Observable<SpotifyTrack[]> {
+    const url = `${this.spotifyUrl}/user/get/top/tracks`;
+    return this.http.get<SpotifyTrack[]>(url).pipe();
+  }
+
+  getUserRecentTracks(): Observable<SpotifyTrack[]> {
+    const url = `${this.spotifyUrl}/user/get/recent/tracks`;
+    return this.http.get<SpotifyTrack[]>(url).pipe();
+  }
+
+  getFeaturedPlaylists(): Observable<SpotifyPlaylistSnapshot[]> {
+    const url = `${this.spotifyUrl}/get/featured/playlists/`;
+    return this.http.get<SpotifyPlaylistSnapshot[]>(url).pipe(
+      tap(playlist => console.log('playlist_snapshot', playlist))
+    );
   }
 
 
