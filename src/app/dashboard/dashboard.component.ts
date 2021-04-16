@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 import {Moment} from 'moment';
+import {InstagramUserSearchInfo} from "../model/instagram/InstagramUserSearchInfo";
 // @ts-ignore
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +27,7 @@ export class DashboardComponent implements OnInit {
   public buttonName: any = 'Change';
 channel: Channel;
 
-  constructor(private youtubeService: YoutubeService, private twitterService: TwitterService, private goalService: GoalService) {
+  constructor(private instagramService: InstagramService, private youtubeService: YoutubeService, private twitterService: TwitterService, private goalService: GoalService) {
   }
   instagramUser: InstagramUserInfo;
 
@@ -60,14 +61,13 @@ channel: Channel;
   briefStatus: BriefStatus;
   briefStatusList: BriefStatus[];
   twitterHandle: string;
-  instagramUser: InstagramUserInfo;
   selected = 'channelInsights';
   selectedVideo = 'mostRecent';
   counter: [];
   twitterFollowerCount;
   ngOnInit(): void {
 
-    this.getInstaUser();
+    // this.getInstaUser();
     this.getChannel();
     // this.instagramUser = this.instagramComponent.getInstaUser();
     // this.counter = this.instagramComponent.counter(0);

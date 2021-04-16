@@ -19,44 +19,9 @@
 <mat-tab-group animationDuration="0ms">
   <mat-tab label="Create Post">
 
-<!--    <section class="example-section">-->
-<!--      <mat-checkbox class="example-margin" (change)="toggleEditable($event)">All</mat-checkbox>-->
-<!--      <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Twitter</mat-checkbox>-->
-<!--      <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Facebook</mat-checkbox>-->
-<!--      <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Instagram</mat-checkbox>-->
-<!--      <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Youtube</mat-checkbox>-->
-<!--      <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Spotify</mat-checkbox>-->
-
-<!--      <mat-checkbox class="example-margin" [disabled]="true">Disabled</mat-checkbox>-->
-<!--    </section>-->
-
-
-
-<!--    <section class="example-section">-->
-<!--  <span class="example-list-section">-->
-<!--    <mat-checkbox class="example-margin"-->
-<!--                  [checked]="allComplete"-->
-<!--                  [color]="task.color"-->
-<!--                  [indeterminate]="someComplete()"-->
-<!--                  (change)="setAll($event.checked)">-->
-<!--      {{task.name}}-->
-<!--    </mat-checkbox>-->
-<!--  </span>-->
-<!--      <span class="example-list-section">-->
-<!--    <ul>-->
-<!--      <li *ngFor="let subtask of task.subtasks">-->
-<!--        <mat-checkbox [(ngModel)]="subtask.completed"-->
-<!--                      [color]="subtask.color"-->
-<!--                      (ngModelChange)="updateAllComplete()">-->
-<!--          {{subtask.name}}-->
-<!--        </mat-checkbox>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </span>-->
-<!--    </section>-->
-
-
     <mat-card class="post-card" >
+      <h2>Select social media to upload to</h2>
+      <h4>you can also upload images by pressing the choose file button</h4>
       <form [formGroup]="form" (ngSubmit)="submitForm('socialHubClub', 'content')" novalidate>
         <section class="example-section">
 
@@ -90,7 +55,7 @@
             </div>
             <div class="posttweetbutcont">
               <label class="btn btn-default">
-                <input type="file" (change)="selectFile($event)" />
+                <input class="choose-file-btn" type="file" (change)="selectFile($event)" />
               </label>
             <span class="upload-btn-div">
               <button class="btn btn-success" [disabled]="content.value === '' && !selectedFiles" (click)="upload(content.value)">
@@ -118,6 +83,47 @@
 
   <mat-tab label="Recent Posts">
 
+    <mat-card class="outer-basic-card">
+
+      <h2 class="header"> Recent Posts Made From Social Hub </h2>
+<!--      <cdk-virtual-scroll-viewport  *ngIf="usersOnePosts !== null" itemSize="20" class="example-viewport">-->
+
+<!--      <div style="padding-bottom: 10px"  *ngFor="let onePost of usersOnePosts">-->
+<!--  <mat-card>-->
+<!--        <div class="posttweettacontainer3">-->
+<!--          <b>{{onePost.textContent}}</b>-->
+<!--          <br>-->
+<!--          {{onePost.image}} <br>-->
+<!--        </div>-->
+<!--</mat-card>-->
+<!--      </div>-->
+
+<!--      </cdk-virtual-scroll-viewport>-->
+      <cdk-virtual-scroll-viewport  *ngIf="usersOnePosts !== null" itemSize="20" class="example-viewport">
+        <!--      <span *ngIf="showTimeline" >-->
+        <span *ngIf="usersOnePosts!== null else spin" class="status">
+
+        <!--      <mat-card class="basic-card" *ngIf="showOtherTimeline">-->
+        <div style="padding-bottom: 10px"  *ngFor="let onePost of usersOnePosts">
+          <mat-card class="basic-card" >
+            <div>Posted To: {{onePost.socialMedia}}</div>
+<!--            <div>Created: {{onePost.createdAt}}</div>-->
+<!--          <div class="posttweettacontainer3">-->
+          <b>{{onePost.textContent}}</b>
+          <br>
+            {{onePost.image}} <br>
+<!--</div>-->
+          </mat-card>
+      </div>
+        </span>
+      </cdk-virtual-scroll-viewport>
+
+
+      <br>
+      <br>
+      <br>
+
+    </mat-card>
   </mat-tab>
 
   <mat-tab label="Dev Tests">
@@ -215,3 +221,7 @@
 
 
 
+<ng-template #spin>
+  <h2>Null</h2>
+<!--            <mat-progress-bar mode="indeterminate"></mat-progress-bar>-->
+</ng-template>

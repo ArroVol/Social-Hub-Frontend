@@ -1,107 +1,220 @@
-<!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;&ndash;&gt;-->
 
-<!--<mat-toolbar >-->
+<!--&lt;!&ndash;<mat-toolbar >&ndash;&gt;-->
+<!--&lt;!&ndash;  <div style="display: flex; justify-content: space-around">&ndash;&gt;-->
+<!--&lt;!&ndash;    <mat-toolbar-row>&ndash;&gt;-->
+<!--&lt;!&ndash;      <div style="float: right">Social Hub</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </mat-toolbar-row>&ndash;&gt;-->
+<!--&lt;!&ndash;    <mat-toolbar-row>&ndash;&gt;-->
+<!--&lt;!&ndash;      <app-simple-form > </app-simple-form>&ndash;&gt;-->
+<!--&lt;!&ndash;    </mat-toolbar-row>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</mat-toolbar>&ndash;&gt;-->
+<!--&lt;!&ndash;<nav>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a routerLink="/twitter">Twitter</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a routerLink="/facebook">Facebook</a>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  <a routerLink="/dashboard">dashboard</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;  <a *ngIf="loggedIn !== 'true'" routerLink="/login-page">log in page</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a routerLink="/account-information">Account information</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a routerLink="/timeline">timeline</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a routerLink="/spotify">spotify</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a routerLink="/about">about</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a routerLink="/spotify/landing">spotify landing</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</nav>&ndash;&gt;-->
+<!--&lt;!&ndash;<router-outlet></router-outlet>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;<app-side-nav>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</app-side-nav>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div *ngIf="loggedIn">&ndash;&gt;-->
+
+<!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
+<!--&lt;!&ndash; Navbar brand &ndash;&gt;-->
+<!--<mat-toolbar>-->
 <!--  <div style="display: flex; justify-content: space-around">-->
 <!--    <mat-toolbar-row>-->
-<!--      <div style="float: right">Social Hub</div>-->
+<!--      <button style="margin: 0" type="button" mat-button (click)="drawer.toggle()">-->
+<!--        <span class="material-icons">-->
+<!--            reorder-->
+<!--        </span>-->
+<!--      </button>-->
+<!--      <div style="float: right; font-size: 30px; font-family: FontAwesome">Social Hub</div>-->
+
+
 <!--    </mat-toolbar-row>-->
 <!--    <mat-toolbar-row>-->
 <!--      <app-simple-form > </app-simple-form>-->
 <!--    </mat-toolbar-row>-->
 <!--  </div>-->
 <!--</mat-toolbar>-->
-<!--<nav>-->
-<!--  <a routerLink="/twitter">Twitter</a>-->
-<!--  <a routerLink="/facebook">Facebook</a>-->
-<!--&lt;!&ndash;  <a routerLink="/dashboard">dashboard</a>&ndash;&gt;-->
-<!--  <a *ngIf="loggedIn !== 'true'" routerLink="/login-page">log in page</a>-->
-<!--  <a routerLink="/account-information">Account information</a>-->
-<!--  <a routerLink="/timeline">timeline</a>-->
-<!--  <a routerLink="/spotify">spotify</a>-->
-<!--  <a routerLink="/about">about</a>-->
-<!--  <a routerLink="/spotify/landing">spotify landing</a>-->
 
-<!--</nav>-->
-<!--<router-outlet></router-outlet>-->
+<!--&lt;!&ndash;&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;&ndash;&gt;-->
+
+<!--<mat-sidenav-container class="example-container" >-->
+<!--&lt;!&ndash;  <mat-sidenav-container *ngIf="loggedIn" class="example-container" >&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <mat-toolbar color="primary">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div style="display: flex; justify-content: space-around">&ndash;&gt;-->
+<!--&lt;!&ndash;      <mat-toolbar-row>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div style="float: right">Social Hub</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      </mat-toolbar-row>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </mat-toolbar>&ndash;&gt;-->
+<!--&lt;!&ndash;  <div *ngIf="loggedIn else oops" class="side-nav">&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <span>Wait for it... {{ sideNav | async }}</span>&ndash;&gt;-->
 
 
-<!--<app-side-nav>-->
+<!--  <mat-sidenav *ngIf="displaySideNav" mode="side" opened #drawer>-->
+<!--    <button type="button" mat-button (click)="drawer.toggle()">-->
+<!--      Toggle sidenav-->
+<!--    </button>-->
+<!--    <ul  class="navbar-nav" >-->
+<!--      <li>-->
+<!--        <a>-->
+<!--          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--    <nav>-->
+<!--      <ul>-->
+<!--        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>-->
+<!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
+<!--&lt;!&ndash;        <li><a *ngIf="loggedIn !== 'true'" routerLink="/login-page">log in page</a></li>&ndash;&gt;-->
+<!--        <li><a routerLink="/account-information">Account information</a></li>-->
+<!--        <li><a routerLink="/instagram"><img style="width: 10px" >Instagram</a></li>-->
+<!--        <li><a routerLink="/spotify">spotify</a></li>-->
+<!--        <li><a routerLink="/about">about</a></li>-->
+<!--        <li><a routerLink="/spotify/landing">spotify landing</a></li>-->
+<!--        <li><a routerLink="/main">sample landing</a></li>-->
 
-<!--</app-side-nav>-->
+<!--      </ul>-->
+<!--    </nav>-->
+<!--  </mat-sidenav>-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--  <ng-template #oops>-->
+<!--    oops-->
+<!--  </ng-template>-->
+<!--  <mat-sidenav-content>-->
 
-<!--<div *ngIf="loggedIn">-->
+<!--    <router-outlet>-->
 
-<!--<h1>{{title}}</h1>-->
-<!-- Navbar brand -->
-<mat-toolbar>
-  <div style="display: flex; justify-content: space-around">
-    <mat-toolbar-row>
-      <div style="float: right">Social Hub</div>
-    </mat-toolbar-row>
-    <mat-toolbar-row>
-      <app-simple-form > </app-simple-form>
-    </mat-toolbar-row>
-  </div>
-</mat-toolbar>
+<!--    </router-outlet>-->
+<!--  </mat-sidenav-content>-->
+<!--</mat-sidenav-container>-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
 
 <!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
+<!--&lt;!&ndash; Navbar brand &ndash;&gt;-->
+<!--<mat-toolbar>-->
+<!--  <div style="display: flex; justify-content: space-around">-->
+<!--    <mat-toolbar-row>-->
+<!--      <button style="margin: 0" type="button" mat-button (click)="drawer.toggle()">-->
+<!--        <span class="material-icons">-->
+<!--            reorder-->
+<!--        </span>-->
+<!--      </button>-->
+<!--      <div style="float: right; font-size: 30px; font-family: FontAwesome">Social Hub</div>-->
 
-<mat-sidenav-container class="example-container" >
-<!--  <mat-sidenav-container *ngIf="loggedIn" class="example-container" >-->
 
+<!--    </mat-toolbar-row>-->
+<!--    <mat-toolbar-row>-->
+<!--      <app-simple-form > </app-simple-form>-->
+<!--    </mat-toolbar-row>-->
+<!--  </div>-->
+<!--</mat-toolbar>-->
+
+
+<!--<mat-sidenav-container class="example-container" >-->
 <!--  <mat-toolbar color="primary">-->
 <!--    <div style="display: flex; justify-content: space-around">-->
 <!--      <mat-toolbar-row>-->
-<!--        <div style="float: right">Social Hub</div>-->
+<!--        <div style="float: right; font-size: 20px; font-family: FontAwesome">Social Hub-->
+
+<!--        </div>-->
 
 <!--      </mat-toolbar-row>-->
 
 <!--    </div>-->
 <!--  </mat-toolbar>-->
-<!--  <div *ngIf="loggedIn else oops" class="side-nav">-->
+<!--  <mat-sidenav *ngIf="displaySideNav" mode="side" style="background-color: #63d3b6;" mode="side" opened #drawer>-->
+<!--      <button type="button" mat-button (click)="drawer.toggle()">-->
+<!--        Toggle sidenav-->
+<!--      </button>-->
 
-<!--  <span>Wait for it... {{ sideNav | async }}</span>-->
+
+<!--    <ul  class="navbar-nav" >-->
+<!--      <li>-->
+<!--        <a>-->
+<!--          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--    <nav>-->
 
 
+<!--      <ul>-->
+<!--        <li>-->
+<!--          <button class="UserMenuButton" mat-button [matMenuTriggerFor]="menuUser">-->
+<!--            <span class="material-icons">-->
+<!--                manage_accounts-->
+<!--            </span>Dashboard</button>-->
+<!--          <mat-menu #menuUser="matMenu">-->
+<!--            <button mat-menu-item><a routerLink="/login-page">log in page</a></button>-->
+<!--            <button mat-menu-item><a routerLink="/account-information">Account information</a></button>-->
+<!--            <button mat-menu-item><a routerLink="/about">about</a></button>-->
+<!--          </mat-menu>-->
+<!--        </li>-->
 
-  <mat-sidenav *ngIf="displaySideNav" mode="side" opened #drawer>
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button>
-    <ul  class="navbar-nav" >
-      <li>
-        <a>
-          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>
-        </a>
-      </li>
-    </ul>
-    <nav>
-      <ul>
-        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>
-        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>
-<!--        <li><a *ngIf="loggedIn !== 'true'" routerLink="/login-page">log in page</a></li>-->
-        <li><a routerLink="/account-information">Account information</a></li>
-        <li><a routerLink="/instagram"><img style="width: 10px" >Instagram</a></li>
-        <li><a routerLink="/spotify">spotify</a></li>
-        <li><a routerLink="/about">about</a></li>
-        <li><a routerLink="/spotify/landing">spotify landing</a></li>
-        <li><a routerLink="/main">sample landing</a></li>
+<!--        <li>-->
+<!--          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span class="twitterIcon"></span> Twitter</button>-->
+<!--        </li>-->
+<!--        &lt;!&ndash;        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>&ndash;&gt;-->
+<!--        <li>-->
+<!--          <button class="FBMenuButton" mat-button routerLink="/facebook"><span class="fbIcon"></span> Facebook</button>-->
+<!--        </li>-->
+<!--        &lt;!&ndash;        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>&ndash;&gt;-->
+<!--        <li>-->
+<!--          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta"><span class="instaIcon"></span> Instagram</button>-->
+<!--          <mat-menu #menuInsta="matMenu">-->
+<!--            <button mat-menu-item><a routerLink="/instagram">Instagram Profile</a></button>-->
+<!--            <button mat-menu-item><a routerLink="/instagram-search">Instagram User Search</a></button>-->
+<!--          </mat-menu>-->
+<!--        </li>-->
+<!--        &lt;!&ndash;        <li><a routerLink="/instagram">Instagram</a></li>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <li><a routerLink="/instagram-search">Instagram Search</a></li>&ndash;&gt;-->
+<!--        <li>-->
+<!--          <button class="SpotifyMenuButton" mat-button [matMenuTriggerFor]="menuSpotify"><span class="spotifyIcon"></span>  Spotify</button>-->
+<!--          <mat-menu #menuSpotify="matMenu">-->
+<!--            <button mat-menu-item><a routerLink="/spotify">spotify</a></button>-->
+<!--            <button mat-menu-item><a routerLink="/spotify/landing">spotify landing</a></button>-->
+<!--          </mat-menu>-->
+<!--        </li>-->
 
-      </ul>
-    </nav>
-  </mat-sidenav>
-<!--  </div>-->
-  <ng-template #oops>
-    oops
-  </ng-template>
-  <mat-sidenav-content>
+<!--        <li>-->
+<!--          <button class="YTMenuButton" mat-button routerLink="/twitter"><span class="ytIcon"></span> YouTube</button>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <button class="onePageMenuButton" mat-button routerLink="/one-post"><span class="ytIcon2"></span> One Page</button>-->
+<!--        </li>-->
 
-    <router-outlet>
 
-    </router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-<!--</div>-->
+<!--        &lt;!&ndash;        <li><a routerLink="/spotify">spotify</a></li>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <li><a routerLink="/spotify/landing">spotify landing</a></li>&ndash;&gt;-->
+
+<!--      </ul>-->
+<!--    </nav>-->
+<!--  </mat-sidenav>-->
+
+
+<!--  <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>-->
+<!--</mat-sidenav-container>-->
+
 
 <!--<h1>{{title}}</h1>-->
 <!-- Navbar brand -->
@@ -115,16 +228,15 @@
       </button>
       <div style="float: right; font-size: 30px; font-family: FontAwesome">Social Hub</div>
 
-
     </mat-toolbar-row>
     <mat-toolbar-row>
-      <app-simple-form > </app-simple-form>
+      <app-simple-form></app-simple-form>
     </mat-toolbar-row>
   </div>
 </mat-toolbar>
 
 
-<mat-sidenav-container class="example-container" >
+<mat-sidenav-container  class="example-container">
   <mat-toolbar color="primary">
     <div style="display: flex; justify-content: space-around">
       <mat-toolbar-row>
@@ -139,17 +251,15 @@
   <mat-sidenav style="background-color: #63d3b6;" mode="side" opened #drawer>
 
 
-
-
-    <ul  class="navbar-nav" >
+    <ul class="navbar-nav">
       <li>
         <a>
-          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>
+          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt=""
+                                          class="p-5 rounded-circle"></a>
         </a>
       </li>
     </ul>
     <nav>
-
 
 
       <ul>
@@ -157,7 +267,8 @@
           <button class="UserMenuButton" mat-button [matMenuTriggerFor]="menuUser">
             <span class="material-icons">
                 manage_accounts
-            </span>Dashboard</button>
+            </span>Dashboard
+          </button>
           <mat-menu #menuUser="matMenu">
             <button mat-menu-item><a routerLink="/login-page">log in page</a></button>
             <button mat-menu-item><a routerLink="/account-information">Account information</a></button>
@@ -166,7 +277,8 @@
         </li>
 
         <li>
-          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span class="twitterIcon"></span> Twitter</button>
+          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span class="twitterIcon"></span> Twitter
+          </button>
         </li>
         <!--        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>-->
         <li>
@@ -174,7 +286,9 @@
         </li>
         <!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
         <li>
-          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta"><span class="instaIcon"></span> Instagram</button>
+          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta"><span class="instaIcon"></span>
+            Instagram
+          </button>
           <mat-menu #menuInsta="matMenu">
             <button mat-menu-item><a routerLink="/instagram">Instagram Profile</a></button>
             <button mat-menu-item><a routerLink="/instagram-search">Instagram User Search</a></button>
@@ -183,7 +297,9 @@
         <!--        <li><a routerLink="/instagram">Instagram</a></li>-->
         <!--        <li><a routerLink="/instagram-search">Instagram Search</a></li>-->
         <li>
-          <button class="SpotifyMenuButton" mat-button [matMenuTriggerFor]="menuSpotify"><span class="spotifyIcon"></span>  Spotify</button>
+          <button class="SpotifyMenuButton" mat-button [matMenuTriggerFor]="menuSpotify"><span
+            class="spotifyIcon"></span> Spotify
+          </button>
           <mat-menu #menuSpotify="matMenu">
             <button mat-menu-item><a routerLink="/spotify">spotify</a></button>
             <button mat-menu-item><a routerLink="/spotify/landing">spotify landing</a></button>
@@ -193,6 +309,9 @@
         <li>
           <button class="YTMenuButton" mat-button routerLink="/twitter"><span class="ytIcon"></span> YouTube</button>
         </li>
+                <li>
+                  <button class="onePageMenuButton" mat-button routerLink="/one-post"><span class="ytIcon2"></span> One Page</button>
+                </li>
 
 
         <!--        <li><a routerLink="/spotify">spotify</a></li>-->
@@ -203,5 +322,7 @@
   </mat-sidenav>
 
 
-  <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>

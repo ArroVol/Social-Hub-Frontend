@@ -13,6 +13,10 @@ import {HttpClient, HttpEventType, HttpHeaders, HttpRequest} from '@angular/comm
 import {NgxDropzoneChangeEvent} from "ngx-dropzone";
 import {FileUploader} from "ng2-file-upload";
 import {ObjectHolder} from "../model/Image/object-holder";
+import {OnePostService} from "../service/one-posts/service";
+import {OnePosts} from "../model/user/OnePosts";
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json' });
@@ -27,7 +31,7 @@ class ImageSnippet {
   pending: boolean = false;
   status: string = 'init';
 
-  constructor(public src: string, public file: File) {}
+  constructor(public src: string, public file: File, public snackBar: MatSnackBar) {}
 }
 @Component({
   selector: 'app-one-post',
@@ -38,6 +42,7 @@ export class OnePostComponent implements OnInit {
   // public uploader:FileUploader = new FileUploader({
   //   isHTML5: true
   // });
+  socialMedia = '';
   objectHolder: ObjectHolder;
   title = 'dropzone';
   selectedFiles: FileList;
@@ -52,12 +57,15 @@ export class OnePostComponent implements OnInit {
   message: string;
   imageName: any;
   click = true;
+  onePost: OnePosts;
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
   private url = 'http://localhost:8080/api';
 
+  userId: number;
+  usersOnePosts: OnePosts[];
   twitterHandle: string;
   twitterSecureData: SecureTwitter;
   tweet: Tweet;
@@ -66,7 +74,7 @@ export class OnePostComponent implements OnInit {
   twitterUser: User;
   public imageSrc = 'https://image.freepik.com/free-icon/upload-arrow_318-26670.jpg';
   Data: Array<any> = [
-    {name: 'All', value: 'all'},
+    // {name: 'All', value: 'all'},
     {name: 'Twitter', value: 'twitter'},
     {name: 'Facebook', value: 'facebook'},
     {name: 'Instagram', value: 'instagram'}
@@ -88,6 +96,7 @@ export class OnePostComponent implements OnInit {
 
     ]
   };
+  savedOnePost: OnePosts;
 
   uploadForm: FormGroup;
 
@@ -100,7 +109,9 @@ export class OnePostComponent implements OnInit {
               private fb: FormBuilder,
               private userService: UserService,
               private imageService: ImageService,
-              private http: HttpClient
+              private http: HttpClient,
+              private onePostService: OnePostService,
+              public snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       checkArray: this.fb.array([])
@@ -133,6 +144,7 @@ export class OnePostComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    this.userId = +sessionStorage.getItem('userId');
     this.uploadForm = this.fb.group({
       document: [null, null],
       type: [null, Validators.compose([Validators.required])]
@@ -148,6 +160,7 @@ export class OnePostComponent implements OnInit {
         console.log(this.twitterUser.userId);
         console.log(this.twitterUser.email);
         console.log(this.twitterUser.username);
+        this.getUsersOnePosts(this.userId);
       });
   }
 
@@ -382,6 +395,7 @@ export class OnePostComponent implements OnInit {
   }
 
   selectFile(event): void {
+    console.log(event);
     if (event.target.files.length === 1) {
       const file = event.target.files[0];
       this.file = file;
@@ -400,29 +414,13 @@ export class OnePostComponent implements OnInit {
     data.append('file', this.file);
     data.append('textContent', content);
 
-    console.log(url);
     this.http.post(url, data, { observe: 'response' })
       .subscribe((response) => {
         console.log('we did it!');
-        // if (response.status === 200) {
-        //   this.message = 'Image uploaded successfully';
-        // } else {
-        //   this.message = 'Image not uploaded successfully';
-        // }
+
       }
       );
-
-    // const newRequest = new HttpRequest('POST', url, data, {
-    //   reportProgress: true,
-    //   responseType: 'text'
-    // });
-    // this.userService.pushFileToStorage(this.file).subscribe(event => {
-    //     this.selectedFiles = undefined;
-    //     // this.getGoals();
-    //     // window.location.reload();
-    //   }
-    // );
-
+    this.saveOnePost(content);
   }
 
   upload2(content: string): void {
@@ -469,9 +467,74 @@ export class OnePostComponent implements OnInit {
     checkBox.classList.toggle("pressed");
     checkBox.classList.toggle("clicked");
     checkBox.classList.toggle("checked");
-
-
     var button = document.getElementsByClassName("btn btn-success")[0];
      button.classList.toggle("clicked");
+  }
+
+  getUsersOnePosts(userId: number) {
+  console.log('getting the users one posts....')
+    this.onePostService.getUsersOnePosts(userId)
+      .subscribe(onePosts => {
+        this.usersOnePosts = onePosts;
+
+        if(this.usersOnePosts !== null) {
+          console.log(this.usersOnePosts.length)
+          for (let i = 0; i < onePosts.length; i++) {
+            console.log(onePosts[i]);
+          }
+        }
+    });
+  }
+
+  async saveOnePost(textContent: string){
+
+    for (let i = 0; i < this.form.value.checkArray.length; i++) {
+     console.log(this.form.value.checkArray[i]);
+     this.socialMedia = this.socialMedia.concat(this.form.value.checkArray[i]);
+     this.socialMedia = this.socialMedia.concat(' ');
+    }
+    console.log(this.socialMedia);
+    this.currentFileUpload = this.file;
+    console.log('attempting upload');
+    const data: FormData = new FormData();
+    data.append('file', this.file);
+    data.append('textContent', textContent);
+    data.append('socialMedia', this.socialMedia);
+    data.append('userId', sessionStorage.getItem('userId'));
+
+    this.onePost = new OnePosts();
+    this.onePost.image = data;
+    this.onePost.textContent = textContent;
+    this.onePost.userId = +sessionStorage.getItem('userId');
+    this.onePost.createdAt = new Date();
+    data.append('createdAt', this.onePost.createdAt.toDateString());
+
+
+
+    // this.onePostService.saveOnePosts(this.onePost)
+    //   .subscribe(onePost => {
+    //     this.savedOnePost = onePost;
+    //   });
+    const url = `${this.url}/one-posts/save/form-data`;
+
+    this.http.post(url, data, { observe: 'response' })
+      .subscribe((response) => {
+          console.log('we did it!');
+          this.openSnackBar('Posted to your account')
+          // this.snackBar.open('Posted to your account');
+     this.delay(2500);
+          window.location.reload();
+        }
+      );
+  }
+
+  openSnackBar(status: string) {
+    this.snackBar.open(status, 'close', {
+      duration: 2500,
+    });
+  }
+
+  async delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }

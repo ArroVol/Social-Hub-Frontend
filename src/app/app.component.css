@@ -515,6 +515,15 @@ button.social-signin:active {
   width: 120px;
 }
 
+.onePageMenuButton {
+  color: #fff;
+  background-color: mediumseagreen;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+  width: 120px;
+}
+
 .UserMenuButton {
   color: #fff;
   background-color: grey;

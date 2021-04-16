@@ -38,10 +38,21 @@ export class InstagramService {
   getSearchInsta(user: string): Observable<InstagramUserInfo> {
 
     console.log('getting search instagram profile for ' + user);
-    const url = `${this.instagramUrl}/userSearch`;
-    return this.http.post<InstagramUserInfo>(url, user, {headers})
+    const url = `${this.instagramUrl}/userSearch?user=${user}`;
+    return this.http.get<InstagramUserInfo>(url, {headers})
       .pipe(
         tap(_ => console.log('fetched search user profile'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
+  checkFollowingStatus(user: string): Observable<boolean> {
+
+    console.log('checking following status with: ' + user);
+    const url = `${this.instagramUrl}/followingStatus`;
+    return this.http.post<boolean>(url, user, {headers})
+      .pipe(
+        tap(_ => console.log('checking following status'))
         // catchError(() => observableThrowError('get user by id error'))
       );
   }
@@ -55,6 +66,26 @@ export class InstagramService {
          // catchError(() => observableThrowError('get registration by id error'))
        );
    }
+
+  followUser(user: string) {
+    console.log('following' + user);
+    const url = `${this.instagramUrl}/followUserSearch`;
+    return this.http.post(url, user, {headers})
+      .pipe(
+        tap(_ => console.log('sent follow request' ))
+        // catchError(() => observableThrowError('get registration by id error'))
+      );
+  }
+
+  unfollowUser(user: string) {
+    console.log('unfollowing' + user);
+    const url = `${this.instagramUrl}/unfollowUserSearch`;
+    return this.http.post(url, user, {headers})
+      .pipe(
+        tap(_ => console.log('sent unfollow request' ))
+        // catchError(() => observableThrowError('get registration by id error'))
+      );
+  }
 
   postUser(user: string, password: string) {
     const url = `${this.instagramUrl}/user/newInstaUser/${user}/${password}`;

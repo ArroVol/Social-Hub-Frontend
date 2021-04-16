@@ -131,7 +131,7 @@
 
       <mat-card class="outer-basic-card" *ngIf="!showMostFavorited else showUserFavoritedCard">
 
-      <h2 class="header">{{showingUser.toString()}}</h2>
+      <h2 class="header">{{twitterHandle}}'s {{showingUser.toString()}}</h2>
         <mat-card class="basic-card">
 
         <div class="posttweettacontainer3" *ngIf="userMostRetweeted != null">
@@ -152,13 +152,13 @@
         <section class="other-tweet-option">
           <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
             <mat-button-toggle (click)="changeUserRetweeted()" value="bold"  >Most Retweets</mat-button-toggle>
-            <mat-button-toggle (click)="changeUserFavorited()" value="italic">Most Favorites</mat-button-toggle>
+            <mat-button-toggle (click)="changeUserFavorited()" value="italic" >Most Favorites</mat-button-toggle>
           </mat-button-toggle-group>
         </section>
       </mat-card>
       <ng-template #showUserFavoritedCard>
         <mat-card  class="outer-basic-card">
-          <h2 class="header">{{showingUser.toString()}}</h2>
+          <h2 class="header">{{twitterHandle}}'s {{showingUser.toString()}}</h2>
           <mat-card class="basic-card">
 
           <div class="posttweettacontainer3">
@@ -177,8 +177,9 @@
           </mat-card>
           <section class="other-tweet-option">
             <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
-              <mat-button-toggle (click)="changeUserRetweeted()" value="bold" checked = true>Most Retweets</mat-button-toggle>
-              <mat-button-toggle (click)="changeUserFavorited()" value="italic">Most Favorites</mat-button-toggle>
+
+              <mat-button-toggle (click)="changeUserRetweeted()" value="bold" checked = true  >Most Retweets</mat-button-toggle>
+              <mat-button-toggle (click)="changeUserFavorited()" value="italic" >Most Favorites</mat-button-toggle>
             </mat-button-toggle-group>
           </section>
         </mat-card>
@@ -245,13 +246,7 @@
                 <br>
               </div>
             </mat-card>
-            <section class="other-tweet-option">
-              <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
-                <mat-button-toggle (click)="changeUserRetweeted()" value="bold" checked = true>Most Retweets</mat-button-toggle>
-                <mat-button-toggle (click)="changeUserFavorited()" value="italic">Most Favorites</mat-button-toggle>
-                <h1> hiiii </h1>
-              </mat-button-toggle-group>
-            </section>
+
             <span class="dispblk2">
 									<span class="followers-header"> <div>
                    {{userMostFavorited.handle}}'s Twitter Followers: {{otherNumFollowers}}
@@ -278,7 +273,7 @@
       <div *ngIf="showOtherDiv">
       <mat-card class="outer-basic-card-other">
 
-        <h2 class="header">{{showingOther.toString()}}</h2>
+        <h2 class="header">{{otherMostFavorited.handle}}'s {{showingOther.toString()}}</h2>
         <mat-card class="basic-card">
 
         <div class="posttweettacontainer3" *ngIf="otherMostRetweeted != null">
@@ -298,15 +293,15 @@
         </mat-card>
         <section class="other-tweet-option">
           <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
-            <mat-button-toggle (click)="changeOtherRetweeted()" value="bold" checked = true>Most Retweets</mat-button-toggle>
+            <mat-button-toggle (click)="changeOtherRetweeted()" value="bold"  >Most Retweets</mat-button-toggle>
             <mat-button-toggle (click)="changeOtherFavorited()" value="italic">Most Favorites</mat-button-toggle>
           </mat-button-toggle-group>
         </section>
         <div>
           <br>
-        <span class="dispblk3">
-									<span class="followers-header2"> <div>
-                   {{otherMostFavorited.handle}}'s Twitter Followers: {{otherNumFollowers}}
+        <span class="dispblk2">
+									<span class="followers-header3"> <div>
+                  <b>  {{otherMostFavorited.handle}}'s Twitter Followers: {{otherNumFollowers}}</b>
 </div></span>
         </span>
         </div>

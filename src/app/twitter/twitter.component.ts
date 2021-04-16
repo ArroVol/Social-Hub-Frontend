@@ -165,7 +165,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
    */
   ngOnInit(): void {
     this.showingOther ='';
-    this.showingUser = 'Most Retweets';
+    this.showingUser = 'Most Retweeted Post';
     this.showOtherDiv = false;
     this.showMostFavorited = false;
     this.reactiveForm = this.builder.group({
@@ -390,6 +390,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
 
   getFriendsList() {
     console.log('getting friends list');
+    console.log(sessionStorage.getItem('twitterHandle'));
     this.twitterService.getFriendsList(sessionStorage.getItem('twitterHandle'))
       .subscribe(friendsList => {
         this.friendsList = friendsList;

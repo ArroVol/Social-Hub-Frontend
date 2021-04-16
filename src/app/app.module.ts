@@ -29,12 +29,7 @@ import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
 // import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
-import {FacebookComponent} from './facebook/facebook.component';
 import {SpotifyComponent} from './spotify/spotify.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {SimpleFormComponent} from './simple-form/simple-form.component';
-import {LoginPageComponent} from './login-page/login-page.component';
-import {AccountInformationComponent} from './account-information/account-information.component';
 import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
@@ -81,14 +76,15 @@ import {MomentModule} from 'ngx-moment';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {NgxDropzoneModule} from 'ngx-dropzone';
 import {MatTreeModule} from '@angular/material/tree';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {Moment} from 'moment';
-import {MomentModule} from 'ngx-moment';
 // import { AboutComponent } from './about/about.component';
 import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {PreloadersModule} from 'ng-uikit-pro-standard';
 import { OnePostComponent } from './one-post/one-post.component';
+import {MatMenuModule} from "@angular/material/menu";
+import {MatTabsModule} from "@angular/material/tabs";
+import {GoalModalComponent} from "./goal-modal/goal-modal.component";
 
 @NgModule({
   declarations: [
@@ -130,7 +126,8 @@ import { OnePostComponent } from './one-post/one-post.component';
     LoadingAnimationComponent,
     InstagramSearchComponent,
     AnimatedDigitComponent,
-    OnePostComponent
+    OnePostComponent,
+    GoalModalComponent
   ],
   imports: [
     HttpClientModule,
@@ -186,7 +183,8 @@ import { OnePostComponent } from './one-post/one-post.component';
     MatAutocompleteModule,
     MomentModule,
     MatButtonToggleModule,
-    ScrollingModule
+    ScrollingModule,
+    MatTabsModule
   ],
   providers: [ {
     provide: STEPPER_GLOBAL_OPTIONS,

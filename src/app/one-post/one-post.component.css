@@ -220,3 +220,58 @@ img {
   position: sticky;
   margin-left: 150px;
 }
+
+.example-viewport {
+  height: 450px;
+  /*width: 200px;*/
+  border: 2px slategrey;
+  /*border-radius: 55px;*/
+  /*min-width: 320px;*/
+  /*max-width: 350px;*/
+  /*width: 100%;*/
+  overflow-y: scroll;
+
+}
+::-webkit-scrollbar {
+  /*display:none;*/
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.basic-card{
+  /*background-color: whitesmoke;*/
+  background-color: white;
+
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+  width: 1400px;
+  overflow-y: scroll;
+
+
+}
+.outer-basic-card{
+  background-color: whitesmoke;
+  /*background-color: white;*/
+
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+  /*width: 1400px;*/
+}
+.outer-basic-card-other{
+  background-color: whitesmoke;
+  /*background-color: white;*/
+
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+}
+
+.choose-file-btn{
+  color: #007bff;
+}
+
+.btn btn-default{
+  color: #007bff;
+}

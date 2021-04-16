@@ -170,10 +170,10 @@ export class SimpleFormComponent implements OnInit {
           this.getTwitterData();
         }
       });
-    if (!this.loggedIn){
-    this.openSnackBar('fail');
-
-  }
+  //   if (!this.loggedIn){
+  //   this.openSnackBar('fail');
+  //
+  // }
   }
 
   logOut() {
