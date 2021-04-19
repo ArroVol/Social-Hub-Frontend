@@ -524,5 +524,9 @@ export class LoginPageComponent implements OnInit {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
+
+  pageBack() {
+    window.location.assign('/account-information');
+  }
 }
 

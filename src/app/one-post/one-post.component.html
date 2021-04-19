@@ -21,7 +21,7 @@
 
     <mat-card class="post-card" >
       <h2>Select social media to upload to</h2>
-      <h4>you can also upload images by pressing the choose file button</h4>
+      <h4>you can also upload images by pressing the "Choose file" button below</h4>
       <form [formGroup]="form" (ngSubmit)="submitForm('socialHubClub', 'content')" novalidate>
         <section class="example-section">
 
@@ -32,15 +32,13 @@
 
               {{data.name}}
               <span class="checkmark" (click)="checkCheckBox2($event, data.name)"></span>
-
             </label>
           </div>
         </section>
 
         <p class="error" *ngIf="this.form.controls['checkArray'].errors?.required">
-          Checkbox is required, select atleast one value.
+          Checkbox is required, select at least one value.
         </p>
-
 <!--        <input type="submit" value="Submit">-->
       </form>
       <div class="rightcontainer" *ngIf="twitterDeveloperMode">
@@ -81,24 +79,66 @@
 
   </mat-tab>
 
+  <mat-tab label="Recent Posts From FireBase">
+
+    <mat-card class="outer-basic-card">
+
+      <h2 class="header"> Recent Posts Made From Social Hub </h2>
+
+
+<!--      </cdk-virtual-scroll-viewport>-->
+      <cdk-virtual-scroll-viewport  *ngIf="imageList" itemSize="20" class="example-viewport">
+        <!--      <span *ngIf="showTimeline" >-->
+        <span *ngIf="imageList else spin" class="status">
+
+        <!--      <mat-card class="basic-card" *ngIf="showOtherTimeline">-->
+        <div style="padding-bottom: 10px"  *ngFor="let onePost of imageList">
+          <mat-card class="basic-card" >
+            <div class="Posted">Posted To: {{onePost.socialMedia}}</div>
+<!--            <div>Created: {{onePost.createdAt}}</div>-->
+<!--          <div class="posttweettacontainer3">-->
+            <div class="text-content">
+          <b >{{onePost.textContent}}</b>
+            </div>
+            <div *ngIf="onePost.imageUrl">
+            <img [src]="onePost.imageUrl" alt="" class="'img-fluid">
+          </div>
+            <div class="created">
+              Created On: {{onePost.createAt}}
+            </div>
+<!--            {{onePost.image}} <br>-->
+<!--</div>-->
+          </mat-card>
+      </div>
+        </span>
+      </cdk-virtual-scroll-viewport>
+
+
+      <br>
+      <br>
+      <br>
+
+    </mat-card>
+  </mat-tab>
+
   <mat-tab label="Recent Posts">
 
     <mat-card class="outer-basic-card">
 
       <h2 class="header"> Recent Posts Made From Social Hub </h2>
-<!--      <cdk-virtual-scroll-viewport  *ngIf="usersOnePosts !== null" itemSize="20" class="example-viewport">-->
+      <!--      <cdk-virtual-scroll-viewport  *ngIf="usersOnePosts !== null" itemSize="20" class="example-viewport">-->
 
-<!--      <div style="padding-bottom: 10px"  *ngFor="let onePost of usersOnePosts">-->
-<!--  <mat-card>-->
-<!--        <div class="posttweettacontainer3">-->
-<!--          <b>{{onePost.textContent}}</b>-->
-<!--          <br>-->
-<!--          {{onePost.image}} <br>-->
-<!--        </div>-->
-<!--</mat-card>-->
-<!--      </div>-->
+      <!--      <div style="padding-bottom: 10px"  *ngFor="let onePost of usersOnePosts">-->
+      <!--  <mat-card>-->
+      <!--        <div class="posttweettacontainer3">-->
+      <!--          <b>{{onePost.textContent}}</b>-->
+      <!--          <br>-->
+      <!--          {{onePost.image}} <br>-->
+      <!--        </div>-->
+      <!--</mat-card>-->
+      <!--      </div>-->
 
-<!--      </cdk-virtual-scroll-viewport>-->
+      <!--      </cdk-virtual-scroll-viewport>-->
       <cdk-virtual-scroll-viewport  *ngIf="usersOnePosts !== null" itemSize="20" class="example-viewport">
         <!--      <span *ngIf="showTimeline" >-->
         <span *ngIf="usersOnePosts!== null else spin" class="status">
@@ -107,12 +147,12 @@
         <div style="padding-bottom: 10px"  *ngFor="let onePost of usersOnePosts">
           <mat-card class="basic-card" >
             <div>Posted To: {{onePost.socialMedia}}</div>
-<!--            <div>Created: {{onePost.createdAt}}</div>-->
-<!--          <div class="posttweettacontainer3">-->
+            <!--            <div>Created: {{onePost.createdAt}}</div>-->
+            <!--          <div class="posttweettacontainer3">-->
           <b>{{onePost.textContent}}</b>
           <br>
             {{onePost.image}} <br>
-<!--</div>-->
+            <!--</div>-->
           </mat-card>
       </div>
         </span>

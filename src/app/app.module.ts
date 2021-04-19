@@ -80,11 +80,19 @@ import {Moment} from 'moment';
 // import { AboutComponent } from './about/about.component';
 import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {PreloadersModule} from 'ng-uikit-pro-standard';
+// import {PreloadersModule} from 'ng-uikit-pro-standard';
 import { OnePostComponent } from './one-post/one-post.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatTabsModule} from "@angular/material/tabs";
 import {GoalModalComponent} from "./goal-modal/goal-modal.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {environment} from "../environments/environment";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFireStorageModule} from "@angular/fire/storage";
+
+import { ImagesComponent } from './images/images.component';
+import {AngularFireDatabaseModule} from "@angular/fire/database";
 
 @NgModule({
   declarations: [
@@ -127,7 +135,8 @@ import {GoalModalComponent} from "./goal-modal/goal-modal.component";
     InstagramSearchComponent,
     AnimatedDigitComponent,
     OnePostComponent,
-    GoalModalComponent
+    GoalModalComponent,
+    ImagesComponent
   ],
   imports: [
     HttpClientModule,
@@ -147,7 +156,7 @@ import {GoalModalComponent} from "./goal-modal/goal-modal.component";
     MatMenuModule,
     MatButtonModule,
     MatSelectModule,
-    // MatProgressSpinnerModule,
+    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatTableModule,
@@ -158,7 +167,7 @@ import {GoalModalComponent} from "./goal-modal/goal-modal.component";
     RouterModule,
     CarouselModule,
     MatSidenavModule,
-    PreloadersModule,
+    // PreloadersModule,
     IconsModule,
     NavbarModule,
     WavesModule,
@@ -184,7 +193,11 @@ import {GoalModalComponent} from "./goal-modal/goal-modal.component";
     MomentModule,
     MatButtonToggleModule,
     ScrollingModule,
-    MatTabsModule
+    MatTabsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule
+
   ],
   providers: [ {
     provide: STEPPER_GLOBAL_OPTIONS,

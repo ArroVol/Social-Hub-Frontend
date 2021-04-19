@@ -8,6 +8,9 @@
   <div class="left">
 <form #userForm='ngForm'>
     <div *ngIf="loggedIn !== 'true' else notShow">
+      <button class="edit-btn-card" (click)="pageBack()"mat-icon-button aria-label="edit-handle-btn">
+        <mat-icon class="back-btn">arrow_back</mat-icon>
+      </button>
       <h1 class="header">Register Account information below</h1>
       <div class="center3">
 
@@ -45,11 +48,18 @@
 </div>
 
   <ng-template #notShow>
-      <h1>View And Update Account Information</h1>
+    <span>
+    <button class="back-btn" (click)="pageBack()"mat-icon-button aria-label="edit-handle-btn">
+      <mat-icon class="back-btn">arrow_back</mat-icon>
+    </button>
+      <h1>
+        View And Update Account Information
+      </h1>
+      </span>
     <div class="update-form" >
       <form #updateForm='ngForm'>
                   <mat-hint>Username</mat-hint>
-        <input #username type="text" required [(ngModel)]="userModel.name"   (keypress)="omit_special_char($event)" name="userName" minlength="4" placeholder="{{user.username}}" />
+        <input class="input-field"#username type="text" required [(ngModel)]="userModel.name"   (keypress)="omit_special_char($event)" name="userName" minlength="4" placeholder="{{user.username}}" />
         <div *ngIf="firstEmail.errors && (firstEmail.invalid || firstEmail.touched)">
           <small class="text-danger" *ngIf="firstEmail.errors.pattern">Please provide a valid email address ex. speh@gmail.com</small>
         </div>
@@ -73,14 +83,16 @@
           </small>
           <input #password type="password" required [(ngModel)]="userModel.password"  minlength="4" #password matInput placeholder="Confirm Password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
 
-        </form>
           <div class="update-btn1">
-            <!--    <button class="submit" (click)="update(username.value, email.value, phoneNumber.value, password.value)">Update Account</button>-->
-            <button [disabled]="userModel.name.length < 4 && !userModel.email.includes('.com') && userModel.phoneNumber.length < 10 && myForm.invalid" class="submit" (click)="update(username.value, email.value, phoneNumber.value, password.value )">Update Account</button>
+                <button class="submit" [hidden]="showHidePassword" (click)="update(username.value, email.value, phoneNumber.value, password.value)">Update Account</button>
+            <button class="second-update-btn" [disabled]="userModel.name.length < 4 && !userModel.email.includes('.com') && userModel.phoneNumber.length < 10 && myForm.invalid"  (click)="update(username.value, email.value, phoneNumber.value, password.value )">Update Account</button>
 
           </div>
+        </form>
+
         </div>
     </div>
+
     <div class="center" *ngIf="!showHidePassword">
       <div class="update-btn">
         <!--    <button class="submit" (click)="update(username.value, email.value, phoneNumber.value, password.value)">Update Account</button>-->
@@ -232,6 +244,6 @@
   </ng-template>
 </div>
 </div>
-<main id="logout-button-holder">
-  <button mat-raised-button id="logout-button" (click)="openModal()">Launch Signup Modal</button>
-</main>
+<!--<main id="logout-button-holder">-->
+<!--  <button mat-raised-button id="logout-button" (click)="openModal()">Launch Signup Modal</button>-->
+<!--</main>-->

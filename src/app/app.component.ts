@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NavbarService} from './service/navbar.service';
 import {TwitterService} from './service/twitter.service';
 import {BehaviorSubject} from 'rxjs';
+import {AngularFirestore} from "@angular/fire/firestore";
 // import * as moment from 'moment';
 
 // @ts-ignore
@@ -14,6 +15,11 @@ import {BehaviorSubject} from 'rxjs';
  * The index page of the project.
  */
 export class AppComponent {
+  //invoke the value changes to invoke and subscribe to an observable
+  todo = this.store.collection('todo').valueChanges({ idField: 'id'});
+  profileImages = this.store.collection('profileImages').valueChanges({ idField: 'id'});
+  onePostImages = this.store.collection('onePostImages').valueChanges({ idField: 'id'});
+
   sideNav: Promise<string>|null = null;
   displaySideNav = false;
   private resolve: Function|null = null;
@@ -28,7 +34,7 @@ export class AppComponent {
   loggedIn = false;
   loggedIn$ = new BehaviorSubject(this.loggedIn);
 
-  constructor() {
+  constructor(private store: AngularFirestore) {
     this.reset();
   }
   reset() {

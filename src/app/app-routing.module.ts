@@ -15,6 +15,7 @@ import {InstagramComponent} from './instagram/instagram.component';
 import {CollectionComponent} from './collection/collection.component';
 import {InstagramSearchComponent} from './instagram-search/instagram-search.component';
 import {OnePostComponent} from "./one-post/one-post.component";
+import {ImagesComponent} from "./images/images.component";
 
 
 const routes: Routes = [
@@ -35,7 +36,9 @@ const routes: Routes = [
   { path: 'account-information', component: AccountInformationComponent},
   { path: 'instagram', component: InstagramComponent},
   { path: 'collection', component: CollectionComponent},
-  { path: 'one-post', component: OnePostComponent}
+  { path: 'one-post', component: OnePostComponent},
+  { path: 'image', component: ImagesComponent}
+
 
 
 

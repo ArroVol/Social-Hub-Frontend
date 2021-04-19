@@ -237,6 +237,30 @@ export class TwitterService {
         // catchError(() => observableThrowError('get user by id error'))
       );
   }
+  /** Post registration by id from the server */
+  postUserTweetWithImage(tweet: Tweet, id: number): Observable<Tweet> {
+    const url = `${this.twitterUrl}/twitter/post`;
+    console.log('in the twitter service post user tweet method');
+    console.log(tweet.tweetText);
+    return this.http.post<Tweet>(url, JSON.stringify(tweet), {headers})
+      .pipe(
+        tap(_ => console.log('sent the tweet'))
+        // catchError(() => observableThrowError('get registration by id error'))
+      );
+  }
+
+  /** Post registration by id from the server */
+  postUserTweetTextOnly(tweet: Tweet, id: number): Observable<Tweet> {
+    const url = `${this.twitterUrl}/twitter/post`;
+    console.log('in the twitter service post user tweet method');
+    console.log(tweet.tweetText);
+    return this.http.post<Tweet>(url, JSON.stringify(tweet), {headers})
+      .pipe(
+        tap(_ => console.log('sent the tweet'))
+        // catchError(() => observableThrowError('get registration by id error'))
+      );
+  }
+
 
 
 }
