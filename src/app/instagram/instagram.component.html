@@ -7,9 +7,13 @@
 
   <link href="instagram.component.css" rel="stylesheet" />
 </head>
-
-
+<div  *ngIf="isVisibleSpinner" >
+  <mat-spinner color="accent" strokeWidth="2" [diameter]="100" style="width: 200px; height: 200px; margin-left: 45%;"></mat-spinner>
+  <img class="spinnerImg" src="https://cdn.discordapp.com/attachments/801155090059755593/805973372269887548/piclogo.png" >
+</div>
+<div *ngIf="this.isVisible">
 <body id="page-top">
+<!--<mat-spinner></mat-spinner>-->
 <div class="container bootstrap-snippet header-container">
   <div class="headerImage">
     <div class="py-5" style=" width: 100% ; height: 200px">
@@ -20,11 +24,11 @@
           <h4 style="margin-top: 30px; padding-right: 50px; padding-left: 220px; font-size: 30px" class="font-weight-bold mb-4">{{instagramUser.displayName}}</h4>
 
 
-            <strong style="margin-top: 20px; font-size: 40px"><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit></strong>
-            <span style="margin-top: 30px;  padding-right: 50px; font-size: 30px" class="text-muted"> Followers </span>
+            <strong style="margin-top: 20px; font-size: 40px ; padding-left: 10px"><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit> </strong>
+            <span style="margin-top: 30px;  padding-right: 50px; font-size: 30px" class="text-muted">  Followers </span>
 
-            <strong style="margin-top: 20px; font-size: 40px"><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit></strong>
-            <span style="margin-top: 30px; padding-right: 50px; font-size: 30px" class="text-muted"> Following</span>
+            <strong style="margin-top: 20px; font-size: 40px; padding-left: 10px"><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit> </strong>
+            <span style="margin-top: 30px; padding-right: 50px; font-size: 30px" class="text-muted">  Following</span>
       </div>
       <h3  style=" color: #ffffff; display: block;  margin-left: 25%; margin-right: auto; font-size: 20px" >BIO: {{instagramUser.instaBio}}</h3>
 
@@ -87,20 +91,40 @@
 
     <nav style="background: snow">
       <div>
-        <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
+<!--        <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">-->
 
-          <mdb-carousel-item  *ngFor='let in of counter(18) ;let i = index'>
-            <img style="width: 550px; height: 500px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >
-            <div class="carousel-caption">
-              <div class="animated fadeInDown delay-1s">
-                <h3 class="h3-responsive" style="color: #ffffff; background-color: #000000">{{instagramUser.imageFeedCaption[i]}}</h3>
+            <carousel arrowsTheme="dark" overflowCellsLimit="1" [height]="405" [cellWidth]="350">
+              <div class="carousel-cell" *ngFor='let in of counter(18) ;let i = index'>
+                <mat-card class="example-card headerImage">
 
+                  <mat-card-content>
+                    <img style="width: 300px; height: 300px; display: block;"  alt="First Slide" [src]="getImageUrl(i)" [routerLink]="getImageUrl(i)">
+                    <h3>{{instagramUser.imageFeedCaption[i]}}</h3>
+                  </mat-card-content>
+
+                  <mat-card-footer>Comments: {{getComment(i)}}</mat-card-footer>
+                </mat-card>
               </div>
-            </div>
-            <footer style=" display: block;  margin-left: auto; margin-right: auto;">Comments: {{getComment(i)}}</footer>
-          </mdb-carousel-item>
-        </mdb-carousel>
+            </carousel>
+
+
+
+
+
+<!--          <mdb-carousel-item  *ngFor='let in of counter(17) ;let i = index'>-->
+<!--            <img style="width: 550px; height: 500px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >-->
+<!--            <div class="carousel-caption">-->
+<!--              <div class="animated fadeInDown delay-1s">-->
+<!--                <h3 class="h3-responsive" style="color: #ffffff; background-color: #000000">{{instagramUser.imageFeedCaption[i]}}</h3>-->
+
+<!--              </div>-->
+<!--            </div>-->
+<!--            <footer style=" display: block;  margin-left: auto; margin-right: auto;">Comments: {{getComment(i)}}</footer>-->
+<!--          </mdb-carousel-item>-->
+<!--        </mdb-carousel>-->
       </div>
+
+<!--      <ngx-image-gallery [images]="getImageUrl(1)"></ngx-image-gallery>-->
 
     </nav>
 
@@ -114,7 +138,7 @@
         </button></h2>
         <ul *ngFor='let in of counter(18) ;let i = index'>
           <li>
-            <mat-card class="example-card">
+            <mat-card >
               <mat-card-header>
                 <img style="display: block;  width: 70px;"  alt="Avatar" class="image"
                      mat-card-avatar [src]= "getFollowerProfilePic(i)" >
@@ -214,6 +238,7 @@
 
 
 </body>
+</div>
 </html>
 <!--<button (click)="getInstaUser()"></button>-->
 

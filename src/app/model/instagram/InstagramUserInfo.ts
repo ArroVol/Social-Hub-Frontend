@@ -10,5 +10,6 @@ export class InstagramUserInfo{
   imageFeedComment: string[];
   displayName: string;
   username: string;
+  followingStatus: boolean;
   constructor(){}
 }

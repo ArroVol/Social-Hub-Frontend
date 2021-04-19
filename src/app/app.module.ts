@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader, ModalModule} from 'ng-uikit-pro-standard';
+// import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader, ModalModule} from 'ng-uikit-pro-standard';
 import * as moment from 'moment';
 import { MessagesComponent } from './messages/messages.component';
 import { AppComponent } from './app.component';
@@ -9,8 +9,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {CarouselModule,  LogoComponent} from 'angular-bootstrap-md';
-
+import {CarouselModule, IconsModule, InputUtilitiesModule, LogoComponent} from 'angular-bootstrap-md';
+import {ModalModule} from 'angular-bootstrap-md';
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -56,11 +56,12 @@ import { LoadingAnimationComponent } from './loading-animation/loading-animation
 import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
 import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
 
-
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { NgxImageGalleryModule } from 'ngx-image-gallery';
 // import { AboutComponent } from './about/about.component';
 import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {PreloadersModule} from 'ng-uikit-pro-standard';
+// import {PreloadersModule} from 'ng-uikit-pro-standard';
 // import { OnePostComponent } from './one-post/one-post.component';
 import {ModalComponent} from './modal/modal.component';
 import {UpdateAccountComponent} from './update-account/update-account.component';
@@ -126,6 +127,8 @@ import {FooterComponent} from './footer/footer.component';
   ],
   imports: [
     HttpClientModule,
+    IvyCarouselModule,
+    NgxImageGalleryModule,
     BrowserModule,
     FormsModule,
     MatCardModule,
@@ -154,7 +157,7 @@ import {FooterComponent} from './footer/footer.component';
     RouterModule,
     CarouselModule,
     MatSidenavModule,
-    PreloadersModule,
+    // PreloadersModule,
     IconsModule,
     NavbarModule,
     WavesModule,
@@ -170,7 +173,6 @@ import {FooterComponent} from './footer/footer.component';
     MatCheckboxModule,
     MatRippleModule,
     MatProgressBarModule,
-    IconsModule,
     InputUtilitiesModule,
     MatListModule,
     NgxDropzoneModule,

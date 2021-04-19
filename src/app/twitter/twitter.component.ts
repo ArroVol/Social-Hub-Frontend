@@ -20,8 +20,8 @@ import {ChangeDetectionStrategy} from '@angular/core';
 // import moment from 'moment';
 import {Moment} from 'moment';
 import * as moment from 'moment';
-import {Snackbar} from "@material-ui/core";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {Snackbar} from '@material-ui/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export class RankData {
   rank: string;
@@ -104,7 +104,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   timelineList$: Observable<Tweet[]>;
   // twitter: Twitter;
   // displayedColumns: string[] = ['content', 'creator'];
-  // displayedColumns: string[] = ['content', 'courseName', 'courseSubject', 'dayAndTime', 'roomNo', 'sectionNo', 'semester', 'status', 'actions'];
+  // displayedColumns: string[] =
+  // ['content', 'courseName', 'courseSubject', 'dayAndTime', 'roomNo', 'sectionNo', 'semester', 'status', 'actions'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('handle') handle; // accessing the reference element
@@ -457,8 +458,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   }
 
   getFriendsRankingList(){
-    console.log(this.rankingList.length)
-    if(this.rankingList.length === 0) {
+    console.log(this.rankingList.length);
+    if (this.rankingList.length === 0) {
 
     console.log('getting ranking list');
     this.twitterService.getRankingList(sessionStorage.getItem('twitterHandle'))
@@ -483,7 +484,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   }
   checkDefault(type: any): boolean {
 
-    if(this.goalType === type){
+    if (this.goalType === type){
       return true;
     }
     return false;

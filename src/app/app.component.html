@@ -39,7 +39,7 @@
     <ul  class="navbar-nav" >
       <li>
         <a>
-          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>
+            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle">
         </a>
       </li>
     </ul>
@@ -49,15 +49,7 @@
 
       <ul>
         <li>
-          <button class="UserMenuButton" mat-button [matMenuTriggerFor]="menuUser">
-            <span class="dashboardIcon"></span>
-            Dashboard
-          </button>
-            <mat-menu #menuUser="matMenu">
-            <button mat-menu-item><a routerLink="/login-page">log in page</a></button>
-            <button mat-menu-item><a routerLink="/account-information">Account information</a></button>
-            <button mat-menu-item><a routerLink="/about">about</a></button>
-          </mat-menu>
+          <button class="DashboardMenuButton" mat-button routerLink="/dashboard"><span class="dashboardIcon"></span> DashBoard</button>
         </li>
 
         <li>
@@ -67,14 +59,18 @@
         <li>
           <button class="FBMenuButton" mat-button routerLink="/facebook"><span class="fbIcon"></span> Facebook</button>
         </li>
-<!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
+
         <li>
-          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta"><span class="instaIcon"></span> Instagram</button>
-          <mat-menu #menuInsta="matMenu">
-            <button mat-menu-item><a routerLink="/instagram">Instagram Profile</a></button>
-<!--            <button mat-menu-item><a routerLink="/instagram-search">Instagram User Search</a></button>-->
-          </mat-menu>
+          <button class="InstaMenuButton" mat-button routerLink="/instagram"><span class="instaIcon"></span> Instagram</button>
         </li>
+<!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
+<!--        <li>-->
+<!--          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta"><span class="instaIcon"></span> Instagram</button>-->
+<!--          <mat-menu #menuInsta="matMenu">-->
+<!--            <button mat-menu-item><a routerLink="/instagram">Instagram Profile</a></button>-->
+<!--&lt;!&ndash;            <button mat-menu-item><a routerLink="/instagram-search">Instagram User Search</a></button>&ndash;&gt;-->
+<!--          </mat-menu>-->
+<!--        </li>-->
 <!--        <li><a routerLink="/instagram">Instagram</a></li>-->
 <!--        <li><a routerLink="/instagram-search">Instagram Search</a></li>-->
         <li>

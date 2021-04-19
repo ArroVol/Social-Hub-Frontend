@@ -25,6 +25,8 @@ export class DashboardComponent implements OnInit {
   public showChanges = false;
   public showSearch = false;
   public buttonName: any = 'Change';
+  public isVisibleSpinner = true;
+  public isVisible = false;
 channel: Channel;
 
   // tslint:disable-next-line:max-line-length
@@ -71,7 +73,7 @@ channel: Channel;
 
 
   ngOnInit(): void {
-
+    this.instagramPageLoad();
     this.getInstaUser();
     this.getChannel();
     // this.instagramUser = this.instagramComponent.getInstaUser();
@@ -81,6 +83,14 @@ channel: Channel;
     this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
     this.twitterHandle = sessionStorage.getItem('twitterHandle');
     this.getUserTimeline();
+
+  }
+
+  instagramPageLoad() {
+    setTimeout(() => {
+      this.isVisibleSpinner = false;
+      this.isVisible = true;
+    }, 5000);
 
   }
   getChannel() {
@@ -323,23 +333,23 @@ channel: Channel;
     console.log('Get User Profile Called!');
   }
 
-  userSearch(user: string){
-    this.instagramService.getSearchInsta(user).subscribe(user => {
-      this.instagramUserSearch = user;
-      console.log('Get Search User Profile Called!');
-      console.log(this.instagramUserSearch.displayName);
-    });
-
-    this.showSearch = !this.showSearch;
-
-    // CHANGE THE NAME OF THE BUTTON.
-    if (this.showSearch) {
-      this.buttonName = 'Hide';
-    }
-    else {
-      this.buttonName = 'Change';
-    }
-  }
+  // userSearch(user: string){
+  //   this.instagramService.getSearchInsta(user).subscribe(user => {
+  //     this.instagramUserSearch = user;
+  //     console.log('Get Search User Profile Called!');
+  //     console.log(this.instagramUserSearch.displayName);
+  //   });
+  //
+  //   this.showSearch = !this.showSearch;
+  //
+  //   // CHANGE THE NAME OF THE BUTTON.
+  //   if (this.showSearch) {
+  //     this.buttonName = 'Hide';
+  //   }
+  //   else {
+  //     this.buttonName = 'Change';
+  //   }
+  // }
 
   getMediaCount(): number {
     return this.instagramUser.mediaCount;

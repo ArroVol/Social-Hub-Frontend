@@ -27,6 +27,7 @@ export class AppComponent {
   // loggedIn: string;
   loggedIn = false;
   loggedIn$ = new BehaviorSubject(this.loggedIn);
+n;
 
   constructor() {
     this.reset();
@@ -62,6 +63,8 @@ export class AppComponent {
     }
   }
 
+
+
   checkLogin() {
     console.log('checking login.......');
     console.log('*****"');
@@ -73,6 +76,7 @@ export class AppComponent {
     }
   }
 
+
   set login(value) {
     this.loggedIn = value;
     this.loggedIn$.next(this.loggedIn);
@@ -81,5 +85,7 @@ export class AppComponent {
   get filter() {
     return this.loggedIn$.asObservable();
   }
+
+
 
 }

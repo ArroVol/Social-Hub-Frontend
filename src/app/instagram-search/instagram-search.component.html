@@ -55,8 +55,21 @@
 <!--  </button>-->
 
 <!--  *ngIf="!followStatus"-->
-  <button mat-raised-button  (click)="followUser(todo.value)">
+<!--  <button mat-raised-button   *ngIf="!followStatus" (click)="followUser(todo.value)">-->
+<!--    <mat-icon><span class="followIcon"></span></mat-icon>-->
+<!--    {{checkFollowStatus()}}-->
+<!--  </button>-->
+  <button mat-raised-button  *ngIf="!followStatus" [class.spinner]="loading" [disabled]="loading"
+           (click)="followUser(todo.value)">
     <mat-icon><span class="followIcon"></span></mat-icon>
-    Follow
+    {{checkFollowStatus()}}
   </button>
+
+  <button mat-raised-button *ngIf="followStatus" [class.spinner]="loading" [disabled]="loading"
+           (click)="unFollowUser(todo.value)">
+    <mat-icon><span class="followIcon"></span></mat-icon>
+    {{checkFollowStatus()}}
+  </button>
+
+  <button mat-raised-button (click)="closeModalDialog()" >Cancel</button>
 </ng-container>
