@@ -3,7 +3,14 @@
 <mat-toolbar>
   <div style="display: flex; justify-content: space-around">
     <mat-toolbar-row>
-      <div style="float: right">Social Hub</div>
+      <button style="margin: 0" type="button" mat-button (click)="drawer.toggle()">
+        <span class="material-icons">
+            reorder
+        </span>
+      </button>
+      <div style="float: right; font-size: 30px; font-family: FontAwesome">Social Hub</div>
+
+
     </mat-toolbar-row>
     <mat-toolbar-row>
       <app-simple-form></app-simple-form>
@@ -11,30 +18,24 @@
   </div>
 </mat-toolbar>
 
-<!--&lt;!&ndash;<h1>{{title}}</h1>&ndash;&gt;-->
 
 <mat-sidenav-container class="example-container" >
-<!--  <mat-sidenav-container *ngIf="loggedIn" class="example-container" >-->
+  <mat-toolbar color="primary">
+    <div style="display: flex; justify-content: space-around">
+      <mat-toolbar-row>
+        <div style="float: right; font-size: 20px; font-family: FontAwesome">Social Hub
 
-<!--  <mat-toolbar color="primary">-->
-<!--    <div style="display: flex; justify-content: space-around">-->
-<!--      <mat-toolbar-row>-->
-<!--        <div style="float: right">Social Hub</div>-->
+        </div>
 
-<!--      </mat-toolbar-row>-->
+      </mat-toolbar-row>
 
-<!--    </div>-->
-<!--  </mat-toolbar>-->
-<!--  <div *ngIf="loggedIn else oops" class="side-nav">-->
-
-<!--  <span>Wait for it... {{ sideNav | async }}</span>-->
+    </div>
+  </mat-toolbar>
+  <mat-sidenav style="background-color: #63d3b6;" mode="side" opened #drawer>
 
 
 
-  <mat-sidenav *ngIf="displaySideNav" mode="side" opened #drawer>
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button>
+
     <ul  class="navbar-nav" >
       <li>
         <a>
@@ -43,29 +44,59 @@
       </li>
     </ul>
     <nav>
+
+
+
       <ul>
-        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>
-        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>
-<!--        <li><a *ngIf="loggedIn !== 'true'" routerLink="/login-page">log in page</a></li>-->
-        <li><a routerLink="/account-information">Account information</a></li>
-        <li><a routerLink="/instagram"><img style="width: 10px" >Instagram</a></li>
-        <li><a routerLink="/spotify">spotify</a></li>
-        <li><a routerLink="/about">about</a></li>
-        <li><a routerLink="/spotify/landing">spotify landing</a></li>
-        <li><a routerLink="/main">sample landing</a></li>
+        <li>
+          <button class="UserMenuButton" mat-button [matMenuTriggerFor]="menuUser">
+            <span class="dashboardIcon"></span>
+            Dashboard
+          </button>
+            <mat-menu #menuUser="matMenu">
+            <button mat-menu-item><a routerLink="/login-page">log in page</a></button>
+            <button mat-menu-item><a routerLink="/account-information">Account information</a></button>
+            <button mat-menu-item><a routerLink="/about">about</a></button>
+          </mat-menu>
+        </li>
+
+        <li>
+          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span class="twitterIcon"></span> Twitter</button>
+        </li>
+<!--        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>-->
+        <li>
+          <button class="FBMenuButton" mat-button routerLink="/facebook"><span class="fbIcon"></span> Facebook</button>
+        </li>
+<!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
+        <li>
+          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta"><span class="instaIcon"></span> Instagram</button>
+          <mat-menu #menuInsta="matMenu">
+            <button mat-menu-item><a routerLink="/instagram">Instagram Profile</a></button>
+<!--            <button mat-menu-item><a routerLink="/instagram-search">Instagram User Search</a></button>-->
+          </mat-menu>
+        </li>
+<!--        <li><a routerLink="/instagram">Instagram</a></li>-->
+<!--        <li><a routerLink="/instagram-search">Instagram Search</a></li>-->
+        <li>
+          <button class="SpotifyMenuButton" mat-button [matMenuTriggerFor]="menuSpotify"><span class="spotifyIcon"></span>  Spotify</button>
+          <mat-menu #menuSpotify="matMenu">
+            <button mat-menu-item><a routerLink="/spotify">spotify</a></button>
+            <button mat-menu-item><a routerLink="/spotify/landing">spotify landing</a></button>
+          </mat-menu>
+        </li>
+
+        <li>
+          <button class="YTMenuButton" mat-button routerLink="/twitter"><span class="ytIcon"></span> YouTube</button>
+        </li>
+
+
+<!--        <li><a routerLink="/spotify">spotify</a></li>-->
+<!--        <li><a routerLink="/spotify/landing">spotify landing</a></li>-->
 
       </ul>
     </nav>
   </mat-sidenav>
-<!--  </div>-->
-  <ng-template #oops>
-    oops
-  </ng-template>
-  <mat-sidenav-content>
 
-    <router-outlet>
 
-    </router-outlet>
-  </mat-sidenav-content>
+  <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>
 </mat-sidenav-container>
-<!--</div>-->

@@ -297,6 +297,7 @@ h2 {
 /* apply CSS to the select tag of
    .dropdown-container div*/
 
+
 nav a {
   padding: 5px 10px;
   text-decoration: none;
@@ -427,6 +428,140 @@ button.social-signin:active {
   border-radius: 50%;
   border-spacing: 300px;
 }
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.InstaMenuButton {
+  color: #fff;
+  background-image: url("images/insatgramBackgroundGradient.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+}
+
+.TwitterMenuButton {
+  color: #fff;
+  background-color: #00acee;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+  width: 120px;
+}
+
+.FBMenuButton {
+  color: #fff;
+  background-color: #3b5998;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+  width: 120px;
+}
+
+.SpotifyMenuButton {
+  color: #fff;
+  background-color: #81b71a;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+  width: 120px;
+}
+
+.YTMenuButton {
+  color: #fff;
+  background-color: #FF0000;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+  width: 120px;
+}
+
+.UserMenuButton {
+  color: #fff;
+  background-color: grey;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+  width: 120px;
+}
+
+.fbIcon {
+  background: url('https://api.iconify.design/mdi:facebook.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:facebook.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.dashboardIcon {
+  background: url('https://api.iconify.design/ic:sharp-dashboard.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/ic:sharp-dashboard.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.ytIcon {
+  background: url('https://api.iconify.design/mdi:youtube.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:youtube.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.instaIcon {
+  background: url('https://api.iconify.design/mdi:instagram.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:instagram.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.twitterIcon {
+  background: url('https://api.iconify.design/mdi:twitter.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:twitter.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.spotifyIcon {
+  background: url('https://api.iconify.design/mdi:spotify.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:spotify.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+
+
 
 
 

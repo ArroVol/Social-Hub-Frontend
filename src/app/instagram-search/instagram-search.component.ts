@@ -1,25 +1,18 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {InstagramService} from '../service/instagram.service';
+import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
+import {InstagramComponent} from '../instagram/instagram.component';
+import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
+import {MatDialog} from '@angular/material/dialog';
+import {Observable} from 'rxjs';
 
 export interface PeriodicElement {
   name: string;
   position: number;
 }
 
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen'},
-  {position: 2, name: 'Helium'},
-  {position: 3, name: 'Lithium'},
-  {position: 4, name: 'Beryllium'},
-  {position: 5, name: 'Boron'},
-  {position: 6, name: 'Carbon'},
-  {position: 7, name: 'Nitrogen'},
-  {position: 8, name: 'Oxygen'},
-  {position: 9, name: 'Fluorine'},
-  {position: 10, name: 'Neon'},
-];
 
 @Component({
   selector: 'app-instagram-search',
@@ -28,36 +21,86 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 
-export class InstagramSearchComponent implements AfterViewInit {
+export class InstagramSearchComponent implements OnInit {
+
+  constructor(private instagramService: InstagramService, public dialog: MatDialog) {
+  }
+
+  public showChanges = false;
+  public showSearch = false;
   public show = false;
-  public buttonName: any = 'Show';
+  public buttonName: any = 'false';
   displayedColumns: string[] = ['position', 'name'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() { }
+  followStatus: boolean;
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
+  instagramUserSearch: InstagramUserSearchInfo;
+
 
   counter(i: number) {
     return new Array(i);
   }
 
+  ngOnInit(): void {
+  }
+
+  userSearch(user: string) {
+    this.showSearch = true;
+
+    this.instagramService.getSearchInsta(user)
+      .subscribe(user => {
+        this.instagramUserSearch = user;
+        console.log('Get Search User Profile Called!');
+        console.log(this.instagramUserSearch.displayName);
+      });
 
 
+    // // CHANGE THE NAME OF THE BUTTON.
+    // if (this.instagramService.checkFollowingStatus(user)) {
+    //   this.buttonName = 'Follow';
+    // } else {
+    //   this.buttonName = 'UnFollow';
+    // }
+  }
 
-  toggle() {
-    this.show = !this.show;
+  // checkStatus(user: string)  {
+  //   check: Observable < Boolean> = this.instagramService.checkFollowingStatus(user);
+  //   if (check == false) {
+  //
+  //   }
+  // }
+  checkFollowStatus(user: string): void {
+    this.instagramService.checkFollowingStatus(user).subscribe(checkFollowStatus => {
+      this.followStatus = checkFollowStatus;
+      console.log('Checked Following Status');
+    });
+
+
+  }
+
+  unFollowUser(user: string) {
+    this.instagramService.unfollowUser(user).subscribe();
+    console.log('Unfollowed: ' + user);
+  }
+
+  followUser(user: string) {
+    this.instagramService.followUser(user).subscribe();
+    console.log('Followed: ' + user);
+  }
+
+
+  toggleChanges() {
+    this.showChanges = !this.showChanges;
 
     // CHANGE THE NAME OF THE BUTTON.
-    if (this.show) {
-      this.buttonName = 'Hide';
-    }
-    else {
-      this.buttonName = 'Show';
+    if (this.showChanges) {
+      this.buttonName = 'Follow';
+    } else {
+      this.buttonName = 'UnFollow';
     }
   }
+
+
 }

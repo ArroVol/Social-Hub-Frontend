@@ -1,8 +1,14 @@
-import {Component, LOCALE_ID, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, Inject, LOCALE_ID, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {InstagramService} from '../service/instagram.service';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
 import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {InstagramSearchComponent} from '../instagram-search/instagram-search.component';
 
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-instagram',
@@ -10,16 +16,16 @@ import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInf
   styleUrls: ['./instagram.component.css']
 })
 export class InstagramComponent implements OnInit {
+
+  constructor(private instagramService: InstagramService, public dialog: MatDialog,  ) {
+  }
   public showChanges = false;
   public showSearch = false;
-  public buttonName: any = 'Change Bio';
+  public buttonName: any = 'Change';
   nums: Array<number> = [1, 20, 48];
 
   @ViewChild('oneItem') oneItem: any;
   @ViewChildren('count') count: QueryList<any>;
-
-  constructor(private instagramService: InstagramService) {
-  }
 
 
   instagramUser: InstagramUserInfo;
@@ -29,6 +35,9 @@ export class InstagramComponent implements OnInit {
   images = new Array(18);
 
   bio: String;
+
+  animal: string;
+  name: string;
 
 
 
@@ -81,7 +90,7 @@ export class InstagramComponent implements OnInit {
       this.buttonName = 'Hide';
     }
     else {
-      this.buttonName = 'Change Bio';
+      this.buttonName = 'Change';
     }
   }
 
@@ -139,6 +148,11 @@ export class InstagramComponent implements OnInit {
       this.instagramUser.followerFeed[pic].toString().search('ProfilePic:') + 11,
       this.instagramUser.imageFeed[pic].toString().length);
   }
+  getUserFollowerProfilePic(pic: number): string{
+    return this.instagramUserSearch.followerFeed[pic].toString().substring(
+      this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:') + 11,
+      this.instagramUserSearch.imageFeed[pic].toString().length);
+  }
 
   getComment(pic: number): string{
     if (this.instagramUser.imageFeedComment[pic].toString().substring(
@@ -170,6 +184,21 @@ getFollowerProfileName(pic: number): string{
     }
   }
 
+  getUserFollowerProfileName(pic: number): string{
+    if (this.instagramUserSearch.followerFeed[pic].toString().substring(0,
+      this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:')) === null
+      || this.instagramUserSearch.followerFeed[pic].toString().substring(0,
+        this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:')) === ' ') {
+
+      return 'No Name Listed';
+
+    } else {
+      return this.instagramUserSearch.followerFeed[pic].toString().substring(0,
+        this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:'));
+
+    }
+  }
+
   changeBio(bio: string){
     this.instagramService.changeBio(bio).subscribe(bio => {
       this.bio = bio;
@@ -188,7 +217,7 @@ getFollowerProfileName(pic: number): string{
       this.buttonName = 'Hide';
     }
     else {
-      this.buttonName = 'Change Bio';
+      this.buttonName = 'Change';
     }
   }
 
@@ -197,4 +226,18 @@ getFollowerProfileName(pic: number): string{
 
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(InstagramSearchComponent, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
+
 }
+

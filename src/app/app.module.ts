@@ -1,16 +1,20 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
-import {MessagesComponent} from './messages/messages.component';
-import {AppComponent} from './app.component';
-// import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
-import {InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
 import * as moment from 'moment';
+import { MessagesComponent } from './messages/messages.component';
+import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CarouselModule,  LogoComponent} from 'angular-bootstrap-md';
+import {InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
+
+// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// import { SimpleFormComponent } from './simple-form/simple-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -21,7 +25,6 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
 import {TwitterComponent} from './twitter/twitter.component';
 import {AppRoutingModule} from './app-routing.module';
-// import {ThrowAwayPageComponent} from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
 import {FacebookComponent} from './facebook/facebook.component';
 import {SpotifyComponent} from './spotify/spotify.component';
@@ -36,6 +39,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {TimelineComponent} from './timeline/timeline.component';
 import {DataTablesModule} from 'angular-datatables';
+import { DataTableComponent } from './data-table/data-table.component';
 import {YoutubeComponent} from './youtube/youtube.component';
 import {SafePipe} from './youtube/SafePipe.component';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -63,6 +67,7 @@ import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
 import {SpotifyAddplaylistSnackbarComponent} from './spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
 import {SpotifyAddplaylistWarningComponent} from './spotify-addplaylist-warning/spotify-addplaylist-warning.component';
 import {SpotifyFollowedTracksComponent} from './spotify-followed-tracks/spotify-followed-tracks.component';
+import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
 import {ModalModule} from 'angular-bootstrap-md';
 import {SideNavComponent} from './side-nav/side-nav.component';
 import {ModalComponent} from './modal/modal.component';
@@ -74,13 +79,17 @@ import {HeaderComponent} from './header/header.component';
 import {LandingComponent} from './landing/landing.component';
 import {FooterComponent} from './footer/footer.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MomentModule} from 'ngx-moment';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {NgxDropzoneModule} from 'ngx-dropzone';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatListModule} from '@angular/material/list';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {Moment} from 'moment';
 import {MomentModule} from 'ngx-moment';
-// import { AboutComponent } from './about/about.component';
 import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import { OnePostComponent } from './one-post/one-post.component';
@@ -94,7 +103,6 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     ModalComponent,
     MessagesComponent,
     TwitterComponent,
-    // ThrowAwayPageComponent,
     FacebookComponent,
     SpotifyComponent,
     DashboardComponent,
@@ -106,6 +114,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     TimelineComponent,
     LoginPageComponent,
     AccountInformationComponent,
+    DataTableComponent,
     SpotifyCreatePlaylistComponent,
     InstagramComponent,
     InstagramComponent, DataTableComponent,
@@ -131,6 +140,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     DashboardComponent,
     InstagramSearchComponent,
     SpotifySearchComponent,
+    AnimatedDigitComponent,
+
   ],
     imports: [
         HttpClientModule,
@@ -199,6 +210,9 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     provide: STEPPER_GLOBAL_OPTIONS,
     useValue: {displayDefaultIndicatorType: false}
   }],
+  exports: [
+    AnimatedDigitComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -21,6 +21,7 @@ import {CollectionComponent} from './collection/collection.component';
 import {InstagramSearchComponent} from './instagram-search/instagram-search.component';
 import {SpotifySearchComponent} from "./spotify-search/spotify-search.component";
 
+
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
