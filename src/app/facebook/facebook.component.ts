@@ -7,6 +7,9 @@ import {FacebookLogin} from '../model/facebook/FacebookLogin';
 import {FacebookPages} from '../model/facebook/FacebookPages';
 import { ActivatedRoute } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {FacebookVideos} from '../model/facebook/FacebookVideos';
+import {FacebookPagePosts} from '../model/facebook/FacebookPagePosts';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-facebook',
@@ -19,11 +22,17 @@ export class FacebookComponent implements OnInit{
   facebookPhotos: FacebookPhotos;
   facebookLogin: FacebookLogin;
   facebookPages: FacebookPages;
+  facebookVideos: FacebookVideos;
+  facebookPagePosts: FacebookPagePosts;
   verificationCode: string;
   loggedIn: boolean;
   currentPage: string;
+  currentPP: string;
+  gotPosts: boolean;
+  loading: boolean;
 
-  constructor(private snackBar: MatSnackBar, protected route: ActivatedRoute, protected facebookService: FacebookService) {
+  constructor(private snackBar: MatSnackBar,
+              protected route: ActivatedRoute, protected facebookService: FacebookService) {
   }
 
   ngOnInit(): void {
@@ -31,6 +40,8 @@ export class FacebookComponent implements OnInit{
     this.getPosts();
     this.getPhotos();
     this.getPages();
+    this.getVideos();
+    this.loading = false;
     document.getElementById('fb-btn').style.display = 'none';
     document.getElementById('fb-btn2').style.display = 'block';
     document.getElementById('fb-btn3').style.display = 'block';
@@ -80,6 +91,7 @@ export class FacebookComponent implements OnInit{
   }
 
   submitPost(s: string){
+    this.loading = true;
     console.log(s);
     s += '*' + this.currentPage;
     console.log('Current Page is: ' + this.currentPage);
@@ -87,7 +99,25 @@ export class FacebookComponent implements OnInit{
       .subscribe(result => {
         console.log('Message Sent');
         this.openSnackBar('Post Successfully Created', 'Done');
+        this.loading = false;
       });
+  }
+
+  setCurrentPage(name: string){
+    console.log(name);
+    this.facebookService.getPagesPosts(name)
+      .subscribe(result => {
+        console.log('Current Page Sent');
+        this.getPagePosts();
+        this.gotPosts = true;
+      });
+  }
+
+  getPagePosts(){
+    this.facebookService.getPagePosts2().subscribe(facebookPagePosts => {
+      this.facebookPagePosts = facebookPagePosts;
+      console.log(this.facebookPagePosts.pagePosts[0]);
+    });
   }
 
   openSnackBar(message: string, action: string) {
@@ -107,7 +137,7 @@ export class FacebookComponent implements OnInit{
     this.facebookService.login().subscribe(loginDialogURL => {
       this.facebookLogin = loginDialogURL;
     });
-    window.open(this.facebookLogin.logoutDialogURL);
+    //window.open(this.facebookLogin.logoutDialogURL);
     window.location.href = 'http://localhost:4200/dashboard';
     console.log('Logout called');
     document.getElementById('fb-btn').style.display = 'block';
@@ -141,6 +171,13 @@ export class FacebookComponent implements OnInit{
       this.facebookPhotos = facebookPhotos;
     });
     console.log('Get photos method called');
+  }
+
+  getVideos(){
+    this.facebookService.getVideos().subscribe(facebookVideos => {
+      this.facebookVideos = facebookVideos;
+    });
+    console.log('Get videos method called');
   }
 
   getPages(){

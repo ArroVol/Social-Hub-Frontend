@@ -23,47 +23,108 @@
 </div>
 </header>
 </div>
-<div id = "container" class = "container">
-  <br>
-  <div id = "postTitle">
-    Most Recent Posts
-  </div>
-  <h3>{{facebookPosts.posts[0]}}</h3>
-  <h4>-{{facebookPosts.posts[1]}}</h4>
-  <h3>{{facebookPosts.posts[2]}}</h3>
-  <h4>-{{facebookPosts.posts[3]}}</h4>
-  <h3>{{facebookPosts.posts[4]}}</h3>
-  <h4>-{{facebookPosts.posts[5]}}</h4>
-  <br>
-  <div id = "pageTitle">
-    Facebook Pages
-  </div>
 
-  <mat-form-field appearance="fill">
+<div id = "container" class = "container">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <img mat-card-avatar class="example-header-image" [src]="facebookUser.photoURL">
+      <mat-card-title style="margin-top: 15px; font-size: 32px; font-weight: bold">{{facebookUser.facebookName}}'s Recent Posts</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p></p>
+      <p class = "pText">{{facebookPosts.posts[0]}}
+        <br>-{{facebookPosts.posts[1]}}
+      </p>
+      <p class = "pText">{{facebookPosts.posts[2]}}
+        <br>-{{facebookPosts.posts[3]}}
+      </p>
+      <p class = "pText">{{facebookPosts.posts[4]}}
+        <br>-{{facebookPosts.posts[5]}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="example-card">
+    <mat-card-title style="margin-top: 15px; font-size: 32px; font-weight: bold">{{facebookUser.facebookName}}'s Pages</mat-card-title>
+    <mat-form-field appearance="fill">
     <mat-label>Your Facebook Pages</mat-label>
-    <mat-select [(value)]="currentPage" multiple>
-      <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
-        {{page}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div>{{currentPage}}</div>
-  <form id = "postForm" class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Post to Page</mat-label>
-      <input #postMessage matInput placeholder="Your Post Here">
+      <mat-select [(value)]="currentPP">
+        <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+          {{page}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-    <button (click)="submitPost(postMessage.value)">Post to Page</button>
-  </form>
-  <br>
-  <div id = "likeTitle">
-    Liked Facebook Pages
-  </div>
+    <button (click)="setCurrentPage(currentPP)">View Page Posts</button>
+    <div *ngIf="gotPosts">
+      <p class = "pText">{{facebookPagePosts.pagePosts[0]}}
+        <br>-{{facebookPagePosts.times[0]}}
+      </p>
+      <p class = "pText">{{facebookPagePosts.pagePosts[1]}}
+        <br>-{{facebookPagePosts.times[1]}}
+      </p>
+      <p class = "pText">{{facebookPagePosts.pagePosts[2]}}
+        <br>-{{facebookPagePosts.times[2]}}
+      </p>
+    </div>
+    <hr>
+    <mat-card-subtitle style="margin-top: 15px; font-size: 25px; font-weight: bold">Create Posts</mat-card-subtitle>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Pages to Post to</mat-label>
+      <mat-select [(value)]="currentPage" multiple>
+        <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+          {{page}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <form id = "postForm" class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Post to Page</mat-label>
+        <input #postMessage matInput placeholder="Your Post Here">
+      </mat-form-field>
+      <button *ngIf="!loading" (click)="submitPost(postMessage.value)">Post to Page</button>
+      <div *ngIf="loading" class="spinner-border" role="status" style="float: left">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </form>
+  </mat-card>
+<!--
+  <mat-card class="example-card">
+    <mat-form-field appearance="fill">
+      <mat-label>Your Facebook Pages</mat-label>
+      <mat-select [(value)]="currentPage" multiple>
+        <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+          {{page}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>{{currentPage}}</div>
+    <form id = "postForm" class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Post to Page</mat-label>
+        <input #postMessage matInput placeholder="Your Post Here">
+      </mat-form-field>
+      <button (click)="submitPost(postMessage.value)">Post to Page</button>
+      <div class="spinner-border" role="status" style="float: right">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </form>
+  </mat-card>
+  -->
+
+  <mat-card class = "example-card">
+    <mat-card-title style="margin-top: 15px; font-size: 32px; font-weight: bold">Liked Pages</mat-card-title>
+    <hr>
   <div id = "likeList">
     <ul *ngFor='let like of facebookPages.likedNames; let i = index'>
-    <a [href]="facebookPages.likedLinks[i]" target="_blank">{{like}}</a>
+    <a [href]="facebookPages.likedLinks[i]" target="_blank">
+      {{like}}
+    </a>
+      <div style="font-family: Khand, Impact; font-size: 18px; color: #1c1c1c">
+      Fans: {{facebookPages.fanCounts[i]}}
+      </div>
     </ul>
   </div>
+  </mat-card>
   <!--
   <a [href]="facebookPages.likedLinks[0]" target="_blank">
     <h3>{{facebookPages.likedNames[0]}}</h3>
@@ -77,6 +138,9 @@
   -->
 </div>
 <div id = "container2" class ="container2">
+  <mat-card class = "example-card2">
+    <mat-card-title style="float:left; text-align: left; margin-top: 15px; font-size: 32px; font-weight: bold">Recent Media</mat-card-title>
+    <!--
   <a [href]="facebookPhotos.photoURLs[0]" target="_blank">
   <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[0]">
   </a>
@@ -98,12 +162,29 @@
   <a [href]="facebookPhotos.photoURLs[6]" target="_blank">
   <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[6]">
   </a>
-  <a [href]="facebookPhotos.photoURLs[7]" target="_blank">
-  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[7]">
-  </a>
-  <a [href]="facebookPhotos.photoURLs[8]" target="_blank">
-  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[8]">
-  </a>
-
+  -->
+    <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[0]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[1]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[2]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[3]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[4]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+    </mdb-carousel>
+    <video src = "{{facebookVideos.sources[0]}} "style="float: left" width="360" height="280" controls >
+      <!--
+      <source src="https://video-ort2-2.xx.fbcdn.net/v/t42.27313-2/170948807_252991879845411_8388892569501968273_n.mp4?_nc_cat=103&vs=1f91ba9a820f8dc4&_nc_vs=HBksFQAYJEdNZDRNQW9qRmlGREdPWUFBSkVuRklCWVZXdDBickZxQUFBRhUAAsgBABUAGCRHQjYyUVFxZXFnYkFNOVlOQUU0MmNFX013WElRYnY0R0FBQUYVAgLIAQBLA4gScHJvZ3Jlc3NpdmVfcmVjaXBlATEgbWVhc3VyZV9vcmlnaW5hbF9yZXNvbHV0aW9uX3NzaW0AKGNvbXB1dGVfc3NpbV9vbmx5X2F0X29yaWdpbmFsX3Jlc29sdXRpb24AFQAlABwAACa8r%2FHDitPxDhWQTigCQzMYC3Z0c19wcmV2aWV3HBdAKstDlYEGJRgnZGFzaF9nZW4zYmFzaWNfNXNlY2dvcF9ocTJfZnJhZ18yX3ZpZGVvEQAYGHZpZGVvcy52dHMuY2FsbGJhY2sucHJvZBkcFQAVoLYEACgSVklERU9fVklFV19SRVFVRVNUGwmIFW9lbV90YXJnZXRfZW5jb2RlX3RhZwZvZXBfaGQTb2VtX3JlcXVlc3RfdGltZV9tcw0xNjE4NTA5Njg2NDQ2DG9lbV9jZmdfcnVsZQd1bm11dGVkE29lbV9yb2lfcmVhY2hfY291bnQBMQxvZW1fcm9pX25vdGULcHJvZ3Jlc3NpdmURb2VtX3JvaV91c2VyX3RpZXIAHm9lbV9yb2lfcHJlZGljdGVkX3dhdGNoX3RpbWVfcwEwJW9lbV9yb2lfZXN0aW1hdGVkX3RhZ3NldF9tdmhxX2JpdHJhdGUBMCVvZW1fcm9pX3N0YXRpY19iZW5lZml0X2Nvc3RfZXZhbHVhdG9yC3Byb2dyZXNzaXZlJQIcHBwV8OYXGwFVAAIbAVUAAhwVAgAAABaAurcDACXEARsFiAFzBDI4NjMCY2QKMjAyMS0wNC0xMwNyY2MDdWdjAmN0GUNPTlRBSU5FRF9QT1NUX0FUVEFDSE1FTlQCdHMPb2VwX3Byb2dyZXNzaXZlAA%3D%3D&ccb=1-3&_nc_sid=612816&efg=eyJ2ZW5jb2RlX3RhZyI6Im9lcF9oZCIsInNvdXJjZV9zZWdtZW50X2hhbmRsZSI6bnVsbH0%3D&_nc_ohc=t7N3t4Ms9dEAX8iE6q6&_nc_ht=video-ort2-2.xx&oh=6535e7f9436e8c6d4eb4277b8be8ec65&oe=6079EF40&_nc_rid=68e819844fa347e">
+      -->
+      Your browser does not support the video tag.
+    </video>
+  </mat-card>
 </div>
-

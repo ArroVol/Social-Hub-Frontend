@@ -7,6 +7,9 @@ import {FacebookPosts} from '../model/facebook/FacebookPosts';
 import {FacebookPhotos} from '../model/facebook/FacebookPhotos';
 import {FacebookLogin} from '../model/facebook/FacebookLogin';
 import {FacebookPages} from '../model/facebook/FacebookPages';
+import {FacebookVideos} from '../model/facebook/FacebookVideos';
+import {FacebookPagePosts} from '../model/facebook/FacebookPagePosts';
+
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json', 'Access-Control-Allow-Methods': 'GET, PUT, POST'});
@@ -57,6 +60,28 @@ export class FacebookService{
       );
   }
 
+  getPagesPosts(name: string): Observable<string>{
+    const body = JSON.stringify(name);
+    const url = `${this.facebookURL}/pagePost`;
+    console.log('In facebook service, getting Page Posts');
+    return this.http.post<string>(url, body, {headers})
+      .pipe(
+        tap(_ => console.log('sent message' ))
+        // catchError(() => observableThrowError('get registration by id error'))
+      );
+  }
+
+  getPagePosts2(): Observable<FacebookPagePosts>{
+    console.log('Getting FB PagePosts');
+    const url = `${this.facebookURL}/pagePost2`;
+    return this.http.get<FacebookPagePosts>(url)
+      .pipe(
+        tap(_ => console.log('Got FB PagePosts'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
+
   getUserName(): Observable<FacebookUser>{
     console.log('Getting FB User');
     const url = `${this.facebookURL}/username`;
@@ -83,6 +108,16 @@ export class FacebookService{
     return this.http.get<FacebookPhotos>(url)
       .pipe(
         tap(_ => console.log('Got FB user photos'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
+  getVideos(): Observable<FacebookVideos>{
+    console.log('Getting FB User Videos');
+    const url = `${this.facebookURL}/videos`;
+    return this.http.get<FacebookVideos>(url)
+      .pipe(
+        tap(_ => console.log('Got FB user videos'))
         // catchError(() => observableThrowError('get user by id error'))
       );
   }
