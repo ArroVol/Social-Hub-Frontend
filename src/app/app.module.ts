@@ -8,8 +8,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {CarouselModule, IconsModule, LogoComponent} from 'angular-bootstrap-md';
-import {PreloadersModule } from 'ng-uikit-pro-standard';
 
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { SimpleFormComponent } from './simple-form/simple-form.component';
@@ -30,20 +28,20 @@ import { TwitterComponent } from './twitter/twitter.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThrowAwayPageComponent } from './throw-away-page/throw-away-page.component';
 import {RouterModule} from '@angular/router';
-import {FacebookComponent} from './facebook/facebook.component';
 import {SpotifyComponent} from './spotify/spotify.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {SimpleFormComponent} from './simple-form/simple-form.component';
-import {LoginPageComponent} from './login-page/login-page.component';
-import {AccountInformationComponent} from './account-information/account-information.component';
 import { SpotifyLandingComponent } from './spotify-landing/spotify-landing.component';
+
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 // import {MatMenuModule, MatDividerModule, MatCardModule, MatSlideToggleModule, MatOptionModule} from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
 import { DataTableComponent } from './data-table/data-table.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatMenuModule} from '@angular/material/menu';
-
-
+import { FacebookComponent } from './facebook/facebook.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import { SimpleFormComponent } from './simple-form/simple-form.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import {MatSpinner} from '@angular/material/progress-spinner';
+import { AccountInformationComponent } from './account-information/account-information.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { YoutubeComponent } from './youtube/youtube.component';
 import {SafePipe} from './youtube/SafePipe.component';
@@ -53,12 +51,12 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InstagramComponent } from './instagram/instagram.component';
 import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
-import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
+import {NavbarModule, WavesModule, ButtonsModule, CarouselModule, IconsModule} from 'angular-bootstrap-md';
 import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
-
 // import { AboutComponent } from './about/about.component';
 import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+// import {PreloadersModule} from 'ng-uikit-pro-standard';
 
 @NgModule({
   declarations: [
@@ -88,7 +86,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     YoutubeComponent,
     SafePipe,
     CollectionComponent,
-    DashboardComponent
+    DashboardComponent,
+
   ],
   imports: [
     HttpClientModule,
@@ -104,7 +103,6 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatButtonModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatButtonToggleModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatTableModule,
@@ -115,7 +113,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     RouterModule,
     CarouselModule,
     MatSidenavModule,
-    PreloadersModule,
+    // PreloadersModule,
     IconsModule,
     NavbarModule,
     WavesModule,
@@ -124,7 +122,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatGridListModule,
     ScrollingModule,
     MatCardModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
