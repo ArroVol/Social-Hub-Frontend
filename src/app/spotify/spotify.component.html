@@ -93,11 +93,8 @@
                     <img src="{{playlist.imageUrl}}" width="125">
                     <div fxLayout="column">
                       <h1
-                        style="font-size: 14px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
+                        style="font-size: 15px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
                         {{playlist.name}}</h1>
-                      <h4
-                        style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -28%;">
-                        {{playlist.owerName}}</h4>
                     </div>
                   </mat-card-content>
                   <mat-card-footer class="featured_playlist_footer">
@@ -114,7 +111,7 @@
         <div class="user_top_tracks_container">
           <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">Your Top Tracks</h1>
           <h4 style="font-size: 15px; margin-top: -3%; margin-left: 1%;">{{userTopTracks.length}} Songs</h4>
-          <div class="user_top_tracks" style=" width: 100%; height: 250px; overflow-y:auto;">
+          <div class="user_top_tracks">
             <table class="songlist">
               <tr *ngFor="let track of userTopTracks; let i = index" class="tracksData">
                 <td>{{i + 1}}</td>

@@ -1,5 +1,5 @@
 // @ts-ignore
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Channel} from '../model/youtube/Channel';
 import {YoutubeService} from '../service/youtube.service';
 import {InstagramService} from '../service/instagram.service';
@@ -12,6 +12,11 @@ import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 // import {Moment} from 'moment';
 import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
+import {SpotifyService} from "../service/spotify.service";
+import {SpotifyUser} from "../model/spotify/SpotifyUser";
+import {SpotifyTrack} from "../model/spotify/SpotifyTrack";
+
+
 // @ts-ignore
 @Component({
   selector: 'app-dashboard',
@@ -25,13 +30,14 @@ export class DashboardComponent implements OnInit {
   public showChanges = false;
   public showSearch = false;
   public buttonName: any = 'Change';
-channel: Channel;
+  channel: Channel;
 
   // tslint:disable-next-line:max-line-length
   constructor(
     private youtubeService: YoutubeService, private twitterService: TwitterService,
-    private goalService: GoalService, private instagramService: InstagramService) {
+    private goalService: GoalService, private instagramService: InstagramService, private spotifyService: SpotifyService) {
   }
+
   instagramUser: InstagramUserInfo;
 
   instagramUserSearch: InstagramUserSearchInfo;
@@ -69,6 +75,11 @@ channel: Channel;
   counter: [];
   twitterFollowerCount;
 
+  // Spotify Fields
+  spotifyUser: SpotifyUser;
+  spotifyUserRecentTracks: SpotifyTrack[];
+  spotifyUserFavouriteTracks: SpotifyTrack[];
+
 
   ngOnInit(): void {
 
@@ -81,8 +92,25 @@ channel: Channel;
     this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
     this.twitterHandle = sessionStorage.getItem('twitterHandle');
     this.getUserTimeline();
+    this.getSpotifyUser();
+    this.getSpotifyUserFavouriteTracks();
+    this.getSpotifyUserRecentTracks();
+
 
   }
+
+  getSpotifyUser() {
+    this.spotifyService.getUserProfile().subscribe(user => this.spotifyUser = user);
+  }
+
+  getSpotifyUserRecentTracks() {
+    this.spotifyService.getUserRecentTracks().subscribe(recentTracks => this.spotifyUserRecentTracks = recentTracks);
+  }
+
+  getSpotifyUserFavouriteTracks() {
+    this.spotifyService.getUserFollowedTracks().subscribe(favouriteTracks => this.spotifyUserFavouriteTracks = favouriteTracks);
+  }
+
   getChannel() {
     this.youtubeService.getChannelInfo().subscribe(channel => {
       this.channel = JSON.parse(channel.toString());
@@ -92,11 +120,12 @@ channel: Channel;
   getUsername(): string {
     return sessionStorage.getItem('username');
   }
+
   getIndexOfMinLikes(): number {
     let videos = this.channel.videos;
     let min = Infinity;
     let minIndex = 0;
-    for (let i = 0 ; i < videos.length; i++) {
+    for (let i = 0; i < videos.length; i++) {
       if (videos[i].videoDetails.likes < min) {
         min = videos[i].videoDetails.likes;
         minIndex = i;
@@ -104,11 +133,12 @@ channel: Channel;
     }
     return minIndex;
   }
+
   getIndexOfMinViews(): number {
     let videos = this.channel.videos;
     let min = Infinity;
     let minIndex = 0;
-    for (let i = 0 ; i < videos.length; i++) {
+    for (let i = 0; i < videos.length; i++) {
       if (videos[i].videoDetails.views < min) {
         min = videos[i].videoDetails.views;
         minIndex = i;
@@ -116,11 +146,12 @@ channel: Channel;
     }
     return minIndex;
   }
+
   getIndexOfMinFavorites(): number {
     let videos = this.channel.videos;
     let min = Infinity;
     let minIndex = 0;
-    for (let i = 0 ; i < videos.length; i++) {
+    for (let i = 0; i < videos.length; i++) {
       if (videos[i].videoDetails.views < min) {
         min = videos[i].videoDetails.views;
         minIndex = i;
@@ -133,7 +164,7 @@ channel: Channel;
     let videos = this.channel.videos;
     let min = Infinity;
     let minIndex = 0;
-    for (let i = 0 ; i < videos.length; i++) {
+    for (let i = 0; i < videos.length; i++) {
       if (videos[i].videoDetails.dislikes < min) {
         min = videos[i].videoDetails.dislikes;
         minIndex = i;
@@ -146,7 +177,7 @@ channel: Channel;
     let videos = this.channel.videos;
     let max = 0;
     let maxIndex = 0;
-    for (let i = 0 ; i < videos.length; i++) {
+    for (let i = 0; i < videos.length; i++) {
       if (videos[i].videoDetails.likes > max) {
         max = videos[i].videoDetails.likes;
         maxIndex = i;
@@ -159,7 +190,7 @@ channel: Channel;
     let videos = this.channel.videos;
     let max = 0;
     let maxIndex = 0;
-    for (let i = 0 ; i < videos.length; i++) {
+    for (let i = 0; i < videos.length; i++) {
       if (videos[i].videoDetails.dislikes > max) {
         max = videos[i].videoDetails.dislikes;
         maxIndex = i;
@@ -169,13 +200,11 @@ channel: Channel;
   }
 
 
-
-
   getIndexOfMaxViews() {
     let videos = this.channel.videos;
     let max = 0;
     let maxIndex = 0;
-    for (let i = 0 ; i < videos.length; i++) {
+    for (let i = 0; i < videos.length; i++) {
       if (videos[i].videoDetails.views > max) {
         max = videos[i].videoDetails.views;
         maxIndex = i;
@@ -188,7 +217,7 @@ channel: Channel;
     let videos = this.channel.videos;
     let max = 0;
     let maxIndex = 0;
-    for (let i = 0 ; i < videos.length; i++) {
+    for (let i = 0; i < videos.length; i++) {
       if (videos[i].videoDetails.favorites > max) {
         max = videos[i].videoDetails.favorites;
         maxIndex = i;
@@ -218,7 +247,7 @@ channel: Channel;
         console.log('the length  of hte users timeline list: ' + this.briefStatusList.length);
         this.briefStatusList = this.briefStatusList.slice(1);
 
-        for (let i = 0; i < this.briefStatusList.length; i++){
+        for (let i = 0; i < this.briefStatusList.length; i++) {
           console.log(this.briefStatusList[i].text);
         }
         this.getOtherUserTimeline('SocialHubClub');
@@ -228,9 +257,10 @@ channel: Channel;
   }
 
   async delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
- async getRecentPost() {
+
+  async getRecentPost() {
     this.twitterService.getRecentPostByHandle(sessionStorage.getItem('twitterHandle'))
       .subscribe(async briefStatus => {
         this.briefStatus = briefStatus;
@@ -280,14 +310,14 @@ channel: Channel;
         this.otherMostFavorited = this.otherBriefStatusList[1];
         console.log('*************');
         console.log(this.otherMostFavorited.text);
-        if (this.otherMostRetweeted.retweetCount === 0){
+        if (this.otherMostRetweeted.retweetCount === 0) {
 
         } else if (this.otherMostFavorited.favoriteCount === 0 && this.otherMostRetweeted.retweetCount > 0) {
           this.otherBriefStatusList = this.otherBriefStatusList.slice(1);
         } else {
           this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
         }
-        for (let i = 0; i < this.otherBriefStatusList.length; i++){
+        for (let i = 0; i < this.otherBriefStatusList.length; i++) {
         }
 
         this.twitterService.getNumFollowersByHandle(otherTwitterHandle)
@@ -298,11 +328,6 @@ channel: Channel;
 
       });
   }
-
-
-
-
-
 
 
   // Instagram Dashboard
@@ -323,7 +348,7 @@ channel: Channel;
     console.log('Get User Profile Called!');
   }
 
-  userSearch(user: string){
+  userSearch(user: string) {
     this.instagramService.getSearchInsta(user).subscribe(user => {
       this.instagramUserSearch = user;
       console.log('Get Search User Profile Called!');
@@ -335,8 +360,7 @@ channel: Channel;
     // CHANGE THE NAME OF THE BUTTON.
     if (this.showSearch) {
       this.buttonName = 'Hide';
-    }
-    else {
+    } else {
       this.buttonName = 'Change';
     }
   }
@@ -345,7 +369,7 @@ channel: Channel;
     return this.instagramUser.mediaCount;
   }
 
-  getImageUrl(pic: number): string{
+  getImageUrl(pic: number): string {
 
     return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
       this.instagramUser.imageFeed[pic].toString().search('width') - 2);
@@ -372,25 +396,25 @@ channel: Channel;
     return new Array(i);
   }
 
-  getFollowerProfilePic(pic: number): string{
+  getFollowerProfilePic(pic: number): string {
     return this.instagramUser.followerFeed[pic].toString().substring(
       this.instagramUser.followerFeed[pic].toString().search('ProfilePic:') + 11,
       this.instagramUser.imageFeed[pic].toString().length);
   }
-  getUserFollowerProfilePic(pic: number): string{
+
+  getUserFollowerProfilePic(pic: number): string {
     return this.instagramUserSearch.followerFeed[pic].toString().substring(
       this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:') + 11,
       this.instagramUserSearch.imageFeed[pic].toString().length);
   }
 
-  getComment(pic: number): string{
+  getComment(pic: number): string {
     if (this.instagramUser.imageFeedComment[pic].toString().substring(
       this.instagramUser.imageFeedComment[pic].toString().search('text=') + 5,
       this.instagramUser.imageFeedComment[pic].toString().search(', type='))
       === this.instagramUser.imageFeedCaption[pic]) {
       return null;
-    }
-    else {
+    } else {
       return this.instagramUser.imageFeedComment[pic].toString().substring(
         this.instagramUser.imageFeedComment[pic].toString().search('text=') + 5,
         this.instagramUser.imageFeedComment[pic].toString().search(', type='));
@@ -398,7 +422,7 @@ channel: Channel;
 
   }
 
-  getFollowerProfileName(pic: number): string{
+  getFollowerProfileName(pic: number): string {
     if (this.instagramUser.followerFeed[pic].toString().substring(0,
       this.instagramUser.followerFeed[pic].toString().search('ProfilePic:')) === null
       || this.instagramUser.followerFeed[pic].toString().substring(0,
@@ -414,14 +438,12 @@ channel: Channel;
   }
 
 
-  changeBio(bio: string){
+  changeBio(bio: string) {
     this.instagramService.changeBio(bio).subscribe(bio => {
       this.bio = bio;
     });
 
   }
-
-
 
 
   toggleChanges() {
@@ -430,10 +452,18 @@ channel: Channel;
     // CHANGE THE NAME OF THE BUTTON.
     if (this.showChanges) {
       this.buttonName = 'Hide';
-    }
-    else {
+    } else {
       this.buttonName = 'Change';
     }
+  }
+
+  // Convert milliseconds to minutes and seconds
+  transform(input: string) {
+    let minutes: string | number = Math.floor((parseInt(input) / (1000 * 60)) % 60);
+    let seconds: string | number = Math.floor((parseInt(input) / 1000) % 60);
+    let formatted_minutes = (minutes < 10) ? '0' + minutes : minutes;
+    let formatted_seconds = (seconds < 10) ? '0' + seconds : seconds;
+    return formatted_minutes + ':' + formatted_seconds;
   }
 
 

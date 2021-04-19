@@ -135,7 +135,7 @@
 }
 
 .artist_info {
-  margin-left: 2%;
+  margin-left: 4%;
   margin-top: 2%;
 }
 
@@ -169,8 +169,6 @@
 }
 
 .artist_info_container {
-  /*background-color: #3b1d11;*/
-
 }
 
 .songlist {

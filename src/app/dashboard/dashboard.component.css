@@ -7,7 +7,7 @@
   box-shadow: 0 0 5px black;
 }
 
-.headerImage{
+.headerImage {
   color: #fff;
   background-image: url("images/insatgramBackgroundGradient.jpg");
   background-repeat: no-repeat;
@@ -23,10 +23,12 @@
 .example-header-image {
   background-size: cover;
 }
+
 .video {
   margin-left: 10px;
   margin-right: 10px;
 }
+
 #snapshot {
   border-radius: 25px;
   box-shadow: 0 0 5px grey;
@@ -38,16 +40,18 @@
   max-height: 450px;
   background-image: linear-gradient(to right, red, darkred);
 }
+
 h3 {
   color: black;
   padding-top: 10px;
 }
+
 .title {
   color: black;
   text-align: center;
 }
 
-.basic-card{
+.basic-card {
   background-color: rgb(173, 216, 255);
   /*background-color: whitesmoke;*/
 
@@ -61,7 +65,7 @@ h3 {
   padding-left: 50px;
 }
 
-.recent-post-card{
+.recent-post-card {
   background-color: white;
   border-radius: 5px;
   /* box-shadow: 0px 4px 14px --3px; */
@@ -102,14 +106,28 @@ h3 {
   clear: both;
 }
 
-.header{
+.header {
   text-align: center;
 }
 
-.followers{
+.followers {
   font-size: 16px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 7px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: black; line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
+  padding: 7px 16px;
+  border-radius: 100px;
+  border: 1px solid rgb(173, 216, 255);
+  border-image: none;
+  text-align: center;
+  color: black;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  position: relative;
+  cursor: pointer;
+  float: left;
+  box-shadow: none;
+  background-color: rgb(173, 216, 255);
   /*display: inline-block;*/
   /*width: 50px;*/
   /*border: 1px solid #000;*/
@@ -120,18 +138,20 @@ h3 {
 
 }
 
-.status{
+.status {
   /*font-size: 16px;*/
   /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 }
 
-.posttweettacontainer2{
-  border-radius: 8px;  box-shadow: 0px 0px 0px 1px dodgerblue;  height: auto;
+.posttweettacontainer2 {
+  border-radius: 8px;
+  box-shadow: 0px 0px 0px 1px dodgerblue;
+  height: auto;
   /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; position: center;*/
 
 }
 
-.circle{
+.circle {
   color: red;
   fill: red;
 
@@ -144,6 +164,7 @@ h3 {
 .mat-slider-horizontal {
   width: 100%;
 }
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -156,4 +177,33 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+
+/* Spotify Shit */
+.spotify_snapshot {
+  max-width: 30vw;
+  max-height: 45vh;
+}
+
+.spotify_recent_tracks_card, .spotify_favourite_tracks_card {
+  margin-right: 3%;
+  max-height: 178px;
+}
+
+.spotifyIcon {
+  background: url('https://api.iconify.design/mdi:spotify.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:spotify.svg?height=32');
+  vertical-align: -0.125em;
+}
+
+.spotify_snapshot_header {
+  /*background-color: #3498db;*/
+  /*max-width: 20vw;*/
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*justify-content: space-between;*/
+}
+
+/*.spotify_recently_played_tab {*/
+/*  background-color: #3498db;*/
+/*}*/
 

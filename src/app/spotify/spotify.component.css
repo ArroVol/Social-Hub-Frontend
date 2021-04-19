@@ -59,13 +59,15 @@
 
 .home_page_container {
   overflow-y: hidden;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 /* Featured Playlist */
 
 .featured_playlist_container {
   background-color: #FFFFFF;
-  margin-top: .5%;
+  margin-top: .8%;
   margin-left: 1%;
   margin-right: 1%;
   border-radius: 5px;
@@ -75,12 +77,13 @@
 
 .featured_playlist_card {
   margin-right: 5%;
-  max-height: 172px;
+  max-height: 162px;
 }
 
 .featured_playlist_card:hover {
   background-color: slategray;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: snow;
 }
 
 .featured_playlist_content, .featured_playlist_footer {
@@ -140,7 +143,7 @@
 .user_top_tracks_container {
   width: 48%;
   height: 225px;
-  margin-top: .5%;
+  margin-top: .8%;
   margin-left: 1%;
   background-color: #FFFFFF;
   border-radius: 5px;
@@ -151,7 +154,7 @@
 .user_recent_tracks_container {
   width: 48%;
   height: 225px;
-  margin-top: .5%;
+  margin-top: .8%;
   margin-right: 1%;
   background-color: #FFFFFF;
   border-radius: 5px;
