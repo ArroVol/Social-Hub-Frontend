@@ -262,6 +262,10 @@ export class AccountInformationComponent implements OnInit {
           }
         });
 
+    } else {
+      this.snackBar.open('No Page Preference Selected', 'close', {
+        duration: 2200,
+      });
     }
     // sessionStorage.setItem('socialOnStart', this.socialOnStart);
     // if (sessionStorage.getItem('socialOnStart') !== null){

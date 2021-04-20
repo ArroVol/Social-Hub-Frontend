@@ -131,9 +131,12 @@
   </span></h1>
     <div *ngIf="displayHandleChangeDiv" class="center3">
 
-      <span> </span>
-      <input [(ngModel)]="twitterModel.handle" #twitterHandle type="text" name="twitterHandle" placeholder="{{twitterData.twitterHandle}}" />
     <span class="set-twitter-box">
+
+      <input class="twitter-handle-input"[(ngModel)]="twitterModel.handle" #twitterHandle type="text" name="twitterHandle" placeholder="{{twitterData.twitterHandle}}" />
+    <span class="set-twitter-box">
+            </span>
+
     <button class="submit-btn" [disabled]="twitterModel.handle === ''" (click)="sendTwitterHandle(twitterHandle.value)">Set Twitter</button>
       </span>
     </div>
@@ -167,6 +170,9 @@
       <mat-radio-button #Twitter class="example-margin" value="Twitter" [checked]="checkDefault(Twitter.value)">Twitter</mat-radio-button>
       <mat-radio-button #Facebook class="example-margin" value="Facebook" [checked]="checkDefault(Facebook.value)">Facebook</mat-radio-button>
       <mat-radio-button #Spotify class="example-margin" value="Spotify" [checked]="checkDefault(Spotify.value)">Spotify</mat-radio-button>
+      <mat-radio-button #Instagram class="example-margin" value="Spotify" [checked]="checkDefault(Instagram.value)">Instagram</mat-radio-button>
+      <mat-radio-button #Youtube class="example-margin" value="Spotify" [checked]="checkDefault(Youtube.value)">Youtube</mat-radio-button>
+
     </mat-radio-group>
   </section>
   <br>
@@ -185,7 +191,7 @@
 </section>
 <br>
 <div class="center" *ngIf="showHideDeveloper">
-  <div *ngIf="twitterLoggedIn !== 'true'; else displayTwitterInfo">
+  <div *ngIf="!developerOptions else displayTwitterInfo">
   <span>
     Click the link to the twitter developer page to get your access tokens
   </span>
@@ -196,7 +202,7 @@
   <div id="login-box2">
     <div class="left">
       <div class="centered">
-        <div *ngIf="twitterLoggedIn !== 'true' else showTwitterInfo" >
+        <div *ngIf="!developerOptions else showTwitterInfo" >
           <h1>Register Twitter Account Below</h1>
           <div class="center3">
 

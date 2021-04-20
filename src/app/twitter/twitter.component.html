@@ -1,7 +1,8 @@
-<mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
+<!-- the top -->
+<mat-toolbar class="header-toolbar">
+<!--  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
+<!--    <mat-icon>menu</mat-icon>-->
+<!--  </button>-->
   <span>Twitter Hub</span>
   <span class="dispblk2">
 									<span class="followers-header"> <div *ngIf="followerCount != -1">
@@ -10,68 +11,52 @@
   </span>
 
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
+  <span>Goal Progress</span>
+
+  <mat-slider style="pointer-events: none;"
+              class="example-margin"
+              [disabled]="disabled"
+              [invert]="invert"
+              [max]="max"
+              [min]="min"
+              [step]="step"
+              [thumbLabel]="thumbLabel"
+              [tickInterval]="getSliderTickInterval()"
+              [(ngModel)]="value"
+              [vertical]="vertical">
+  </mat-slider>
+            <button (click)="launchGoalModal() "mat-icon-button aria-label="edit-handle-btn">
+              <mat-icon class="edit-btn" >edit</mat-icon>
+            </button>
+
 </mat-toolbar>
+<mat-tab-group animationDuration="0ms" (selectedTabChange)="tabClick($event.index)">
+  <mat-tab label="Twitter Home">
+
+
+
 <div class="row">
   <div class="column-3">
     <div *ngIf="twitterHandleFound else notShow" >
-      <br>
 
-      <h2 class="header"> {{twitterHandle}}'s activity</h2>
-      <mat-card class="basic-card">
+      <mat-card class="outer-basic-card">
 
-      <h2>Most recent post</h2>
-      <div class="posttweettacontainer2">
+        <h2 *ngIf="briefStatusList != null else spin" class="header"> {{twitterHandle}}'s Twitter Timeline</h2>
 
-        <div *ngIf="briefStatus != null else spin" class="status">
-        <div *ngIf="briefStatus else spin" class="status">
+        <cdk-virtual-scroll-viewport  *ngIf="briefStatusList != null" itemSize="20" class="example-viewport">
 
-          <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
-          <br>
-          {{briefStatus.text}} <br>
-        <div class="icons-twitter">
-          <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}
-        </div>
-        </div>
-      </div>
-      <ng-template #spin>
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-      </ng-template>
-        <br>
-      <div>
-            <br>
-								<span class="dispblk2">
-									<span class="followers"> <div *ngIf="followerCount != -1">
-                    Followers: {{followerCount}}
-</div></span>
-								</span>
-          </div>
-        </div>
-        <br>
-      <br>
-      <br>
-      </mat-card>
+          <span *ngIf="briefStatusList != null else spin" class="status">
 
-
-      <section class="example-section">
-        <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="showTimeline">Show Timeline</mat-checkbox>
-      </section>
-      <cdk-virtual-scroll-viewport class="scroll" *ngIf="showTimeline" itemSize="20" class="example-viewport">
-
-      <span *ngIf="showTimeline" >
-<!--      <mat-card class="basic-card" *ngIf="showOtherTimeline">-->
         <div style="padding-bottom: 10px"  *ngFor="let briefStatus of briefStatusList">
 
-          <mat-card class="basic-card" >
+          <mat-card class="basic-card">
           <div class="posttweettacontainer3">
           <b>{{briefStatus.handle}}</b> <span style="padding-bottom: 10px"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
           <br>
             {{briefStatus.text}} <br>
+            <br>
+<!--            <img [src]="briefStatus.text" alt="" class="'img-fluid">-->
+
 <div class="icons-twitter">
           <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}
 </div>
@@ -80,10 +65,15 @@
           </mat-card>
       </div>
         </span>
-      </cdk-virtual-scroll-viewport>
-      <section class="example-section">
-        <mat-checkbox class="example-margin" type="checkbox" (click)="getOtherUserTimeline('SocialHubClub')" [(ngModel)]="compareSelfTwitter" >See your most popular tweets!</mat-checkbox>
-      </section>
+        </cdk-virtual-scroll-viewport>
+
+
+        <br>
+      <br>
+      <br>
+      </mat-card>
+
+
     </div>
         <ng-template #spin>
           <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -92,7 +82,6 @@
         <br>
         <div class="rightcontainer" *ngIf="developerMode">
           <div class="posttweetcontainer">
-            <!--        <img class="posttweetprofimg" src="http://3.bp.blogspot.com/-JCYefwq__2U/TxCfC3s1ZpI/AAAAAAAAKcM/u5mw7qPAL0w/s300-c/Camilla-Belle-6.jpg">-->
             <div class="ml56px">
               <div class="posttweettacontainer">
                 <textarea #tweetContent id="posttweetta" class="posttweetta" placeholder="What's happening?" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;"></textarea>
@@ -119,245 +108,247 @@
 </div>
   <div class="column-2">
 
-    <br>
-    <h2 class="header">Goals</h2>
-    <mat-card class="basic-card">
-      <mat-card-content>
-        <div *ngIf="goalSet else setGoals" >
+    <div *ngIf="briefStatusList != null else spin" >
 
-        <h2 class="example-h2">{{userGoal.goalType}} goal
-          <button (click)="updateGoals() "mat-icon-button aria-label="edit-handle-btn">
-            <mat-icon class="edit-btn" >edit</mat-icon>
-          </button>
-        </h2>
+      <mat-card class="outer-basic-card" *ngIf="!showMostFavorited else showUserFavoritedCard">
 
-        <section class="example-section">
-          <mat-form-field class="example-margin">
-            <mat-label>Current Followers Reached</mat-label>
-            <input matInput type="number" [(ngModel)]="value">
-          </mat-form-field>
-          <div></div>
-        </section>
-          <section class="example-section">
-          <mat-form-field class="example-margin">
-            <mat-label>Goal</mat-label>
-            <input matInput type="number" [(ngModel)]="max">
-          </mat-form-field>
-        </section>
+      <h2 class="header">{{twitterHandle}}'s {{showingUser.toString()}}</h2>
+        <mat-card class="basic-card">
 
-<!--        <section class="example-section">-->
-<!--          <mat-checkbox class="example-margin" [(ngModel)]="showTicks">Show ticks</mat-checkbox>-->
-<!--          <mat-checkbox class="example-margin" [(ngModel)]="autoTicks" *ngIf="showTicks">-->
-<!--            Auto ticks-->
-<!--          </mat-checkbox>-->
-<!--          <mat-form-field class="example-margin" *ngIf="showTicks && !autoTicks">-->
-<!--            <mat-label>Tick interval</mat-label>-->
-<!--            <input matInput type="number" [(ngModel)]="tickInterval">-->
-<!--          </mat-form-field>-->
-<!--        </section>-->
+        <div class="posttweettacontainer3" *ngIf="userMostRetweeted != null">
 
-<!--        <section class="example-section">-->
-<!--          <mat-checkbox class="example-margin" [(ngModel)]="thumbLabel">Show thumb label</mat-checkbox>-->
-<!--        </section>-->
+          <b>{{userMostRetweeted.handle}}</b> <span style="color:#808080"> @{{userMostRetweeted.screenName}} {{' * '}} {{userMostRetweeted.createdAt.substring(0, 10)}} </span>
+          <br>
+          {{userMostRetweeted.text}} <br>
 
-<!--        <section class="example-section">-->
-<!--          <mat-checkbox class="example-margin" [(ngModel)]="disabled">Disabled</mat-checkbox>-->
-<!--        </section>-->
+          <mat-icon class="repeat">repeat</mat-icon> {{userMostRetweeted.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{userMostRetweeted.favoriteCount}}
+          <ng-template #spin>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </ng-template>
+          <br>
+          <br>
+
         </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card *ngIf="goalSet" class="basic-card">
-      <mat-card-content>
-        <span>
-          <h2>Result
-            <h3 style="padding-top: 10px"> start date:  {{userGoal.startDate}}  </h3>
-                        <h3> end date:  {{endDateString}}  </h3>
-
-          </h2>
-        </span>
-
-        <mat-slider style="pointer-events: none;"
-          class="example-margin"
-          [disabled]="disabled"
-          [invert]="invert"
-          [max]="max"
-          [min]="min"
-          [step]="step"
-          [thumbLabel]="thumbLabel"
-          [tickInterval]="getSliderTickInterval()"
-          [(ngModel)]="value"
-          [vertical]="vertical">
-        </mat-slider>
-      </mat-card-content>
-    </mat-card>
-
-
-    <mat-card class="basic-card">
-      <mat-card-content>
-        <h2>Friends</h2>
-
-<!--        <div *ngFor="let friend of friendsList">-->
-<!--          {{friend}}-->
-<!--        </div>-->
-
-        <form class="example-form" #myForm="ngForm">
-          <mat-form-field class="example-full-width">
-            <mat-label>Search friend</mat-label>
-<!--            <button style="padding-left: 50px" (click)="handle.value=''">-->
-<!--              <mat-icon >clear</mat-icon>-->
-<!--            </button>-->
-            <input #handle value="searchFriend" (keyup)="onKey($event)" type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" >
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-<!--                {{incrementor + 1}} {{option.name}}-->
-               {{option.name}}
-
-              </mat-option>
-            </mat-autocomplete>
-
-          </mat-form-field>
-          <button mat-flat-button class="search-user" [disabled]="handle.value === ''" (click)="getOtherUserTimeline(handle.value)">Get Friend</button>
-
-        </form>
-<!--        <button (click)="getFriendsList()"> Get Friends List </button>-->
-<!--        <div>-->
-<!--          <button class="search-user" [disabled]="otherHandle === ''" (click)="getOtherUserTimeline(handle.value)">Get Friend's Timeline</button>-->
-         <div>
-           <button mat-flat-button class="clear" [disabled]="handle.value === ''" (click)="clearFields(handle.value)">Clear field</button>
-         </div>
-<!--        </div>-->
-      </mat-card-content>
-    </mat-card>
-
-
-    <section class="example-section">
-      <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="compareTwitter">Search Other Twitter User</mat-checkbox>
-    </section>
-    <div class="center" *ngIf="compareTwitter">
-      <mat-card class="basic-card">
-
-      <h2> Search Twitter User </h2>
-      <input [(ngModel)]="otherHandle" #twitterHandle type="text" name="twitterHandle" placeholder='@twitter handle' />
-      <br>
-      <span class="set-twitter-box">
-              <br>
-          <button mat-raised-button class="submit-btn" [disabled]="twitterHandle.value === ''" (click)="getOtherUserTimeline(twitterHandle.value)">Search User</button>
-            </span>
+        </mat-card>
+        <section class="other-tweet-option">
+          <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
+            <mat-button-toggle (click)="changeUserRetweeted()" value="bold"  >Most Retweets</mat-button-toggle>
+            <mat-button-toggle (click)="changeUserFavorited()" value="italic" >Most Favorites</mat-button-toggle>
+          </mat-button-toggle-group>
+        </section>
       </mat-card>
+      <ng-template #showUserFavoritedCard>
+        <mat-card  class="outer-basic-card">
+          <h2 class="header">{{twitterHandle}}'s {{showingUser.toString()}}</h2>
+          <mat-card class="basic-card">
+
+          <div class="posttweettacontainer3">
+
+            <b>{{userMostFavorited.handle}}</b> <span style="color:#808080"> @{{userMostFavorited.screenName}} {{' * '}} {{userMostFavorited.createdAt.substring(0, 10)}} </span>
+            <br>
+            {{userMostFavorited.text}} <br>
+
+            <mat-icon class="repeat">repeat</mat-icon> {{userMostFavorited.retweetCount}} {{'          '}}<mat-icon class="circle" [ngStyle]="{'color':'red'}">favorite_border</mat-icon> {{userMostFavorited.favoriteCount}}
+            <ng-template #spin>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </ng-template>
+            <br>
+            <br>
+          </div>
+          </mat-card>
+          <section class="other-tweet-option">
+            <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
+
+              <mat-button-toggle (click)="changeUserRetweeted()" value="bold" checked = true  >Most Retweets</mat-button-toggle>
+              <mat-button-toggle (click)="changeUserFavorited()" value="italic" >Most Favorites</mat-button-toggle>
+            </mat-button-toggle-group>
+          </section>
+        </mat-card>
+      </ng-template>
+
     </div>
+
   </div>
 
 
 
   <div class="column-3">
-<br>
-    <div *ngIf="otherBriefStatusList !== null">
 
-    <h2 class="header">{{otherHandle}}'s activity</h2>
-<!--    <mat-card class="most-retweeted">-->
-      <mat-card *ngIf="!showOtherMostFavorited else showFavoritedCard"  class="basic-card">
-        <h2>{{showingOther.toString()}}</h2>
+        <mat-card class="outer-basic-card">
+          <mat-card-content>
+            <h2 class="header">Friends/Search</h2>
 
-        <div class="posttweettacontainer2">
+  <mat-card class="basic-card">
+            <form class="example-form" #myForm="ngForm">
+              <mat-form-field class="example-full-width">
+                <mat-label>Search friend</mat-label>
 
-              <b>{{otherMostRetweeted.handle}}</b> <span style="color:#808080"> @{{otherMostRetweeted.screenName}} {{' * '}} {{otherMostRetweeted.createdAt.substring(0, 10)}} </span>
+                <input #handle value="searchFriend" (keyup)="onKey($event)" type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" >
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option  *ngFor="let option of filteredOptions | async" [value]="option">
+                   {{option.name}}
+
+                  </mat-option>
+                </mat-autocomplete>
+
+              </mat-form-field>
+              <button mat-flat-button class="search-user" [disabled]="handle.value === ''" (click)="getOtherUserTimeline(handle.value)">Get Friend</button>
+
+            </form>
+             <div>
+               <button mat-flat-button class="clear" [disabled]="handle.value === ''" (click)="clearFields(handle.value)">Clear field</button>
+             </div>
+        </mat-card>
+          </mat-card-content>
+        </mat-card>
+
+<!--    <section class="example-section">-->
+<!--      <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="compareTwitter">Search Other Twitter User</mat-checkbox>-->
+<!--    </section>-->
+    <div class="center" *ngIf="compareTwitter">
+
+
+      <div >
+        <ng-template #showUserFavoritedCard>
+          <mat-card  class="outer-basic-card">
+            <h2 class="header">{{showingUser.toString()}}</h2>
+            <mat-card class="basic-card">
+
+              <div class="posttweettacontainer3">
+
+                <b>{{userMostFavorited.handle}}</b> <span style="color:#808080"> @{{userMostFavorited.screenName}} {{' * '}} {{userMostFavorited.createdAt.substring(0, 10)}} </span>
+                <br>
+                {{userMostFavorited.text}} <br>
+
+                <mat-icon class="repeat">repeat</mat-icon> {{userMostFavorited.retweetCount}} {{'          '}}<mat-icon class="circle" [ngStyle]="{'color':'red'}">favorite_border</mat-icon> {{userMostFavorited.favoriteCount}}
+                <ng-template #spin>
+                </ng-template>
+                <br>
+                <br>
+              </div>
+            </mat-card>
+
+            <span class="dispblk2">
+									<span class="followers-header"> <div>
+                   {{userMostFavorited.handle}}'s Twitter Followers: {{otherNumFollowers}}
+</div></span>
+  </span>
+          </mat-card>
+        </ng-template>
+      </div>
+
+
+
+      <mat-card class="outer-basic-card">
+
+        <h2> Search Twitter User </h2>
+        <input [(ngModel)]="otherHandle" #twitterHandle type="text" name="twitterHandle" placeholder='@twitter handle' />
+        <br>
+        <span class="set-twitter-box">
               <br>
-              {{otherMostRetweeted.text}} <br>
+          <button mat-raised-button class="submit-btn" [disabled]="twitterHandle.value === ''" (click)="getOtherUserTimeline(twitterHandle.value)">Search User</button>
+            </span>
+      </mat-card>
+    </div>
+    <div >
+      <div *ngIf="showOtherDiv">
+      <mat-card class="outer-basic-card-other">
 
-              <mat-icon class="repeat">repeat</mat-icon> {{otherMostRetweeted.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{otherMostRetweeted.favoriteCount}}
-          <ng-template #spin>
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-          </ng-template>
+        <h2 class="header">{{otherMostFavorited.handle}}'s {{showingOther.toString()}}</h2>
+        <mat-card class="basic-card">
+
+        <div class="posttweettacontainer3" *ngIf="otherMostRetweeted != null">
+
+          <b>{{otherMostRetweeted.handle}}</b> <span style="color:#808080"> @{{otherMostRetweeted.screenName}} {{' * '}} {{otherMostRetweeted.createdAt.substring(0, 10)}} </span>
           <br>
-            <br>
+          {{otherMostRetweeted.text}} <br>
 
-          </div>
-        <section class="example-section">
-        <div class="dispblk2">
-									<span class="followers"> <div *ngIf="otherNumFollowers !== null">
-                    Followers: {{otherNumFollowers}}
-</div>
-                  </span>
-								</div>
-        </section>
-    </mat-card>
-<ng-template #showFavoritedCard>
-      <mat-card  class="basic-card">
-        <h2>{{showingOther.toString()}}</h2>
-
-        <div class="posttweettacontainer2">
-
-          <b>{{otherMostFavorited.handle}}</b> <span style="color:#808080"> @{{otherMostFavorited.screenName}} {{' * '}} {{otherMostFavorited.createdAt.substring(0, 10)}} </span>
-          <br>
-          {{otherMostFavorited.text}} <br>
-
-          <mat-icon class="repeat">repeat</mat-icon> {{otherMostFavorited.retweetCount}} {{'          '}}<mat-icon class="circle" [ngStyle]="{'color':'red'}">favorite_border</mat-icon> {{otherMostFavorited.favoriteCount}}
+          <mat-icon class="repeat">repeat</mat-icon> {{otherMostRetweeted.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{otherMostRetweeted.favoriteCount}}
           <ng-template #spin>
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
           </ng-template>
           <br>
           <br>
 
         </div>
-        <section class="example-section">
-          <div class="dispblk2">
+        </mat-card>
+        <section class="other-tweet-option">
+          <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
+            <mat-button-toggle (click)="changeOtherRetweeted()" value="bold"  >Most Retweets</mat-button-toggle>
+            <mat-button-toggle (click)="changeOtherFavorited()" value="italic">Most Favorites</mat-button-toggle>
+          </mat-button-toggle-group>
+        </section>
+        <div>
+          <br>
+        <span class="dispblk2">
+									<span class="followers-header3"> <div>
+                  <b>  {{otherMostFavorited.handle}}'s Twitter Followers: {{otherNumFollowers}}</b>
+</div></span>
+        </span>
+        </div>
+      </mat-card>
+      <ng-template #showFavoritedCard>
+        <mat-card  class="basic-card">
+          <h2>{{showingOther.toString()}}</h2>
+  <mat-card class="basic-card">
+          <div class="posttweettacontainer3">
+
+            <b>{{otherMostFavorited.handle}}</b> <span style="color:#808080"> @{{otherMostFavorited.screenName}} {{' * '}} {{otherMostFavorited.createdAt.substring(0, 10)}} </span>
+            <br>
+            {{otherMostFavorited.text}} <br>
+
+            <mat-icon class="repeat">repeat</mat-icon> {{otherMostFavorited.retweetCount}} {{'          '}}<mat-icon class="circle" [ngStyle]="{'color':'red'}">favorite_border</mat-icon> {{otherMostFavorited.favoriteCount}}
+            <ng-template #spin>
+                            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </ng-template>
+            <br>
+            <br>
+
+          </div>
+  </mat-card>
+          <section class="example-section">
+            <div class="dispblk2">
 									<span class="followers"> <div *ngIf="otherNumFollowers !== null">
                     Followers: {{otherNumFollowers}}
 </div>
                   </span>
-          </div>
-        </section>
-      </mat-card>
-</ng-template>
+            </div>
+          </section>
+          <section class="other-tweet-option">
+            <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
+              <mat-button-toggle (click)="changeOtherRetweeted()" value="bold" checked = true>Most Retweets</mat-button-toggle>
+              <mat-button-toggle (click)="changeOtherFavorited()" value="italic">Most Favorites</mat-button-toggle>
+            </mat-button-toggle-group>
+          </section>
+        </mat-card>
+      </ng-template>
 
-      <section class="other-tweet-option">
-        <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
-          <mat-button-toggle (click)="changeOtherRetweeted()" value="bold" checked = true>Most Retweets</mat-button-toggle>
-          <mat-button-toggle (click)="changeOtherFavorited()" value="italic">Most Favorites</mat-button-toggle>
-        </mat-button-toggle-group>
-      </section>
+      <mat-card class="outer-basic-card">
+      <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
 
-
-      <section class="example-section">
-        <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="showOtherTimeline">Show Timeline</mat-checkbox>
-      </section>
-      <cdk-virtual-scroll-viewport class="scroll" *ngIf="showOtherTimeline" itemSize="20" class="example-viewport">
-
-      <span *ngIf="showOtherTimeline" >
-<!--      <mat-card class="basic-card" *ngIf="showOtherTimeline">-->
+      <span  >
         <div style="padding-bottom: 10px"  *ngFor="let briefStatus of otherBriefStatusList">
 
           <mat-card class="basic-card" >
           <div class="posttweettacontainer3">
           <b>{{briefStatus.handle}}</b> <span style="padding-bottom: 10px"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
           <br>
-          {{briefStatus.text}} <br>
+            {{briefStatus.text}} <br>
 <div class="icons-twitter">
           <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}
 </div>
 </div>
           <div></div>
+
           </mat-card>
       </div>
         </span>
       </cdk-virtual-scroll-viewport>
-<!--    </mat-card>-->
-    </div>
-
-
-    <!--    <a class="twitter-timeline" href="https://twitter.com/SocialHubClub?ref_src=twsrc%5Etfw">Tweets by SocialHubClub</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
-<!--    <a class="twitter-timeline" href="https://twitter.com/SocialHubClub?ref_src=twsrc%5Etfw">Tweets </a>-->
-<!--    <div class="center" *ngIf="compareTwitter">-->
-<!--      <h1> Compare Twitter </h1>-->
-<!--&lt;!&ndash;      <input [(ngModel)]="otherHandle" #twitterHandle type="text" name="twitterHandle" placeholder='@twitter handle' />&ndash;&gt;-->
-<!--&lt;!&ndash;      <span class="set-twitter-box">&ndash;&gt;-->
-<!--&lt;!&ndash;    <button class="submit-btn" [disabled]="otherHandle === ''" (click)="getOtherUserTimeline(twitterHandle.value)">Get User</button>&ndash;&gt;-->
-<!--&lt;!&ndash;      </span>&ndash;&gt;-->
-<!--    </div>-->
+      </mat-card>
+      </div>
 
     </div>
-<!--</div>-->
+
 <br>
 <br>
 
@@ -371,7 +362,6 @@
   </h2>
 
   <section class="example-section">
-<!--      <mat-label>Weekly/Monthly</mat-label>-->
       <section class="example-section">
         <mat-radio-group [(ngModel)]="labelPosition" (change)="radioChange($event)" >
           <mat-radio-button #Weekly class="example-margin" value="Weekly" >Weekly</mat-radio-button>
@@ -392,20 +382,58 @@
   </div>
 </ng-template>
 
-<!--<div>-->
-<!--  Ranking table...-->
-<!--  <Button (click)="getFriendsRankingList()">-->
-<!--    Get Rankings-->
-<!--  </Button>-->
-<!--</div>-->
 
-    <section class="example-section">
-      <mat-checkbox class="example-margin" type="checkbox" (click)="getFriendsRankingList()" [(ngModel)]="showRanking">Show Friends Ranking </mat-checkbox>
-    </section>
-<div class="ranking-div" *ngIf="showRanking">
+</div>
+  </mat-tab>
+  <mat-tab label="Ranking Leaderboard" >
+    <mat-card class="basic-card" >
+
+      <mat-form-field class="ranking">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. SocialHubClub" #input>
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <!-- Rank Column -->
+          <ng-container matColumnDef="rank">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rank </th>
+            <td mat-cell *matCellDef="let row"> {{row.rank}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell class="name" *matCellDef="let row"> {{row.name}} </td>
+          </ng-container>
+
+
+          <!-- Follower Count Column -->
+          <ng-container matColumnDef="followerCount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Follower Count </th>
+            <td mat-cell *matCellDef="let row"> {{row.followerCount}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<!--          <tr mat-row [ngStyle]="{'background-color': (row.name === 'SocialHubClub') ? 'red' : 'white'}" *matRowDef="let row; columns: displayedColumns;"></tr>-->
+          <tr mat-row [class.color]="row.name === 'SocialHubClub'" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
+
+  <div class="ranking-div" *ngIf="showRanking">
   <mat-card class="basic-card" >
 
-  <!--  <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">-->
 
   <mat-form-field class="ranking">
   <mat-label>Filter</mat-label>
@@ -443,8 +471,7 @@
     </tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator [pageSize]="10"  [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
-<!--</div>-->
   </mat-card>
 </div>

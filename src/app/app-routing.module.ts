@@ -20,6 +20,8 @@ import {YoutubeComponent} from './youtube/youtube.component';
 import {CollectionComponent} from './collection/collection.component';
 import {InstagramSearchComponent} from './instagram-search/instagram-search.component';
 import {SpotifySearchComponent} from "./spotify-search/spotify-search.component";
+import {OnePostComponent} from "./one-post/one-post.component";
+import {ImagesComponent} from "./images/images.component";
 
 
 const routes: Routes = [
@@ -41,7 +43,9 @@ const routes: Routes = [
   {path: 'instagram', component: InstagramComponent},
   {path: 'instagram-search', component: InstagramSearchComponent},
   {path: 'youtube', component: YoutubeComponent},
-  {path: 'collection', component: CollectionComponent}
+  {path: 'collection', component: CollectionComponent},
+  { path: 'one-post', component: OnePostComponent},
+  { path: 'image', component: ImagesComponent}
 
 
   // {path: 'create-account', component: CreateAccountComponent},

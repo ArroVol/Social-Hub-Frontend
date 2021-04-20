@@ -18,6 +18,7 @@ import {MomentModule} from 'ngx-moment';
 
 // Angular stuff
 import {RouterModule} from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DataTablesModule} from 'angular-datatables';
@@ -56,6 +57,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 // Facebook Components
 import {FacebookComponent} from './facebook/facebook.component';
@@ -109,6 +111,32 @@ import {CollectionComponent} from './collection/collection.component';
 // import { OnePostComponent } from './one-post/one-post.component';
 import * as moment from 'moment';
 import {Moment} from 'moment';
+import {FooterComponent} from './footer/footer.component';
+// import {NgxDropzoneModule} from 'ngx-dropzone';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MomentModule} from 'ngx-moment';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {NgxDropzoneModule} from 'ngx-dropzone';
+import {MatTreeModule} from '@angular/material/tree';
+import {Moment} from 'moment';
+// import { AboutComponent } from './about/about.component';
+import {CollectionComponent} from './collection/collection.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+// import {PreloadersModule} from 'ng-uikit-pro-standard';
+import { OnePostComponent } from './one-post/one-post.component';
+import {MatMenuModule} from "@angular/material/menu";
+import {MatTabsModule} from "@angular/material/tabs";
+import {GoalModalComponent} from "./goal-modal/goal-modal.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {environment} from "../environments/environment";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFireStorageModule} from "@angular/fire/storage";
+
+import { ImagesComponent } from './images/images.component';
+import {AngularFireDatabaseModule} from "@angular/fire/database";
 
 @NgModule({
   declarations: [
@@ -127,6 +155,7 @@ import {Moment} from 'moment';
     TimelineComponent,
     LoginPageComponent,
     AccountInformationComponent,
+    TimelineComponent,
     DataTableComponent,
     SpotifyCreatePlaylistComponent,
     InstagramComponent,
@@ -154,7 +183,9 @@ import {Moment} from 'moment';
     InstagramSearchComponent,
     SpotifySearchComponent,
     AnimatedDigitComponent,
-
+    OnePostComponent,
+    GoalModalComponent,
+    ImagesComponent
   ],
   imports: [
     HttpClientModule,
@@ -192,6 +223,8 @@ import {Moment} from 'moment';
     MatExpansionModule,
     CarouselModule,
     PreloadersModule,
+    MatSidenavModule,
+    // PreloadersModule,
     IconsModule,
     NavbarModule,
     WavesModule,
@@ -219,10 +252,16 @@ import {Moment} from 'moment';
     ScrollingModule,
     MatTabsModule,
     MatTooltipModule,
+    ScrollingModule,
+    MatTabsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule
+
   ],
-  providers: [{
+  providers: [ {
     provide: STEPPER_GLOBAL_OPTIONS,
-    useValue: {displayDefaultIndicatorType: false}
+    useValue: { displayDefaultIndicatorType: false }
   }],
   exports: [
     AnimatedDigitComponent

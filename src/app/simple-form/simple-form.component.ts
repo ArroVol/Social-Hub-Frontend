@@ -116,8 +116,9 @@ export class SimpleFormComponent implements OnInit {
       .subscribe(async user => {
         this.user = user;
         console.log(this.user.email);
+        console.log('getting the users id as a string... ' + String(this.user.userId));
         sessionStorage.setItem('email', user.email);
-        sessionStorage.setItem('userId', user.userId.toString());
+        // sessionStorage.setItem('userId', user.userId.toString());
         sessionStorage.setItem('username', user.username);
         sessionStorage.setItem('userId', String(this.user.userId));
         console.log('this is the users id: ' + user.userId);
@@ -159,7 +160,7 @@ export class SimpleFormComponent implements OnInit {
                   console.log(fullUrl);
                   window.location.assign(fullUrl);
                   this.appComponent.checkLogin();
-                  this.appComponent.login(true);
+                  // this.appComponent.login(true);
                   // this.appComponent.displaySideNav = true;
 
 
@@ -169,10 +170,10 @@ export class SimpleFormComponent implements OnInit {
           this.getTwitterData();
         }
       });
-    if (!this.loggedIn){
-    this.openSnackBar('fail');
-
-  }
+  //   if (!this.loggedIn){
+  //   this.openSnackBar('fail');
+  //
+  // }
   }
 
   logOut() {
@@ -207,6 +208,10 @@ export class SimpleFormComponent implements OnInit {
          sessionStorage.setItem('twitterHandle', this.twitterData.twitterHandle);
          sessionStorage.setItem('twitterHandleFound', 'true');
        });
+   }
+
+   getUser(): User {
+    return this.user;
    }
 
 }

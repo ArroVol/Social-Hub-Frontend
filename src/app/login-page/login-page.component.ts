@@ -139,6 +139,10 @@ export class LoginPageComponent implements OnInit {
     //     this.user.phoneNumber = user.phoneNumber;
     //   });
   }
+
+  pageBack() {
+    window.location.assign('/account-information');
+  }
 }
 //
 //   get loginFormModalEmail() {
