@@ -12,6 +12,13 @@
       <mat-card-title id = "title">{{facebookUser.facebookName}}</mat-card-title>
       <mat-card-subtitle id = "subtitle">Total Friends: {{facebookUser.friendCount}}</mat-card-subtitle>
     </mat-card-header>
+<!--    <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">-->
+
+<!--      <mdb-carousel-item  *ngFor='let photo of facebookPhotos.photos ;let i = index'>-->
+<!--        <img style="width: 200px; height: 200px; display: block;  margin-left: auto; margin-right: auto;" alt="{{i}}" src="{{photo}}" >-->
+
+<!--      </mdb-carousel-item>-->
+<!--    </mdb-carousel>-->
     <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
       <mdb-carousel-item>
         <img class="d-block w-300" src="{{facebookPhotos.photos[0]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
@@ -52,33 +59,6 @@
   </div>
 </mat-card>
 <!--FACEBOOK CARD END-->
-
-<mat-card class="example-card">
-  <mat-card-header>
-    <img mat-card-avatar [src]= "instagramUser.profilePicUrl" >
-    <mat-card-title>{{instagramUser.displayName}}</mat-card-title>
-  </mat-card-header>
-  <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
-
-    <mdb-carousel-item  *ngFor='let in of counterInstagram(18) ;let i = index'>
-      <img style="width: 200px; height: 200px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >
-
-    </mdb-carousel-item>
-  </mdb-carousel>
-  <mat-card-content style=" display: block;  margin-left: auto; margin-right: auto;">
-
-    <strong><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit>Followers</strong>
-    <span style="padding-right: 50px" class="text-muted">  </span>
-
-    <br>
-    <span style="padding: 50px" class="text-muted"> </span>
-    <strong style="padding-top: 50px"><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit> Following</strong>
-
-  </mat-card-content>
-  <mat-card-actions>
-    <button style=" display: block;  margin-left: auto; margin-right: auto;" routerLink="/instagram" mat-button>Instagram Page</button>
-  </mat-card-actions>
-</mat-card>
 
 
 
@@ -391,6 +371,35 @@
 <ng-template #notShow>
   <h1>Go to the account information page to log into your twitter account</h1>
 </ng-template>
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <img mat-card-avatar [src]= "instagramUser.profilePicUrl" >
+    <mat-card-title>{{instagramUser.displayName}}</mat-card-title>
+  </mat-card-header>
+
+  <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
+
+    <mdb-carousel-item  *ngFor='let in of counterInstagram(18) ;let i = index'>
+      <img style="width: 200px; height: 200px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >
+
+    </mdb-carousel-item>
+  </mdb-carousel>
+
+  <mat-card-content style=" display: block;  margin-left: auto; margin-right: auto;">
+
+    <strong><animated-digit [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit>Followers</strong>
+    <span style="padding-right: 50px" class="text-muted">  </span>
+
+    <br>
+    <span style="padding: 50px" class="text-muted"> </span>
+    <strong style="padding-top: 50px"><animated-digit [digit]="instagramUser.followingCount" [duration]="1000"></animated-digit> Following</strong>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button style=" display: block;  margin-left: auto; margin-right: auto;" routerLink="/instagram" mat-button>Instagram Page</button>
+  </mat-card-actions>
+</mat-card>
 
 
 <!--<div>-->
