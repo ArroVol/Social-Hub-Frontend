@@ -21,8 +21,8 @@
   padding: 20px;
   margin-left: 10px;
   margin-top: 20px;
-  max-width: 800px;
-  max-height: 450px;
+  max-width: 400px;
+  height: 565px;
   background-image: linear-gradient(to right, red, darkred);
 }
 h3 {
@@ -274,4 +274,11 @@ input[type=number] {
   position: center;
   margin-left: 95px;
   margin-bottom: -15px;
+}
+
+.example-card-youtube {
+  width: 350px;
+  height: 455px;
+  background-color: white;
+  box-shadow: 0 0 5px black;
 }

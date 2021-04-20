@@ -1,20 +1,11 @@
-import {Component, OnInit, Output, Pipe} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { YoutubeService } from '../service/youtube.service';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 import {ThemePalette} from '@angular/material/core';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
-import {MatCardModule} from '@angular/material/card';
-import {Video} from '../model/youtube/Video';
 import {Channel} from '../model/youtube/Channel';
 import {UserService} from '../service/user.service';
-import {User} from '../model/user/User';
-import {Observable} from 'rxjs';
 import {Youtube} from '../model/youtube/Youtube';
-export interface Tile {
-  cols: number;
-  rows: number;
-  videoArr: String[];
-}
 
 @Component({
   selector: 'app-youtube',
@@ -30,7 +21,8 @@ export class YoutubeComponent implements OnInit {
   isVisibleSpinner = false;
   isLoggedIn = true;
   user: Youtube;
-  constructor(private youtubeService: YoutubeService, private userService: UserService, private sanitizer: DomSanitizer) { }
+  videos = 'Select a video to post to';
+  constructor(private youtubeService: YoutubeService) { }
 
   ngOnInit(): void {
     // console.log(sessionStorage.getItem('username'));
@@ -67,7 +59,7 @@ export class YoutubeComponent implements OnInit {
           youtubeUser.channelId = channelTemp.channelId;
           youtubeUser.profile_pic = channelTemp.profilePhoto;
           youtubeUser.username = channelTemp.username;
-          this.youtubeService.postUser(youtubeUser);
+          // this.youtubeService.postUser(youtubeUser);
         });
 
       return this.channel;
@@ -87,6 +79,16 @@ export class YoutubeComponent implements OnInit {
     this.pullTime = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear() + ' at ' + d.getHours() + ':' + d.getMinutes();
   }
 
+  updateChannel() {
+    this.youtubeService.clearCache();
+    window.location.reload();
+    this.isVisible = true;
+    this.getElements();
+
+  }
+
+
+
   // getPlaylists() {
   //   this.youtubeService.getPlaylists()
   //     .subscribe(playlistArr => {
@@ -105,7 +107,11 @@ export class YoutubeComponent implements OnInit {
   //       }
   //     })
   // }
-
+  postComment(videoId, comment) {
+    console.log(videoId);
+    console.log(comment);
+    this.youtubeService.postComment(videoId, comment);
+  }
   getElements() {
     this.isVisibleSpinner = true;
     this.getLastPulled();
@@ -116,5 +122,15 @@ export class YoutubeComponent implements OnInit {
     }, 3000);
 
   }
+
+  getVideoId(s): string {
+    for (let vid of this.channel.videos) {
+      if (vid.videoDetails.videoTitle == s) {
+        return vid.videoId.substr(30);
+      }
+    }
+    return '';
+  }
+
 
 }

@@ -25,9 +25,14 @@ export class DashboardComponent implements OnInit {
   public showChanges = false;
   public showSearch = false;
   public buttonName: any = 'Change';
-channel: Channel;
+  public isVisibleSpinner = true;
+  public isVisible = false;
+  channel: Channel;
 
-  constructor(private instagramService: InstagramService, private youtubeService: YoutubeService, private twitterService: TwitterService, private goalService: GoalService) {
+  constructor(private instagramService: InstagramService,
+              private youtubeService: YoutubeService,
+              private twitterService: TwitterService,
+              private goalService: GoalService) {
   }
   instagramUser: InstagramUserInfo;
 
@@ -65,10 +70,18 @@ channel: Channel;
   selectedVideo = 'mostRecent';
   counter: [];
   twitterFollowerCount;
+  isMinWidth = true;
   ngOnInit(): void {
 
-    // this.getInstaUser();
+    this.getInstaUser();
     this.getChannel();
+    window.addEventListener('resize', (e) => {
+      if (window.matchMedia('(min-width: 1050px)').matches) {
+        this.isMinWidth = true;
+      } else {
+        this.isMinWidth = false;
+      }
+    });
     // this.instagramUser = this.instagramComponent.getInstaUser();
     // this.counter = this.instagramComponent.counter(0);
     this.getRecentPost();
@@ -76,6 +89,13 @@ channel: Channel;
     this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
     this.twitterHandle = sessionStorage.getItem('twitterHandle');
     this.getUserTimeline();
+
+  }
+  instagramPageLoad() {
+    setTimeout(() => {
+      this.isVisibleSpinner = false;
+      this.isVisible = true;
+    }, 5000);
 
   }
   getChannel() {
