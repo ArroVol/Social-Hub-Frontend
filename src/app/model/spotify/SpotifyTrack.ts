@@ -1,12 +1,14 @@
-export class SpotifyTrack {
+import {SpotifyAlbum} from './SpotifyAlbum';
+
+export interface SpotifyTrack {
+  id: string;
   name: string;
-  artistNames: string[];
+  artistInfo: Map<string, string>;
   spotifyUrl: string;
   diskNumber: string;
   duration: string;
   explicit: boolean;
   popularity: number;
-
-  constructor() {
-  }
+  album: SpotifyAlbum;
+  spotifyUri: string;
 }
