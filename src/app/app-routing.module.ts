@@ -43,11 +43,8 @@ const routes: Routes = [
   {path: 'instagram-search', component: InstagramSearchComponent},
   {path: 'youtube', component: YoutubeComponent},
   {path: 'collection', component: CollectionComponent},
-  { path: 'one-post', component: OnePostComponent},
-  { path: 'image', component: ImagesComponent}
-  {path: 'collection', component: CollectionComponent},
   {path: 'one-post', component: OnePostComponent},
-  {path: 'image', component: ImagesComponent}
+  {path: 'image', component: ImagesComponent},
 
 
   // {path: 'create-account', component: CreateAccountComponent},
