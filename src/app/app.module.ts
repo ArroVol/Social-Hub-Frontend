@@ -15,6 +15,7 @@ import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
 import {ModalModule} from 'angular-bootstrap-md';
 import {NgxDropzoneModule} from 'ngx-dropzone';
 import {MomentModule} from 'ngx-moment';
+import {environment} from "../environments/environment";
 
 // Angular stuff
 import {RouterModule} from '@angular/router';
@@ -24,6 +25,10 @@ import {DataTablesModule} from 'angular-datatables';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFireStorageModule} from "@angular/fire/storage";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
 
 // Mat Stuff
 import {MatSliderModule} from '@angular/material/slider';
@@ -101,6 +106,7 @@ import {HeaderComponent} from './header/header.component';
 import {LandingComponent} from './landing/landing.component';
 import {FooterComponent} from './footer/footer.component';
 import {CollectionComponent} from './collection/collection.component';
+import { ImagesComponent } from './images/images.component';
 
 // ? Do we need this shit o naw?
 // import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
@@ -154,7 +160,9 @@ import {Moment} from 'moment';
     InstagramSearchComponent,
     SpotifySearchComponent,
     AnimatedDigitComponent,
-
+    OnePostComponent,
+    GoalModalComponent,
+    ImagesComponent
   ],
   imports: [
     HttpClientModule,
@@ -192,6 +200,7 @@ import {Moment} from 'moment';
     MatExpansionModule,
     CarouselModule,
     PreloadersModule,
+    // PreloadersModule,
     IconsModule,
     NavbarModule,
     WavesModule,
@@ -216,13 +225,17 @@ import {Moment} from 'moment';
     MatAutocompleteModule,
     MomentModule,
     MatButtonToggleModule,
+    MatTooltipModule,
     ScrollingModule,
     MatTabsModule,
-    MatTooltipModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule
+
   ],
-  providers: [{
+  providers: [ {
     provide: STEPPER_GLOBAL_OPTIONS,
-    useValue: {displayDefaultIndicatorType: false}
+    useValue: { displayDefaultIndicatorType: false }
   }],
   exports: [
     AnimatedDigitComponent

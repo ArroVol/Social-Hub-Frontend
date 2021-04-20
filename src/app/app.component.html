@@ -10,7 +10,6 @@
       </button>
       <div style="float: right; font-size: 30px; font-family: FontAwesome">Social Hub</div>
 
-
     </mat-toolbar-row>
     <mat-toolbar-row>
       <app-simple-form></app-simple-form>
@@ -19,7 +18,7 @@
 </mat-toolbar>
 
 
-<mat-sidenav-container class="example-container" >
+<mat-sidenav-container  class="example-container">
   <mat-toolbar color="primary">
     <div style="display: flex; justify-content: space-around">
       <mat-toolbar-row>
@@ -34,17 +33,15 @@
   <mat-sidenav style="background-color: #63d3b6;" mode="side" opened #drawer>
 
 
-
-
-    <ul  class="navbar-nav" >
+    <ul class="navbar-nav">
       <li>
         <a>
-          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle"></a>
+          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt=""
+                                          class="p-5 rounded-circle"></a>
         </a>
       </li>
     </ul>
     <nav>
-
 
 
       <ul>
@@ -61,24 +58,29 @@
         </li>
 
         <li>
-          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span class="twitterIcon"></span> Twitter</button>
+          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span class="twitterIcon"></span> Twitter
+          </button>
         </li>
-<!--        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>-->
+        <!--        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>-->
         <li>
           <button class="FBMenuButton" mat-button routerLink="/facebook"><span class="fbIcon"></span> Facebook</button>
         </li>
-<!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
+        <!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
         <li>
-          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta"><span class="instaIcon"></span> Instagram</button>
+          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta"><span class="instaIcon"></span>
+            Instagram
+          </button>
           <mat-menu #menuInsta="matMenu">
             <button mat-menu-item><a routerLink="/instagram">Instagram Profile</a></button>
 <!--            <button mat-menu-item><a routerLink="/instagram-search">Instagram User Search</a></button>-->
           </mat-menu>
         </li>
-<!--        <li><a routerLink="/instagram">Instagram</a></li>-->
-<!--        <li><a routerLink="/instagram-search">Instagram Search</a></li>-->
+        <!--        <li><a routerLink="/instagram">Instagram</a></li>-->
+        <!--        <li><a routerLink="/instagram-search">Instagram Search</a></li>-->
         <li>
-          <button class="SpotifyMenuButton" mat-button [matMenuTriggerFor]="menuSpotify"><span class="spotifyIcon"></span>  Spotify</button>
+          <button class="SpotifyMenuButton" mat-button [matMenuTriggerFor]="menuSpotify"><span
+            class="spotifyIcon"></span> Spotify
+          </button>
           <mat-menu #menuSpotify="matMenu">
             <button mat-menu-item><a routerLink="/spotify">spotify</a></button>
             <button mat-menu-item><a routerLink="/spotify/landing">spotify landing</a></button>
@@ -88,10 +90,16 @@
         <li>
           <button class="YTMenuButton" mat-button routerLink="/twitter"><span class="ytIcon"></span> YouTube</button>
         </li>
+                <li>
+                  <button class="onePageMenuButton" mat-button routerLink="/one-post"><span class="ytIcon2"></span> One Page</button>
+                </li>
+        <li>
+          <button class="onePageMenuButton" mat-button routerLink="/image"><span class="ytIcon2"></span> Images</button>
+        </li>
 
 
-<!--        <li><a routerLink="/spotify">spotify</a></li>-->
-<!--        <li><a routerLink="/spotify/landing">spotify landing</a></li>-->
+        <!--        <li><a routerLink="/spotify">spotify</a></li>-->
+        <!--        <li><a routerLink="/spotify/landing">spotify landing</a></li>-->
 
       </ul>
     </nav>

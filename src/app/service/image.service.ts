@@ -5,6 +5,11 @@ import {User} from '../model/user/User';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Tweet} from '../model/twitter/Tweet';
+import { Component } from '@angular/core';
+import {AngularFireStorage} from "@angular/fire/storage";
+import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
+import {OnePosts} from "../model/user/OnePosts";
+
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json' });
@@ -12,22 +17,22 @@ const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   providedIn: 'root'
 })
 export class ImageService {
+  title = 'dropzone';
+  imageDetailList: AngularFireList<any>;
+  files: File[] = [];
   userId: string;
+  fireBasePath: string;
   private imageUrl = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient, private messageService: MessageService) {}
+  constructor(private http: HttpClient,
+              private messageService: MessageService,
+              private storage: AngularFireStorage,
+              private firebase: AngularFireDatabase) {}
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 
   };
-  // public uploadImage(image: File): Observable<Response> {
-  //   const formData = new FormData();
-  //
-  //   formData.append('image', image);
-  //
-  //   // return this.http.post('/api/v1/image-upload', formData);
-  // }
 
   /** GET user by username from the server */
   postProfilePicture(image: File) {
@@ -42,5 +47,50 @@ export class ImageService {
         tap(_ => console.log('fetched user'))
         // catchError(() => observableThrowError('get user by id error'))
       );
+  }
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+
+    const formData = new FormData();
+
+    for (var i = 0; i < this.files.length; i++) {
+      formData.append("file[]", this.files[i]);
+    }
+
+    this.http.post('http://localhost:8001/upload.php', formData)
+      .subscribe(res => {
+        console.log(res);
+        alert('Uploaded Successfully.');
+      })
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  getImageDetailList(){
+    this.fireBasePath = sessionStorage.getItem('userId');
+    // this.imageDetailList = this.firebase.list('imageDetails');
+    this.imageDetailList = this.firebase.list(this.fireBasePath);
+
+    console.log('this is the image detail list: ' + this.imageDetailList);
+  }
+
+  insertImageDetails(imageDetails){
+    console.log('in the image service insert...');
+    console.log(imageDetails);
+    console.log(imageDetails.userId);
+    console.log(imageDetails.imageUrl);
+    console.log(imageDetails.textContent);
+
+    this.imageDetailList.push({
+      userId: sessionStorage.getItem('userId'),
+      textContent: imageDetails.textContent,
+      socialMedia: imageDetails.socialMedia,
+      createAt: new Date().toDateString(),
+      imageUrl: imageDetails.imageUrl
+    });
   }
 }

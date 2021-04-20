@@ -269,7 +269,7 @@ export class ModalComponent implements OnInit {
           this.twitterData = twitterDataReturned;
           console.log(this.twitterData.twitterHandle);
           console.log(this.twitterData.followerCount);
-          sessionStorage.setItem('twitterHandle', this.twitterModel.handle);
+          sessionStorage.setItem('twitterHandle', this.twitterData.twitterHandle);
           sessionStorage.setItem('twitterFollowerCount', this.twitterData.followerCount.toString());
           sessionStorage.setItem('twitterHandleFound', 'true');
           // sessionStorage.setItem('twitterHandle', twitter)

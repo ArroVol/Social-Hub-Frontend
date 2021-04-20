@@ -20,6 +20,8 @@ import {YoutubeComponent} from './youtube/youtube.component';
 import {CollectionComponent} from './collection/collection.component';
 import {InstagramSearchComponent} from './instagram-search/instagram-search.component';
 import {SpotifySearchComponent} from "./spotify-search/spotify-search.component";
+import {OnePostComponent} from "./one-post/one-post.component";
+import {ImagesComponent} from "./images/images.component";
 
 
 const routes: Routes = [
@@ -32,8 +34,7 @@ const routes: Routes = [
   {path: 'spotify/landing', component: SpotifyLandingComponent, pathMatch: 'full'},
   {path: 'spotify/playlist', component: SpotifyPlaylistComponent, pathMatch: 'prefix'},
   {path: 'spotify/artist', component: SpotifyArtistComponent, pathMatch: 'prefix'},
-  // {path: 'spotify/playlist/add', component: SpotifyCreatePlaylistComponent, pathMatch: 'full'},
-  // {path: 'spotify/playlist/update', component: SpotifyUpdatePlaylistComponent, pathMatch: 'full'},
+  {path: 'main', component: MainComponent},
   {path: 'spotify/search', component: SpotifySearchComponent, pathMatch: 'full'},
   {path: 'login-page', component: LoginPageComponent},
   {path: 'account-information', component: AccountInformationComponent},
@@ -41,7 +42,9 @@ const routes: Routes = [
   {path: 'instagram', component: InstagramComponent},
   {path: 'instagram-search', component: InstagramSearchComponent},
   {path: 'youtube', component: YoutubeComponent},
-  {path: 'collection', component: CollectionComponent}
+  {path: 'collection', component: CollectionComponent},
+  {path: 'one-post', component: OnePostComponent},
+  {path: 'image', component: ImagesComponent}
 
 
   // {path: 'create-account', component: CreateAccountComponent},

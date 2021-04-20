@@ -101,7 +101,7 @@ export class UserService {
 
   /** GET user by id from the server */
   getUserById(id: number): Observable<User> {
-    const url = `${this.userUrl}/user/${id}`;
+    const url = `${this.userUrl}/get-user/${id}`;
     return this.http.get<User>(url)
       .pipe(
         tap(_ => console.log('fetched user'))
