@@ -1,10 +1,11 @@
 <!--<a href="https://accounts.google.com/o/oauth2/auth?client_id=665124826397-55241tfc755m03bp83d5io7kef9irbo2.apps.googleusercontent.com&redirect_uri=http://localhost:8080/Callback&response_type=code&scope=https://www.googleapis.com/auth/youtube.readonly" target="_blank">-->
+
 <button *ngIf="!isVisible" (click)="getElements();">Log In </button>
 <!--</a>-->
 <br>
 <br>
 
-<mat-spinner *ngIf="isVisibleSpinner"></mat-spinner>
+<mat-spinner align="center" *ngIf="isVisibleSpinner" style="width: 200px; height: 200px; margin-left: 45%;"></mat-spinner>
 
 <div class = "ex1" *ngIf="isVisible">
   <div style = "float: right; margin-right: 40px;">
@@ -15,9 +16,17 @@
   </div>
 </div>
 
-<h1 *ngIf="isVisible && !isLoggedIn"> {{channel.username}}'s Youtube Channel </h1>
-<h1 *ngIf="isVisible && isLoggedIn"> {{user.username}}'s Youtube Channel </h1>
-<h3 *ngIf="isVisible"> Updated on: {{pullTime}}</h3>
+  <h1 *ngIf="isVisible && !isLoggedIn"> {{channel.username}}'s Youtube Channel </h1>
+  <h1 *ngIf="isVisible && isLoggedIn"> {{user.username}}'s Youtube Channel </h1>
+  <button *ngIf="isVisible" (click)="updateChannel();"> Update </button>
+  <h3 *ngIf="isVisible"> Updated on: {{pullTime}}</h3>
+<div style="margin-left: 0px; display: block;" *ngIf="isVisible">
+  <mat-select [(value)]="videos" style="width: 25%; background-color: grey;">
+    <mat-option *ngFor="let vid of channel.videos" value= "{{vid.videoDetails.videoTitle}}">{{vid.videoDetails.videoTitle}}</mat-option>
+  </mat-select>
+  <input #comment type="text">
+  <button (click)="postComment(getVideoId(videos), comment.value)"> Post to Video </button>
+</div>
 <div class = "container" *ngIf="isVisible">
   <div class="sub-cat">
     <h1> My Videos </h1>
@@ -27,7 +36,7 @@
           <mat-card-header>
             <mat-card-title>{{channel.username}}</mat-card-title>
           </mat-card-header>
-          <iframe mat-card-image width="300" height="150" [src]="video.videoId | safe" alt="Photo of a Shiba Inu"> </iframe>
+          <iframe mat-card-image width="300" height="150" [src]="video.videoId | safe" allowfullscreen> </iframe>
           <mat-card-content>
             <p>
               {{video.videoDescription}}
@@ -46,7 +55,7 @@
         <mat-card-header>
           <mat-card-title>{{channel.username}}</mat-card-title>
         </mat-card-header>
-        <iframe mat-card-image width="300" height="150" [src]="playlist | safe" alt="Photo of a Shiba Inu"> </iframe>
+        <iframe mat-card-image width="300" height="150" [src]="playlist | safe" allowfullscreen> </iframe>
         <mat-card-content>
           <p>
           </p>
@@ -64,7 +73,7 @@
           <mat-card-header>
             <mat-card-title>{{channel.username}}</mat-card-title>
           </mat-card-header>
-          <iframe mat-card-image width="300" height="150" [src]="liked.videoId | safe" alt="Photo of a Shiba Inu"> </iframe>
+          <iframe mat-card-image width="300" height="150" [src]="liked.videoId | safe" allowfullscreen> </iframe>
           <mat-card-content>
             <p>
               {{liked.videoDescription}}

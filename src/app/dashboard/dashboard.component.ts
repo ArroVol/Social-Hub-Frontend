@@ -30,14 +30,16 @@ export class DashboardComponent implements OnInit {
   public showChanges = false;
   public showSearch = false;
   public buttonName: any = 'Change';
+  public isVisibleSpinner = true;
+  public isVisible = false;
   channel: Channel;
 
-  // tslint:disable-next-line:max-line-length
-  constructor(
-    private youtubeService: YoutubeService, private twitterService: TwitterService,
-    private goalService: GoalService, private instagramService: InstagramService, private spotifyService: SpotifyService) {
+  constructor(private instagramService: InstagramService,
+              private youtubeService: YoutubeService,
+              private twitterService: TwitterService,
+              private goalService: GoalService,
+              private spotifyService: SpotifyService) {
   }
-
   instagramUser: InstagramUserInfo;
 
   instagramUserSearch: InstagramUserSearchInfo;
@@ -74,6 +76,8 @@ export class DashboardComponent implements OnInit {
   selectedVideo = 'mostRecent';
   counter: [];
   twitterFollowerCount;
+  isMinWidth = true;
+
 
   // Spotify Fields
   spotifyUser: SpotifyUser;
@@ -81,10 +85,18 @@ export class DashboardComponent implements OnInit {
   spotifyUserFavouriteTracks: SpotifyTrack[];
 
 
+
   ngOnInit(): void {
 
-    // this.getInstaUser();
+    this.getInstaUser();
     this.getChannel();
+    window.addEventListener('resize', (e) => {
+      if (window.matchMedia('(min-width: 1050px)').matches) {
+        this.isMinWidth = true;
+      } else {
+        this.isMinWidth = false;
+      }
+    });
     // this.instagramUser = this.instagramComponent.getInstaUser();
     // this.counter = this.instagramComponent.counter(0);
     this.getRecentPost();
@@ -106,6 +118,11 @@ export class DashboardComponent implements OnInit {
   getSpotifyUserRecentTracks() {
     this.spotifyService.getUserRecentTracks().subscribe(recentTracks => this.spotifyUserRecentTracks = recentTracks);
   }
+  instagramPageLoad() {
+    setTimeout(() => {
+      this.isVisibleSpinner = false;
+      this.isVisible = true;
+    }, 5000);
 
   getSpotifyUserFavouriteTracks() {
     this.spotifyService.getUserFollowedTracks().subscribe(favouriteTracks => this.spotifyUserFavouriteTracks = favouriteTracks);
@@ -125,7 +142,7 @@ export class DashboardComponent implements OnInit {
     let videos = this.channel.videos;
     let min = Infinity;
     let minIndex = 0;
-    for (let i = 0; i < videos.length; i++) {
+    for (let i = 0 ; i < videos.length; i++) {
       if (videos[i].videoDetails.likes < min) {
         min = videos[i].videoDetails.likes;
         minIndex = i;
@@ -138,7 +155,7 @@ export class DashboardComponent implements OnInit {
     let videos = this.channel.videos;
     let min = Infinity;
     let minIndex = 0;
-    for (let i = 0; i < videos.length; i++) {
+    for (let i = 0 ; i < videos.length; i++) {
       if (videos[i].videoDetails.views < min) {
         min = videos[i].videoDetails.views;
         minIndex = i;
@@ -200,11 +217,12 @@ export class DashboardComponent implements OnInit {
   }
 
 
+
   getIndexOfMaxViews() {
     let videos = this.channel.videos;
     let max = 0;
     let maxIndex = 0;
-    for (let i = 0; i < videos.length; i++) {
+    for (let i = 0 ; i < videos.length; i++) {
       if (videos[i].videoDetails.views > max) {
         max = videos[i].videoDetails.views;
         maxIndex = i;
@@ -217,7 +235,7 @@ export class DashboardComponent implements OnInit {
     let videos = this.channel.videos;
     let max = 0;
     let maxIndex = 0;
-    for (let i = 0; i < videos.length; i++) {
+    for (let i = 0 ; i < videos.length; i++) {
       if (videos[i].videoDetails.favorites > max) {
         max = videos[i].videoDetails.favorites;
         maxIndex = i;
@@ -247,7 +265,7 @@ export class DashboardComponent implements OnInit {
         console.log('the length  of hte users timeline list: ' + this.briefStatusList.length);
         this.briefStatusList = this.briefStatusList.slice(1);
 
-        for (let i = 0; i < this.briefStatusList.length; i++) {
+        for (let i = 0; i < this.briefStatusList.length; i++){
           console.log(this.briefStatusList[i].text);
         }
         this.getOtherUserTimeline('SocialHubClub');
@@ -257,10 +275,9 @@ export class DashboardComponent implements OnInit {
   }
 
   async delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
-
-  async getRecentPost() {
+ async getRecentPost() {
     this.twitterService.getRecentPostByHandle(sessionStorage.getItem('twitterHandle'))
       .subscribe(async briefStatus => {
         this.briefStatus = briefStatus;
@@ -331,6 +348,11 @@ export class DashboardComponent implements OnInit {
   }
 
 
+
+
+
+
+
   // Instagram Dashboard
 
 
@@ -349,7 +371,7 @@ export class DashboardComponent implements OnInit {
     console.log('Get User Profile Called!');
   }
 
-  userSearch(user: string) {
+  userSearch(user: string){
     this.instagramService.getSearchInsta(user).subscribe(user => {
       this.instagramUserSearch = user;
       console.log('Get Search User Profile Called!');
@@ -361,7 +383,8 @@ export class DashboardComponent implements OnInit {
     // CHANGE THE NAME OF THE BUTTON.
     if (this.showSearch) {
       this.buttonName = 'Hide';
-    } else {
+    }
+    else {
       this.buttonName = 'Change';
     }
   }
@@ -370,7 +393,7 @@ export class DashboardComponent implements OnInit {
     return this.instagramUser.mediaCount;
   }
 
-  getImageUrl(pic: number): string {
+  getImageUrl(pic: number): string{
 
     return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
       this.instagramUser.imageFeed[pic].toString().search('width') - 2);
@@ -447,13 +470,16 @@ export class DashboardComponent implements OnInit {
   }
 
 
+
+
   toggleChanges() {
     this.showChanges = !this.showChanges;
 
     // CHANGE THE NAME OF THE BUTTON.
     if (this.showChanges) {
       this.buttonName = 'Hide';
-    } else {
+    }
+    else {
       this.buttonName = 'Change';
     }
   }

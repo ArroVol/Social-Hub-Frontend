@@ -34,8 +34,7 @@ const routes: Routes = [
   {path: 'spotify/landing', component: SpotifyLandingComponent, pathMatch: 'full'},
   {path: 'spotify/playlist', component: SpotifyPlaylistComponent, pathMatch: 'prefix'},
   {path: 'spotify/artist', component: SpotifyArtistComponent, pathMatch: 'prefix'},
-  // {path: 'spotify/playlist/add', component: SpotifyCreatePlaylistComponent, pathMatch: 'full'},
-  // {path: 'spotify/playlist/update', component: SpotifyUpdatePlaylistComponent, pathMatch: 'full'},
+  {path: 'main', component: MainComponent},
   {path: 'spotify/search', component: SpotifySearchComponent, pathMatch: 'full'},
   {path: 'login-page', component: LoginPageComponent},
   {path: 'account-information', component: AccountInformationComponent},
@@ -46,6 +45,9 @@ const routes: Routes = [
   {path: 'collection', component: CollectionComponent},
   { path: 'one-post', component: OnePostComponent},
   { path: 'image', component: ImagesComponent}
+  {path: 'collection', component: CollectionComponent},
+  {path: 'one-post', component: OnePostComponent},
+  {path: 'image', component: ImagesComponent}
 
 
   // {path: 'create-account', component: CreateAccountComponent},

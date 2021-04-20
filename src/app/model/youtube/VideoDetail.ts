@@ -9,5 +9,6 @@ export class VideoDetail {
   favorites: number;
   comments: number;
   published: string;
+  videoTitle: string;
   constructor() {}
 }

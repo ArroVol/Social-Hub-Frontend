@@ -9,6 +9,8 @@ import { Component } from '@angular/core';
 import {AngularFireStorage} from "@angular/fire/storage";
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
 import {OnePosts} from "../model/user/OnePosts";
+// import "rxjs/add/operator/map";
+
 
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
@@ -74,6 +76,8 @@ export class ImageService {
     this.fireBasePath = sessionStorage.getItem('userId');
     // this.imageDetailList = this.firebase.list('imageDetails');
     this.imageDetailList = this.firebase.list(this.fireBasePath);
+    // this.imageDetailList.map((array) => array.reverse()) as FirebaseListObservable<any[]>;
+
 
     console.log('this is the image detail list: ' + this.imageDetailList);
   }

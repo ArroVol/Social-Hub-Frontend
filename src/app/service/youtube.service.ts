@@ -9,6 +9,7 @@ import {Status} from 'tslint/lib/runner';
 import {BriefStatus} from '../model/twitter/BriefStatus';
 import {Video} from '../model/youtube/Video';
 import {Youtube} from '../model/youtube/Youtube';
+import {VideoComment} from '../model/youtube/videoComment';
 import {Channel} from '../model/youtube/Channel';
 
 const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -20,6 +21,7 @@ const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
  * The class that makes call to the backend that controls twitter calls.
  */
 export class YoutubeService {
+  responseCache = new Map();
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -34,15 +36,15 @@ export class YoutubeService {
 
   }
 
-  postUser(youtube: Youtube): Subscription {
-    const url = `${this.youtubeURL}/youtube/newUser`;
-    console.log('Youtube' + youtube);
-    return this.http.post(url, JSON.stringify(youtube), {headers}).subscribe(res =>
-    {
-      console.log(res);
-    });
-
-  }
+  // postUser(youtube: Youtube): Subscription {
+  //   const url = `${this.youtubeURL}/youtube/newUser`;
+  //   console.log('Youtube' + youtube);
+  //   return this.http.post(url, JSON.stringify(youtube), {headers}).subscribe(res =>
+  //   {
+  //     console.log(res);
+  //   });
+  //
+  // }
 
   getUserByUsername(s: string): Observable<Youtube> {
     const url = `${this.youtubeURL}/youtube/retrieve/${s}`;
@@ -53,14 +55,30 @@ export class YoutubeService {
       );
   }
 
-  getChannelInfo(): Observable<String> {
-    if (this.channel == null) {
-      console.log('channel is null');
-      const url = `${this.youtubeURL}/youtube/channel`;
-      return this.http.get(url, {responseType: 'text'}).pipe();
-    }
-    return this.channel;
+  clearCache() {
+    this.responseCache = new Map();
+    this.getChannelInfo();
+  }
 
+  postComment(videoId, comment) {
+    const url = `${this.youtubeURL}/youtube/comment`;
+    let vc = new VideoComment();
+    vc.videoId = videoId;
+    vc.videoComment = comment;
+    return this.http.post(url, vc, {headers}).subscribe(res =>
+      {
+        console.log(res);
+      });
+  }
+  getChannelInfo(): Observable<String> {
+      const url = `${this.youtubeURL}/youtube/channel`;
+      const cache = this.responseCache.get(url);
+      if (cache) {
+        return of(cache);
+      }
+      const response = this.http.get(url, {responseType: 'text'}).pipe();
+      response.subscribe(channel => this.responseCache.set(url, channel));
+      return response;
   }
 
   // getVideos(): Observable<String[]> {
