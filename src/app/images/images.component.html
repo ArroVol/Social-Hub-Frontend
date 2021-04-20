@@ -1,0 +1,35 @@
+<p>images works!</p>
+<!--<form class="form" [formGroup]="form" (ngSubmit)="submitForm('socialHubClub', 'content')" novalidate>-->
+<!--  <section class="example-section">-->
+
+<!--      <label class="container">-->
+<!--        <input type="checkbox" class="example-margin"  (change)="onCheckboxChange($event)" />-->
+<!--        &lt;!&ndash;      <mat-checkbox type="checkbox" class="example-margin" [value]="data.value" (change)="onCheckboxChange($event)"></mat-checkbox>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <span class="checkmark" (click)="checkCheckBox2($event, data.name)"></span>&ndash;&gt;-->
+<!--      </label>-->
+<!--  </section>-->
+
+<!--  <p class="error" *ngIf="this.form.controls['checkArray'].errors?.required">-->
+<!--    Checkbox is required, select at least one value.-->
+<!--  </p>/-->
+<!--  &lt;!&ndash;        <input type="submit" value="Submit">&ndash;&gt;-->
+<!--</form>-->
+
+
+<table *ngIf="imageList">
+  <h1>Hi it works</h1>
+  <tr *ngFor="let i of rowIndexArray">
+    {{i}}
+    {{rowIndexArray.length}}
+    <td>
+      <div class="imagebox">
+    <img [src]="imageList[i].imageUrl" alt="" class="'img-fluid">
+        <div class="imageBox-desc"> {{imageList[i].textContent}}</div>
+        <div class="imageBox-desc"> {{imageList[i].socialMedia}}</div>
+
+      </div>
+    </td>
+  </tr>
+
+</table>

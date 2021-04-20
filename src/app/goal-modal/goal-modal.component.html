@@ -1,0 +1,105 @@
+
+
+
+    <h2 class="header">Goals</h2>
+    <mat-card class="basic-card">
+      <mat-card-content>
+        <div *ngIf="goalSet else setGoals" >
+
+        <h2 class="example-h2">{{userGoal.goalType}} goal
+          <button (click)="updateGoals() "mat-icon-button aria-label="edit-handle-btn">
+            <mat-icon class="edit-btn" >edit</mat-icon>
+          </button>
+        </h2>
+
+        <section class="example-section">
+          <mat-form-field class="example-margin">
+            <mat-label>Current Followers Reached</mat-label>
+            <input matInput type="number" [(ngModel)]="value">
+          </mat-form-field>
+          <div></div>
+        </section>
+          <section class="example-section">
+          <mat-form-field class="example-margin">
+            <mat-label>Goal</mat-label>
+            <input matInput type="number" [(ngModel)]="max">
+          </mat-form-field>
+        </section>
+
+<!--        <section class="example-section">-->
+<!--          <mat-checkbox class="example-margin" [(ngModel)]="showTicks">Show ticks</mat-checkbox>-->
+<!--          <mat-checkbox class="example-margin" [(ngModel)]="autoTicks" *ngIf="showTicks">-->
+<!--            Auto ticks-->
+<!--          </mat-checkbox>-->
+<!--          <mat-form-field class="example-margin" *ngIf="showTicks && !autoTicks">-->
+<!--            <mat-label>Tick interval</mat-label>-->
+<!--            <input matInput type="number" [(ngModel)]="tickInterval">-->
+<!--          </mat-form-field>-->
+<!--        </section>-->
+
+<!--        <section class="example-section">-->
+<!--          <mat-checkbox class="example-margin" [(ngModel)]="thumbLabel">Show thumb label</mat-checkbox>-->
+<!--        </section>-->
+
+<!--        <section class="example-section">-->
+<!--          <mat-checkbox class="example-margin" [(ngModel)]="disabled">Disabled</mat-checkbox>-->
+<!--        </section>-->
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <div>  </div>
+
+<!--    <mat-card *ngIf="goalSet" class="basic-card">-->
+<!--      <mat-card-content>-->
+<!--        <span>-->
+<!--          <h2>Result-->
+<!--            <h3 style="padding-top: 10px"> start date:  {{userGoal.startDate}}  </h3>-->
+<!--                        <h3> end date:  {{endDateString}}  </h3>-->
+
+<!--          </h2>-->
+<!--        </span>-->
+
+<!--        <mat-slider style="pointer-events: none;"-->
+<!--          class="example-margin"-->
+<!--          [disabled]="disabled"-->
+<!--          [invert]="invert"-->
+<!--          [max]="max"-->
+<!--          [min]="min"-->
+<!--          [step]="step"-->
+<!--          [thumbLabel]="thumbLabel"-->
+<!--          [tickInterval]="getSliderTickInterval()"-->
+<!--          [(ngModel)]="value"-->
+<!--          [vertical]="vertical">-->
+<!--        </mat-slider>-->
+<!--      </mat-card-content>-->
+<!--    </mat-card>-->
+
+<ng-template #setGoals>
+  <h2 class="example-h2">Set a follower goal
+  </h2>
+
+  <section class="example-section">
+    <!--      <mat-label>Weekly/Monthly</mat-label>-->
+    <section class="example-section">
+
+      <mat-radio-group name="opList"  [(ngModel)]="chosenItem" (change)="radioChange($event)" >
+        <mat-radio-button class="example-margin"  *ngFor="let op of list" [value]="op.name" name="opList" >{{op.name}}</mat-radio-button>
+      </mat-radio-group>
+    </section>
+    <div></div>
+  </section>
+  <section class="example-section">
+    <mat-form-field class="example-margin">
+      <mat-label>Goal</mat-label>
+      <input matInput type="number"  [(ngModel)]="max">
+    </mat-form-field>
+  </section>
+  <div>
+    <button mat-raised-button (click)="sendGoals()">Enter goal</button>
+  </div>
+  <div></div>
+</ng-template>
+    <button mat-raised-button class="back" id="modal-cancel-button" (click)="closeModal()">
+      <mat-icon class="back-btn">arrow_back</mat-icon>
+
+    </button>
