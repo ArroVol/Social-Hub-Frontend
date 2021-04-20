@@ -47,8 +47,9 @@ export class InstagramComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.instagramPageLoad();
+
     this.getInstaUser();
+    this.instagramPageLoad();
     // this.storeImages();
 
 

@@ -208,3 +208,22 @@ button {
   border-top-color: #000000;
   animation: spinner .8s linear infinite;
 }
+
+.basic-container {
+  width: 200px;
+  height: 200px;
+  margin-left: 45%;
+  display: inline-block;
+  position: relative;
+}
+
+.spinnerImg {
+  border-radius: 50%;
+  margin-right: 0;
+  margin-top: 5px;
+  margin-left: 46%;
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  top: 0;
+}

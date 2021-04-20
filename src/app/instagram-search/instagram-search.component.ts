@@ -35,12 +35,15 @@ export class InstagramSearchComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name'];
 
   @ViewChild(MatSort) sort: MatSort;
+  public isVisibleSpinner = true;
+  public isVisible = false;
 
-  followStatus: boolean;
 
   durationInSeconds = 5;
 
   instagramUserSearch: InstagramUserInfo;
+
+  followStatus: boolean;
 
 
   counter(i: number) {
@@ -58,15 +61,19 @@ export class InstagramSearchComponent implements OnInit {
         this.instagramUserSearch = user;
         console.log('Get Search User Profile Called!');
         console.log(this.instagramUserSearch.displayName);
+
+        this.instagramPageLoad();
+
       });
 
+  }
 
-    // // CHANGE THE NAME OF THE BUTTON.
-    // if (this.instagramService.checkFollowingStatus(user)) {
-    //   this.buttonName = 'Follow';
-    // } else {
-    //   this.buttonName = 'UnFollow';
-    // }
+  instagramPageLoad() {
+    setTimeout(() => {
+      this.isVisibleSpinner = false;
+      this.isVisible = true;
+    }, 4000);
+
   }
 
   // checkStatus(user: string)  {
