@@ -285,4 +285,7 @@ img{
   font-size: 20px;
 }
 
+mdb-carousel .carousel-indicators {
+  display: none;
+}
 

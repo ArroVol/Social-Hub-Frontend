@@ -106,12 +106,12 @@ channel: Channel;
     });
     //FB LOGIN END
 
-    this.getInstaUser();
-    this.getChannel();
-    // this.instagramUser = this.instagramComponent.getInstaUser();
-    // this.counter = this.instagramComponent.counter(0);
-    this.getRecentPost();
-    this.getNumFollowers();
+    // this.getInstaUser();
+    // this.getChannel();
+    // // this.instagramUser = this.instagramComponent.getInstaUser();
+    // // this.counter = this.instagramComponent.counter(0);
+    // this.getRecentPost();
+    // this.getNumFollowers();
     this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
     this.twitterHandle = sessionStorage.getItem('twitterHandle');
     this.getUserTimeline();
