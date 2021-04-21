@@ -1,0 +1,16 @@
+;FFMETADATA1
+[CHAPTER]
+TIMEBASE=1/1000
+START=660
+END=1986
+title=Navigation cy.go() - go back or forward in the browser's history
+[CHAPTER]
+TIMEBASE=1/1000
+START=2758
+END=3314
+title=Navigation cy.reload() - reload the page
+[CHAPTER]
+TIMEBASE=1/1000
+START=3380
+END=3871
+title=Navigation cy.visit() - visit a remote url
