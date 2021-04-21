@@ -85,6 +85,8 @@ export class DashboardComponent implements OnInit {
   spotifyUserRecentTracks: SpotifyTrack[];
   spotifyUserFavouriteTracks: SpotifyTrack[];
 
+  // spotifyCardHidden: boolean = true;
+
 
   ngOnInit(): void {
 
@@ -99,30 +101,45 @@ export class DashboardComponent implements OnInit {
     // });
     // this.instagramUser = this.instagramComponent.getInstaUser();
     // this.counter = this.instagramComponent.counter(0);
+
     // this.getRecentPost();
     // this.getNumFollowers();
     // this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
     // this.twitterHandle = sessionStorage.getItem('twitterHandle');
     // this.getUserTimeline();
-    this.getSpotifyUser();
-    this.getSpotifyUserFavouriteTracks();
-    this.getSpotifyUserRecentTracks();
 
+    this.initializeSpotifyFields();
 
   }
 
   // Spotify Methods
-  getSpotifyUser() {
-    this.spotifyService.getUserProfile().subscribe(user => console.log(this.spotifyUser = user));
+  async initializeSpotifyFields() {
+    this.spotifyUser = await this.getSpotifyUser();
+    this.spotifyUserFavouriteTracks = await this.getSpotifyUserFavouriteTracks();
+    this.spotifyUserRecentTracks = await this.getSpotifyUserRecentTracks();
+    // console.log('Spotify User', this.spotifyUser);
+    // console.log('Spotify Favourites', this.spotifyUserFavouriteTracks);
+    // console.log('Spotify Recent', this.spotifyUserRecentTracks);
+    // if (this.spotifyUser != null && this.spotifyUserFavouriteTracks != null && this.spotifyUserRecentTracks != null) {
+    //   console.log('card status', this.spotifyCardHidden = false);
+    // }
+
+
+    // this.getSpotifyUserFavouriteTracks();
   }
 
-  getSpotifyUserRecentTracks() {
-    this.spotifyService.getUserRecentTracks().subscribe(recentTracks => console.log(this.spotifyUserRecentTracks = recentTracks));
+  async getSpotifyUser(): Promise<SpotifyUser> {
+    return this.spotifyService.getUserProfilePromise();
   }
 
-  getSpotifyUserFavouriteTracks() {
-    this.spotifyService.getUserFollowedTracks().subscribe(favouriteTracks => console.log(this.spotifyUserFavouriteTracks = favouriteTracks));
+  async getSpotifyUserRecentTracks() {
+    return this.spotifyService.getUserRecentTracksPromise();
   }
+
+  async getSpotifyUserFavouriteTracks() {
+    return this.spotifyService.getUserFollowedTracksPromise();
+  }
+
 
   instagramPageLoad() {
     setTimeout(() => {

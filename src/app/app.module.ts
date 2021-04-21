@@ -24,6 +24,11 @@ import {DataTablesModule} from 'angular-datatables';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {environment} from "../environments/environment";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFireStorageModule} from "@angular/fire/storage";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
 
 // Mat Stuff
 import {MatSliderModule} from '@angular/material/slider';
@@ -75,9 +80,11 @@ import {SpotifyAddplaylistSnackbarComponent} from './spotify-addplaylist-snackba
 import {SpotifyAddplaylistWarningComponent} from './spotify-addplaylist-warning/spotify-addplaylist-warning.component';
 import {SpotifyFollowedTracksComponent} from './spotify-followed-tracks/spotify-followed-tracks.component';
 import {SpotifySearchComponent} from './spotify-search/spotify-search.component';
+import {SpotifyFavouritesComponent} from './spotify-favourites/spotify-favourites.component';
 
 // Twitter Components
 import {TwitterComponent} from './twitter/twitter.component';
+import {GoalModalComponent} from "./goal-modal/goal-modal.component";
 
 // Youtube Components
 import {YoutubeComponent} from './youtube/youtube.component';
@@ -101,6 +108,8 @@ import {HeaderComponent} from './header/header.component';
 import {LandingComponent} from './landing/landing.component';
 import {FooterComponent} from './footer/footer.component';
 import {CollectionComponent} from './collection/collection.component';
+import {ImagesComponent} from './images/images.component';
+import {OnePostComponent} from './one-post/one-post.component';
 
 // ? Do we need this shit o naw?
 // import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
@@ -113,14 +122,7 @@ import {CollectionComponent} from './collection/collection.component';
 
 import * as moment from 'moment';
 import {Moment} from 'moment';
-import {OnePostComponent} from './one-post/one-post.component';
-import {GoalModalComponent} from "./goal-modal/goal-modal.component";
-import {AngularFirestoreModule} from "@angular/fire/firestore";
-import {environment} from "../environments/environment";
-import {AngularFireModule} from "@angular/fire";
-import {AngularFireStorageModule} from "@angular/fire/storage";
-import {ImagesComponent} from './images/images.component';
-import {AngularFireDatabaseModule} from "@angular/fire/database";
+
 
 @NgModule({
   declarations: [
@@ -169,7 +171,8 @@ import {AngularFireDatabaseModule} from "@angular/fire/database";
     AnimatedDigitComponent,
     OnePostComponent,
     GoalModalComponent,
-    ImagesComponent
+    ImagesComponent,
+    SpotifyFavouritesComponent
   ],
   imports: [
     HttpClientModule,
