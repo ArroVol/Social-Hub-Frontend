@@ -355,8 +355,8 @@ export class LoginPageComponent implements OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id = 'modal-component';
-    dialogConfig.height = '550px';
-    dialogConfig.width = '700px';
+    dialogConfig.height = '500px';
+    dialogConfig.width = '800px';
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
   }

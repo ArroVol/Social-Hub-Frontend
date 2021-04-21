@@ -12,6 +12,7 @@
 
 .posttweetcountcont{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*height: 100px;*/
 }
 .posttweetta{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -216,9 +217,19 @@ img {
 }
 
 .upload-btn-div{
-  align-content: end;
-  position: sticky;
-  margin-left: 150px;
+  /*align-content: end;*/
+  /*position: sticky;*/
+  /*margin-left: 550px;*/
+  /*align: right;*/
+  float:right;
+  padding-top: 5px;
+}
+
+
+.dropzone{
+  /*width: 75%;*/
+  /*height:90%;*/
+  height:165px;
 }
 
 .example-viewport {

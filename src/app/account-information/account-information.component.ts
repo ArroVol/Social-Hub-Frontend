@@ -30,7 +30,6 @@ export class TwitterUserData {
 })
 
 export class AccountInformationComponent implements OnInit {
-
   flag: any;
   social: any;
   twitterDataReturned: TwitterData;
@@ -74,6 +73,7 @@ export class AccountInformationComponent implements OnInit {
   userSaved = false;
   twitterSetup = false;
 
+  twitterDevModeSetUp: boolean;
   displayedColumns: string[] = ['username', 'email', 'password', 'phoneNumber'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -103,6 +103,7 @@ export class AccountInformationComponent implements OnInit {
         this.user.password = user.password;
         this.user.phoneNumber = user.phoneNumber;
         this.displayElements();
+        this.checkIfTwitterDeveloper();
       });
   }
 
@@ -157,6 +158,7 @@ export class AccountInformationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userId = +sessionStorage.getItem('userId');
     console.log('on initialize in account information.ts');
     console.log(sessionStorage.getItem('userId'));
     console.log(sessionStorage.getItem('username'));
@@ -360,6 +362,17 @@ export class AccountInformationComponent implements OnInit {
   changeToDifferentHandle() {
     this.displayHandleChangeDiv = true;
 
+  }
+
+  checkIfTwitterDeveloper(){
+    this.twitterService.checkTwitterRegistered(this.userId)
+      .subscribe(userId => {
+        if (userId !== -1) {
+          console.log('the user exists and has set up developer mode for twitter');
+          this.twitterDevModeSetUp = true;
+        }
+
+      });
   }
 
 }

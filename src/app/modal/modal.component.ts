@@ -311,4 +311,12 @@ export class ModalComponent implements OnInit {
     window.location.assign('/account-information');
 
   }
+
+  sendYoutubeToken(value: string) {
+
+  }
+
+  redirectToYoutubeAuthorizationPage() {
+
+  }
 }

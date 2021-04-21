@@ -55,7 +55,7 @@
 <!--          <button class="submit" mat-button matStepperNext>Next</button>-->
           <button [disabled]="userForm.invalid || myForm.invalid" class="submit"  (click)="signUp(username.value, password.value, email.value, stepper)" mat-button  style="color: #fff">Next</button>
           <div>
-                <button mat-raised-button id="modal-cancel-btn" (click)="closeModal()">
+                <button class="contact "mat-raised-button id="modal-cancel-btn" (click)="closeModal()">
                   <mat-icon class="back-btn1">arrow_back</mat-icon>
 
                 </button>
@@ -92,10 +92,12 @@
 <!--        <input #facebookToken type="text" name="facebookToken" placeholder="Facebook Token" formControlName="secondCtrl" required/>-->
         <input #facebookToken type="text" name="facebookToken" placeholder="Facebook Token"  required/>
 
-        <button class="submit" (click)="sendFacebookToken(facebookToken.value)">Enter</button>
+<!--        <button class="submit" [disabled]="twitterHandle.value === ''"(click)="sendTwitterHandle(twitterHandle.value, stepper)">Next</button>-->
+
+        <button class="submit" [disabled]="facebookToken.value === ''"(click)="sendFacebookToken(facebookToken.value)" matStepperNext>Next</button>
         <div>
           <button class="contact" mat-button matStepperPrevious>Back</button>
-          <button mat-button [disabled]="!twitterHandleFound"  matStepperNext>Next</button>
+<!--          <button mat-button [disabled]="!twitterHandleFound"  matStepperNext>Next</button>-->
           <button class="skip"  mat-button matStepperNext>Skip</button>
         </div>
       </mat-step>
@@ -107,10 +109,10 @@
         <input #instaUsername type="text" name="instaUsername" placeholder="Instagram Username" required/>
         <input #instaPassword type="text" name="instaPassword" placeholder="Instagram password" required/>
 
-        <button class="submit" (click)="sendInstagramCredentials(instaUsername.value, instaPassword.value)">Enter</button>
+        <button class="submit"  [disabled]="instaUsername.value === ''" (click)="sendInstagramCredentials(instaUsername.value, instaPassword.value)" matStepperNext>Next</button>
        <div>
         <button class="contact" mat-button matStepperPrevious>Back</button>
-        <button mat-button [disabled]="!twitterHandleFound"  matStepperNext>Next</button>
+<!--        <button mat-button [disabled]="!twitterHandleFound"  matStepperNext>Next</button>-->
         <button class="skip"  mat-button matStepperNext>Skip</button>
        </div>
       </mat-step>
@@ -122,7 +124,7 @@
 <!--        <button class="submit" (click)="sendFacebookToken(facebookToken.value)">Enter</button>-->
        <div>
         <button class="contact" mat-button matStepperPrevious>Back</button>
-        <button mat-button [disabled]="!twitterHandleFound"  matStepperNext>Next</button>
+<!--        <button mat-button [disabled]="!twitterHandleFound"  matStepperNext>Next</button>-->
         <button class="skip"   mat-button matStepperNext>Skip</button>
       </div>
       </mat-step>
@@ -130,18 +132,23 @@
       <mat-step label="Youtube">
         <h1 class="header" style="color: black">Connect your Youtube </h1>
         <h3>Enter your ???? to have your uploaded videos, liked playlists, and streams displayed.</h3>
-        <input #facebookToken type="text" name="facebookToken" placeholder="Youtube Token"  required/>
-<!--        <button class="submit" (click)="sendFacebookToken(facebookToken.value)">Enter</button>-->
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button [disabled]="!twitterHandleFound"   matStepperNext>Next</button>
+        <input #youtubeToken type="text" name="facebookToken" placeholder="Youtube Token"  required/>
+        <button class = "get-authorization-link" (click)="redirectToYoutubeAuthorizationPage()">Authorize Access</button>
+        <div>
+        <button class="submit" [disabled]="youtubeToken.value === ''"  (click)="sendYoutubeToken(youtubeToken.value)"matStepperNext>Next</button>
+        </div>
+        <div>
+        <button class="contact" mat-button matStepperPrevious>Back</button>
+<!--        <button mat-button [disabled]="!twitterHandleFound"   matStepperNext>Next</button>-->
         <button class="skip"  mat-button matStepperNext>Skip</button>
+        </div>
       </mat-step>
 
         <mat-step label="Finalize">
           <h1 class="header" style="color: black">All Done </h1>
-          <h3>Start sharing <3</h3>
-          <button mat-button matStepperPrevious>Back</button>
-          <button class="skip"  mat-button (click)="completeStepper()">Share!</button>
+          <h4>Click start sharing to get started. You will be brought to the account settings page</h4>
+          <button class="contact" mat-button matStepperPrevious>Back</button>
+          <button class="skip"  mat-button (click)="completeStepper()">Start Sharing!</button>
         </mat-step>
 <!--      </div>-->
       <!-- Icon overrides. -->

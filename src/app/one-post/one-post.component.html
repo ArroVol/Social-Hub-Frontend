@@ -21,13 +21,15 @@
 
     <mat-card class="post-card" >
       <h2>Select social media to upload to</h2>
-      <h4>you can also upload images by pressing the "Choose file" button below</h4>
+<!--      <h4>you can also upload images by pressing the "Choose file" button below</h4>-->
+      <h4>you can also upload images by dragging them into the field below</h4>
+
       <form [formGroup]="form" (ngSubmit)="submitForm('socialHubClub', 'content')" novalidate>
         <section class="example-section">
 
           <div *ngFor="let data of Data; let i=index">
             <label class="container">
-              <input type="checkbox" class="example-margin" [disabled]="data.name === 'Instagram' && !selectedFiles"  [value]="data.value" (change)="onCheckboxChange($event)" />
+              <input type="checkbox" class="example-margin" [disabled]="data.name === 'Instagram' && !atLeastOneFile"  [value]="data.value" (change)="onCheckboxChange($event)" />
               <!--      <mat-checkbox type="checkbox" class="example-margin" [value]="data.value" (change)="onCheckboxChange($event)"></mat-checkbox>-->
 
               {{data.name}}
@@ -52,14 +54,22 @@
               </div>
             </div>
             <div class="posttweetbutcont">
-              <label class="btn btn-default">
-                <input class="choose-file-btn" type="file" (change)="selectFile($event)" />
-              </label>
+<!--              <label class="btn btn-default">-->
+<!--                <input class="choose-file-btn" type="file" (change)="selectFile($event)" />-->
+<!--              </label>-->
+              <div>
+              <ngx-dropzone class="dropzone" (change)="onSelect($event)">
+                <ngx-dropzone-label>Drop images here</ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                  <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
             <span class="upload-btn-div">
-              <button class="btn btn-success" [disabled]="content.value === '' && !selectedFiles" (click)="upload(content.value)">
+              <button class="btn btn-success" [disabled]="content.value === '' && !atLeastOneFile" (click)="upload(content.value)">
                 Upload
               </button>
             </span>
+              </div>
 <!--              <button id="posttweetbut" class="posttweetbut" type="submit" value="submit" (click)="submitForm('socialHubClub', content.value)">Post</button>-->
             </div>
           </div>
@@ -79,7 +89,7 @@
 
   </mat-tab>
 
-  <mat-tab label="Recent Posts From FireBase">
+  <mat-tab label="Recent Posts">
 
     <mat-card class="outer-basic-card">
 
@@ -121,90 +131,90 @@
     </mat-card>
   </mat-tab>
 
-  <mat-tab label="Recent Posts">
+<!--  <mat-tab label="Recent Posts">-->
 
-    <mat-card class="outer-basic-card">
+<!--    <mat-card class="outer-basic-card">-->
 
-      <h2 class="header"> Recent Posts Made From Social Hub </h2>
-      <!--      <cdk-virtual-scroll-viewport  *ngIf="usersOnePosts !== null" itemSize="20" class="example-viewport">-->
+<!--      <h2 class="header"> Recent Posts Made From Social Hub </h2>-->
+<!--      &lt;!&ndash;      <cdk-virtual-scroll-viewport  *ngIf="usersOnePosts !== null" itemSize="20" class="example-viewport">&ndash;&gt;-->
 
-      <!--      <div style="padding-bottom: 10px"  *ngFor="let onePost of usersOnePosts">-->
-      <!--  <mat-card>-->
-      <!--        <div class="posttweettacontainer3">-->
-      <!--          <b>{{onePost.textContent}}</b>-->
-      <!--          <br>-->
-      <!--          {{onePost.image}} <br>-->
-      <!--        </div>-->
-      <!--</mat-card>-->
-      <!--      </div>-->
+<!--      &lt;!&ndash;      <div style="padding-bottom: 10px"  *ngFor="let onePost of usersOnePosts">&ndash;&gt;-->
+<!--      &lt;!&ndash;  <mat-card>&ndash;&gt;-->
+<!--      &lt;!&ndash;        <div class="posttweettacontainer3">&ndash;&gt;-->
+<!--      &lt;!&ndash;          <b>{{onePost.textContent}}</b>&ndash;&gt;-->
+<!--      &lt;!&ndash;          <br>&ndash;&gt;-->
+<!--      &lt;!&ndash;          {{onePost.image}} <br>&ndash;&gt;-->
+<!--      &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--      &lt;!&ndash;</mat-card>&ndash;&gt;-->
+<!--      &lt;!&ndash;      </div>&ndash;&gt;-->
 
-      <!--      </cdk-virtual-scroll-viewport>-->
-      <cdk-virtual-scroll-viewport  *ngIf="usersOnePosts !== null" itemSize="20" class="example-viewport">
-        <!--      <span *ngIf="showTimeline" >-->
-        <span *ngIf="usersOnePosts!== null else spin" class="status">
+<!--      &lt;!&ndash;      </cdk-virtual-scroll-viewport>&ndash;&gt;-->
+<!--      <cdk-virtual-scroll-viewport  *ngIf="usersOnePosts !== null" itemSize="20" class="example-viewport">-->
+<!--        &lt;!&ndash;      <span *ngIf="showTimeline" >&ndash;&gt;-->
+<!--        <span *ngIf="usersOnePosts!== null else spin" class="status">-->
 
-        <!--      <mat-card class="basic-card" *ngIf="showOtherTimeline">-->
-        <div style="padding-bottom: 10px"  *ngFor="let onePost of usersOnePosts">
-          <mat-card class="basic-card" >
-            <div>Posted To: {{onePost.socialMedia}}</div>
-            <!--            <div>Created: {{onePost.createdAt}}</div>-->
-            <!--          <div class="posttweettacontainer3">-->
-          <b>{{onePost.textContent}}</b>
-          <br>
-            {{onePost.image}} <br>
-            <!--</div>-->
-          </mat-card>
-      </div>
-        </span>
-      </cdk-virtual-scroll-viewport>
-
-
-      <br>
-      <br>
-      <br>
-
-    </mat-card>
-  </mat-tab>
-
-  <mat-tab label="Dev Tests">
-
-        <section class="example-section">
-          <mat-checkbox class="example-margin" (change)="toggleEditable($event)">All</mat-checkbox>
-          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Twitter</mat-checkbox>
-          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Facebook</mat-checkbox>
-          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Instagram</mat-checkbox>
-          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Youtube</mat-checkbox>
-          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Spotify</mat-checkbox>
-
-          <mat-checkbox class="example-margin" [disabled]="true">Disabled</mat-checkbox>
-        </section>
+<!--        &lt;!&ndash;      <mat-card class="basic-card" *ngIf="showOtherTimeline">&ndash;&gt;-->
+<!--        <div style="padding-bottom: 10px"  *ngFor="let onePost of usersOnePosts">-->
+<!--          <mat-card class="basic-card" >-->
+<!--            <div>Posted To: {{onePost.socialMedia}}</div>-->
+<!--            &lt;!&ndash;            <div>Created: {{onePost.createdAt}}</div>&ndash;&gt;-->
+<!--            &lt;!&ndash;          <div class="posttweettacontainer3">&ndash;&gt;-->
+<!--          <b>{{onePost.textContent}}</b>-->
+<!--          <br>-->
+<!--            {{onePost.image}} <br>-->
+<!--            &lt;!&ndash;</div>&ndash;&gt;-->
+<!--          </mat-card>-->
+<!--      </div>-->
+<!--        </span>-->
+<!--      </cdk-virtual-scroll-viewport>-->
 
 
+<!--      <br>-->
+<!--      <br>-->
+<!--      <br>-->
 
-        <section class="example-section">
-      <span class="example-list-section">
-        <mat-checkbox class="example-margin"
-                      [checked]="allComplete"
-                      [color]="task.color"
-                      [indeterminate]="someComplete()"
-                      (change)="setAll($event.checked)">
-          {{task.name}}
-        </mat-checkbox>
-      </span>
-          <span class="example-section">
-          <div *ngFor="let subtask of task.subtasks">
-            <mat-checkbox class="example-margin" [(ngModel)]="subtask.completed"
-                          [color]="subtask.color"
-                          (ngModelChange)="updateAllComplete()">
-              {{subtask.name}}
-            </mat-checkbox>
-          </div>
-      </span>
-        </section>
+<!--    </mat-card>-->
+<!--  </mat-tab>-->
+
+<!--  <mat-tab label="Dev Tests">-->
+
+<!--        <section class="example-section">-->
+<!--          <mat-checkbox class="example-margin" (change)="toggleEditable($event)">All</mat-checkbox>-->
+<!--          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Twitter</mat-checkbox>-->
+<!--          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Facebook</mat-checkbox>-->
+<!--          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Instagram</mat-checkbox>-->
+<!--          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Youtube</mat-checkbox>-->
+<!--          <mat-checkbox class="example-margin"(change)="toggleEditable($event)">Spotify</mat-checkbox>-->
+
+<!--          <mat-checkbox class="example-margin" [disabled]="true">Disabled</mat-checkbox>-->
+<!--        </section>-->
 
 
 
-  </mat-tab>
+<!--        <section class="example-section">-->
+<!--      <span class="example-list-section">-->
+<!--        <mat-checkbox class="example-margin"-->
+<!--                      [checked]="allComplete"-->
+<!--                      [color]="task.color"-->
+<!--                      [indeterminate]="someComplete()"-->
+<!--                      (change)="setAll($event.checked)">-->
+<!--          {{task.name}}-->
+<!--        </mat-checkbox>-->
+<!--      </span>-->
+<!--          <span class="example-section">-->
+<!--          <div *ngFor="let subtask of task.subtasks">-->
+<!--            <mat-checkbox class="example-margin" [(ngModel)]="subtask.completed"-->
+<!--                          [color]="subtask.color"-->
+<!--                          (ngModelChange)="updateAllComplete()">-->
+<!--              {{subtask.name}}-->
+<!--            </mat-checkbox>-->
+<!--          </div>-->
+<!--      </span>-->
+<!--        </section>-->
+
+
+
+<!--  </mat-tab>-->
 </mat-tab-group>
 
 
@@ -250,12 +260,12 @@
 <!--</form>-->
 <br>
 <div></div>
-<ngx-dropzone (change)="onSelect($event)">
-  <ngx-dropzone-label>Drop files here</ngx-dropzone-label>
-  <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-  </ngx-dropzone-preview>
-</ngx-dropzone>
+<!--<ngx-dropzone (change)="onSelect($event)">-->
+<!--  <ngx-dropzone-label>Drop files here</ngx-dropzone-label>-->
+<!--  <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">-->
+<!--    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>-->
+<!--  </ngx-dropzone-preview>-->
+<!--</ngx-dropzone>-->
 
 
 

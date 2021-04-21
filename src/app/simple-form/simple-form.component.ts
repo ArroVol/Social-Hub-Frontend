@@ -14,6 +14,7 @@ import {Preferences} from '../model/user/Preferences';
 import {TwitterData} from '../model/twitter/TwitterData';
 import {TwitterService} from '../service/twitter.service';
 import {AppComponent} from '../app.component';
+import {Subject} from "rxjs";
 
 // @ts-ignore
 @Component({
@@ -69,13 +70,19 @@ export class SimpleFormComponent implements OnInit {
   socialOnStart: string;
   twitterData: TwitterData;
   twitterHandleSave: string;
+  // sidebarVisibilityChange: Subject<boolean> = new Subject<boolean>();
+  // isSidebarVisible: boolean;
 
   // tslint:disable-next-line:max-line-length
   constructor(private userService: UserService, public snackBar: MatSnackBar, private preferencesService: PreferencesService, private twitterService: TwitterService, private appComponent: AppComponent) {
     if (sessionStorage.getItem('username') !== null){
       this.loggedIn = true;
+
     }
     this.logOutButton = 'Sign in';
+    // this.sidebarVisibilityChange.subscribe((value) => {
+    //   this.isSidebarVisible = value
+    // });
   }
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -168,6 +175,7 @@ export class SimpleFormComponent implements OnInit {
               }
             });
           this.getTwitterData();
+          // this.isSidebarVisible = true;
         }
       });
   //   if (!this.loggedIn){

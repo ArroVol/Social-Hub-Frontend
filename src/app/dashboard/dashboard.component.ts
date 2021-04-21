@@ -73,8 +73,8 @@ export class DashboardComponent implements OnInit {
   isMinWidth = true;
   ngOnInit(): void {
 
-    this.getInstaUser();
-    this.getChannel();
+    // this.getInstaUser();
+    // this.getChannel();
     window.addEventListener('resize', (e) => {
       if (window.matchMedia('(min-width: 1050px)').matches) {
         this.isMinWidth = true;

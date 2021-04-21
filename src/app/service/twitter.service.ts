@@ -229,7 +229,7 @@ export class TwitterService {
 
   getTwitterTokens(): Observable<SecureTwitter> {
     console.log('getting the users ranking list in the twitter service');
-    const url = `${this.twitterUrl}/twitter/get-twitter-tokens/${sessionStorage.getItem('twitterId')}`;
+    const url = `${this.twitterUrl}/twitter/get-twitter-tokens/${sessionStorage.getItem('userId')}`;
 
     return this.http.get<SecureTwitter>(url)
       .pipe(

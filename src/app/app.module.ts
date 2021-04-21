@@ -111,6 +111,13 @@ import {MatMenuModule} from "@angular/material/menu";
 import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.component";
 
 
+// import { MatCarouselModule } from 'ng-mat-carousel';
+// import { MatCarousel, MatCarouselComponent } from '@ngmodule/material-carousel';
+// import { MatCarouselModule } from "@angular/material-carousel";
+
+// import { MatCarouselModule } from '@ngmodule/material-carousel';
+
+
 
 @NgModule({
   declarations: [
@@ -223,6 +230,7 @@ import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.comp
     ScrollingModule,
     MatTabsModule,
     MatTooltipModule,
+    // MatCarouselModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule

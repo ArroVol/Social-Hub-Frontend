@@ -46,6 +46,7 @@ export class OnePostComponent implements OnInit {
   // public uploader:FileUploader = new FileUploader({
   //   isHTML5: true
   // });
+  atLeastOneFile = false;
   imageList: any[];
   rowIndexArray: any[];
   textContent: string;
@@ -272,28 +273,7 @@ export class OnePostComponent implements OnInit {
     this.imageSrc = object.event.target.result;
   }
 
-  onSelect(event) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
 
-    const formData = new FormData();
-
-    for (var i = 0; i < this.files.length; i++) {
-      formData.append("file[]", this.files[i]);
-    }
-    const url = `${this.url}/send-image`;
-
-    this.http.post(url, formData, {observe: 'response'})
-      .subscribe(res => {
-        console.log(res);
-        alert('Uploaded Successfully.');
-      })
-  }
-
-  onRemove(event) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-  }
 
   public onFileChanged(event) {
     //Select File
@@ -526,17 +506,20 @@ export class OnePostComponent implements OnInit {
       this.storage.upload(filePath, this.file)
         .snapshotChanges().pipe(
         //finalize call back function called when the upload is complete
-        finalize(()=>{
+        finalize(async()=>{
           fileRef.getDownloadURL()
-            .subscribe((url)=>{
+            .subscribe(async(url)=>{
 
               this.onePostData['imageUrl'] = url;
               this.onePostData['textContent'] = textContent;
               this.onePostData['socialMedia'] = this.socialMedia;
               this.onePostData['userId'] = sessionStorage.getItem('userId');
 
-              this.imageService.insertImageDetails(this.onePostData);
+              this.imageService.insertImageDetails(this.onePostData)
 
+              this.openSnackBar('Posted to your account')
+              await this.delay(2500);
+              window.location.reload();
               this.form2['imageUrl'] = url;
               this.form2['caption'] = 'caption1';
               this.form2['category'] = 'a';
@@ -552,6 +535,10 @@ export class OnePostComponent implements OnInit {
       this.onePostData['userId'] = sessionStorage.getItem('userId');
 
       this.imageService.insertImageDetails(this.onePostData);
+      this.openSnackBar('Posted to your account')
+      await this.delay(2500);
+      this.clearFields();
+      window.location.reload();
     }
       // var filePath = `${sessionStorage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       // console.log(filePath);
@@ -593,6 +580,53 @@ export class OnePostComponent implements OnInit {
       //   );
     // }
   }
+
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+
+    if(this.files.length !== 0){
+      console.log('its ture');
+      this.atLeastOneFile = true;
+      console.log(this.atLeastOneFile);
+
+    }
+
+    if (this.files[1]!=null){
+      this.onRemove(this.files[0]);
+      this.file = this.files[0];
+
+    } else {
+      const formData = new FormData();
+
+      for (var i = 0; i < this.files.length; i++) {
+        formData.append("file[]", this.files[i]);
+      }
+      this.file = this.files[0];
+      const url = `${this.url}/send-image`;
+    }
+
+    // this.selectedFiles = event.target.files;
+
+
+    // this.http.post(url, formData, {observe: 'response'})
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     alert('Uploaded Successfully.');
+    //   })
+
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+    if(this.files.length !== 0){
+      this.atLeastOneFile = true;
+    } else {
+      this.atLeastOneFile = false;
+    }
+  }
+
 
   upload(content: string): void {
     if(content !== undefined){
@@ -709,15 +743,21 @@ export class OnePostComponent implements OnInit {
       list =>{
         this.imageList = list.map(item => {return item.payload.val();});
         console.log(this.imageList.length);
-        for (let i = 0; i < this.imageList.length; i++){
-          console.log(this.imageList[i].userId);
-          console.log(this.imageList[i].textContent);
+        this.imageList = this.imageList.reverse();
 
-        }
+        // for (let i = 0; i < this.imageList.length; i++){
+        //   console.log(this.imageList[i].userId);
+        //   console.log(this.imageList[i].textContent);
+        //
+        // }
         this.rowIndexArray = Array.from(Array(Math.ceil(this.imageList.length / 1)).keys());
         console.log('length of indexarray... ' + this.rowIndexArray.length);
       }
 
     );
+  }
+
+  clearFields() {
+
   }
 }

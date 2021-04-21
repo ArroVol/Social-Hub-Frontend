@@ -30,7 +30,8 @@
 
     </div>
   </mat-toolbar>
-  <mat-sidenav style="background-color: #63d3b6;" mode="side" opened #drawer>
+
+  <mat-sidenav #sidenav [hidden]="!displaySideNav" disableClose="true" style="background-color: #63d3b6;" mode="side" (click)="sidenav.open()"  #drawer>
 
 
     <ul class="navbar-nav">
