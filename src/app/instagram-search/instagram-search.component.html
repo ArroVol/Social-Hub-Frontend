@@ -15,13 +15,15 @@
 
 <ng-container *ngIf="showSearch">
 
-  <mat-card class="example-card">
-    <div  *ngIf="isVisibleSpinner" >
-      <mat-spinner color="accent" strokeWidth="2" [diameter]="100" style="width: 200px; height: 200px; margin-left: 45%;"></mat-spinner>
-      <img class="spinnerImg" src="https://cdn.discordapp.com/attachments/801155090059755593/805973372269887548/piclogo.png" >
-    </div>
+  <div  *ngIf="isVisibleSpinner" >
+    <mat-spinner color="accent" strokeWidth="2" [diameter]="100" style="width: 50px; height: 50px; margin-left: 20%"></mat-spinner>
+  </div>
 
-    <div *ngIf="this.isVisible">
+  <div *ngIf="this.isVisible">
+  <mat-card class="example-card">
+
+
+
       <mat-card-header>
         <img mat-card-avatar src="{{instagramUserSearch.profilePicUrl}}" alt class="profilePic"  >
         <mat-card-title>{{instagramUserSearch.displayName}}</mat-card-title>
@@ -51,9 +53,10 @@
         </div>
 
       </div>
-    </div>
+
 
   </mat-card>
+  </div>
 <!--  <button mat-raised-button  *ngIf="followStatus" (click)="unFollowUser(todo.value)">-->
 <!--    <mat-icon></mat-icon>-->
 <!--    Unfollow-->

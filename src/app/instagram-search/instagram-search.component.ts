@@ -55,14 +55,14 @@ export class InstagramSearchComponent implements OnInit {
 
   userSearch(user: string) {
     this.showSearch = true;
-
+    this.instagramPageLoad();
     this.instagramService.getSearchInsta(user)
       .subscribe(user => {
         this.instagramUserSearch = user;
         console.log('Get Search User Profile Called!');
         console.log(this.instagramUserSearch.displayName);
 
-        this.instagramPageLoad();
+
 
       });
 

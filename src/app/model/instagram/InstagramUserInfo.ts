@@ -8,6 +8,8 @@ export class InstagramUserInfo{
   imageFeed: string[];
   imageFeedCaption: string[];
   imageFeedComment: string[];
+  imageFeedLikes: number[];
+  imageFeedTopLikes: number[];
   displayName: string;
   username: string;
   followingStatus: boolean;
