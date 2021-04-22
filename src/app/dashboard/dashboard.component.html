@@ -2,19 +2,19 @@
 <!--<div class="grid grid-pad">-->
 <!--</div>-->
 <mat-card class="example-card headerImage">
-  <div  *ngIf="isVisibleSpinner" >
-    <mat-spinner color="accent" strokeWidth="2" [diameter]="100" style="width: 200px; height: 200px; margin-left: 40%;"></mat-spinner>
-  </div>
-  <div *ngIf="this.isVisible">
+<!--  <div  *ngIf="isVisibleSpinner" >-->
+<!--    <mat-spinner color="accent" strokeWidth="2" [diameter]="100" style="width: 200px; height: 200px; margin-left: 40%;"></mat-spinner>-->
+<!--  </div>-->
+<!--  <div *ngIf="this.isVisible">-->
     <mat-card-header>
   <!--    <mat-card-actions>-->
   <!--      <button style=" display: block;  margin-left: auto; margin-right: auto;"  mat-button><span class="instaIcon"></span></button>-->
   <!--    </mat-card-actions>-->
 
 
-      <img routerLink="/instagram" mat-card-avatar [src]= "instagramUser.profilePicUrl" >
+      <span  class="instaIcon"></span><img routerLink="/instagram" mat-card-avatar [src]= "instagramUser.profilePicUrl" >
       <mat-card-title>{{instagramUser.displayName}}</mat-card-title>
-      <span  class="instaIcon"></span>
+
 
       <strong style="padding-right: 5px;"><animated-digit style="font-size: 20px" [digit]="instagramUser.followerCount" [duration]="1000"></animated-digit> Followers</strong>
       <span  class="text-muted">  </span>
@@ -32,7 +32,7 @@
 
       </mdb-carousel-item>
     </mdb-carousel>
-  </div>
+<!--  </div>-->
 
 </mat-card>
 
@@ -619,77 +619,77 @@
 <!--<div>-->
 
 <!--</div>-->
-<div>
-  <mat-card class="spotify_snapshot">
-    <mat-card-header>
-      <img mat-card-avatar [src]="spotifyUser.imageUrl">
-      <mat-card-title>
-        <div class="spotify_snapshot_header">
-          {{spotifyUser.displayName}}
-          <!--        <button mat-button style="display: block;  margin-left: auto;"><span-->
-          <!--          class="spotifyIcon"></span>-->
-          <!--        </button>-->
-        </div>
-      </mat-card-title>
+<!--<div>-->
+<!--  <mat-card class="spotify_snapshot">-->
+<!--    <mat-card-header>-->
+<!--      <img mat-card-avatar [src]="spotifyUser.imageUrl">-->
+<!--      <mat-card-title>-->
+<!--        <div class="spotify_snapshot_header">-->
+<!--          {{spotifyUser.displayName}}-->
+<!--          &lt;!&ndash;        <button mat-button style="display: block;  margin-left: auto;"><span&ndash;&gt;-->
+<!--          &lt;!&ndash;          class="spotifyIcon"></span>&ndash;&gt;-->
+<!--          &lt;!&ndash;        </button>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </mat-card-title>-->
 
 
-    </mat-card-header>
-    <mat-card-content>
-      <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Recently Played" class="spotify_recently_played_tab">
-          <table class="songlist">
-            <tr>
-              <td *ngFor="let track of spotifyUserRecentTracks; let i = index;" class="tracksData">
-                <mat-card class="spotify_recent_tracks_card">
-                  <mat-card-content class="spotify_recent_tracks_content">
-                    <img src="{{track.album.imageUrl}}" width="125">
-                    <div fxLayout="column">
-                      <h1
-                        style="font-size: 16px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
-                        {{track.name}}</h1>
-                      <h4
-                        style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -25%;">
-                      <span style="font-size:12px;"
-                            *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
-                      </h4>
-                    </div>
-                  </mat-card-content>
-                </mat-card>
-              </td>
-            </tr>
-          </table>
-        </mat-tab>
-        <mat-tab label="Favourites" class="spotify_favourites_tab">
-          <table class="songlist">
-            <tr>
-              <td *ngFor="let track of spotifyUserFavouriteTracks; let i = index;" class="tracksData">
-                <mat-card class="spotify_favourite_tracks_card">
-                  <mat-card-content class="spotify_favourite_tracks_content">
-                    <img src="{{track.album.imageUrl}}" width="125">
-                    <div fxLayout="column">
-                      <h1
-                        style="font-size: 16px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
-                        {{track.name}}</h1>
-                      <h4
-                        style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -25%;">
-                      <span style="font-size:12px;"
-                            *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
-                      </h4>
-                    </div>
-                  </mat-card-content>
-                </mat-card>
-              </td>
-            </tr>
-          </table>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button style="display: block;  margin-left: auto; margin-right: auto; margin-top: -3%;"
-              routerLink="/spotify"><span
-        class="spotifyIcon"></span>
-      </button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--      <mat-tab-group mat-align-tabs="center">-->
+<!--        <mat-tab label="Recently Played" class="spotify_recently_played_tab">-->
+<!--          <table class="songlist">-->
+<!--            <tr>-->
+<!--              <td *ngFor="let track of spotifyUserRecentTracks; let i = index;" class="tracksData">-->
+<!--                <mat-card class="spotify_recent_tracks_card">-->
+<!--                  <mat-card-content class="spotify_recent_tracks_content">-->
+<!--                    <img src="{{track.album.imageUrl}}" width="125">-->
+<!--                    <div fxLayout="column">-->
+<!--                      <h1-->
+<!--                        style="font-size: 16px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">-->
+<!--                        {{track.name}}</h1>-->
+<!--                      <h4-->
+<!--                        style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -25%;">-->
+<!--                      <span style="font-size:12px;"-->
+<!--                            *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>-->
+<!--                      </h4>-->
+<!--                    </div>-->
+<!--                  </mat-card-content>-->
+<!--                </mat-card>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--          </table>-->
+<!--        </mat-tab>-->
+<!--        <mat-tab label="Favourites" class="spotify_favourites_tab">-->
+<!--          <table class="songlist">-->
+<!--            <tr>-->
+<!--              <td *ngFor="let track of spotifyUserFavouriteTracks; let i = index;" class="tracksData">-->
+<!--                <mat-card class="spotify_favourite_tracks_card">-->
+<!--                  <mat-card-content class="spotify_favourite_tracks_content">-->
+<!--                    <img src="{{track.album.imageUrl}}" width="125">-->
+<!--                    <div fxLayout="column">-->
+<!--                      <h1-->
+<!--                        style="font-size: 16px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">-->
+<!--                        {{track.name}}</h1>-->
+<!--                      <h4-->
+<!--                        style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -25%;">-->
+<!--                      <span style="font-size:12px;"-->
+<!--                            *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>-->
+<!--                      </h4>-->
+<!--                    </div>-->
+<!--                  </mat-card-content>-->
+<!--                </mat-card>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--          </table>-->
+<!--        </mat-tab>-->
+<!--      </mat-tab-group>-->
+<!--    </mat-card-content>-->
+<!--    <mat-card-actions>-->
+<!--      <button mat-button style="display: block;  margin-left: auto; margin-right: auto; margin-top: -3%;"-->
+<!--              routerLink="/spotify"><span-->
+<!--        class="spotifyIcon"></span>-->
+<!--      </button>-->
+<!--    </mat-card-actions>-->
+<!--  </mat-card>-->
+<!--</div>-->
 

@@ -93,16 +93,21 @@
       <div>
 <!--        <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">-->
 
-            <carousel arrowsTheme="dark" overflowCellsLimit="1" [height]="405" [cellWidth]="350">
-              <div class="carousel-cell" *ngFor='let in of counter(18) ;let i = index'>
+            <carousel arrowsTheme="dark" overflowCellsLimit="1" [height]="500" [cellWidth]="400">
+              <div class="carousel-cell" *ngFor='let in of counter(5) ;let i = index'>
                 <mat-card class="example-card headerImage">
 
                   <mat-card-content>
-                    <img style="width: 300px; height: 300px; display: block;"  alt="First Slide" [src]="getImageUrl(i)" [routerLink]="getImageUrl(i)">
+                    <div class="container">
+                    <img style="width: 350px; height: 350px; display: block;"  alt="First Slide" [src]="getImageUrl(i)" [routerLink]="getImageUrl(i)">
+                      <div class="overlay">
+                         <h2 class="likes"><span style="padding-right: 5px" class="material-icons">favorite</span> {{instagramUser.imageFeedLikes[i]}}</h2>
+                      </div>
+                    </div>
                     <h3 style="color: white">{{instagramUser.imageFeedCaption[i]}}</h3>
                   </mat-card-content>
 
-                  <mat-card-footer style="padding: 10px; ">Comments: {{getComment(i)}}</mat-card-footer>
+                  <mat-card-footer style="padding: 20px; ">Comments: {{getComment(i)}}</mat-card-footer>
                 </mat-card>
               </div>
             </carousel>
@@ -136,7 +141,7 @@
             search
           </span>
         </button></h2>
-        <ul *ngFor='let in of counter(18) ;let i = index'>
+        <ul *ngFor='let in of counter(1) ;let i = index'>
           <li>
             <mat-card >
               <mat-card-header>

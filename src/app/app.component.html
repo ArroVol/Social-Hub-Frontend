@@ -31,13 +31,15 @@
 
     </div>
   </mat-toolbar>
-  <mat-sidenav style="background-color: #63d3b6;" mode="side" opened #drawer>
+  <mat-sidenav style="background-color: #63d3b6; padding-right: 10px" mode="side" opened #drawer>
 
 
     <ul class="navbar-nav">
       <li>
         <a>
-            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="p-5 rounded-circle">
+            <img src="https://image.flaticon.com/icons/png/512/17/17004.png"
+                 alt="" style="width: 100px; height: 100px; margin-left: 40%;  padding-bottom: 20px; padding-right: 20px ">
+
         </a>
       </li>
     </ul>
@@ -51,8 +53,7 @@
         </li>
 
         <li>
-          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span class="twitterIcon"></span> Twitter
-          </button>
+          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span  class="twitterIcon"></span> Twitter  </button>
         </li>
 <!--        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>-->
         <li>
@@ -78,10 +79,10 @@
           <button class="YTMenuButton" mat-button routerLink="/youtube"><span class="ytIcon"></span> YouTube</button>
         </li>
                 <li>
-                  <button class="onePageMenuButton" mat-button routerLink="/one-post"><span class="ytIcon2"></span> One Page</button>
+                  <button class="onePageMenuButton" mat-button routerLink="/one-post"><span class="onePostIcon"></span> One Page</button>
                 </li>
         <li>
-          <button class="onePageMenuButton" mat-button routerLink="/image"><span class="ytIcon2"></span> Images</button>
+          <button style="background-color: darkorange" class="onePageMenuButton" mat-button routerLink="/image"><span class="imagesIcon"></span> Images   </button>
         </li>
 
 

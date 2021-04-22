@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {NavbarService} from './service/navbar.service';
 import {TwitterService} from './service/twitter.service';
 import {BehaviorSubject} from 'rxjs';
-import {AngularFirestore} from "@angular/fire/firestore";
+import {AngularFirestore} from '@angular/fire/firestore';
 // import * as moment from 'moment';
 
 // @ts-ignore

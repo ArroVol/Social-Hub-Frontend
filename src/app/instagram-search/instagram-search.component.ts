@@ -54,8 +54,8 @@ export class InstagramSearchComponent implements OnInit {
   }
 
   userSearch(user: string) {
-    this.showSearch = true;
-    this.instagramPageLoad();
+    this.loading = true;
+
     this.instagramService.getSearchInsta(user)
       .subscribe(user => {
         this.instagramUserSearch = user;
@@ -65,6 +65,13 @@ export class InstagramSearchComponent implements OnInit {
 
 
       });
+    setTimeout(() => {
+      this.loading = false;
+    }, 7000);
+
+    setTimeout(() => {
+      this.showSearch = true;
+    }, 7000);
 
   }
 

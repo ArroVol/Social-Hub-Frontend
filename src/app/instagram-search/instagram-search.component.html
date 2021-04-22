@@ -3,7 +3,7 @@
     <mat-label>Enter Instagram Username:</mat-label>
     <input #todo matInput type="text" name="todo">
     <mat-card-actions>
-      <button matSuffix style=" display: block;  margin-left: auto; margin-right: auto;"  (click)="userSearch(todo.value)" mat-button>
+      <button matSuffix style=" display: block;  margin-left: auto; margin-right: auto;"  (click)="userSearch(todo.value)" mat-button [class.spinner]="loading" [disabled]="loading">
         <mat-icon  matSuffix>search</mat-icon>
       </button>
 
@@ -15,11 +15,11 @@
 
 <ng-container *ngIf="showSearch">
 
-  <div  *ngIf="isVisibleSpinner" >
-    <mat-spinner color="accent" strokeWidth="2" [diameter]="100" style="width: 50px; height: 50px; margin-left: 20%"></mat-spinner>
-  </div>
+<!--  <div  *ngIf="isVisibleSpinner" >-->
+<!--    <mat-spinner color="accent" strokeWidth="2" [diameter]="100" style="width: 50px; height: 50px; margin-left: 20%"></mat-spinner>-->
+<!--  </div>-->
 
-  <div *ngIf="this.isVisible">
+<!--  <div *ngIf="this.isVisible">-->
   <mat-card class="example-card">
 
 
@@ -56,7 +56,7 @@
 
 
   </mat-card>
-  </div>
+<!--  </div>-->
 <!--  <button mat-raised-button  *ngIf="followStatus" (click)="unFollowUser(todo.value)">-->
 <!--    <mat-icon></mat-icon>-->
 <!--    Unfollow-->
