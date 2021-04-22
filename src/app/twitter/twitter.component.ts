@@ -21,11 +21,11 @@ import {ChangeDetectionStrategy} from '@angular/core';
 // import moment from 'moment';
 import {Moment} from 'moment';
 import * as moment from 'moment';
-import {Snackbar} from "@material-ui/core";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {ModalComponent} from "../modal/modal.component";
-import {GoalModalComponent} from "../goal-modal/goal-modal.component";
+import {Snackbar} from '@material-ui/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {ModalComponent} from '../modal/modal.component';
+import {GoalModalComponent} from '../goal-modal/goal-modal.component';
 
 export class RankData {
   rank: string;
@@ -164,7 +164,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
    * On page open get the recent post from the user and the number of followers.
    */
   ngOnInit(): void {
-    this.showingOther ='';
+    this.showingOther = '';
     this.showingUser = 'Most Retweeted Post';
     this.showOtherDiv = false;
     this.showMostFavorited = false;
@@ -280,14 +280,14 @@ export class TwitterComponent implements AfterViewInit, OnInit {
         this.briefStatusList = timeline;
         console.log('the length  of the users timeline list: ' + this.briefStatusList.length);
 
-        if(this.briefStatusList[0].favoriteCount != 0){
+        if (this.briefStatusList[0].favoriteCount != 0){
           this.userMostFavorited = this.briefStatusList[0];
           this.briefStatusList = this.briefStatusList.slice(1);
-            if(this.briefStatusList[0].retweetCount != 0){
+          if (this.briefStatusList[0].retweetCount != 0){
               this.userMostRetweeted = this.briefStatusList[0];
               this.briefStatusList = this.briefStatusList.slice(1);
             }
-        } else if(this.briefStatusList[0].favoriteCount == 0 && this.briefStatusList[1].retweetCount != 0){
+        } else if (this.briefStatusList[0].favoriteCount == 0 && this.briefStatusList[1].retweetCount != 0){
           this.userMostRetweeted = this.briefStatusList[1];
           this.briefStatusList = this.briefStatusList.splice(1, 1);
         }
@@ -324,7 +324,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
         } else {
         this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
         }
-       this.showOtherDiv = true;
+        this.showOtherDiv = true;
 
         this.twitterService.getNumFollowersByHandle(otherTwitterHandle)
           .subscribe(otherNumFollowers => {
@@ -453,8 +453,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
 
   getFriendsRankingList(){
     console.log('clicked');
-    console.log(this.rankingList.length)
-    if(this.rankingList.length === 0) {
+    console.log(this.rankingList.length);
+    if (this.rankingList.length === 0) {
 
     console.log('getting ranking list');
     this.twitterService.getRankingList(sessionStorage.getItem('twitterHandle'))
@@ -479,7 +479,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   }
   checkDefault(type: any): boolean {
 
-    if(this.goalType === type){
+    if (this.goalType === type){
       return true;
     }
     return false;

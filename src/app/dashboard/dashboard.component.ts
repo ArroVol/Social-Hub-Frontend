@@ -12,9 +12,9 @@ import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 import {Moment} from 'moment';
 import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
-import {SpotifyService} from "../service/spotify.service";
-import {SpotifyUser} from "../model/spotify/SpotifyUser";
-import {SpotifyTrack} from "../model/spotify/SpotifyTrack";
+import {SpotifyService} from '../service/spotify.service';
+import {SpotifyUser} from '../model/spotify/SpotifyUser';
+import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
 
 
 import {FacebookService} from '../service/facebook.service';
@@ -50,9 +50,9 @@ export class DashboardComponent implements OnInit {
               private youtubeService: YoutubeService,
               private twitterService: TwitterService,
               private goalService: GoalService,
-              private spotifyService: SpotifyService
-  protected route: ActivatedRoute,
-  protected facebookService: FacebookService) {
+              private spotifyService: SpotifyService,
+              protected route: ActivatedRoute,
+              protected facebookService: FacebookService) {
   }
 
   instagramUser: InstagramUserInfo;
@@ -103,6 +103,7 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getChannel();
 
     //THIS IS FOR FACEBOOK LOGIN
     this.route.queryParams.subscribe(params => {
@@ -125,8 +126,7 @@ export class DashboardComponent implements OnInit {
     });
     //FB LOGIN END
 
-    this.getInstaUser();
-    this.getChannel();
+    //this.getInstaUser();
     // this.instagramUser = this.instagramComponent.getInstaUser();
     // this.counter = this.instagramComponent.counter(0);
 
@@ -137,7 +137,13 @@ export class DashboardComponent implements OnInit {
     // this.getUserTimeline();
 
     this.initializeSpotifyFields();
-
+    window.addEventListener('resize', (e) => {
+      if (window.matchMedia('(min-width: 1050px)').matches) {
+        this.isMinWidth = true;
+      } else {
+        this.isMinWidth = false;
+      }
+    });
   }
 
   // Spotify Methods
