@@ -24,11 +24,11 @@ import {DataTablesModule} from 'angular-datatables';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import {AngularFirestoreModule} from "@angular/fire/firestore";
-import {environment} from "../environments/environment";
-import {AngularFireModule} from "@angular/fire";
-import {AngularFireStorageModule} from "@angular/fire/storage";
-import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 // Mat Stuff
 import {MatSliderModule} from '@angular/material/slider';
@@ -53,11 +53,11 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
-import {MatExpansionModule} from "@angular/material/expansion";
+import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -84,7 +84,7 @@ import {SpotifyFavouritesComponent} from './spotify-favourites/spotify-favourite
 
 // Twitter Components
 import {TwitterComponent} from './twitter/twitter.component';
-import {GoalModalComponent} from "./goal-modal/goal-modal.component";
+import {GoalModalComponent} from './goal-modal/goal-modal.component';
 
 // Youtube Components
 import {YoutubeComponent} from './youtube/youtube.component';
