@@ -25,7 +25,7 @@
     <mat-option *ngFor="let vid of channel.videos" value= "{{vid.videoDetails.videoTitle}}">{{vid.videoDetails.videoTitle}}</mat-option>
   </mat-select>
   <input #comment type="text">
-  <button (click)="postComment(getVideoId(videos), comment.value)"> Post to Video </button>
+  <button (click)="postComment(getVideoId(videos), comment.value);"> Post to Video </button>
 </div>
 <div class = "container" *ngIf="isVisible">
   <div class="sub-cat">

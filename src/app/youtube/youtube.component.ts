@@ -6,6 +6,7 @@ import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import {Channel} from '../model/youtube/Channel';
 import {UserService} from '../service/user.service';
 import {Youtube} from '../model/youtube/Youtube';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-youtube',
@@ -22,7 +23,7 @@ export class YoutubeComponent implements OnInit {
   isLoggedIn = true;
   user: Youtube;
   videos = 'Select a video to post to';
-  constructor(private youtubeService: YoutubeService) { }
+  constructor(private youtubeService: YoutubeService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     // console.log(sessionStorage.getItem('username'));
@@ -81,12 +82,13 @@ export class YoutubeComponent implements OnInit {
 
   updateChannel() {
     this.youtubeService.clearCache();
-    window.location.reload();
     this.isVisible = true;
     this.getElements();
-
+    this.openSnackBar('Update Successful', 'Dismiss');
   }
-
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {duration: 2000});
+  }
 
 
   // getPlaylists() {
@@ -111,9 +113,12 @@ export class YoutubeComponent implements OnInit {
     console.log(videoId);
     console.log(comment);
     this.youtubeService.postComment(videoId, comment);
+    this.openSnackBar('Post Created', 'Dismiss');
   }
   getElements() {
-    this.isVisibleSpinner = true;
+    if (!this.isVisible) {
+      this.isVisibleSpinner = true;
+    }
     this.getLastPulled();
     this.getChannelInfo();
     setTimeout(() => {

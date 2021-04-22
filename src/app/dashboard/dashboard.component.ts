@@ -20,8 +20,6 @@ export class DashboardComponent implements OnInit {
   constructor(private youtubeService: YoutubeService) {
   }
 
-
-  instagramUser: InstagramUserInfo;
   selected = 'channelInsights';
   selectedVideo = 'mostRecent';
   isMinWidth = true;
