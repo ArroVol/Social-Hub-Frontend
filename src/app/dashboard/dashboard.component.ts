@@ -17,6 +17,13 @@ import {SpotifyUser} from "../model/spotify/SpotifyUser";
 import {SpotifyTrack} from "../model/spotify/SpotifyTrack";
 
 
+import {FacebookService} from '../service/facebook.service';
+import {FacebookUser} from '../model/facebook/FacebookUser';
+import {FacebookPhotos} from '../model/facebook/FacebookPhotos';
+import { ActivatedRoute } from '@angular/router';
+import {FacebookLogin} from '../model/facebook/FacebookLogin';
+import {FacebookPages} from '../model/facebook/FacebookPages';
+
 // @ts-ignore
 @Component({
   selector: 'app-dashboard',
@@ -33,12 +40,19 @@ export class DashboardComponent implements OnInit {
   public isVisibleSpinner = true;
   public isVisible = false;
   channel: Channel;
+  facebookUser: FacebookUser;
+  facebookLogin: FacebookLogin;
+  facebookPhotos: FacebookPhotos;
+  facebookPages: FacebookPages;
+  verificationCode: string;
 
   constructor(private instagramService: InstagramService,
               private youtubeService: YoutubeService,
               private twitterService: TwitterService,
               private goalService: GoalService,
-              private spotifyService: SpotifyService) {
+              private spotifyService: SpotifyService
+  protected route: ActivatedRoute,
+  protected facebookService: FacebookService) {
   }
 
   instagramUser: InstagramUserInfo;
@@ -90,15 +104,29 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.getInstaUser();
-    // this.getChannel();
-    // window.addEventListener('resize', (e) => {
-    //   if (window.matchMedia('(min-width: 1050px)').matches) {
-    //     this.isMinWidth = true;
-    //   } else {
-    //     this.isMinWidth = false;
-    //   }
-    // });
+    //THIS IS FOR FACEBOOK LOGIN
+    this.route.queryParams.subscribe(params => {
+      let code = params['code'];
+      if (!code){
+        console.log('No code found');
+      } else{
+        this.verificationCode = code;
+        console.log('This is the code: ' + this.verificationCode);
+        this.facebookService.sendVerificationCode(this.verificationCode)
+          .subscribe(result => {
+            console.log('Result: ', result);
+            this.getFBUsername();
+            this.getFBPhotos();
+            this.getFBPages();
+            document.getElementById('fbCard').style.display = 'block';
+            document.getElementById('fbCardLogin').style.display = 'none';
+          });
+      }
+    });
+    //FB LOGIN END
+
+    this.getInstaUser();
+    this.getChannel();
     // this.instagramUser = this.instagramComponent.getInstaUser();
     // this.counter = this.instagramComponent.counter(0);
 
@@ -147,6 +175,35 @@ export class DashboardComponent implements OnInit {
       this.isVisible = true;
     }, 5000);
   }
+
+  loginFB(){
+    this.facebookService.login().subscribe(loginDialogURL => {
+      this.facebookLogin = loginDialogURL;
+    });
+    window.location.href = this.facebookLogin.loginDialogURL;
+  }
+
+  getFBUsername(){
+    this.facebookService.getUserName().subscribe(facebookUser => {
+      this.facebookUser = facebookUser;
+    });
+    console.log('Get username method called');
+  }
+
+  getFBPhotos(){
+    this.facebookService.getPhotos().subscribe(facebookPhotos => {
+      this.facebookPhotos = facebookPhotos;
+    });
+    console.log('Get photos method called');
+  }
+
+  getFBPages(){
+    this.facebookService.getPages().subscribe(facebookPages => {
+      this.facebookPages = facebookPages;
+    });
+    console.log('Get pages method called');
+  }
+
 
   getChannel() {
     this.youtubeService.getChannelInfo().subscribe(channel => {
@@ -235,6 +292,8 @@ export class DashboardComponent implements OnInit {
     }
     return maxIndex;
   }
+
+
 
 
   getIndexOfMaxViews() {
@@ -348,14 +407,14 @@ export class DashboardComponent implements OnInit {
         this.otherMostFavorited = this.otherBriefStatusList[1];
         console.log('*************');
         console.log(this.otherMostFavorited.text);
-        if (this.otherMostRetweeted.retweetCount === 0) {
+        if (this.otherMostRetweeted.retweetCount === 0){
 
         } else if (this.otherMostFavorited.favoriteCount === 0 && this.otherMostRetweeted.retweetCount > 0) {
           this.otherBriefStatusList = this.otherBriefStatusList.slice(1);
         } else {
           this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
         }
-        for (let i = 0; i < this.otherBriefStatusList.length; i++) {
+        for (let i = 0; i < this.otherBriefStatusList.length; i++){
         }
 
         this.twitterService.getNumFollowersByHandle(otherTwitterHandle)
@@ -366,6 +425,11 @@ export class DashboardComponent implements OnInit {
 
       });
   }
+
+
+
+
+
 
 
   // Instagram Dashboard
@@ -386,7 +450,7 @@ export class DashboardComponent implements OnInit {
     console.log('Get User Profile Called!');
   }
 
-  userSearch(user: string) {
+  userSearch(user: string){
     this.instagramService.getSearchInsta(user).subscribe(user => {
       this.instagramUserSearch = user;
       console.log('Get Search User Profile Called!');
@@ -398,7 +462,8 @@ export class DashboardComponent implements OnInit {
     // CHANGE THE NAME OF THE BUTTON.
     if (this.showSearch) {
       this.buttonName = 'Hide';
-    } else {
+    }
+    else {
       this.buttonName = 'Change';
     }
   }
@@ -407,7 +472,7 @@ export class DashboardComponent implements OnInit {
     return this.instagramUser.mediaCount;
   }
 
-  getImageUrl(pic: number): string {
+  getImageUrl(pic: number): string{
 
     return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
       this.instagramUser.imageFeed[pic].toString().search('width') - 2);

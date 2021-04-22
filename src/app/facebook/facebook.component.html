@@ -1,20 +1,222 @@
 <div class = "topnav">
-  <div style="float: left">
     <!--
     <fb:login-button
       id = "fb-btn"
       scope="public_profile,email,user_birthday,user_location,user_posts"
       onlogin="checkLoginState();">
     </fb:login-button>
-    -->
+
     <li><a id="fb-btn" (click)="submitLogin()">Login</a></li>
     <li><a id="logout" (click)="logout()">Logout</a></li>
+    -->
+    <a id="fb-btn" (click)="login()">Log in to Facebook</a>
+    <div id="fb-btn2">Welcome, {{facebookUser.facebookName}}</div>
+    <a id="fb-btn3" (click)="logout()">Logout</a>
   </div>
+<div id = "head">
+<header>
+<div class="overlay">
+  <h1>
+    <img id = "pfp" style="width: 175px; height: 175px; border: #1c1c1c" [src]="facebookUser.photoURL">
+    {{facebookUser.facebookName}}
+  </h1>
 </div>
-<div class="container">
-  <br>
-  <div id="profile"></div>
-  <br>
-  <div id="feed"></div>
+</header>
 </div>
 
+<div id = "container" class = "container">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <img mat-card-avatar class="example-header-image" [src]="facebookUser.photoURL">
+      <mat-card-title style="margin-top: 15px; font-size: 32px; font-weight: bold">{{facebookUser.facebookName}}'s Recent Posts</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p></p>
+      <p class = "pText">{{facebookPosts.posts[0]}}
+        <br>-{{facebookPosts.posts[1]}}
+      </p>
+      <p class = "pText">{{facebookPosts.posts[2]}}
+        <br>-{{facebookPosts.posts[3]}}
+      </p>
+      <p class = "pText">{{facebookPosts.posts[4]}}
+        <br>-{{facebookPosts.posts[5]}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="example-card">
+    <mat-card-title style="margin-top: 15px; font-size: 32px; font-weight: bold">{{facebookUser.facebookName}}'s Pages</mat-card-title>
+    <mat-form-field appearance="fill">
+    <mat-label>Your Facebook Pages</mat-label>
+      <mat-select [(value)]="currentPP">
+        <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+          {{page}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="setCurrentPage(currentPP)">View Page Posts</button>
+    <div *ngIf="gotPosts">
+      <p class = "pText">{{facebookPagePosts.pagePosts[0]}}
+        <br>-{{facebookPagePosts.times[0]}}
+      </p>
+      <p class = "pText">{{facebookPagePosts.pagePosts[1]}}
+        <br>-{{facebookPagePosts.times[1]}}
+      </p>
+      <p class = "pText">{{facebookPagePosts.pagePosts[2]}}
+        <br>-{{facebookPagePosts.times[2]}}
+      </p>
+    </div>
+    <hr>
+    <mat-card-subtitle style="margin-top: 15px; font-size: 25px; font-weight: bold">Create Posts</mat-card-subtitle>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Pages to Post to</mat-label>
+      <mat-select [(value)]="currentPage" multiple>
+        <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+          {{page}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <form id = "postForm" class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Post to Page</mat-label>
+        <input #postMessage matInput placeholder="Your Post Here">
+      </mat-form-field>
+      <button *ngIf="!loading" (click)="submitPost(postMessage.value)">Post to Page</button>
+      <div *ngIf="loading" class="spinner-border" role="status" style="float: left">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </form>
+  </mat-card>
+<!--
+  <mat-card class="example-card">
+    <mat-form-field appearance="fill">
+      <mat-label>Your Facebook Pages</mat-label>
+      <mat-select [(value)]="currentPage" multiple>
+        <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+          {{page}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>{{currentPage}}</div>
+    <form id = "postForm" class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Post to Page</mat-label>
+        <input #postMessage matInput placeholder="Your Post Here">
+      </mat-form-field>
+      <button (click)="submitPost(postMessage.value)">Post to Page</button>
+      <div class="spinner-border" role="status" style="float: right">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </form>
+  </mat-card>
+  -->
+
+  <mat-card class = "example-card">
+    <mat-card-title style="margin-top: 15px; font-size: 32px; font-weight: bold">Liked Pages</mat-card-title>
+    <hr>
+  <div id = "likeList">
+    <ul *ngFor='let like of facebookPages.likedNames; let i = index'>
+    <a [href]="facebookPages.likedLinks[i]" target="_blank">
+      {{like}}
+    </a>
+      <div style="font-family: Khand, Impact; font-size: 18px; color: #1c1c1c">
+      Fans: {{facebookPages.fanCounts[i]}}
+      </div>
+    </ul>
+  </div>
+  </mat-card>
+  <!--
+  <a [href]="facebookPages.likedLinks[0]" target="_blank">
+    <h3>{{facebookPages.likedNames[0]}}</h3>
+  </a>
+  <a [href]="facebookPages.likedLinks[1]" target="_blank">
+    <h3>{{facebookPages.likedNames[1]}}</h3>
+  </a>
+  <a [href]="facebookPages.likedLinks[2]" target="_blank">
+    <h3>{{facebookPages.likedNames[2]}}</h3>
+  </a>
+  -->
+</div>
+<div id = "container2" class ="container2">
+  <mat-card class = "example-card2">
+    <mat-card-title style="float:left; text-align: left; margin-top: 15px; font-size: 32px; font-weight: bold">Recent Media</mat-card-title>
+    <!--
+  <a [href]="facebookPhotos.photoURLs[0]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[0]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[1]" target="_blank">
+    <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[1]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[2]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[2]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[3]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[3]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[4]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[4]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[5]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[5]">
+  </a>
+  <a [href]="facebookPhotos.photoURLs[6]" target="_blank">
+  <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[6]">
+  </a>
+  -->
+    <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[0]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[1]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[2]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[3]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+      <mdb-carousel-item>
+        <img class="d-block w-300" src="{{facebookPhotos.photos[4]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
+      </mdb-carousel-item>
+    </mdb-carousel>
+<hr>
+<!--    <mdb-carousel class="carousel carousel-fade" [animation]="'fade'">-->
+<!--      <mdb-carousel-item>-->
+<!--        <video src = "{{facebookVideos.sources[0]}} "style="float: left" width="360" height="280" controls muted>-->
+<!--          Your browser does not support the video tag.-->
+<!--        </video>-->
+<!--      </mdb-carousel-item>-->
+<!--      <mdb-carousel-item>-->
+<!--        <video src = "{{facebookVideos.sources[1]}} "style="float: left" width="360" height="280" controls muted>-->
+<!--          Your browser does not support the video tag.-->
+<!--        </video>-->
+<!--      </mdb-carousel-item>-->
+<!--      <mdb-carousel-item>-->
+<!--        <video src = "{{facebookVideos.sources[2]}} "style="float: left" width="360" height="280" controls muted>-->
+<!--          Your browser does not support the video tag.-->
+<!--        </video>-->
+<!--      </mdb-carousel-item>-->
+<!--    </mdb-carousel>-->
+    <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" interval="-1" [animation]="'fade'">
+      <!--First slide-->
+      <mdb-carousel-item>
+        <video src = "{{facebookVideos.sources[0]}} "style="float: left" width="360" height="280" controls muted>
+        </video>
+      </mdb-carousel-item>
+      <!--/First slide-->
+      <!--Second slide-->
+      <mdb-carousel-item>
+        <video src = "{{facebookVideos.sources[1]}} "style="float: left" width="360" height="280" controls muted>
+        </video>
+      </mdb-carousel-item>
+      <!--/Second slide-->
+      <!--Third slide-->
+      <mdb-carousel-item>
+        <video src = "{{facebookVideos.sources[2]}} "style="float: left" width="360" height="280" controls muted>
+        </video>
+      </mdb-carousel-item>
+      <!--/Third slide-->
+    </mdb-carousel>
+  </mat-card>
+</div>
