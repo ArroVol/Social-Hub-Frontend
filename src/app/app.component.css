@@ -488,6 +488,15 @@ button.social-signin:active {
   width: 120px;
 }
 
+.DashboardMenuButton {
+  color: #fff;
+  background-color: grey;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+  width: 120px;
+}
+
 .FBMenuButton {
   color: #fff;
   background-color: #3b5998;

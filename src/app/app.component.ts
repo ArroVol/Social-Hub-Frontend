@@ -33,6 +33,7 @@ export class AppComponent {
   // loggedIn: string;
   loggedIn = false;
   loggedIn$ = new BehaviorSubject(this.loggedIn);
+n;
 
   constructor(private store: AngularFirestore) {
     this.reset();
@@ -68,6 +69,8 @@ export class AppComponent {
     }
   }
 
+
+
   checkLogin() {
     console.log('checking login.......');
     console.log('*****"');
@@ -78,6 +81,7 @@ export class AppComponent {
       this.loggedIn = false;
     }
   }
+
 
   set login(value) {
     this.loggedIn = value;

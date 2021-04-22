@@ -90,15 +90,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.getInstaUser();
-    // this.getChannel();
-    // window.addEventListener('resize', (e) => {
-    //   if (window.matchMedia('(min-width: 1050px)').matches) {
-    //     this.isMinWidth = true;
-    //   } else {
-    //     this.isMinWidth = false;
-    //   }
-    // });
+    this.getInstaUser();
+    this.getChannel();
     // this.instagramUser = this.instagramComponent.getInstaUser();
     // this.counter = this.instagramComponent.counter(0);
 
@@ -237,6 +230,8 @@ export class DashboardComponent implements OnInit {
   }
 
 
+
+
   getIndexOfMaxViews() {
     let videos = this.channel.videos;
     let max = 0;
@@ -368,6 +363,11 @@ export class DashboardComponent implements OnInit {
   }
 
 
+
+
+
+
+
   // Instagram Dashboard
 
 
@@ -482,6 +482,8 @@ export class DashboardComponent implements OnInit {
     });
 
   }
+
+
 
 
   toggleChanges() {

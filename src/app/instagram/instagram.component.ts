@@ -22,6 +22,9 @@ export class InstagramComponent implements OnInit {
   public showChanges = false;
   public showSearch = false;
   public buttonName: any = 'Change';
+  public isVisibleSpinner = true;
+  public isVisible = false;
+  dialogRef = 'none';
   nums: Array<number> = [1, 20, 48];
 
   @ViewChild('oneItem') oneItem: any;
@@ -44,20 +47,13 @@ export class InstagramComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     this.getInstaUser();
+    this.instagramPageLoad();
     // this.storeImages();
 
 
 
-
-    // Function is defined
-    function hideloader() {
-
-      // Setting display of spinner
-      // element to none
-      document.getElementById('loading')
-        .style.display = 'none';
-    }
   }
 
 
@@ -67,13 +63,23 @@ export class InstagramComponent implements OnInit {
     }
   }
 
+
+  instagramPageLoad() {
+    setTimeout(() => {
+      this.isVisibleSpinner = false;
+      this.isVisible = true;
+    }, 4000);
+
+  }
+
   getInstaUser(): InstagramUserInfo {
     this.instagramService.getInsta().subscribe(instagramUser => {
       this.instagramUser = instagramUser;
       return this.instagramUser;
     });
-    return this.instagramUser;
     console.log('Get User Profile Called!');
+    return this.instagramUser;
+
   }
 
   userSearch(user: string){
@@ -175,7 +181,7 @@ getFollowerProfileName(pic: number): string{
     || this.instagramUser.followerFeed[pic].toString().substring(0,
         this.instagramUser.followerFeed[pic].toString().search('ProfilePic:')) === ' ') {
 
-      return 'No Name Listed';
+      return 'Private Account';
 
     } else {
       return this.instagramUser.followerFeed[pic].toString().substring(0,
@@ -190,7 +196,7 @@ getFollowerProfileName(pic: number): string{
       || this.instagramUserSearch.followerFeed[pic].toString().substring(0,
         this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:')) === ' ') {
 
-      return 'No Name Listed';
+      return 'Private Account';
 
     } else {
       return this.instagramUserSearch.followerFeed[pic].toString().substring(0,
@@ -227,16 +233,17 @@ getFollowerProfileName(pic: number): string{
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(InstagramSearchComponent, {
+    this.dialog.open(InstagramSearchComponent, {
       width: '250px',
       data: {name: this.name, animal: this.animal}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-    });
+    // this.dialog.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   this.animal = result;
+    // });
   }
+
 
 
 }
