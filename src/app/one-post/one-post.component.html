@@ -50,9 +50,9 @@
           <!--        <img class="posttweetprofimg" src="http://3.bp.blogspot.com/-JCYefwq__2U/TxCfC3s1ZpI/AAAAAAAAKcM/u5mw7qPAL0w/s300-c/Camilla-Belle-6.jpg">-->
           <div class="ml56px">
             <div class="posttweettacontainer">
-              <textarea formControlName="textInput" #content id="posttweetta" (keyup)="onKey($event)"  class="posttweetta" placeholder="What's happening?" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;"></textarea>
+              <textarea formControlName="textInput" #content id="posttweetta"  [(ngModel)]="change" (ngModelChange)="pressedEvent($event)" maxlength="280" class="posttweetta" placeholder="What's happening?" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;"></textarea>
               <div class="posttweetcountcont">
-                <span class="posttweetcount"><span id="totalchars">0</span>/280</span>
+                <span class="posttweetcount"><span id="totalchars">{{totalNumCharacters}}</span>/280</span>
               </div>
             </div>
             <div class="posttweetbutcont">
@@ -61,7 +61,7 @@
               <!--              </label>-->
               <div>
                 <ngx-dropzone class="dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
-                  <ngx-dropzone-label>Drop images here</ngx-dropzone-label>
+                  <ngx-dropzone-label>Drag & Drop or <a>Browse</a></ngx-dropzone-label>
                   <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
                     <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                   </ngx-dropzone-image-preview>
@@ -90,18 +90,16 @@
 
   <div class="column">
 
-    <mat-card class="outer-basic-card">
+    <mat-card class="post-card" >
 
       <h2 class="header"> Recent Posts Made From Social Hub </h2>
-
-
 
       <cdk-virtual-scroll-viewport  *ngIf="imageList" itemSize="20" class="example-viewport">
 
         <span *ngIf="imageList else spin" class="status">
+<!--            <carousel arrowsTheme="dark" overflowCellsLimit="1" >-->
 
-
-        <div style="padding-bottom: 10px"  *ngFor="let onePost of imageList">
+        <div class="image-container" style="padding-bottom: 10px"  *ngFor="let onePost of imageList">
           <mat-card class="basic-card" >
             <div class="Posted">Posted To: {{onePost.socialMedia}}</div>
 
@@ -117,6 +115,7 @@
 
           </mat-card>
       </div>
+<!--            </carousel>-->
         </span>
       </cdk-virtual-scroll-viewport>
 

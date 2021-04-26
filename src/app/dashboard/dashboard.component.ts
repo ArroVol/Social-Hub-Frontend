@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
   facebookPhotos: FacebookPhotos;
   facebookPages: FacebookPages;
   verificationCode: string;
+  loggedIntoFB: boolean;
 
   constructor(private instagramService: InstagramService,
               private youtubeService: YoutubeService,
@@ -97,8 +98,9 @@ export class DashboardComponent implements OnInit {
   spotifyUserFavouriteTracks: SpotifyTrack[];
   ngOnInit(): void {
 
-    // this.getInstaUser();
-    // this.getChannel();
+    this.getInstaUser();
+    this.getChannel();
+    // this.loginFB();
     //THIS IS FOR FACEBOOK LOGIN
     this.route.queryParams.subscribe(params => {
       let code = params['code'];
@@ -177,6 +179,7 @@ export class DashboardComponent implements OnInit {
   loginFB(){
     this.facebookService.login().subscribe(loginDialogURL => {
       this.facebookLogin = loginDialogURL;
+      this.loggedIntoFB = true;
     });
     window.location.href = this.facebookLogin.loginDialogURL;
   }

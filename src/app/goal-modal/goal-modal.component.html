@@ -1,12 +1,12 @@
 
 
 
-    <h2 class="header">Goals</h2>
-    <mat-card class="basic-card">
+<!--    <h2 class="header">Goals</h2>-->
+<!--    <mat-card class="basic-card">-->
       <mat-card-content>
         <div *ngIf="goalSet else setGoals" >
 
-        <h2 class="example-h2">{{userGoal.goalType}} goal
+        <h2 class="example-h2"> Current {{userGoal.goalType}} Goal
           <button (click)="updateGoals() "mat-icon-button aria-label="edit-handle-btn">
             <mat-icon class="edit-btn" >edit</mat-icon>
           </button>
@@ -46,7 +46,7 @@
 <!--        </section>-->
         </div>
       </mat-card-content>
-    </mat-card>
+<!--    </mat-card>-->
     <div>  </div>
 
 <!--    <mat-card *ngIf="goalSet" class="basic-card">-->
@@ -88,14 +88,15 @@
     </section>
     <div></div>
   </section>
+  <div>
   <section class="example-section">
+
     <mat-form-field class="example-margin">
       <mat-label>Goal</mat-label>
-      <input matInput type="number"  [(ngModel)]="max">
+      <input matInput  type="number"  [(ngModel)]="max">
     </mat-form-field>
   </section>
-  <div>
-    <button mat-raised-button (click)="sendGoals()">Enter goal</button>
+    <button class="enter-btn" mat-raised-button (click)="sendGoals()">Enter goal</button>
   </div>
   <div></div>
 </ng-template>

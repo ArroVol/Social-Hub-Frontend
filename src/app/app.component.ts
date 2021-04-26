@@ -20,7 +20,7 @@ import {SimpleFormComponent} from "./simple-form/simple-form.component";
  * The index page of the project.
  */
 export class AppComponent {
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  // @ViewChild('sidenav') sidenav: MatSidenav;
 
   //invoke the value changes to invoke and subscribe to an observable
   todo = this.store.collection('todo').valueChanges({ idField: 'id'});
@@ -93,11 +93,11 @@ export class AppComponent {
 
   }
 
-  close(reason: string) {
-    // this.reason = reason;
-    console.log('clicked close');
-    this.sidenav.close();
-  }
+  // close(reason: string) {
+  //   // this.reason = reason;
+  //   console.log('clicked close');
+  //   this.sidenav.close();
+  // }
 
   open(){
     console.log('clicked open');

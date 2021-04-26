@@ -76,3 +76,18 @@ input[type=number] {
   pointer-events: none;
 
 }
+
+
+.enter-btn {
+  /*margin-bottom: 5px;*/
+  /*width: 220px;*/
+  height: 36px;
+  border: none;
+  border-radius: 2px;
+  color: #FFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: 0.2s ease;
+  cursor: pointer;
+  background: dodgerblue;
+}

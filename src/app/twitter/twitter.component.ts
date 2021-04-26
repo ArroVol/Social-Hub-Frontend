@@ -63,8 +63,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     {name: ''},
     {name: ''},
     {name: ''},
-    {name: ''},
-    {name: ''},
 
   ];
   showOtherDiv: boolean;
@@ -79,6 +77,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   searchFriend = '';
   showOtherMostFavorited: boolean;
   fontStyleControl = new FormControl();
+  fontStyleControlOther = new FormControl();
+
   fontStyle?: string;
   filteredOptions: Observable<User[]>;
   labelPosition: string;
@@ -429,6 +429,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   onKey($event: KeyboardEvent) {
     // if value is not empty the set click to false otherwise true
     this.click = (event.target as HTMLInputElement).value === '' ? true : false;
+    console.log(KeyboardEvent.length);
   }
   onButtonClick(){
     this.click = !this.click;
@@ -439,7 +440,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
    this.searchFriend = '';
    this.handle.nativeElement.value = '';
    this.otherBriefStatusList = null;
-   this.handle = '';
   }
 
   applyFilter(event: Event) {
@@ -496,8 +496,8 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id = 'goal-modal-component';
-    dialogConfig.height = '360px';
-    dialogConfig.width = '650px';
+    dialogConfig.height = '310px';
+    dialogConfig.width = '610px';
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(GoalModalComponent, dialogConfig);
   }

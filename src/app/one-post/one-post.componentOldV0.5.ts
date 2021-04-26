@@ -181,7 +181,7 @@ export class OnePostComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    this.totalNumCharacters = 0;
+
     this.imageService.getImageDetailList();
     this.getFirebaseOnePosts();
     this.userId = +sessionStorage.getItem('userId');
@@ -224,6 +224,7 @@ export class OnePostComponent implements OnInit {
   }
 
 
+
   allComplete: boolean = false;
 
   updateAllComplete() {
@@ -243,6 +244,10 @@ export class OnePostComponent implements OnInit {
       return;
     }
     this.task.subtasks.forEach(t => t.completed = completed);
+  }
+
+  socialCheckBox() {
+
   }
 
   toggleEditable(event) {
@@ -269,6 +274,8 @@ export class OnePostComponent implements OnInit {
       });
     }
   }
+
+
 
   onDropHandler(object) {
     console.log("event " + JSON.stringify(object));
@@ -306,6 +313,22 @@ export class OnePostComponent implements OnInit {
     // return this.http.request(newRequest);
   }
 
+
+
+    // uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+    //Make a call to the Spring Boot Application to save the image
+  //   this.http.post(url, uploadImageData, { observe: 'response' })
+  //     .subscribe((response) => {
+  //       console.log('we did it!');
+  //       // if (response.status === 200) {
+  //       //   this.message = 'Image uploaded successfully';
+  //       // } else {
+  //       //   this.message = 'Image not uploaded successfully';
+  //       // }
+  //     }
+  // );
+  // }
+  //
   getImage() {
     //Make a call to Sprinf Boot to get the Image Bytes.
     this.http.get('http://localhost:8080/image/get/' + this.imageName)
@@ -318,6 +341,43 @@ export class OnePostComponent implements OnInit {
   );
   }
 
+  onFileSelected(event) {
+
+    const file:File = event.target.files[0];
+    const url = `${this.url}/send-image`;
+    console.log(url);
+
+    //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
+
+    if (file) {
+
+      this.fileName = file.name;
+
+      const formData = new FormData();
+
+      formData.append("imageFile", file);
+
+      // const upload$ = this.http.post("/api/thumbnail-upload", formData);
+
+
+        this.http.post(url, formData, { observe: 'response' })
+          .subscribe((response) => {
+            console.log('we did it!');
+            // if (response.status === 200) {
+            //   this.message = 'Image uploaded successfully';
+            // } else {
+            //   this.message = 'Image not uploaded successfully';
+            // }
+          }
+      );
+      // const newRequest = new HttpRequest('POST', url, formData, {
+      //   reportProgress: true,
+      //   responseType: 'text'
+      // });
+
+      // upload$.subscribe();
+    }
+  }
 
   selectFile(event): void {
     console.log(event);
@@ -329,6 +389,7 @@ export class OnePostComponent implements OnInit {
     }
     this.selectedFiles = event.target.files;
   }
+
 
 
   upload2(content: string): void {
@@ -406,10 +467,27 @@ export class OnePostComponent implements OnInit {
 
     console.log('attempting upload');
 
-
+    // if(this.file === undefined){
+    //   const data: FormData = new FormData();
+    //   data.append('textContent', textContent);
+    //   data.append('socialMedia', this.socialMedia);
+    //   data.append('userId', sessionStorage.getItem('userId'));
+    //   const date = new Date();
+    //   data.append('createdAt', date.toDateString());
+    //   console.log('one post has no image media..');
       const url = `${this.url}/one-posts/save/form-data/text-only`;
 
+      // this.http.post(url, data, { observe: 'response' })
+      //   .subscribe(async(response) => {
+      //       console.log('we did it!');
+      //       this.openSnackBar('Posted to your account')
+      //       // this.snackBar.open('Posted to your account');
+      //      await this.delay(4500);
+      //       // window.location.reload();
+      //     }
+      //   );
 
+    // } else {
       const data: FormData = new FormData();
       data.append('file', this.file);
       data.append('textContent', textContent);
@@ -423,6 +501,10 @@ export class OnePostComponent implements OnInit {
       this.onePost.createdAt = new Date();
       data.append('createdAt', this.onePost.createdAt.toDateString());
 
+      // this.onePostService.saveOnePosts(this.onePost)
+      //   .subscribe(onePost => {
+      //     this.savedOnePost = onePost;
+      //   });
     if(this.file !== undefined){
       var filePath = `${sessionStorage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       console.log(filePath);
@@ -445,7 +527,10 @@ export class OnePostComponent implements OnInit {
               await this.delay(2500);
               // window.location.reload();
               this.form2['imageUrl'] = url;
-
+              // this.form2['caption'] = 'caption1';
+              // this.form2['category'] = 'a';
+              // this.insertImageDetails(this.form2);
+              // this.resetForm();
             })
         })
       ).subscribe();
@@ -461,7 +546,45 @@ export class OnePostComponent implements OnInit {
       this.clearFields();
       // window.location.reload();
     }
+      // var filePath = `${sessionStorage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      // console.log(filePath);
+      // const fileRef = this.storage.ref(filePath);
+      // this.storage.upload(filePath, this.file)
+      //   .snapshotChanges().pipe(
+      //     //finalize call back function called when the upload is complete
+      //     finalize(()=>{
+      //       fileRef.getDownloadURL()
+      //         .subscribe((url)=>{
+      //
+      //           this.onePostData['imageUrl'] = url;
+      //           this.onePostData['textContent'] = textContent;
+      //           this.onePostData['socialMedia'] = this.socialMedia;
+      //           this.onePostData['userId'] = sessionStorage.getItem('userId');
+      //
+      //           this.imageService.insertImageDetails(this.onePostData);
+      //
+      //           this.form2['imageUrl'] = url;
+      //           this.form2['caption'] = 'caption1';
+      //           this.form2['category'] = 'a';
+      //           // this.insertImageDetails(this.form2);
+      //           // this.resetForm();
+      //         })
+      //     })
+      // ).subscribe();
 
+
+      // const url = `${this.url}/one-posts/save/form-data`;
+
+      // this.http.post(url, data, {observe: 'response'})
+      //   .subscribe(async (response) => {
+      //       console.log('we did it!');
+      //      this.openSnackBar('Posted to your account')
+      //       // this.snackBar.open('Posted to your account');
+      //       await this.delay(2500);
+      //       // window.location.reload();
+      //     }
+      //   );
+    // }
   }
 
   onSelect(event) {
@@ -489,6 +612,14 @@ export class OnePostComponent implements OnInit {
       const url = `${this.url}/send-image`;
     }
 
+    // this.selectedFiles = event.target.files;
+
+
+    // this.http.post(url, formData, {observe: 'response'})
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     alert('Uploaded Successfully.');
+    //   })
 
   }
 
@@ -600,7 +731,25 @@ export class OnePostComponent implements OnInit {
       socialMedia: ''
     });
   }
+  getImageDetailList(){
+    this.imageDetailList = this.firebase.list('imageDetails');
+    console.log('this is the image detail list: ' + this.imageDetailList);
+  }
 
+  insertImageDetails(imageDetails){
+    console.log(imageDetails);
+    console.log(imageDetails.category);
+    console.log(imageDetails.imageUrl);
+    console.log(imageDetails.caption);
+
+    this.imageDetailList.push({
+      userId: sessionStorage.getItem('userId'),
+      textContent: this.textContent,
+      socialMedia: this.socialMedia,
+      createAt: new Date().toDateString(),
+      imageUrl: imageDetails.imageUrl
+    });
+  }
 
   getFirebaseOnePosts(){
     this.imageService.imageDetailList.snapshotChanges().subscribe(
@@ -631,7 +780,15 @@ export class OnePostComponent implements OnInit {
 
   }
 
-
+    // addPost(form: NgForm){
+    // console.log('in add...');
+    //   // this.newPost = {
+    //   //   title: this.title,
+    //   //   body: this.body
+    //   // }
+    //   // this._postService.addPost(this.newPost);
+    //   form.resetForm(); // or form.reset();
+    // }
   addPost(myForm: FormGroupDirective | NgForm) {
     console.log('in add...');
 
@@ -653,6 +810,7 @@ export class OnePostComponent implements OnInit {
     this.isChecked = false;
 
   }
+
 
   pressedEvent($event: any) {
     this.totalNumCharacters = $event.length;

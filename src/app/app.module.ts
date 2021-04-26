@@ -174,7 +174,6 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
     LoadingAnimationComponent,
     InstagramSearchComponent,
     SpotifySearchComponent,
-    AnimatedDigitComponent,
     OnePostComponent,
     GoalModalComponent,
     ImagesComponent

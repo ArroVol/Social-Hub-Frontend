@@ -10,6 +10,7 @@
       </button>
       <div style="float: right; font-size: 30px; font-family: FontAwesome">Social Hub</div>
 
+
     </mat-toolbar-row>
     <mat-toolbar-row>
       <app-simple-form></app-simple-form>
@@ -30,55 +31,40 @@
 
     </div>
   </mat-toolbar>
-  <mat-sidenav style="background-color: #63d3b6;" mode="side" opened #drawer>
-<!--  <mat-sidenav style="background-color: #63d3b6;" mode="side" (click)="sidenav.open()"  #drawer>-->
-<!--    <mat-sidenav #sidenav [hidden]="!displaySideNav" disableClose="true" style="background-color: #63d3b6;" mode="side" (click)="sidenav.open()"  #drawer>-->
+  <mat-sidenav style="background-color: #63d3b6; padding-right: 10px" mode="side" opened #drawer>
 
 
     <ul class="navbar-nav">
       <li>
         <a>
-          <a routerLink="/dashboard"><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt=""
-                                          class="p-5 rounded-circle"></a>
+            <img src="https://image.flaticon.com/icons/png/512/17/17004.png"
+                 alt="" style="width: 100px; height: 100px; margin-left: 40%;  padding-bottom: 20px; padding-right: 20px ">
+
         </a>
       </li>
     </ul>
     <nav>
 
 
+
       <ul>
         <li>
-          <button class="UserMenuButton" mat-button [matMenuTriggerFor]="menuUser">
-            <span class="dashboardIcon"></span>
-            Dashboard
-          </button>
-            <mat-menu #menuUser="matMenu">
-            <button mat-menu-item><a routerLink="/login-page">log in page</a></button>
-            <button mat-menu-item><a routerLink="/account-information">Account information</a></button>
-            <button mat-menu-item><a routerLink="/about">about</a></button>
-          </mat-menu>
+          <button class="DashboardMenuButton" mat-button routerLink="/dashboard"><span class="dashboardIcon"></span> DashBoard</button>
         </li>
 
         <li>
-          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span class="twitterIcon"></span> Twitter
-          </button>
+          <button class="TwitterMenuButton" mat-button routerLink="/twitter"><span  class="twitterIcon"></span> Twitter  </button>
         </li>
-        <!--        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>-->
+<!--        <li class="nav-item"><a routerLink="/twitter">Twitter</a></li>-->
         <li>
           <button class="FBMenuButton" mat-button routerLink="/facebook"><span class="fbIcon"></span> Facebook</button>
         </li>
-        <!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
+<!--        <li><a class="nav-link" routerLink="/facebook">Facebook</a></li>-->
         <li>
-          <button class="InstaMenuButton" mat-button [matMenuTriggerFor]="menuInsta"><span class="instaIcon"></span>
-            Instagram
-          </button>
-          <mat-menu #menuInsta="matMenu">
-            <button mat-menu-item><a routerLink="/instagram">Instagram Profile</a></button>
-<!--            <button mat-menu-item><a routerLink="/instagram-search">Instagram User Search</a></button>-->
-          </mat-menu>
+          <button class="InstaMenuButton" mat-button routerLink="/instagram"><span class="instaIcon"></span> Instagram</button>
         </li>
-        <!--        <li><a routerLink="/instagram">Instagram</a></li>-->
-        <!--        <li><a routerLink="/instagram-search">Instagram Search</a></li>-->
+<!--        <li><a routerLink="/instagram">Instagram</a></li>-->
+<!--        <li><a routerLink="/instagram-search">Instagram Search</a></li>-->
         <li>
           <button class="SpotifyMenuButton" mat-button [matMenuTriggerFor]="menuSpotify"><span
             class="spotifyIcon"></span> Spotify
@@ -93,15 +79,15 @@
           <button class="YTMenuButton" mat-button routerLink="/youtube"><span class="ytIcon"></span> YouTube</button>
         </li>
                 <li>
-                  <button class="onePageMenuButton" mat-button routerLink="/one-post"><span class="ytIcon2"></span> One Page</button>
+                  <button class="onePageMenuButton" mat-button routerLink="/one-post"><span class="onePostIcon"></span> One Page</button>
                 </li>
         <li>
-          <button class="onePageMenuButton" mat-button routerLink="/image"><span class="ytIcon2"></span> Images</button>
+          <button style="background-color: darkorange" class="onePageMenuButton" mat-button routerLink="/image"><span class="imagesIcon"></span> Images   </button>
         </li>
 
 
-        <!--        <li><a routerLink="/spotify">spotify</a></li>-->
-        <!--        <li><a routerLink="/spotify/landing">spotify landing</a></li>-->
+<!--        <li><a routerLink="/spotify">spotify</a></li>-->
+<!--        <li><a routerLink="/spotify/landing">spotify landing</a></li>-->
 
       </ul>
     </nav>

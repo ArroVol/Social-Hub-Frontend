@@ -132,7 +132,7 @@
         </mat-card>
         <section class="other-tweet-option">
           <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
-            <mat-button-toggle (click)="changeUserRetweeted()" value="bold"  >Most Retweets</mat-button-toggle>
+            <mat-button-toggle (click)="changeUserRetweeted()" [checked]="true" value="bold"  >Most Retweets</mat-button-toggle>
             <mat-button-toggle (click)="changeUserFavorited()" value="italic" >Most Favorites</mat-button-toggle>
           </mat-button-toggle-group>
         </section>
@@ -187,7 +187,6 @@
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                   <mat-option  *ngFor="let option of filteredOptions | async" [value]="option">
                    {{option.name}}
-
                   </mat-option>
                 </mat-autocomplete>
 
@@ -252,7 +251,7 @@
     </div>
     <div >
       <div *ngIf="showOtherDiv">
-      <mat-card class="outer-basic-card-other">
+      <mat-card class="outer-basic-card-other" *ngIf="otherBriefStatusList">
 
         <h2 class="header">{{otherMostFavorited.handle}}'s {{showingOther.toString()}}</h2>
         <mat-card class="basic-card">
@@ -273,8 +272,8 @@
         </div>
         </mat-card>
         <section class="other-tweet-option">
-          <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
-            <mat-button-toggle (click)="changeOtherRetweeted()" value="bold"  >Most Retweets</mat-button-toggle>
+          <mat-button-toggle-group [formControl]="fontStyleControlOther" aria-label="Font Style">
+            <mat-button-toggle (click)="changeOtherRetweeted()" [checked]="true" value="bold"  >Most Retweets</mat-button-toggle>
             <mat-button-toggle (click)="changeOtherFavorited()" value="italic">Most Favorites</mat-button-toggle>
           </mat-button-toggle-group>
         </section>
@@ -288,7 +287,7 @@
         </div>
       </mat-card>
       <ng-template #showFavoritedCard>
-        <mat-card  class="basic-card">
+        <mat-card  class="basic-card" *ngIf="otherBriefStatusList">
           <h2>{{showingOther.toString()}}</h2>
   <mat-card class="basic-card">
           <div class="posttweettacontainer3">
@@ -323,7 +322,7 @@
         </mat-card>
       </ng-template>
 
-      <mat-card class="outer-basic-card">
+      <mat-card class="outer-basic-card" *ngIf="otherBriefStatusList">
       <cdk-virtual-scroll-viewport itemSize="20" class="example-viewport">
 
       <span  >
