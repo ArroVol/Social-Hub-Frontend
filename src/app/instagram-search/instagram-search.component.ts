@@ -115,7 +115,7 @@ export class InstagramSearchComponent implements OnInit {
     setTimeout(() => {
       this.closeModalDialog();
     }, 2000);
-    this.openSnackBar('Follwed: ' + user);
+    this.openSnackBar('Followed: ' + user);
   }
 
 
