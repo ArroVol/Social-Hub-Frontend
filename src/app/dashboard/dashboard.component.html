@@ -61,61 +61,58 @@
 <!--FACEBOOK CARD END-->
 
 <!--THIS IS THE YOUTUBE CARD-->
-<!--<h2 class="header">-->
-<!--  Snapshot Dashboard-->
-<!--</h2>-->
-<!--&lt;!&ndash;<h1 align="center" style="padding-top: 40px; font-size: 30px;"> {{getUsername()}} My Dashboard</h1>&ndash;&gt;-->
-<!--<div id="snapshot">-->
-<!--  <div style="margin-bottom: 10px; padding-bottom: 10px; width: 70px; background-color: whitesmoke; border-radius: 5px; padding-top: 10px;">-->
-<!--    <img src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png" style="width: 70px; height: 40px;">-->
-<!--  </div>-->
+<!--<h1 align="center" style="padding-top: 40px; font-size: 30px;"> {{getUsername()}} My Dashboard</h1>-->
+<div id="snapshot">
+  <div style="margin-bottom: 10px; padding-bottom: 10px; width: 70px; background-color: whitesmoke; border-radius: 5px; padding-top: 10px;">
+    <img src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png" style="width: 70px; height: 40px;">
+  </div>
 
-<!--  <div style="display: flex; margin-top: 10px;">-->
-<!--  <mat-card class = "example-card" style="float: left">-->
-<!--    <mat-card-title>-->
-<!--      <h1 class="title">Video Insights </h1>-->
-<!--    </mat-card-title>-->
-<!--      <mat-card-subtitle style="margin-top: 10px">-->
-<!--        <mat-select [(value)]="selectedVideo" style="background-color: #f3f3f3; padding-bottom: 10px; border-radius: 5px">-->
-<!--          <mat-option value = "mostRecent"> Most Recent </mat-option>-->
-<!--          <mat-option value = "oldest"> Oldest </mat-option>-->
-<!--          <mat-option value = "minLiked"> Least Liked Video </mat-option>-->
-<!--          <mat-option value = "mostLiked"> Most Liked Video </mat-option>-->
-<!--          <mat-option value = "mostViewed"> Most Viewed </mat-option>-->
-<!--          <mat-option value = "leastViewed"> Least Viewed </mat-option>-->
-<!--          <mat-option value = "leastDisliked"> Least Disliked Video </mat-option>-->
-<!--          <mat-option value = "mostDisliked"> Most Disliked Video </mat-option>-->
-<!--        </mat-select>-->
-<!--      </mat-card-subtitle>-->
-<!--      <mat-card-content style="background-color: transparent; padding-top: 10px; padding-left: 15px; padding-right: 15px;">-->
-<!--        <iframe frameborder="0" *ngIf="selectedVideo == 'mostRecent'" mat-card-image width="325" height="210" [src]="channel.videos[0].videoId | safe"  allowfullscreen> </iframe>-->
-<!--        <iframe frameborder="0" *ngIf="selectedVideo == 'oldest'" mat-card-image width="325" height="210" [src]="channel.videos[channel.videos.length - 1].videoId | safe" allowfullscreen> </iframe>-->
-<!--        <iframe frameborder="0" *ngIf="selectedVideo == 'minLiked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinLikes()].videoId | safe" allowfullscreen> </iframe>-->
-<!--        <iframe frameborder="0" *ngIf="selectedVideo == 'mostLiked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxLikes()].videoId | safe" allowfullscreen> </iframe>-->
-<!--        <iframe frameborder="0" *ngIf="selectedVideo == 'mostViewed'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxViews()].videoId | safe" allowfullscreen> </iframe>-->
-<!--        <iframe frameborder="0" *ngIf="selectedVideo == 'leastViewed'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinViews()].videoId | safe" allowfullscreen> </iframe>-->
-<!--        <iframe frameborder="0" *ngIf="selectedVideo == 'leastDisliked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinDislikes()].videoId | safe" allowfullscreen> </iframe>-->
-<!--        <iframe frameborder="0" *ngIf="selectedVideo == 'mostDisliked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxDislikes()].videoId | safe" allowfullscreen> </iframe>-->
-<!--      </mat-card-content>-->
-<!--    </mat-card>-->
-<!--    <div>-->
-<!--        <mat-card class="example-card" style="margin-left: 40px; margin-right: 0;">-->
-<!--          <h1 class="title"> Channel Insights</h1>-->
-<!--          <mat-card-title>-->
-<!--            <img mat-card-avatar [src]="channel.profilePhoto">-->
-<!--            {{channel.username}}-->
-<!--          </mat-card-title>-->
+  <div style="display: flex; margin-top: 10px;">
+  <mat-card class = "example-card" style="float: left">
+    <mat-card-title>
+      <h1 class="title">Video Insights </h1>
+    </mat-card-title>
+      <mat-card-subtitle style="margin-top: 10px">
+        <mat-select [(value)]="selectedVideo" style="background-color: #f3f3f3; padding-bottom: 10px; border-radius: 5px">
+          <mat-option value = "mostRecent"> Most Recent </mat-option>
+          <mat-option value = "oldest"> Oldest </mat-option>
+          <mat-option value = "minLiked"> Least Liked Video </mat-option>
+          <mat-option value = "mostLiked"> Most Liked Video </mat-option>
+          <mat-option value = "mostViewed"> Most Viewed </mat-option>
+          <mat-option value = "leastViewed"> Least Viewed </mat-option>
+          <mat-option value = "leastDisliked"> Least Disliked Video </mat-option>
+          <mat-option value = "mostDisliked"> Most Disliked Video </mat-option>
+        </mat-select>
+      </mat-card-subtitle>
+      <mat-card-content style="background-color: transparent; padding-top: 10px; padding-left: 15px; padding-right: 15px;">
+        <iframe frameborder="0" *ngIf="selectedVideo == 'mostRecent'" mat-card-image width="325" height="210" [src]="channel.videos[0].videoId | safe"  allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'oldest'" mat-card-image width="325" height="210" [src]="channel.videos[channel.videos.length - 1].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'minLiked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinLikes()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'mostLiked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxLikes()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'mostViewed'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxViews()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'leastViewed'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinViews()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'leastDisliked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinDislikes()].videoId | safe" allowfullscreen> </iframe>
+        <iframe frameborder="0" *ngIf="selectedVideo == 'mostDisliked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxDislikes()].videoId | safe" allowfullscreen> </iframe>
+      </mat-card-content>
+    </mat-card>
+    <div>
+        <mat-card class="example-card" style="margin-left: 40px; margin-right: 0;">
+          <h1 class="title"> Channel Insights</h1>
+          <mat-card-title>
+            <img mat-card-avatar [src]="channel.profilePhoto">
+            {{channel.username}}
+          </mat-card-title>
 
-<!--          <mat-card-content style="border-top:1px solid red;">-->
-<!--            <h3> Subscriber Count: {{channel.subscriberCount}}</h3>-->
-<!--            <h3> View Count: {{channel.viewCount}}</h3>-->
-<!--            <h3> Video Count: {{channel.videoCount}}</h3>-->
-<!--          </mat-card-content>-->
+          <mat-card-content style="border-top:1px solid red;">
+            <h3> Subscriber Count: {{channel.subscriberCount}}</h3>
+            <h3> View Count: {{channel.viewCount}}</h3>
+            <h3> Video Count: {{channel.videoCount}}</h3>
+          </mat-card-content>
 
-<!--        </mat-card>-->
+        </mat-card>
 
-<!--      </div>-->
-<!--  </div>-->
+      </div>
+  </div>
   <!--YOUTUBE CARD END-->
 
 
@@ -154,226 +151,226 @@
 
 </div>
   <!--THIS IS THE TWITTER CARD-->
-<!--<div class="row">-->
+<div class="row">
 
-<!--  <mat-card class="basic-card">-->
-<!--    <div *ngIf="twitterHandleFound else notShow" >-->
-<!--      <br>-->
+  <mat-card class="basic-card">
+    <div *ngIf="twitterHandleFound else notShow" >
+      <br>
 
-<!--      <h2 class="header"> {{twitterHandle}}'s Twitter Snapshot</h2>-->
-<!--      <div class="flex-column">-->
-<!--        <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">-->
+      <h2 class="header"> {{twitterHandle}}'s Twitter Snapshot</h2>
+      <div class="flex-column">
+        <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
 
-<!--          <mdb-carousel-item >-->
-<!--            <mat-card class="recent-post-card">-->
+          <mdb-carousel-item >
+            <mat-card class="recent-post-card">
 
-<!--              <h2>Most recent post</h2>-->
-<!--              <div class="posttweettacontainer2">-->
+              <h2>Most recent post</h2>
+              <div class="posttweettacontainer2">
 
-<!--                <div *ngIf="briefStatus != null else spin" class="status">-->
-<!--                  <div *ngIf="briefStatus else spin" class="status">-->
+                <div *ngIf="briefStatus != null else spin" class="status">
+                  <div *ngIf="briefStatus else spin" class="status">
 
-<!--                    <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>-->
-<!--                    <br>-->
-<!--                    {{briefStatus.text}} <br>-->
-<!--                    <div class="icons-twitter">-->
-<!--                      <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <ng-template #spin>-->
-<!--                  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>-->
-<!--                </ng-template>-->
-<!--                <br>-->
-<!--                <div>-->
-<!--                  <br>-->
-<!--                  <span class="dispblk2">-->
-<!--									<span class="followers"> <div *ngIf="twitterFollowerCount != -1">-->
-<!--                    Followers: {{twitterFollowerCount}}-->
-<!--</div></span>-->
-<!--								</span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <br>-->
-<!--              <br>-->
-<!--              <br>-->
+                    <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>
+                    <br>
+                    {{briefStatus.text}} <br>
+                    <div class="icons-twitter">
+                      <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}
+                    </div>
+                  </div>
+                </div>
+                <ng-template #spin>
+                  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                </ng-template>
+                <br>
+                <div>
+                  <br>
+                  <span class="dispblk2">
+									<span class="followers"> <div *ngIf="twitterFollowerCount != -1">
+                    Followers: {{twitterFollowerCount}}
+</div></span>
+								</span>
+                </div>
+              </div>
+              <br>
+              <br>
+              <br>
 
-<!--            </mat-card>-->
+            </mat-card>
 
-<!--          </mdb-carousel-item>-->
-<!--          &lt;!&ndash;                <mdb-carousel-item >&ndash;&gt;-->
-<!--          &lt;!&ndash;                  <mat-card  class="basic-card">&ndash;&gt;-->
-<!--          &lt;!&ndash;&lt;!&ndash;                    <h2>{{showingOther.toString()}}</h2>&ndash;&gt;&ndash;&gt;-->
+          </mdb-carousel-item>
+          <!--                <mdb-carousel-item >-->
+          <!--                  <mat-card  class="basic-card">-->
+          <!--&lt;!&ndash;                    <h2>{{showingOther.toString()}}</h2>&ndash;&gt;-->
 
-<!--          &lt;!&ndash;                    <div class="posttweettacontainer2">&ndash;&gt;-->
+          <!--                    <div class="posttweettacontainer2">-->
 
-<!--          &lt;!&ndash;                      <b>{{otherMostFavorited.handle}}</b> <span style="color:#808080"> @{{otherMostFavorited.screenName}} {{' * '}} {{otherMostFavorited.createdAt.substring(0, 10)}} </span>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      {{otherMostFavorited.text}} <br>&ndash;&gt;-->
+          <!--                      <b>{{otherMostFavorited.handle}}</b> <span style="color:#808080"> @{{otherMostFavorited.screenName}} {{' * '}} {{otherMostFavorited.createdAt.substring(0, 10)}} </span>-->
+          <!--                      <br>-->
+          <!--                      {{otherMostFavorited.text}} <br>-->
 
-<!--          &lt;!&ndash;                      <mat-icon class="repeat">repeat</mat-icon> {{otherMostFavorited.retweetCount}} {{'          '}}<mat-icon class="circle" [ngStyle]="{'color':'red'}">favorite_border</mat-icon> {{otherMostFavorited.favoriteCount}}&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <ng-template #spin>&ndash;&gt;-->
-<!--          &lt;!&ndash;                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      </ng-template>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <br>&ndash;&gt;-->
+          <!--                      <mat-icon class="repeat">repeat</mat-icon> {{otherMostFavorited.retweetCount}} {{'          '}}<mat-icon class="circle" [ngStyle]="{'color':'red'}">favorite_border</mat-icon> {{otherMostFavorited.favoriteCount}}-->
+          <!--                      <ng-template #spin>-->
+          <!--                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>-->
+          <!--                      </ng-template>-->
+          <!--                      <br>-->
+          <!--                      <br>-->
 
-<!--          &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                    <section class="example-section">&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <div class="dispblk2">&ndash;&gt;-->
-<!--          &lt;!&ndash;									<span class="followers"> <div *ngIf="otherNumFollowers !== null">&ndash;&gt;-->
-<!--          &lt;!&ndash;                    Followers: {{otherNumFollowers}}&ndash;&gt;-->
-<!--          &lt;!&ndash;</div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                  </span>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                    </section>&ndash;&gt;-->
-<!--          &lt;!&ndash;                  </mat-card>&ndash;&gt;-->
+          <!--                    </div>-->
+          <!--                    <section class="example-section">-->
+          <!--                      <div class="dispblk2">-->
+          <!--									<span class="followers"> <div *ngIf="otherNumFollowers !== null">-->
+          <!--                    Followers: {{otherNumFollowers}}-->
+          <!--</div>-->
+          <!--                  </span>-->
+          <!--                      </div>-->
+          <!--                    </section>-->
+          <!--                  </mat-card>-->
 
-<!--          &lt;!&ndash;                </mdb-carousel-item>&ndash;&gt;-->
-<!--          &lt;!&ndash;                <mat-card class="recent-post-card">&ndash;&gt;-->
+          <!--                </mdb-carousel-item>-->
+          <!--                <mat-card class="recent-post-card">-->
 
-<!--          &lt;!&ndash;                  <h2>Most recent post</h2>&ndash;&gt;-->
-<!--          &lt;!&ndash;                  <div class="posttweettacontainer2">&ndash;&gt;-->
+          <!--                  <h2>Most recent post</h2>-->
+          <!--                  <div class="posttweettacontainer2">-->
 
-<!--          &lt;!&ndash;                    <div *ngIf="briefStatus != null else spin" class="status">&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <div *ngIf="briefStatus else spin" class="status">&ndash;&gt;-->
+          <!--                    <div *ngIf="briefStatus != null else spin" class="status">-->
+          <!--                      <div *ngIf="briefStatus else spin" class="status">-->
 
-<!--          &lt;!&ndash;                        <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>&ndash;&gt;-->
-<!--          &lt;!&ndash;                        <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                        {{briefStatus.text}} <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                        <div class="icons-twitter">&ndash;&gt;-->
-<!--          &lt;!&ndash;                          <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}&ndash;&gt;-->
-<!--          &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                    <ng-template #spin>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>&ndash;&gt;-->
-<!--          &lt;!&ndash;                    </ng-template>&ndash;&gt;-->
-<!--          &lt;!&ndash;                    <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                    <div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <span class="dispblk2">&ndash;&gt;-->
-<!--          &lt;!&ndash;									<span class="followers"> <div *ngIf="twitterFollowerCount != -1">&ndash;&gt;-->
-<!--          &lt;!&ndash;                    Followers: {{twitterFollowerCount}}&ndash;&gt;-->
-<!--          &lt;!&ndash;</div></span>&ndash;&gt;-->
-<!--          &lt;!&ndash;								</span>&ndash;&gt;-->
-<!--          &lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                  </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                  <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                  <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                  <br>&ndash;&gt;-->
+          <!--                        <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>-->
+          <!--                        <br>-->
+          <!--                        {{briefStatus.text}} <br>-->
+          <!--                        <div class="icons-twitter">-->
+          <!--                          <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}-->
+          <!--                        </div>-->
+          <!--                      </div>-->
+          <!--                    </div>-->
+          <!--                    <ng-template #spin>-->
+          <!--                      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>-->
+          <!--                    </ng-template>-->
+          <!--                    <br>-->
+          <!--                    <div>-->
+          <!--                      <br>-->
+          <!--                      <span class="dispblk2">-->
+          <!--									<span class="followers"> <div *ngIf="twitterFollowerCount != -1">-->
+          <!--                    Followers: {{twitterFollowerCount}}-->
+          <!--</div></span>-->
+          <!--								</span>-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                  <br>-->
+          <!--                  <br>-->
+          <!--                  <br>-->
 
-<!--          &lt;!&ndash;                </mat-card>&ndash;&gt;-->
-<!--          &lt;!&ndash;                <mdb-carousel-item >&ndash;&gt;-->
-
-
-<!--          &lt;!&ndash;                  <div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                    <mat-card  class="recent-post-card">&ndash;&gt;-->
-<!--          &lt;!&ndash;                      <h2>Most favorited post</h2>&ndash;&gt;-->
-
-<!--          &lt;!&ndash;                      &lt;!&ndash;    <h2>{{showingOther.toString()}}</h2>&ndash;&gt;&ndash;&gt;-->
-
-<!--          &lt;!&ndash;                      <div class="posttweettacontainer2">&ndash;&gt;-->
-<!--          &lt;!&ndash;                                              <b>{{otherMostFavorited.handle}}</b> <span style="color:#808080"> @{{otherMostFavorited.screenName}} {{' * '}} {{otherMostFavorited.createdAt.substring(0, 10)}} </span>&ndash;&gt;-->
-<!--          &lt;!&ndash;                                              <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                                              {{otherMostFavorited.text}} <br>&ndash;&gt;-->
-
-<!--          &lt;!&ndash;                                              <mat-icon class="repeat">repeat</mat-icon> {{otherMostFavorited.retweetCount}} {{'          '}}<mat-icon class="circle" [ngStyle]="{'color':'red'}">favorite_border</mat-icon> {{otherMostFavorited.favoriteCount}}&ndash;&gt;-->
-
-<!--          &lt;!&ndash;                                                <br>&ndash;&gt;-->
-<!--          &lt;!&ndash;                                                <br>&ndash;&gt;-->
+          <!--                </mat-card>-->
+          <!--                <mdb-carousel-item >-->
 
 
-<!--          &lt;!&ndash;                                              <section class="example-section">&ndash;&gt;-->
-<!--          &lt;!&ndash;                                                <div class="dispblk2">&ndash;&gt;-->
-<!--          &lt;!&ndash;                                                            <span class="followers"> <div *ngIf="otherNumFollowers !== null">&ndash;&gt;-->
-<!--          &lt;!&ndash;                                                              Followers: {{otherNumFollowers}}&ndash;&gt;-->
-<!--          &lt;!&ndash;                                          </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                                                            </span>&ndash;&gt;-->
-<!--          &lt;!&ndash;                                                </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                                              </section>&ndash;&gt;-->
-<!--          &lt;!&ndash;                      </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                                            </mat-card>&ndash;&gt;-->
-<!--          &lt;!&ndash;                                          </div>&ndash;&gt;-->
-<!--          &lt;!&ndash;                                        </mdb-carousel-item>&ndash;&gt;-->
-<!--        </mdb-carousel>-->
-<!--        &lt;!&ndash;        <mat-card class="recent-post-card">&ndash;&gt;-->
+          <!--                  <div>-->
+          <!--                    <mat-card  class="recent-post-card">-->
+          <!--                      <h2>Most favorited post</h2>-->
 
-<!--        &lt;!&ndash;          <h2>Most recent post</h2>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <div class="posttweettacontainer2">&ndash;&gt;-->
+          <!--                      &lt;!&ndash;    <h2>{{showingOther.toString()}}</h2>&ndash;&gt;-->
 
-<!--        &lt;!&ndash;            <div *ngIf="briefStatus != null else spin" class="status">&ndash;&gt;-->
-<!--        &lt;!&ndash;              <div *ngIf="briefStatus else spin" class="status">&ndash;&gt;-->
+          <!--                      <div class="posttweettacontainer2">-->
+          <!--                                              <b>{{otherMostFavorited.handle}}</b> <span style="color:#808080"> @{{otherMostFavorited.screenName}} {{' * '}} {{otherMostFavorited.createdAt.substring(0, 10)}} </span>-->
+          <!--                                              <br>-->
+          <!--                                              {{otherMostFavorited.text}} <br>-->
 
-<!--        &lt;!&ndash;                <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>&ndash;&gt;-->
-<!--        &lt;!&ndash;                <br>&ndash;&gt;-->
-<!--        &lt;!&ndash;                {{briefStatus.text}} <br>&ndash;&gt;-->
-<!--        &lt;!&ndash;                <div class="icons-twitter">&ndash;&gt;-->
-<!--        &lt;!&ndash;                  <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}&ndash;&gt;-->
-<!--        &lt;!&ndash;                </div>&ndash;&gt;-->
-<!--        &lt;!&ndash;              </div>&ndash;&gt;-->
-<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
-<!--        &lt;!&ndash;            <ng-template #spin>&ndash;&gt;-->
-<!--        &lt;!&ndash;              <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>&ndash;&gt;-->
-<!--        &lt;!&ndash;            </ng-template>&ndash;&gt;-->
-<!--        &lt;!&ndash;            <br>&ndash;&gt;-->
-<!--        &lt;!&ndash;            <div>&ndash;&gt;-->
-<!--        &lt;!&ndash;              <br>&ndash;&gt;-->
-<!--        &lt;!&ndash;              <span class="dispblk2">&ndash;&gt;-->
-<!--        &lt;!&ndash;									<span class="followers"> <div *ngIf="twitterFollowerCount != -1">&ndash;&gt;-->
-<!--        &lt;!&ndash;                    Followers: {{twitterFollowerCount}}&ndash;&gt;-->
-<!--        &lt;!&ndash;</div></span>&ndash;&gt;-->
-<!--        &lt;!&ndash;								</span>&ndash;&gt;-->
-<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
-<!--        &lt;!&ndash;          </div>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <br>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <br>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <br>&ndash;&gt;-->
+          <!--                                              <mat-icon class="repeat">repeat</mat-icon> {{otherMostFavorited.retweetCount}} {{'          '}}<mat-icon class="circle" [ngStyle]="{'color':'red'}">favorite_border</mat-icon> {{otherMostFavorited.favoriteCount}}-->
 
-<!--        &lt;!&ndash;        </mat-card>&ndash;&gt;-->
-<!--      </div>-->
-<!--      <div class="flex-column">-->
-<!--        <mat-card class="goal-card">-->
+          <!--                                                <br>-->
+          <!--                                                <br>-->
 
-<!--          <h2>Current goal</h2>-->
-<!--          <section class="example-section">-->
-<!--            <mat-form-field class="example-margin">-->
-<!--              <mat-label>Current Followers Reached</mat-label>-->
-<!--              <input matInput type="number" [(ngModel)]="value">-->
-<!--            </mat-form-field>-->
-<!--            <div></div>-->
-<!--          </section>-->
-<!--          <section class="example-section">-->
-<!--            <mat-form-field class="example-margin">-->
-<!--              <mat-label>Goal</mat-label>-->
-<!--              <input matInput type="number" [(ngModel)]="max">-->
-<!--            </mat-form-field>-->
-<!--          </section>-->
-<!--          <mat-slider style="pointer-events: none;"-->
-<!--                      class="example-margin"-->
-<!--                      [disabled]="disabled"-->
-<!--                      [invert]="invert"-->
-<!--                      [max]="max"-->
-<!--                      [min]="min"-->
-<!--                      [step]="step"-->
-<!--                      [thumbLabel]="thumbLabel"-->
-<!--                      [tickInterval]="getSliderTickInterval()"-->
-<!--                      [(ngModel)]="value"-->
-<!--                      [vertical]="vertical">-->
-<!--          </mat-slider>-->
 
-<!--          <br>-->
-<!--          <br>-->
-<!--          <br>-->
+          <!--                                              <section class="example-section">-->
+          <!--                                                <div class="dispblk2">-->
+          <!--                                                            <span class="followers"> <div *ngIf="otherNumFollowers !== null">-->
+          <!--                                                              Followers: {{otherNumFollowers}}-->
+          <!--                                          </div>-->
+          <!--                                                            </span>-->
+          <!--                                                </div>-->
+          <!--                                              </section>-->
+          <!--                      </div>-->
+          <!--                                            </mat-card>-->
+          <!--                                          </div>-->
+          <!--                                        </mdb-carousel-item>-->
+        </mdb-carousel>
+        <!--        <mat-card class="recent-post-card">-->
 
-<!--        </mat-card>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </mat-card>-->
-<!--</div>-->
-<!--<ng-template #notShow>-->
-<!--  <h1>Go to the account information page to log into your twitter account</h1>-->
-<!--</ng-template>-->
+        <!--          <h2>Most recent post</h2>-->
+        <!--          <div class="posttweettacontainer2">-->
+
+        <!--            <div *ngIf="briefStatus != null else spin" class="status">-->
+        <!--              <div *ngIf="briefStatus else spin" class="status">-->
+
+        <!--                <b>{{briefStatus.handle}}</b> <span style="color:#808080"> @{{briefStatus.screenName}} {{' * '}} {{briefStatus.createdAt.substring(0, 10)}} </span>-->
+        <!--                <br>-->
+        <!--                {{briefStatus.text}} <br>-->
+        <!--                <div class="icons-twitter">-->
+        <!--                  <mat-icon class="repeat">repeat</mat-icon> {{briefStatus.retweetCount}} {{'          '}}<mat-icon class="circle">favorite_border</mat-icon> {{briefStatus.favoriteCount}}-->
+        <!--                </div>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <ng-template #spin>-->
+        <!--              <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>-->
+        <!--            </ng-template>-->
+        <!--            <br>-->
+        <!--            <div>-->
+        <!--              <br>-->
+        <!--              <span class="dispblk2">-->
+        <!--									<span class="followers"> <div *ngIf="twitterFollowerCount != -1">-->
+        <!--                    Followers: {{twitterFollowerCount}}-->
+        <!--</div></span>-->
+        <!--								</span>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--          <br>-->
+        <!--          <br>-->
+        <!--          <br>-->
+
+        <!--        </mat-card>-->
+      </div>
+      <div class="flex-column">
+        <mat-card class="goal-card">
+
+          <h2>Current goal</h2>
+          <section class="example-section">
+            <mat-form-field class="example-margin">
+              <mat-label>Current Followers Reached</mat-label>
+              <input matInput type="number" [(ngModel)]="value">
+            </mat-form-field>
+            <div></div>
+          </section>
+          <section class="example-section">
+            <mat-form-field class="example-margin">
+              <mat-label>Goal</mat-label>
+              <input matInput type="number" [(ngModel)]="max">
+            </mat-form-field>
+          </section>
+          <mat-slider style="pointer-events: none;"
+                      class="example-margin"
+                      [disabled]="disabled"
+                      [invert]="invert"
+                      [max]="max"
+                      [min]="min"
+                      [step]="step"
+                      [thumbLabel]="thumbLabel"
+                      [tickInterval]="getSliderTickInterval()"
+                      [(ngModel)]="value"
+                      [vertical]="vertical">
+          </mat-slider>
+
+          <br>
+          <br>
+          <br>
+
+        </mat-card>
+      </div>
+    </div>
+  </mat-card>
+</div>
+<ng-template #notShow>
+  <h1>Go to the account information page to log into your twitter account</h1>
+</ng-template>
 <!--TWITTER CARD END-->
 
   <!--THIS IS THE INSTAGRAM CARD-->
@@ -511,4 +508,4 @@
 </div>
 <!--SPOTIFY CARD END-->
 
-<!--</div>-->
+</div>

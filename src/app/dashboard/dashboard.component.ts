@@ -103,7 +103,7 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.getChannel();
+    this.getChannel();
 
     //THIS IS FOR FACEBOOK LOGIN
     this.route.queryParams.subscribe(params => {
