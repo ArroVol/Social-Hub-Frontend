@@ -12,6 +12,17 @@ import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 import {Moment} from 'moment';
 import {InstagramUserSearchInfo} from "../model/instagram/InstagramUserSearchInfo";
+import {SpotifyService} from '../service/spotify.service';
+import {SpotifyUser} from '../model/spotify/SpotifyUser';
+import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
+
+
+import {FacebookService} from '../service/facebook.service';
+import {FacebookUser} from '../model/facebook/FacebookUser';
+import {FacebookPhotos} from '../model/facebook/FacebookPhotos';
+import { ActivatedRoute } from '@angular/router';
+import {FacebookLogin} from '../model/facebook/FacebookLogin';
+import {FacebookPages} from '../model/facebook/FacebookPages';
 // @ts-ignore
 @Component({
   selector: 'app-dashboard',
@@ -28,11 +39,19 @@ export class DashboardComponent implements OnInit {
   public isVisibleSpinner = true;
   public isVisible = false;
   channel: Channel;
+  facebookUser: FacebookUser;
+  facebookLogin: FacebookLogin;
+  facebookPhotos: FacebookPhotos;
+  facebookPages: FacebookPages;
+  verificationCode: string;
 
   constructor(private instagramService: InstagramService,
               private youtubeService: YoutubeService,
               private twitterService: TwitterService,
-              private goalService: GoalService) {
+              private goalService: GoalService,
+              private spotifyService: SpotifyService,
+              protected route: ActivatedRoute,
+              protected facebookService: FacebookService) {
   }
   instagramUser: InstagramUserInfo;
 
@@ -71,10 +90,36 @@ export class DashboardComponent implements OnInit {
   counter: [];
   twitterFollowerCount;
   isMinWidth = true;
+
+  // Spotify Fields
+  spotifyUser: SpotifyUser;
+  spotifyUserRecentTracks: SpotifyTrack[];
+  spotifyUserFavouriteTracks: SpotifyTrack[];
   ngOnInit(): void {
 
     // this.getInstaUser();
     // this.getChannel();
+    //THIS IS FOR FACEBOOK LOGIN
+    this.route.queryParams.subscribe(params => {
+      let code = params['code'];
+      if (!code){
+        console.log('No code found');
+      } else{
+        this.verificationCode = code;
+        console.log('This is the code: ' + this.verificationCode);
+        this.facebookService.sendVerificationCode(this.verificationCode)
+          .subscribe(result => {
+            console.log('Result: ', result);
+            this.getFBUsername();
+            this.getFBPhotos();
+            this.getFBPages();
+            document.getElementById('fbCard').style.display = 'block';
+            document.getElementById('fbCardLogin').style.display = 'none';
+          });
+      }
+    });
+    this.initializeSpotifyFields();
+
     window.addEventListener('resize', (e) => {
       if (window.matchMedia('(min-width: 1050px)').matches) {
         this.isMinWidth = true;
@@ -91,13 +136,73 @@ export class DashboardComponent implements OnInit {
     this.getUserTimeline();
 
   }
+
+  // Spotify Methods
+  async initializeSpotifyFields() {
+    this.spotifyUser = await this.getSpotifyUser();
+    this.spotifyUserFavouriteTracks = await this.getSpotifyUserFavouriteTracks();
+    this.spotifyUserRecentTracks = await this.getSpotifyUserRecentTracks();
+    // console.log('Spotify User', this.spotifyUser);
+    // console.log('Spotify Favourites', this.spotifyUserFavouriteTracks);
+    // console.log('Spotify Recent', this.spotifyUserRecentTracks);
+    // if (this.spotifyUser != null && this.spotifyUserFavouriteTracks != null && this.spotifyUserRecentTracks != null) {
+    //   console.log('card status', this.spotifyCardHidden = false);
+    // }
+
+
+    // this.getSpotifyUserFavouriteTracks();
+  }
+
+  async getSpotifyUser(): Promise<SpotifyUser> {
+    return this.spotifyService.getUserProfilePromise();
+  }
+
+  async getSpotifyUserRecentTracks() {
+    return this.spotifyService.getUserRecentTracksPromise();
+  }
+
+  async getSpotifyUserFavouriteTracks() {
+    return this.spotifyService.getUserFollowedTracksPromise();
+  }
+
+
   instagramPageLoad() {
     setTimeout(() => {
       this.isVisibleSpinner = false;
       this.isVisible = true;
     }, 5000);
-
   }
+
+
+  loginFB(){
+    this.facebookService.login().subscribe(loginDialogURL => {
+      this.facebookLogin = loginDialogURL;
+    });
+    window.location.href = this.facebookLogin.loginDialogURL;
+  }
+
+  getFBUsername(){
+    this.facebookService.getUserName().subscribe(facebookUser => {
+      this.facebookUser = facebookUser;
+    });
+    console.log('Get username method called');
+  }
+
+  getFBPhotos(){
+    this.facebookService.getPhotos().subscribe(facebookPhotos => {
+      this.facebookPhotos = facebookPhotos;
+    });
+    console.log('Get photos method called');
+  }
+
+  getFBPages(){
+    this.facebookService.getPages().subscribe(facebookPages => {
+      this.facebookPages = facebookPages;
+    });
+    console.log('Get pages method called');
+  }
+
+
   getChannel() {
     this.youtubeService.getChannelInfo().subscribe(channel => {
       this.channel = JSON.parse(channel.toString());
@@ -317,6 +422,9 @@ export class DashboardComponent implements OnInit {
 
 
 
+
+
+
   // Instagram Dashboard
 
 
@@ -446,6 +554,15 @@ export class DashboardComponent implements OnInit {
     else {
       this.buttonName = 'Change';
     }
+  }
+
+  // Convert milliseconds to minutes and seconds
+  transform(input: string) {
+    let minutes: string | number = Math.floor((parseInt(input) / (1000 * 60)) % 60);
+    let seconds: string | number = Math.floor((parseInt(input) / 1000) % 60);
+    let formatted_minutes = (minutes < 10) ? '0' + minutes : minutes;
+    let formatted_seconds = (seconds < 10) ? '0' + seconds : seconds;
+    return formatted_minutes + ':' + formatted_seconds;
   }
 
 

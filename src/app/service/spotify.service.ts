@@ -36,6 +36,15 @@ export class SpotifyService {
       );
   }
 
+  getUserProfilePromise(): Promise<SpotifyUser> {
+    console.log('getting spotify user');
+    const url = `${this.spotifyUrl}/userinfo`;
+    return this.http.get<SpotifyUser>(url)
+      .pipe(
+        tap(_ => console.log('fetched spotify user promise'))
+      ).toPromise();
+  }
+
   getAuthorizationLink(): Observable<string> {
     const httpOptionsText = {
       headers: new HttpHeaders({
@@ -194,9 +203,28 @@ export class SpotifyService {
       );
   }
 
-  // TODO: Create method to follow a track, and create method to get related artists
-  // TODO: Refactor code
-  // TODO: Style the shit outta the artist page and sidenav; further, create a search module
+  getUserFollowedTracksPromise(): Promise<SpotifyTrack[]> {
+    const url = `${this.spotifyUrl}/user/get/follow/tracks/`;
+    return this.http.get<SpotifyTrack[]>(url)
+      .pipe().toPromise();
+  }
+
+  getUserFollowedArtists(): Observable<SpotifyArtist[]> {
+    const url = `${this.spotifyUrl}/user/get/follow/artists/`;
+    return this.http.get<SpotifyArtist[]>(url)
+      .pipe(
+        tap(_ => console.log('retrieved user followed artists'))
+      );
+  }
+
+  getUserFollowedAlbums(): Observable<SpotifyAlbum[]> {
+    const url = `${this.spotifyUrl}/user/get/follow/albums/`;
+    return this.http.get<SpotifyAlbum[]>(url)
+      .pipe(
+        tap(_ => console.log('retrieved user followed albums'))
+      );
+  }
+
   followTrack(track_id: string): Observable<Boolean> {
     const url = `${this.spotifyUrl}/user/favourite/track/` + track_id;
     return this.http.put<Boolean>(url, null).pipe(tap(_ => console.log('followed track by id: ' + track_id)));
@@ -232,9 +260,19 @@ export class SpotifyService {
     return this.http.get<SpotifyTrack[]>(url).pipe();
   }
 
+  getUserTopTracksPromise(): Promise<SpotifyTrack[]> {
+    const url = `${this.spotifyUrl}/user/get/top/tracks`;
+    return this.http.get<SpotifyTrack[]>(url).pipe().toPromise();
+  }
+
   getUserRecentTracks(): Observable<SpotifyTrack[]> {
     const url = `${this.spotifyUrl}/user/get/recent/tracks`;
     return this.http.get<SpotifyTrack[]>(url).pipe();
+  }
+
+  getUserRecentTracksPromise(): Promise<SpotifyTrack[]> {
+    const url = `${this.spotifyUrl}/user/get/recent/tracks`;
+    return this.http.get<SpotifyTrack[]>(url).pipe().toPromise();
   }
 
   getFeaturedPlaylists(): Observable<SpotifyPlaylistSnapshot[]> {

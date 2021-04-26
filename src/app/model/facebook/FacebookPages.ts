@@ -4,4 +4,6 @@ export class FacebookPages{
   pageFans: ArrayLike<string>;
   likedNames: ArrayLike<string>;
   likedLinks: ArrayLike<string>;
+  fanCounts: ArrayLike<string>;
+  likedPics: ArrayLike<string>;
 }

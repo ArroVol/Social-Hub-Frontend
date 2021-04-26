@@ -3,16 +3,94 @@
 @import url(https://fonts.googleapis.com/css?family=Khand);
 
 /*Background Image*/
-body{
-  background-color: #1c1c1c;
-  background-size: 1400px;
+
+:host {
+  background-color: lightsteelblue;
+  display: block;
+  height: 800px;
 }
 
+body{
+  background-color: lightsteelblue;
+}
+
+header {
+  text-align: center;
+  width: 100%;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 85% 85% / 30%;
+  border-color: lightsteelblue;
+  background-image: linear-gradient(51deg, rgba(6,62,172,1) 5%, rgba(28,145,249,1) 42%, rgba(29,150,253,1) 44%, rgba(69,226,252,1) 85%);
+}
+header .overlay{
+  width: 100%;
+  text-shadow: 1px 1px 1px #333;
+}
+
+#head{
+  display: none;
+}
+
+#postTitle, #pageTitle, #likeTitle{
+  font-family: Khand, Impact;
+  color: black;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 40px;
+  font-weight: bold;
+  list-style: none;
+  text-decoration: underline;
+  display: none;
+}
+
+h1{
+   font-family: Khand, Impact;
+   color: black;
+   padding-top: 20px;
+   padding-bottom: 20px;
+   font-size: 75px;
+   font-weight: bold;
+   list-style: none;
+ }
+
+h2{
+  font-family: Khand, Impact;
+  color: black;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 40px;
+  font-weight: bold;
+  list-style: none;
+  text-decoration: underline;
+}
+
+h3{
+  color: black;
+  font-family: Khand, Impact;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+h4{
+  font-family: Khand, Impact;
+  font-size: 18px;
+  margin-top: 0px;
+}
+
+img{
+  padding-left: 4px;
+  padding-right: 4px;
+}
 
 /*Navigation Style*/
 .topnav {
-  background-color: #1c1c1c;
+  background-color: #4267B2;
   overflow: hidden;
+  list-style: none;
 }
 
 /*Style for each menu option*/
@@ -21,15 +99,12 @@ body{
   color: white;
   font-family: Khand, Impact;
   text-align: center;
-  padding: 12px 14px;
-  border: 1px solid black;
+  padding: 10px 10px;
   font-size: 25px;
-  text-decoration: none;
 }
 
 .topnav a:hover {
-  background-color: darkgray;
-  color: black;
+  background-color: cornflowerblue;
 }
 
 .topnav a.active {
@@ -37,16 +112,94 @@ body{
   color: white;
 }
 
+a{
+  color: black;
+  font-family: Khand, Impact;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+a:hover{
+  color: cornflowerblue;
+  font-family: Khand, Impact;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+img{
+  margin-top: 10px;
+}
+
+#container{
+  display: none;
+}
+
+#postForm{
+  display: none;
+}
+
 #fb-btn{
+  float: left;
   margin-top: 18px;
   margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+#fb-btn2{
+  display: none;
+  margin-top: 18px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  float: left;
+  color: white;
+  font-family: Khand;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 10px;
+  font-size: 25px;
+}
+
+#fb-btn3{
+  float: right;
+  display: none;
+  margin-top: 18px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+#pfp{
+  border-radius: 90px;
+  border: black;
+}
+
+#lpfp{
+  border: black;
+}
+
+#subtitle{
+  display: none;
 }
 
 .container {
-  position: absolute;
-  text-align: center;
-  background-color: darkgrey;
-  background-size: 1200px 1200px;
+  margin-top: 7px;
+  margin-left: 2px;
+  min-width: 0%;
+  float: left;
+  width: 700px;
+  text-align: left;
+  background-color: lightsteelblue;
+}
+
+.container2 {
+  min-height: 100%;
+  position: page;
+  right: 0px;
+  text-align: right;
+  background-color: lightsteelblue;
+}
+
+#container2{
+  display: none;
 }
 
 #centerTitle {
@@ -56,7 +209,6 @@ body{
   transform: translate(-50%, -50%);
   font-size: 120px;
   font-family: Khand;
-  text-shadow: 5px 5px #1c1c1c;
   text-decoration: underline ;
 }
 
@@ -79,6 +231,61 @@ body{
   float: left;
 }
 
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
 #logout{
   display:none
 }
+
+#likeList{
+  width: 200px;
+  height: 300px;
+  overflow-y: auto;
+}
+
+#likeList a {
+  color: black;
+  display: block;
+  text-decoration: none;
+}
+
+#likeList a:hover {
+  color: blue;
+}
+
+.example-card {
+  max-width: 650px;
+  margin: 5px 5px 5px 5px;
+  float: left;
+  display: inline;
+  background-image: linear-gradient(51deg, rgba(28,145,249,1) 42%, rgba(29,150,253,1) 44%, rgba(69,226,252,1) 85%)
+}
+
+.example-card2 {
+  max-width: 400px;
+  margin: 5px 5px 5px 25px;
+  float: left;
+  display: inline;
+  background-image: linear-gradient(51deg, rgba(28,145,249,1) 42%, rgba(29,150,253,1) 44%, rgba(69,226,252,1) 85%)
+}
+
+.example-header-image {
+  background-size:auto;
+}
+
+.pText{
+  font-size: 20px;
+}
+
+mdb-carousel .carousel-indicators {
+  display: none;
+}
+

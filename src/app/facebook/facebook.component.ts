@@ -1,5 +1,194 @@
 import { Component, OnInit } from '@angular/core';
+import {FacebookService} from '../service/facebook.service';
+import {FacebookUser} from '../model/facebook/FacebookUser';
+import {FacebookPosts} from '../model/facebook/FacebookPosts';
+import {FacebookPhotos} from '../model/facebook/FacebookPhotos';
+import {FacebookLogin} from '../model/facebook/FacebookLogin';
+import {FacebookPages} from '../model/facebook/FacebookPages';
+import { ActivatedRoute } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {FacebookVideos} from '../model/facebook/FacebookVideos';
+import {FacebookPagePosts} from '../model/facebook/FacebookPagePosts';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 
+@Component({
+  selector: 'app-facebook',
+  templateUrl: './facebook.component.html',
+  styleUrls: ['./facebook.component.css']
+})
+export class FacebookComponent implements OnInit{
+  facebookUser: FacebookUser;
+  facebookPosts: FacebookPosts;
+  facebookPhotos: FacebookPhotos;
+  facebookLogin: FacebookLogin;
+  facebookPages: FacebookPages;
+  facebookVideos: FacebookVideos;
+  facebookPagePosts: FacebookPagePosts;
+  verificationCode: string;
+  loggedIn: boolean;
+  currentPage: string;
+  currentPP: string;
+  gotPosts: boolean;
+  loading: boolean;
+
+  constructor(private snackBar: MatSnackBar,
+              protected route: ActivatedRoute, protected facebookService: FacebookService) {
+  }
+
+  ngOnInit(): void {
+    this.getUsername();
+    this.getPosts();
+    this.getPhotos();
+    this.getPages();
+    this.getVideos();
+    this.loading = false;
+    document.getElementById('fb-btn').style.display = 'none';
+    document.getElementById('fb-btn2').style.display = 'block';
+    document.getElementById('fb-btn3').style.display = 'block';
+    document.getElementById('postForm').style.display = 'block';
+    document.getElementById('head').style.display = 'block';
+    document.getElementById('container').style.display = 'block';
+    document.getElementById('container2').style.display = 'block';
+    document.getElementById('postTitle').style.display = 'block';
+    document.getElementById('pageTitle').style.display = 'block';
+    document.getElementById('likeTitle').style.display = 'block';
+
+
+    //Get verification code
+    /**
+    this.route.queryParams.subscribe(params => {
+      let code = params['code'];
+      if (!code){
+        console.log('No code found');
+      } else{
+        this.loggedIn = true;
+        console.log(this.loggedIn);
+        this.verificationCode = code;
+        console.log('This is the code: ' + this.verificationCode);
+        this.facebookService.sendVerificationCode(this.verificationCode)
+          .subscribe(result => {
+            console.log('Result: ', result);
+            this.getUsername();
+            this.getPosts();
+            this.getPhotos();
+            this.getPages();
+          });
+        document.getElementById('fb-btn').style.display = 'none';
+        document.getElementById('fb-btn2').style.display = 'block';
+        document.getElementById('fb-btn3').style.display = 'block';
+        document.getElementById('postForm').style.display = 'block';
+        document.getElementById('head').style.display = 'block';
+        document.getElementById('container').style.display = 'block';
+        document.getElementById('container2').style.display = 'block';
+        document.getElementById('postTitle').style.display = 'block';
+        document.getElementById('pageTitle').style.display = 'block';
+        document.getElementById('likeTitle').style.display = 'block';
+
+        this.loggedIn = true;
+      }
+    });
+*/
+  }
+
+  submitPost(s: string){
+    this.loading = true;
+    console.log(s);
+    s += '*' + this.currentPage;
+    console.log('Current Page is: ' + this.currentPage);
+    this.facebookService.sendPostMessage(s)
+      .subscribe(result => {
+        console.log('Message Sent');
+        this.openSnackBar('Post Successfully Created', 'Done');
+        this.loading = false;
+      });
+  }
+
+  setCurrentPage(name: string){
+    console.log(name);
+    this.facebookService.getPagesPosts(name)
+      .subscribe(result => {
+        console.log('Current Page Sent');
+        this.getPagePosts();
+        this.gotPosts = true;
+      });
+  }
+
+  getPagePosts(){
+    this.facebookService.getPagePosts2().subscribe(facebookPagePosts => {
+      this.facebookPagePosts = facebookPagePosts;
+      console.log(this.facebookPagePosts.pagePosts[0]);
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
+  }
+
+  login(){
+    this.facebookService.login().subscribe(loginDialogURL => {
+      this.facebookLogin = loginDialogURL;
+    });
+    window.location.href = this.facebookLogin.loginDialogURL;
+  }
+
+  logout(){
+    this.facebookService.login().subscribe(loginDialogURL => {
+      this.facebookLogin = loginDialogURL;
+    });
+    //window.open(this.facebookLogin.logoutDialogURL);
+    window.location.href = 'http://localhost:4200/dashboard';
+    console.log('Logout called');
+    document.getElementById('fb-btn').style.display = 'block';
+    document.getElementById('fb-btn2').style.display = 'none';
+    document.getElementById('fb-btn3').style.display = 'none';
+    document.getElementById('postForm').style.display = 'none';
+    document.getElementById('head').style.display = 'none';
+    document.getElementById('container').style.display = 'none';
+    document.getElementById('container2').style.display = 'none';
+    document.getElementById('postTitle').style.display = 'none';
+    document.getElementById('pageTitle').style.display = 'none';
+    document.getElementById('likeTitle').style.display = 'none';
+  }
+
+  getUsername(){
+    this.facebookService.getUserName().subscribe(facebookUser => {
+      this.facebookUser = facebookUser;
+    });
+    console.log('Get username method called');
+  }
+
+  getPosts(){
+    this.facebookService.getPosts().subscribe(facebookPosts => {
+      this.facebookPosts = facebookPosts;
+    });
+    console.log('Get posts method called');
+  }
+
+  getPhotos(){
+    this.facebookService.getPhotos().subscribe(facebookPhotos => {
+      this.facebookPhotos = facebookPhotos;
+    });
+    console.log('Get photos method called');
+  }
+
+  getVideos(){
+    this.facebookService.getVideos().subscribe(facebookVideos => {
+      this.facebookVideos = facebookVideos;
+    });
+    console.log('Get videos method called');
+  }
+
+  getPages(){
+    this.facebookService.getPages().subscribe(facebookPages => {
+      this.facebookPages = facebookPages;
+    });
+    console.log('Get pages method called');
+  }
+
+}
+/*
 declare var FB: any;
 @Component({
   selector: 'app-facebook',
@@ -100,3 +289,6 @@ export class FacebookComponent implements OnInit {
   }
 
 }
+
+
+ */

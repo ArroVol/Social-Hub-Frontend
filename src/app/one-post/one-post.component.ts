@@ -3,7 +3,7 @@ import {TwitterService} from "../service/twitter.service";
 import {SecureTwitter} from "../model/twitter/SecureTwitter";
 import {Tweet} from "../model/twitter/Tweet";
 import {ThemePalette} from '@angular/material/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, FormArray, FormControl, Validators, FormGroupDirective, NgForm} from '@angular/forms';
 import {UserService} from "../service/user.service";
 import {SimpleFormComponent} from "../simple-form/simple-form.component";
 import {User} from "../model/user/User";
@@ -19,6 +19,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {AngularFireStorage, AngularFireStorageModule} from "@angular/fire/storage";
 import { finalize } from "rxjs/operators"
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
+import * as events from "events";
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json' });
@@ -72,7 +73,11 @@ export class OnePostComponent implements OnInit {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
   private url = 'http://localhost:8080/api';
-
+  event1: events;
+  title2: string;
+  body: string;
+  checkBoxInput: string;
+  textInput: string;
   userId: number;
   usersOnePosts: OnePosts[];
   twitterHandle: string;
@@ -91,6 +96,7 @@ export class OnePostComponent implements OnInit {
     // {name: 'Spotify', value: 'spotify'}
 
   ];
+  checkBox: boolean;
   fileName = '';
   task: Task = {
     name: 'All',
@@ -140,6 +146,7 @@ export class OnePostComponent implements OnInit {
               private firebase: AngularFireDatabase
   ) {
     this.form = this.fb.group({
+      textInput: '',
       checkArray: this.fb.array([])
     })
   }
@@ -428,7 +435,8 @@ export class OnePostComponent implements OnInit {
     checkBox.classList.toggle("clicked");
     checkBox.classList.toggle("checked");
     var button = document.getElementsByClassName("btn btn-success")[0];
-     button.classList.toggle("clicked");
+    console.log(button);
+    button.classList.toggle("clicked");
   }
 
   getUsersOnePosts(userId: number) {
@@ -519,10 +527,10 @@ export class OnePostComponent implements OnInit {
 
               this.openSnackBar('Posted to your account')
               await this.delay(2500);
-              window.location.reload();
+              // window.location.reload();
               this.form2['imageUrl'] = url;
-              this.form2['caption'] = 'caption1';
-              this.form2['category'] = 'a';
+              // this.form2['caption'] = 'caption1';
+              // this.form2['category'] = 'a';
               // this.insertImageDetails(this.form2);
               // this.resetForm();
             })
@@ -536,9 +544,9 @@ export class OnePostComponent implements OnInit {
 
       this.imageService.insertImageDetails(this.onePostData);
       this.openSnackBar('Posted to your account')
-      await this.delay(2500);
+      await this.delay(3500);
       this.clearFields();
-      window.location.reload();
+      // window.location.reload();
     }
       // var filePath = `${sessionStorage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       // console.log(filePath);
@@ -618,6 +626,7 @@ export class OnePostComponent implements OnInit {
   }
 
   onRemove(event) {
+    console.log('on remove..');
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
     if(this.files.length !== 0){
@@ -661,6 +670,8 @@ export class OnePostComponent implements OnInit {
         );
     }
     this.saveOnePost(content);
+    this.resetForm();
+    this.clearFields();
   }
 
   submitForm(value: string, tweetContent: string) {
@@ -702,7 +713,7 @@ export class OnePostComponent implements OnInit {
 
   openSnackBar(status: string) {
     this.snackBar.open(status, 'close', {
-      duration: 2500,
+      duration: 3500,
     });
   }
 
@@ -711,11 +722,15 @@ export class OnePostComponent implements OnInit {
   }
 
   resetForm(){
+    this.form.reset();
+
     this.form2.reset();
+
     this.form2.setValue({
-      caption: '',
+      userId: '',
+      textContent: '',
       imageUrl: '',
-      category: ''
+      socialMedia: ''
     });
   }
   getImageDetailList(){
@@ -758,6 +773,45 @@ export class OnePostComponent implements OnInit {
   }
 
   clearFields() {
+    console.log('clearing.....');
+    this.textInput = ' ';
+  this.onRemove(this.event1)
+  // this.form2.reset();
+  this.form.reset();
+  this.form.get('checkArray').reset();
 
   }
+
+    // addPost(form: NgForm){
+    // console.log('in add...');
+    //   // this.newPost = {
+    //   //   title: this.title,
+    //   //   body: this.body
+    //   // }
+    //   // this._postService.addPost(this.newPost);
+    //   form.resetForm(); // or form.reset();
+    // }
+  addPost(myForm: FormGroupDirective | NgForm) {
+    console.log('in add...');
+
+    myForm.resetForm();
+    myForm.reset();
+  }
+  name = 'Angular';
+  resetCheckBox = false;
+  isChecked = false;
+
+  handleClear(){
+    this.name = ' ';
+  }
+  reset() {
+    console.log('resetting..');
+    this.form.reset();
+    this.onRemove(this.files[0]);
+    this.resetCheckBox = false;
+    this.isChecked = false;
+
+
+  }
+
 }

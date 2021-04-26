@@ -54,6 +54,7 @@ import {SafePipe} from './youtube/SafePipe.component';
 //import { DataTableComponent } from './data-table/data-table.component';
 import { InstagramComponent } from './instagram/instagram.component';
 import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
+
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
 import {NavbarModule, WavesModule, ButtonsModule, CarouselModule} from 'angular-bootstrap-md';
 import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
@@ -109,6 +110,8 @@ import {SpotifyCreatePlaylistComponent} from "./spotify-create-playlist/spotify-
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatMenuModule} from "@angular/material/menu";
 import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.component";
+
+import {IvyCarouselModule} from 'angular-responsive-carousel';
 
 
 // import { MatCarouselModule } from 'ng-mat-carousel';
@@ -233,7 +236,8 @@ import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.comp
     // MatCarouselModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    IvyCarouselModule
 
   ],
   providers: [ {
