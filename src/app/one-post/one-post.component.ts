@@ -62,6 +62,7 @@ export class OnePostComponent implements OnInit {
   // public uploader:FileUploader = new FileUploader({
   //   isHTML5: true
   // });
+  atLeastOneFile = false;
   imageList: any[];
   rowIndexArray: any[];
   textContent: string;
@@ -272,28 +273,7 @@ export class OnePostComponent implements OnInit {
     this.imageSrc = object.event.target.result;
   }
 
-  onSelect(event) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
 
-    const formData = new FormData();
-
-    for (var i = 0; i < this.files.length; i++) {
-      formData.append('file[]', this.files[i]);
-    }
-    const url = `${this.url}/send-image`;
-
-    this.http.post(url, formData, {observe: 'response'})
-      .subscribe(res => {
-        console.log(res);
-        alert('Uploaded Successfully.');
-      });
-  }
-
-  onRemove(event) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-  }
 
   public onFileChanged(event) {
     //Select File
@@ -326,8 +306,8 @@ export class OnePostComponent implements OnInit {
 
 
 
-    // uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-    //Make a call to the Spring Boot Application to save the image
+  // uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+  //Make a call to the Spring Boot Application to save the image
   //   this.http.post(url, uploadImageData, { observe: 'response' })
   //     .subscribe((response) => {
   //       console.log('we did it!');
@@ -344,12 +324,12 @@ export class OnePostComponent implements OnInit {
     //Make a call to Sprinf Boot to get the Image Bytes.
     this.http.get('http://localhost:8080/image/get/' + this.imageName)
       .subscribe(
-    res => {
-      this.retrieveResonse = res;
-      this.base64Data = this.retrieveResonse.picByte;
-      this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-    }
-  );
+        res => {
+          this.retrieveResonse = res;
+          this.base64Data = this.retrieveResonse.picByte;
+          this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+        }
+      );
   }
 
   onFileSelected(event) {
@@ -372,7 +352,7 @@ export class OnePostComponent implements OnInit {
 
 
       this.http.post(url, formData, { observe: 'response' })
-          .subscribe((response) => {
+        .subscribe((response) => {
             console.log('we did it!');
             // if (response.status === 200) {
             //   this.message = 'Image uploaded successfully';
@@ -380,7 +360,7 @@ export class OnePostComponent implements OnInit {
             //   this.message = 'Image not uploaded successfully';
             // }
           }
-      );
+        );
       // const newRequest = new HttpRequest('POST', url, formData, {
       //   reportProgress: true,
       //   responseType: 'text'
@@ -452,8 +432,8 @@ export class OnePostComponent implements OnInit {
   }
 
   getUsersOnePosts(userId: number) {
-  console.log('getting the users one posts....');
-  this.onePostService.getUsersOnePosts(userId)
+    console.log('getting the users one posts....');
+    this.onePostService.getUsersOnePosts(userId)
       .subscribe(onePosts => {
         this.usersOnePosts = onePosts;
 
@@ -463,7 +443,7 @@ export class OnePostComponent implements OnInit {
             console.log(onePosts[i]);
           }
         }
-    });
+      });
     // const reader = new FileReader();
     // reader.onload = (e) => this.image = this.usersOnePosts[0].image;
     // reader.readAsDataURL(new Blob([data]));
@@ -472,9 +452,9 @@ export class OnePostComponent implements OnInit {
   async saveOnePost(textContent: string){
 
     for (let i = 0; i < this.form.value.checkArray.length; i++) {
-     console.log(this.form.value.checkArray[i]);
-     this.socialMedia = this.socialMedia.concat(this.form.value.checkArray[i]);
-     this.socialMedia = this.socialMedia.concat(' ');
+      console.log(this.form.value.checkArray[i]);
+      this.socialMedia = this.socialMedia.concat(this.form.value.checkArray[i]);
+      this.socialMedia = this.socialMedia.concat(' ');
     }
     console.log(this.socialMedia);
     this.currentFileUpload = this.file;
@@ -491,15 +471,15 @@ export class OnePostComponent implements OnInit {
     //   console.log('one post has no image media..');
     const url = `${this.url}/one-posts/save/form-data/text-only`;
 
-      // this.http.post(url, data, { observe: 'response' })
-      //   .subscribe(async(response) => {
-      //       console.log('we did it!');
-      //       this.openSnackBar('Posted to your account')
-      //       // this.snackBar.open('Posted to your account');
-      //      await this.delay(4500);
-      //       // window.location.reload();
-      //     }
-      //   );
+    // this.http.post(url, data, { observe: 'response' })
+    //   .subscribe(async(response) => {
+    //       console.log('we did it!');
+    //       this.openSnackBar('Posted to your account')
+    //       // this.snackBar.open('Posted to your account');
+    //      await this.delay(4500);
+    //       // window.location.reload();
+    //     }
+    //   );
 
     // } else {
     const data: FormData = new FormData();
@@ -515,10 +495,10 @@ export class OnePostComponent implements OnInit {
     this.onePost.createdAt = new Date();
     data.append('createdAt', this.onePost.createdAt.toDateString());
 
-      // this.onePostService.saveOnePosts(this.onePost)
-      //   .subscribe(onePost => {
-      //     this.savedOnePost = onePost;
-      //   });
+    // this.onePostService.saveOnePosts(this.onePost)
+    //   .subscribe(onePost => {
+    //     this.savedOnePost = onePost;
+    //   });
     if (this.file !== undefined){
       var filePath = `${sessionStorage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       console.log(filePath);
@@ -526,9 +506,9 @@ export class OnePostComponent implements OnInit {
       this.storage.upload(filePath, this.file)
         .snapshotChanges().pipe(
         //finalize call back function called when the upload is complete
-        finalize(() => {
+        finalize(async () => {
           fileRef.getDownloadURL()
-            .subscribe((url) => {
+            .subscribe(async (url) => {
 
               this.onePostData['imageUrl'] = url;
               this.onePostData['textContent'] = textContent;
@@ -537,6 +517,9 @@ export class OnePostComponent implements OnInit {
 
               this.imageService.insertImageDetails(this.onePostData);
 
+              this.openSnackBar('Posted to your account');
+              await this.delay(2500);
+              window.location.reload();
               this.form2['imageUrl'] = url;
               this.form2['caption'] = 'caption1';
               this.form2['category'] = 'a';
@@ -552,47 +535,99 @@ export class OnePostComponent implements OnInit {
       this.onePostData['userId'] = sessionStorage.getItem('userId');
 
       this.imageService.insertImageDetails(this.onePostData);
+      this.openSnackBar('Posted to your account');
+      await this.delay(2500);
+      this.clearFields();
+      window.location.reload();
     }
-      // var filePath = `${sessionStorage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-      // console.log(filePath);
-      // const fileRef = this.storage.ref(filePath);
-      // this.storage.upload(filePath, this.file)
-      //   .snapshotChanges().pipe(
-      //     //finalize call back function called when the upload is complete
-      //     finalize(()=>{
-      //       fileRef.getDownloadURL()
-      //         .subscribe((url)=>{
-      //
-      //           this.onePostData['imageUrl'] = url;
-      //           this.onePostData['textContent'] = textContent;
-      //           this.onePostData['socialMedia'] = this.socialMedia;
-      //           this.onePostData['userId'] = sessionStorage.getItem('userId');
-      //
-      //           this.imageService.insertImageDetails(this.onePostData);
-      //
-      //           this.form2['imageUrl'] = url;
-      //           this.form2['caption'] = 'caption1';
-      //           this.form2['category'] = 'a';
-      //           // this.insertImageDetails(this.form2);
-      //           // this.resetForm();
-      //         })
-      //     })
-      // ).subscribe();
+    // var filePath = `${sessionSto
+    // rage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+    // console.log(filePath);
+    // const fileRef = this.storage.ref(filePath);
+    // this.storage.upload(filePath, this.file)
+    //   .snapshotChanges().pipe(
+    //     //finalize call back function called when the upload is complete
+    //     finalize(()=>{
+    //       fileRef.getDownloadURL()
+    //         .subscribe((url)=>{
+    //
+    //           this.onePostData['imageUrl'] = url;
+    //           this.onePostData['textContent'] = textContent;
+    //           this.onePostData['socialMedia'] = this.socialMedia;
+    //           this.onePostData['userId'] = sessionStorage.getItem('userId');
+    //
+    //           this.imageService.insertImageDetails(this.onePostData);
+    //
+    //           this.form2['imageUrl'] = url;
+    //           this.form2['caption'] = 'caption1';
+    //           this.form2['category'] = 'a';
+    //           // this.insertImageDetails(this.form2);
+    //           // this.resetForm();
+    //         })
+    //     })
+    // ).subscribe();
 
 
-      // const url = `${this.url}/one-posts/save/form-data`;
+    // const url = `${this.url}/one-posts/save/form-data`;
 
-      // this.http.post(url, data, {observe: 'response'})
-      //   .subscribe(async (response) => {
-      //       console.log('we did it!');
-      //      this.openSnackBar('Posted to your account')
-      //       // this.snackBar.open('Posted to your account');
-      //       await this.delay(2500);
-      //       // window.location.reload();
-      //     }
-      //   );
+    // this.http.post(url, data, {observe: 'response'})
+    //   .subscribe(async (response) => {
+    //       console.log('we did it!');
+    //      this.openSnackBar('Posted to your account')
+    //       // this.snackBar.open('Posted to your account');
+    //       await this.delay(2500);
+    //       // window.location.reload();
+    //     }
+    //   );
     // }
   }
+
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+
+    if (this.files.length !== 0){
+      console.log('its ture');
+      this.atLeastOneFile = true;
+      console.log(this.atLeastOneFile);
+
+    }
+
+    if (this.files[1] != null){
+      this.onRemove(this.files[0]);
+      this.file = this.files[0];
+
+    } else {
+      const formData = new FormData();
+
+      for (var i = 0; i < this.files.length; i++) {
+        formData.append('file[]', this.files[i]);
+      }
+      this.file = this.files[0];
+      const url = `${this.url}/send-image`;
+    }
+
+    // this.selectedFiles = event.target.files;
+
+
+    // this.http.post(url, formData, {observe: 'response'})
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     alert('Uploaded Successfully.');
+    //   })
+
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+    if (this.files.length !== 0){
+      this.atLeastOneFile = true;
+    } else {
+      this.atLeastOneFile = false;
+    }
+  }
+
 
   upload(content: string): void {
     if (content !== undefined){
@@ -709,15 +744,21 @@ export class OnePostComponent implements OnInit {
       list => {
         this.imageList = list.map(item => item.payload.val());
         console.log(this.imageList.length);
-        for (let i = 0; i < this.imageList.length; i++){
-          console.log(this.imageList[i].userId);
-          console.log(this.imageList[i].textContent);
+        this.imageList = this.imageList.reverse();
 
-        }
+        // for (let i = 0; i < this.imageList.length; i++){
+        //   console.log(this.imageList[i].userId);
+        //   console.log(this.imageList[i].textContent);
+        //
+        // }
         this.rowIndexArray = Array.from(Array(Math.ceil(this.imageList.length / 1)).keys());
         console.log('length of indexarray... ' + this.rowIndexArray.length);
       }
 
     );
+  }
+
+  clearFields() {
+
   }
 }

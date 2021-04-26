@@ -74,12 +74,13 @@ nav ul:last-of-type li:last-of-type a {
   font-weight: bold;
 }
 header {
-  background: url("/assets/social2.jpg");
+  background: url("/assets/background.png");
   background-position: bottom;
   background-size: 100%;
   height: 800px;
   position: relative;
   color: #fff;
+  opacity: .50;
 
 }
 header .tagline {
