@@ -43,10 +43,14 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserProfile() {
-    this.spotifyService.getUserProfile().subscribe(spotifyUser => {
-      this.spotifyUser = spotifyUser;
-    });
-    console.log('Get User Profile Called!');
+    if (sessionStorage.getItem("spotify_user") != null) {
+      this.spotifyUser = JSON.parse(sessionStorage.getItem("spotify_user"));
+    } else {
+      this.spotifyService.getUserProfile().subscribe(spotifyUser => {
+        sessionStorage.setItem("spotify_user", JSON.stringify(spotifyUser));
+        this.spotifyUser = spotifyUser;
+      });
+    }
   }
 
   getUserPlaylist() {
@@ -57,15 +61,43 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserFavouriteTracks() {
-    this.spotifyService.getUserFollowedTracks().subscribe(tracks => this.favouriteTracks = tracks);
+    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
+      this.favouriteTracks = JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"));
+    } else {
+      this.spotifyService.getUserFollowedTracks().subscribe(tracks => {
+        sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(tracks));
+        this.favouriteTracks = tracks;
+
+      });
+    }
+
+    // this.spotifyService.getUserFollowedTracks().subscribe(tracks => this.favouriteTracks = tracks);
   }
 
   getUserFavouriteArtists() {
-    this.spotifyService.getUserFollowedArtists().subscribe(artists => this.favouriteArtists = artists);
+    if (sessionStorage.getItem("spotify_user_favourite_artists") != null) {
+      this.favouriteArtists = JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists"));
+    } else {
+      this.spotifyService.getUserFollowedArtists().subscribe(artists => {
+        sessionStorage.setItem('spotify_user_favourite_artists', JSON.stringify(artists));
+        this.favouriteArtists = artists;
+
+      });
+    }
+    // this.spotifyService.getUserFollowedArtists().subscribe(artists => this.favouriteArtists = artists);
   }
 
   getUserFavouriteAlbums() {
-    this.spotifyService.getUserFollowedAlbums().subscribe(albums => this.favouriteAlbums = albums);
+    if (sessionStorage.getItem("spotify_user_favourite_albums") != null) {
+      this.favouriteAlbums = JSON.parse(sessionStorage.getItem("spotify_user_favourite_albums"));
+    } else {
+      this.spotifyService.getUserFollowedAlbums().subscribe(albums => {
+        sessionStorage.setItem('spotify_user_favourite_albums', JSON.stringify(albums));
+        this.favouriteAlbums = albums;
+
+      });
+    }
+    // this.spotifyService.getUserFollowedAlbums().subscribe(albums => this.favouriteAlbums = albums);
   }
 
   unfollowTrack(id: string) {
@@ -80,6 +112,7 @@ export class SpotifyFavouritesComponent implements OnInit {
         this.favouriteTracks.splice(index, 1);
       }
     });
+    sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(this.favouriteTracks));
   }
 
   unfollowArtist(id: string) {
@@ -94,6 +127,7 @@ export class SpotifyFavouritesComponent implements OnInit {
         this.favouriteTracks.splice(index, 1);
       }
     });
+    sessionStorage.setItem('spotify_user_favourite_artists', JSON.stringify(this.favouriteArtists));
   }
 
 

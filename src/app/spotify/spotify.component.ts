@@ -38,6 +38,9 @@ export class SpotifyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // if(sessionStorage.getItem("spotify_user") != null){
+    //   this.spotifyUser = sessionStorage.getItem("spotify_user");
+    // }
     this.getUserProfile();
     this.getUserPlaylist();
     this.getNewReleases();
@@ -46,13 +49,19 @@ export class SpotifyComponent implements OnInit {
     this.getUserRecentTracks();
   }
 
+
   getUserProfile() {
-    this.spotifyService.getUserProfile().subscribe(spotifyUser => {
-      this.spotifyUser = spotifyUser;
-    });
-    console.log('Get User Profile Called!');
+    if (sessionStorage.getItem("spotify_user") != null) {
+      this.spotifyUser = JSON.parse(sessionStorage.getItem("spotify_user"));
+    } else {
+      this.spotifyService.getUserProfile().subscribe(spotifyUser => {
+        sessionStorage.setItem("spotify_user", JSON.stringify(spotifyUser));
+        this.spotifyUser = spotifyUser;
+      });
+    }
   }
 
+  //TODO: GET AN UPADATE METHOD FOR FAVOURITING TRACKS!!!!!
   getUserPlaylist() {
     this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
       this.spotifyUserPlaylist = spotifyUserPlaylist;
@@ -72,35 +81,78 @@ export class SpotifyComponent implements OnInit {
 
   followTrack(track_id: string) {
     this.spotifyService.followTrack(track_id).subscribe();
+    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
+      this.spotifyService.getTrackById(track_id).subscribe(track => {
+        sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify([track].concat(JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks")))));
+      });
+
+    }
     this._snackBar.open('Song has been favourited!', '', {duration: 2000,});
   }
 
   unfollowTrack(track_id: string) {
     this.spotifyService.unfollowTrack(track_id).subscribe();
-    this._snackBar.open('Song has been unfavourited!', '', {duration: 2000,});
+    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
 
+      let favouriteTracks = JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"));
+      favouriteTracks.forEach((track, index) => {
+        if (track.id == track_id) {
+          favouriteTracks.splice(index, 1);
+        }
+      });
+      sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(favouriteTracks));
+
+    }
+    this._snackBar.open('Song has been unfavourited!', '', {duration: 2000,});
   }
 
   getNewReleases() {
-    this.spotifyService.getNewReleases().subscribe(albums => this.newRealeaseAlbums = albums);
+    if (sessionStorage.getItem("spotify_featured_albums") != null) {
+      this.newRealeaseAlbums = JSON.parse(sessionStorage.getItem("spotify_featured_albums"));
+    } else {
+      this.spotifyService.getNewReleases().subscribe(albums => {
+        sessionStorage.setItem('spotify_featured_albums', JSON.stringify(albums));
+        this.newRealeaseAlbums = albums;
+      });
+    }
   }
 
   getFeaturedPlaylists() {
-    this.spotifyService.getFeaturedPlaylists().subscribe(playlists => this.featuredPlaylists = playlists);
+    if (sessionStorage.getItem("spotify_featured_playlist") != null) {
+      this.featuredPlaylists = JSON.parse(sessionStorage.getItem("spotify_featured_playlist"));
+    } else {
+      this.spotifyService.getFeaturedPlaylists().subscribe(playlists => {
+        sessionStorage.setItem('spotify_featured_playlist', JSON.stringify(playlists));
+        this.featuredPlaylists = playlists;
+      });
+    }
   }
 
   getUserTopTracks() {
-    this.spotifyService.getUserTopTracks().subscribe(topTracks => {
-      this.userTopTracks = topTracks;
-      this.getFavouritedTopTracks(topTracks.map(track => track.id));
-    });
+    if (sessionStorage.getItem("spotify_user_tracks_top") != null) {
+      this.userTopTracks = JSON.parse(sessionStorage.getItem("spotify_user_tracks_top"));
+    } else {
+      this.spotifyService.getUserTopTracks().subscribe(topTracks => {
+        sessionStorage.setItem('spotify_user_tracks_top', JSON.stringify(topTracks));
+        this.userTopTracks = topTracks;
+
+      });
+    }
+    this.getFavouritedTopTracks(this.userTopTracks.map(track => track.id));
+
   }
 
   getUserRecentTracks() {
-    this.spotifyService.getUserRecentTracks().subscribe(recentTracks => {
-      this.userRecentTracks = recentTracks;
-      this.getFavouritedRecentTracks(recentTracks.map(track => track.id));
-    });
+    if (sessionStorage.getItem("spotify_user_tracks_recent") != null) {
+      this.userRecentTracks = JSON.parse(sessionStorage.getItem("spotify_user_tracks_recent"));
+    } else {
+      this.spotifyService.getUserRecentTracks().subscribe(recentTracks => {
+        sessionStorage.setItem('spotify_user_tracks_recent', JSON.stringify(recentTracks));
+        this.userRecentTracks = recentTracks;
+      });
+    }
+    this.getFavouritedRecentTracks(this.userRecentTracks.map(track => track.id));
+
   }
 
   routeToPlaylist(playlistId: string) {
@@ -112,7 +164,7 @@ export class SpotifyComponent implements OnInit {
     this.router.navigate(['spotify/playlist'], navigationExtras);
   }
 
-  routeToArtist(artist_id: string){
+  routeToArtist(artist_id: string) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         id: artist_id

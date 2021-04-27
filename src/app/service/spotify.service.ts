@@ -149,6 +149,14 @@ export class SpotifyService {
       );
   }
 
+  getTrackById(track_id: string): Observable<SpotifyTrack> {
+    const url = `${this.spotifyUrl}/get/track/id/` + track_id;
+    return this.http.get<SpotifyTrack>(url)
+      .pipe(
+        tap(_ => console.log('fetched spotify track by id: ' + track_id))
+      );
+  }
+
   getArtistTopTracks(artist_id: string): Observable<SpotifyTrack[]> {
     const url = `${this.spotifyUrl}/artist/tracks/` + artist_id;
     return this.http.get<SpotifyTrack[]>(url)
