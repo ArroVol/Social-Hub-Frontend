@@ -23,6 +23,7 @@ export class YoutubeComponent implements OnInit {
   isLoggedIn = true;
   user: Youtube;
   videos = 'Select a video to post to';
+  show = false;
   constructor(private youtubeService: YoutubeService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -84,10 +85,13 @@ export class YoutubeComponent implements OnInit {
     this.youtubeService.clearCache();
     this.isVisible = true;
     this.getElements();
+
     this.openSnackBar('Update Successful', 'Dismiss');
   }
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {duration: 2000});
+    setTimeout(() => {
+      this.snackBar.open(message, action, {duration: 2000});
+    }, 6000);
   }
 
 
@@ -124,7 +128,7 @@ export class YoutubeComponent implements OnInit {
     setTimeout(() => {
       this.isVisibleSpinner = false;
       this.isVisible = true;
-    }, 3000);
+    }, 6000);
 
   }
 
