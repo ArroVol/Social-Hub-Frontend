@@ -58,6 +58,114 @@
 <!--FACEBOOK CARD END-->
 
 <!--Youtube START -->
+
+  <!--<a href="https://accounts.google.com/o/oauth2/auth?client_id=665124826397-55241tfc755m03bp83d5io7kef9irbo2.apps.googleusercontent.com&redirect_uri=http://localhost:8080/Callback&response_type=code&scope=https://www.googleapis.com/auth/youtube.readonly" target="_blank">-->
+
+  <button *ngIf="!isVisible" (click)="getElements();">Log In </button>
+  <!--</a>-->
+  <br>
+  <br>
+
+  <mat-spinner align="center" *ngIf="isVisibleSpinner" style="width: 200px; height: 200px; margin-left: 45%;"></mat-spinner>
+
+  <div class = "ex1" *ngIf="isVisible">
+    <div style = "float: right; margin-right: 40px;">
+      <a *ngIf="!isLoggedIn" [href]="channel.channelId"> <img height="30" width="30" src="https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c545.png"> </a>
+      <a *ngIf="isLoggedIn" [href]="user.channelId"> <img height="30" width="30" src="https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c545.png"> </a>
+      <img *ngIf="!isLoggedIn" style="margin-left: 10px" id = "smallProfile" class="profilePic" width="30" height="30" [src]="channel.profilePhoto">
+      <img *ngIf="isLoggedIn" style="margin-left: 10px" class="profilePic" width="30" height="30" [src]="user.profile_pic">
+    </div>
+  </div>
+
+  <h1 *ngIf="isVisible && !isLoggedIn"> {{channel.username}}'s Youtube Channel </h1>
+  <h1 *ngIf="isVisible && isLoggedIn"> {{user.username}}'s Youtube Channel </h1>
+  <button *ngIf="isVisible" (click)="updateChannel();"> Update </button>
+  <h3 *ngIf="isVisible"> Updated on: {{pullTime}}</h3>
+  <div style="margin-left: 0px; display: block;" *ngIf="isVisible">
+    <mat-select [(value)]="videos" style="width: 25%; background-color: grey;">
+      <mat-option *ngFor="let vid of channel.videos" value= "{{vid.videoDetails.videoTitle}}">{{vid.videoDetails.videoTitle}}</mat-option>
+    </mat-select>
+    <input #comment type="text">
+    <button (click)="postComment(getVideoId(videos), comment.value);"> Post to Video </button>
+  </div>
+  <div class = "container" *ngIf="isVisible">
+    <div class="sub-cat">
+      <h1> My Videos </h1>
+      <ul class="no-bullets">
+        <li *ngFor="let video of channel.videos;">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>{{channel.username}}</mat-card-title>
+            </mat-card-header>
+            <iframe mat-card-image width="300" height="150" [src]="video.videoId | safe" allowfullscreen> </iframe>
+            <mat-card-content>
+              <div class="container1" [class.show]="show">
+                Description: {{video.videoDescription}}
+              </div>
+              <button *ngIf="video.videoDescription.length > 33;" (click)="show = !show">{{ show ? 'Show less': 'Show More' }}</button>
+            </mat-card-content>
+          </mat-card>
+        </li>
+      </ul>
+    </div>
+
+    <div class= "sub-cat">
+      <h1> My Playlists </h1>
+      <ul class="no-bullets">
+        <li *ngFor="let playlist of channel.playlists;">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>{{channel.username}}</mat-card-title>
+            </mat-card-header>
+            <iframe mat-card-image width="300" height="150" [src]="playlist | safe" allowfullscreen> </iframe>
+            <mat-card-content>
+              <p>
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </li>
+      </ul>
+    </div>
+    <div class="sub-cat">
+      <h1> Liked Videos </h1>
+
+      <ul class="no-bullets">
+        <li *ngFor="let liked of channel.liked;">
+          <mat-card #card class="example-card">
+            <mat-card-header>
+              <mat-card-title>{{channel.username}}</mat-card-title>
+            </mat-card-header>
+            <iframe mat-card-image width="300" height="150" [src]="liked.videoId | safe" allowfullscreen> </iframe>
+            <mat-card-content>
+              <div class="container1" [class.show]="show" style="word-wrap: break-word;">
+                Description: {{liked.videoDescription}}
+              </div>
+              <button *ngIf="liked.videoDescription.length > 33;" (click)="show = !show;">{{ show ? 'Show less': 'Show More' }}</button>
+            </mat-card-content>
+          </mat-card>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <!--<mat-grid-list cols="5" rowHeight="100px">
+    <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows">
+      <cdk-virtual-scroll-viewport itemSize="560" class="example-viewport">
+        <div *cdkVirtualFor="let item of videoArr" class="example-item">
+          <iframe width="560" height="315" [src] = "item | safe" allowfullscreen></iframe>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </mat-grid-tile>
+  </mat-grid-list>-->
+
+
+
+<!--  Old youtube-->
 <!--  <div id="snapshot">-->
 <!--    <div style="margin-bottom: 10px; padding-bottom: 10px; width: 70px; background-color: whitesmoke; border-radius: 5px; padding-top: 10px;">-->
 <!--      <img src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png" style="width: 70px; height: 40px;">-->

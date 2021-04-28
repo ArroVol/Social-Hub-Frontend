@@ -203,6 +203,10 @@ export class TwitterComponent implements AfterViewInit, OnInit {
         sessionStorage.setItem('twitterFollowerCount', this.followerCount.toString());
 
       });
+    this.dataSource = new MatTableDataSource<any>(this.timelineList);
+    // Assign the paginator *after* dataSource is set
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
 
   }
 

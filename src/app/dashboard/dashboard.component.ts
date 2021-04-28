@@ -1,7 +1,4 @@
-// @ts-ignore
-import { Component, OnInit } from '@angular/core';
-import {Channel} from '../model/youtube/Channel';
-import {YoutubeService} from '../service/youtube.service';
+import {Component, Input, OnInit} from '@angular/core';
 import {InstagramService} from '../service/instagram.service';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
 import {InstagramComponent} from '../instagram/instagram.component';
@@ -15,7 +12,10 @@ import {InstagramUserSearchInfo} from "../model/instagram/InstagramUserSearchInf
 import {SpotifyService} from '../service/spotify.service';
 import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
-
+import {YoutubeComponent} from '../youtube/youtube.component';
+import {Youtube} from '../model/youtube/Youtube';
+import {YoutubeService} from '../service/youtube.service';
+import {Channel} from '../model/youtube/Channel';
 
 import {FacebookService} from '../service/facebook.service';
 import {FacebookUser} from '../model/facebook/FacebookUser';

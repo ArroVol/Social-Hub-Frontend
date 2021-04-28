@@ -9,6 +9,7 @@ import {ImageService} from "../service/image.service";
 })
 export class ImagesComponent implements OnInit {
 
+  url: string;
   imageList: any[];
   rowIndexArray: any[];
   form = new FormGroup({
@@ -19,6 +20,15 @@ export class ImagesComponent implements OnInit {
   constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {
+
+    // var bytes = [ 548745412154]; // get from server
+    // var uints = new UInt8Array(bytes);
+    // var base64 = btoa(String.fromCharCode(null, uints));
+    this.url = 'data:image/jpeg;base64,' + "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="; // use this in <img src="..."> binding
+    // var url = 'data:image/jpeg;base64,' + base64; // use this in <img src="..."> binding
+
+
+
     this.imageService.getImageDetailList();
     console.log('on images init...');
     this.imageService.imageDetailList.snapshotChanges().subscribe(

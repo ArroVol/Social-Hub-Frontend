@@ -332,7 +332,7 @@ img {
 }
 
 .example-viewport {
-  height: 550px;
+  height: 660px;
   /*width: 200px;*/
   border: 2px slategrey;
   /*border-radius: 55px;*/
@@ -452,5 +452,5 @@ h3 {
 .post-card{
   /*height: 1400px;*/
   height: 100%;
-  min-height: 700px;
+  min-height: 800px;
 }
