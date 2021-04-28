@@ -4,25 +4,16 @@ import {MatTableDataSource} from '@angular/material/table';
 import {InstagramService} from '../service/instagram.service';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
 import {InstagramComponent} from '../instagram/instagram.component';
+import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
+import {MatDialog} from '@angular/material/dialog';
+import {Observable} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface PeriodicElement {
   name: string;
   position: number;
 }
 
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen'},
-  {position: 2, name: 'Helium'},
-  {position: 3, name: 'Lithium'},
-  {position: 4, name: 'Beryllium'},
-  {position: 5, name: 'Boron'},
-  {position: 6, name: 'Carbon'},
-  {position: 7, name: 'Nitrogen'},
-  {position: 8, name: 'Oxygen'},
-  {position: 9, name: 'Fluorine'},
-  {position: 10, name: 'Neon'},
-];
 
 @Component({
   selector: 'app-instagram-search',
@@ -31,19 +22,124 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 
 
-export class InstagramSearchComponent  extends InstagramComponent implements OnInit  {
+export class InstagramSearchComponent implements OnInit {
+
+  constructor(private instagramService: InstagramService, public dialog: MatDialog, private snackBar: MatSnackBar) {
+  }
+
+  loading = false;
+  public showChanges = false;
+  public showSearch = false;
   public show = false;
-  public buttonName: any = 'Show';
+  public buttonName: any = 'false';
   displayedColumns: string[] = ['position', 'name'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
+  public isVisibleSpinner = true;
+  public isVisible = false;
 
+
+  durationInSeconds = 5;
+
+  instagramUserSearch: InstagramUserInfo;
+
+  followStatus: boolean;
 
 
   counter(i: number) {
     return new Array(i);
   }
 
+  ngOnInit(): void {
+  }
+
+  userSearch(user: string) {
+    this.loading = true;
+
+    this.instagramService.getSearchInsta(user)
+      .subscribe(user => {
+        this.instagramUserSearch = user;
+        console.log('Get Search User Profile Called!');
+        console.log(this.instagramUserSearch.displayName);
+
+
+
+      });
+    setTimeout(() => {
+      this.loading = false;
+    }, 7000);
+
+    setTimeout(() => {
+      this.showSearch = true;
+    }, 7000);
+
+  }
+
+  instagramPageLoad() {
+    setTimeout(() => {
+      this.isVisibleSpinner = false;
+      this.isVisible = true;
+    }, 4000);
+
+  }
+
+  // checkStatus(user: string)  {
+  //   check: Observable < Boolean> = this.instagramService.checkFollowingStatus(user);
+  //   if (check == false) {
+  //
+  //   }
+  // }
+  checkFollowStatus(): string {
+    if (this.instagramUserSearch.followingStatus) {
+      return 'Unfollow';
+    } else {
+      return 'Follow';
+    }
+
+  }
+
+  unFollowUser(user: string) {
+    this.loading = true;
+    this.instagramService.unfollowUser(user).subscribe();
+    console.log('Unfollowed: ' + user);
+    setTimeout(() => {
+      this.closeModalDialog();
+    }, 2000);
+    this.openSnackBar('Unfollwed: ' + user);
+  }
+
+  followUser(user: string) {
+    this.loading = true;
+    this.instagramService.followUser(user).subscribe();
+    console.log('Followed: ' + user);
+    setTimeout(() => {
+      this.closeModalDialog();
+    }, 2000);
+    this.openSnackBar('Followed: ' + user);
+  }
+
+
+  toggleChanges() {
+    this.showChanges = !this.showChanges;
+
+    // CHANGE THE NAME OF THE BUTTON.
+    if (this.showChanges) {
+      this.buttonName = 'Follow';
+    } else {
+      this.buttonName = 'UnFollow';
+    }
+  }
+
+  closeModalDialog() {
+    this.dialog.closeAll(); //set none css after close dialog
+  }
+
+  openSnackBar(status: string) {
+    this.snackBar.open(status, 'close', {
+      duration: 2500,
+    });
+  }
 
 }
+
+

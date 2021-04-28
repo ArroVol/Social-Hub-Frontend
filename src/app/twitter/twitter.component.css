@@ -1,311 +1,16 @@
-/*@import '~material-icons/iconfont/material-icons.css';*/
-.twitter-timeline {
-  max-width: 100%;
-  max-height: 1000px;
-}
-.fa {
-  font-size: 25px;
-  color: #FFFFFF;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.panel-title {
-  font-size: 25px;
-  color: #FFFFFF;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.panel-heading {
-  background-color: #1da1f2 !important;
-  color: #1da1f2 !important;
-}
-.panel {
-  margin-top: 25px;
-}
-
-.posttweetcountcont{
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-.posttweetta{
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-blockquote.twitter-tweet {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 16px;
-  border-color: #eee #ddd #bbb;
-  border-radius: 5px;
-  border-style: solid;
-  border-width: 1px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-  margin: 10px 5px;
-  padding: 0 16px 16px 16px;
-  max-width: 468px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-blockquote.twitter-tweet p {
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 20px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-blockquote.twitter-tweet a {
-  color: inherit;
-  font-weight: normal;
-  text-decoration: none;
-  outline: 0 none;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-blockquote.twitter-tweet a:hover,
-blockquote.twitter-tweet a:focus {
-  text-decoration: underline;
-}
-
-.example-container .mat-form-field + .mat-form-field {
-  margin-left: 8px;
-}
-
-body {
-  color: #14171a;
-  font-size: 18px;
-  line-height: 20px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-body {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-
-
-/*.topbar {*/
-/*  background-image: url("https://abs.twimg.com/a/1512085154/img/t1/lohp_streams_header_bg_v4.png");*/
-/*  background-size: 100% 100%;*/
-/*  border-bottom: 1px solid rgba(0, 0, 0, 0.25);*/
-/*  height: 46px;*/
-/*  position: relative;*/
-/*  width: 100%;*/
-/*  text-align:center;*/
-/*}*/
-
-body.segoe {
-  font-family: "Segoe UI",Arial,sans-serif;
-}
-
-
-.topbar .container {
-  max-width: 1190px;
-  height: 100%;
-  text-align: center;
-  width: auto;
-  margin: 0 auto;
-  position: relative;
-}
-
-.logocenter{
-  font-size: 23px !important;
-  margin-top: 11px;
-  color:white;
-}
-
-.topcontainer{
-  background:#FFF;
-  height: 100%;
-}
-
-#submit_button {
-  background-color: dodgerblue;
-  border: 1px solid #1da1f2;
-  border-radius: 100px;
-  box-shadow: none;
-  color: dodgerblue;
-  font-size: 18px;
-  font-weight: bold;
-  height: auto;
-  line-height: 24px;
-  padding: 12px 20px;
-  position: relative;
-  text-align: center;
-  white-space: nowrap;
-  width: 392px;
-}
-
-/*.wallcontainer{*/
-/*  width: 900px; overflow: hidden; margin:auto;*/
-/*}*/
-
-/*.profilecard{*/
-/*  width: 290px; float: left; background: #FFF; margin: 2px; position: relative;*/
-/*}*/
-
-/*.profilecardhead{*/
-/*  background-color:deepskyblue;height:95px;*/
-/*}*/
-
-/*.profilecardimagediv{*/
-/*  margin:-30px 0 0 8px;padding:1px;background:#FFF;display:inline-block;border-radius:50%;*/
-/*}*/
-
-/*.profilecardimagediv img{*/
-/*  width:72px;height:72px;border-radius:50%;box-sizing:border-box;border:2px solid #FFF;*/
-/*}*/
-
-/*.profilecardnameidcont{*/
-/*  position:absolute;top:103px;left:90px;width:185px;*/
-/*}*/
-
-/*.profilecardnamecont{*/
-/*  font-size:18px;font-weight:bold;line-height:25px;margin:-1px 0 -2px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal*/
-/*}*/
-
-/*#profilecardname{*/
-/*  color:inherit;text-transform:uppercase;*/
-/*}*/
-
-/*#profilecarduid{*/
-/*  color:#667786;font-size:14px;padding-right:5px;text-transform:uppercase;*/
-/*}*/
-
-/*.profilecardstatsdiv{*/
-/*  padding:16px;*/
-/*}*/
-
-/*.profilecardstatslist{*/
-/*  table-layout:fixed;box-sizing:border-box;display:table;margin:0;min-width:100%;padding:0;list-style:outside none;*/
-/*}*/
-
-/*.profilecardstatslistitem{*/
-/*  width:1%;vertical-align:bottom;display:table-cell;padding:0;box-sizing:border-box;line-height:1;overflow:hidden;transition:all 0.15s ease-in-out 0s;text-align:inherit;*/
-/*}*/
-
-/*.dispblk{*/
-/*  display:block;*/
-/*}*/
-
-/*.statslistitemhead{*/
-/*  color:#657786;font-size:12px;font-weight:bold;letter-spacing:02em;line-height:16px;overflow:hidden;transition:color 0.15s ease-in-out 0s;display:block;*/
-/*}*/
-
-/*.statslistitemcount{*/
-/*  display:block;font-size:18px;font-weight:bold;padding-top:3px;transition: color .15s ease-in-out 0s;color:deepskyblue;*/
-/*}*/
-
-/*.rightcontainer{*/
-/*  width:580px; float: left; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-/*}*/
-
-/*.posttweetcontainer{*/
-/*  background:lightskyblue;padding:10px 12px;position:relative;*/
-/*}*/
-
-.posttweetprofimg{
-  width:32px;height:32px;position:absolute;left:2px;top:13px;border-radius:50%;
-}
-
-/*.ml56px{*/
-/*  margin-left:5px;*/
-/*  margin-top:105px;*/
-/*  position: fixed;*/
-/*  !*top: 50%;*!*/
-/*  left: 50%;*/
-/*  !* bring your own prefixes *!*/
-/*  transform: translate(-50%, -50%);*/
-/*  !*float: right;*!*/
-/*  !*position:center;*!*/
-/*}*/
-
-.ml58px{
-  margin-left:58px;
-}
-
-.mt10px{
-  margin-top: 10px;
-}
-
-.posttweettacontainer{
-  border-radius: 8px; border: 1px solid rgb(153, 153, 153); border-image: none; width:580px; line-height: 20px; box-shadow: 0px 0px 0px 1px dodgerblue; background-color: rgb(255, 255, 255);
-}
-
-.posttweetta{
-  border-width: 1px 1px 0px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; border-style: solid solid none; border-color: rgb(230, 236, 240) rgb(230, 236, 240) currentColor; margin: 0px; padding: 8px; outline: 0px; border-radius: 8px; border-image: none; width: 100%; height: 50px; font-family: "Segoe UI",Arial,sans-serif; font-size: 14px; box-sizing: border-box; opacity: 0.8; background-color: rgb(255, 255, 255);
-}
-
-.posttweetcountcont{
-  overflow: hidden; margin-top: 10px;
-}
-
-.posttweetcount{
-  margin-right: 10px; display: block; float: right;
-}
-
-.posttweetbutcont{
-  overflow: hidden; margin-top: 10px; width:580px;
-}
-
-.posttweetbut{
-  padding: 6px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: rgb(255, 255, 255); line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: right; box-shadow: none; background-color: rgb(173, 216, 255);
-}
-
-.tweetscontainer{
-  background: rgb(255, 255, 255); list-style: none; margin: 0px; padding: 0px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.tweetcontainer{
-  margin: 0px; padding: 10px; overflow: hidden; border-bottom-color: rgb(230, 236, 240); border-bottom-width: 1px; border-bottom-style: solid; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.tweetprofimg{
-  border-radius: 50%; width: 48px; height: 48px; margin-right: 10px; float: left;
-}
-
-.tweetprofname{
-  color:#14171a;font-size:14px;font-weight:bold;
-}
-
-.tweetprofuid{
-  color:#657786;font-size:14px;margin-left:5px;
-}
-
-.tweetstats{
-  margin-right: 30px; cursor: pointer;
-}
-
-.tweetstats i{
-  color: rgb(101, 119, 134); font-size: 16px;
-}
-
-.tweetstatscount{
-  color: rgb(101, 119, 134); line-height: 1; font-size: 12px; font-weight: bold; margin-left: 6px;
-}
-
-.red i, .red span{
-  color:cornflowerblue !important;
-}
-
-.centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-}
-
-.row {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-}
-
 .status{
   font-size: 16px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .posttweettacontainer2{
-  border-radius: 8px; border: 1px solid rgb(153, 153, 153); border-image: none; width:380px; line-height: 20px; box-shadow: 0px 0px 0px 1px dodgerblue; background-color: rgb(255, 255, 255);
+  border-radius: 8px; border: 1px solid rgb(153, 153, 153); border-image: none; width:336px; line-height: 20px; box-shadow: 0px 0px 0px 1px dodgerblue; background-color: rgb(255, 255, 255); height: auto; padding-bottom: -40px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; position: center;
+
+}
+
+.posttweettacontainer3{
+
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
@@ -313,12 +18,25 @@ body.segoe {
 .followers{
   font-size: 16px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 6px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: rgb(0, 0, 0); line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
-  /*display: inline-block;*/
-  /*width: 50px;*/
-  /*border: 1px solid #000;*/
-  /*text-align: center;*/
-  margin-top: 3px;
+  padding: 7px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: black; line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
+  margin-top: 15px;
+  padding-top: 10px;
+  cursor: default;
+
+}
+
+.followers-header{
+  font-size: 12px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 6px 15px; border-radius: 90px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: black; line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
+  cursor: default;
+  margin-left: 20px;
+}
+.followers-header2{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 6px 15px; border-radius: 90px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: black; line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
+  cursor: default;
+  padding-top: -20px;
 }
 .get-followers{
   padding: 6px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: rgb(255, 255, 255); line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
@@ -331,4 +49,397 @@ body.segoe {
 
 .circle{
   margin-left: 15px;
+}
+
+.column-2 {
+  /*float: left;*/
+  width: 32.5%;
+  padding-left: 20px;
+
+}
+
+.user-heading{
+  padding-left: 70px;
+}
+
+.user-heading-2{
+  padding-left: 110px;
+}
+
+.column-3{
+  /*padding-right: 100px;*/
+  padding-left: 20px;
+  /*padding-top: 30px;*/
+  width: 32.5%;
+
+}
+
+.column-1{
+  /*padding-right: 100px;*/
+  padding-left: 90px;
+  /*padding-top: 30px;*/
+  width: 32.5%;
+  /*padding-left: 50px;*/
+
+}
+.column {
+  float: left;
+  width: 32.5%;
+}
+
+/* Clear floats after the columns */
+.row2:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column-4{
+  width: 32.5%;
+  padding-left: 35px;
+}
+
+
+.example-h2 {
+  margin: 0 8px 16px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 10px;
+  /*background-color: blue;*/
+  padding-left: 15px;
+
+}
+
+.mat-slider-horizontal {
+  width: 300px;
+  /*background-color: blue;*/
+
+}
+
+.mat-slider-vertical {
+  height: 300px;
+}
+
+.mat-card + .mat-card {
+  margin-top: 8px;
+}
+
+.example-result-card h2 {
+  margin: 0 8px;
+}
+
+.submit-btn{
+  margin-bottom: 20px;
+  width: 220px;
+  height: 36px;
+  border: none;
+  border-radius: 2px;
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: 0.2s ease;
+  cursor: pointer;
+  background-color: rgb(173, 216, 255);
+
+  /*padding-left: 60px;*/
+}
+
+.header{
+  text-align: center;
+  color: black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.most-retweeted{
+  height: 240px;
+  background-color: white;
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+}
+
+.most-recent{
+  height: 240px;
+
+}
+
+.edit-btn{
+  color: #32508E;
+
+}
+
+.search-user{
+  margin-bottom: 10px;
+  /*width: 220px;*/
+  height: 36px;
+  border: none;
+  border-radius: 2px;
+  /*color: #FFF;*/
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: 0.2s ease;
+  cursor: pointer;
+  background-color: rgb(173, 216, 255);
+  color: #0b2e13;
+  margin-left: 10px;
+
+  /*padding-left: 60px;*/
+}
+
+.clear {
+  margin-bottom: 5px;
+  /*width: 220px;*/
+  height: 36px;
+  border: none;
+  border-radius: 2px;
+  color: #FFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  transition: 0.2s ease;
+  cursor: pointer;
+  background: deeppink;
+}
+
+.basic-card{
+  /*background-color: whitesmoke;*/
+  background-color: white;
+
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+
+}
+.outer-basic-card{
+  background-color: whitesmoke;
+  /*background-color: white;*/
+
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+}
+.outer-basic-card-other{
+  background-color: whitesmoke;
+  /*background-color: white;*/
+
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+}
+
+
+.other-tweet-option{
+  padding-top: 10px;
+  align-content: center;
+  width: 50%;
+}
+
+.mat-button-toggle {
+  /*background-color: white;*/
+  /*border-radius: 5px;*/
+  /*!* box-shadow: 0px 4px 14px --3px; *!*/
+  /*box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);*/
+  /*background-color: mat-color($primary);*/
+  /*color: mat-color($primary, default-contrast);*/
+}
+
+.mat-button-toggle-checked {
+  background-color: rgb(173, 216, 255);
+  /*color: mat-color($accent, default-contrast);*/
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+clear.disabled{
+  color: #999;
+  background-color: #999;
+  /*background-color: transparent;*/
+}
+
+.disabled {
+  color: #999;
+}
+
+button.submit.disabled {
+  color: #999;
+
+
+}
+
+button.disabled{
+  color: #999;
+}
+
+button.disabled{
+  color: #999;
+
+}
+button:disabled {
+  opacity: 0.5;
+  /*color : #C3C3C3;*/
+  cursor:none;
+  pointer-events: none;
+}
+
+.circle{
+  color: red;
+  fill: red;
+
+}
+
+.circle svg {
+  fill: red;
+
+}
+
+.icons-twitter {
+  padding-top: 5px;
+}
+
+.example-viewport {
+  height: 450px;
+  /*width: 200px;*/
+  border: 2px slategrey;
+  /*border-radius: 55px;*/
+
+}
+
+.example-item {
+  height: 50px;
+}
+
+.scroll{
+  /*background-color: white;*/
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  /*box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);*/
+  direction:ltr;
+  overflow:auto;
+  border: none;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge add Firefox */
+.scroll-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+  direction:ltr;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: blue;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: blue;
+}
+
+
+table {
+  width: 100%;
+}
+
+.ranking {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+
+
+.mat-row:nth-child(even){
+  background-color: whitesmoke;
+
+}
+.color {
+  color: white;
+  font-weight: bold;
+  /*font-style: unset;*/
+  background-color: lightskyblue;
+}
+/*.mat-row:not(:nth-child(odd){*/
+/*  background-color: #ffffff;*/
+/*}*/
+
+
+th {
+  background-color: whitesmoke;
+
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.title-span{
+  text-align: center;
+  font-size: 14px;
+}
+
+.header-toolbar{
+  /*background-color: #1da1f2;*/
+  border-bottom-color: #1b1e21;
+  border-color: #4e555b;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+  top: 18px;
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 12px;
+  border-radius: 10px
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-background,
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  height: 100%;
+}
+/*.mat-slider.mat-slider-horizontal .mat-slider-track-fill {*/
+/*  background-color: blue;*/
+/*}*/
+.mat-accent .mat-slider-thumb {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: solid 2px gray;
+  bottom: -20px;
+  right: -20px;
+}
+.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+  background-color: white;
 }

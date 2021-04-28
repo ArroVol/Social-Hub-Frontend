@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThrowAwayPageComponent } from './throw-away-page.component';
+import { OnePostComponent } from './one-post.component';
 
-describe('ThrowAwayPageComponent', () => {
-  let component: ThrowAwayPageComponent;
-  let fixture: ComponentFixture<ThrowAwayPageComponent>;
+describe('OnePostComponent', () => {
+  let component: OnePostComponent;
+  let fixture: ComponentFixture<OnePostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ThrowAwayPageComponent ]
+      declarations: [ OnePostComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ThrowAwayPageComponent);
+    fixture = TestBed.createComponent(OnePostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

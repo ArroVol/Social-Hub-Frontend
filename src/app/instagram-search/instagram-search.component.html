@@ -3,7 +3,7 @@
     <mat-label>Enter Instagram Username:</mat-label>
     <input #todo matInput type="text" name="todo">
     <mat-card-actions>
-      <button matSuffix style=" display: block;  margin-left: auto; margin-right: auto;"  (click)="userSearch(todo.value)" mat-button>
+      <button matSuffix style=" display: block;  margin-left: auto; margin-right: auto;"  (click)="userSearch(todo.value)" mat-button [class.spinner]="loading" [disabled]="loading">
         <mat-icon  matSuffix>search</mat-icon>
       </button>
 
@@ -15,27 +15,69 @@
 
 <ng-container *ngIf="showSearch">
 
+<!--  <div  *ngIf="isVisibleSpinner" >-->
+<!--    <mat-spinner color="accent" strokeWidth="2" [diameter]="100" style="width: 50px; height: 50px; margin-left: 20%"></mat-spinner>-->
+<!--  </div>-->
 
-  <div class="container bootstrap-snippet header-container">
-    <div class="headerImage">
-      <div class="py-5" style=" width: 100% ; height: 200px">
-        <img src="{{instagramUserSearch.profilePicUrl}}" alt class="profilePic" style=" float: top; float: left; margin-top: 0 ">
-        <div class="media col-md-10 col-lg-8 col-xl-7 p-0 my-4 "  >
-
-
-          <h4 style="margin-top: 30px; padding-right: 50px; padding-left: 220px; font-size: 30px" class="font-weight-bold mb-4">{{instagramUserSearch.displayName}}</h4>
+<!--  <div *ngIf="this.isVisible">-->
+  <mat-card class="example-card">
 
 
-          <strong style="margin-top: 20px; font-size: 40px"><animated-digit [digit]="instagramUserSearch.followerCount" [duration]="1000"></animated-digit></strong>
-          <span style="margin-top: 30px;  padding-right: 50px; font-size: 30px" class="text-muted"> Followers </span>
 
-          <strong style="margin-top: 20px; font-size: 40px"><animated-digit [digit]="instagramUserSearch.followingCount" [duration]="1000"></animated-digit></strong>
-          <span style="margin-top: 30px; padding-right: 50px; font-size: 30px" class="text-muted"> Following</span>
+      <mat-card-header>
+        <img mat-card-avatar src="{{instagramUserSearch.profilePicUrl}}" alt class="profilePic"  >
+        <mat-card-title>{{instagramUserSearch.displayName}}</mat-card-title>
+      </mat-card-header>
+      <div >
+        <div class="headerImage">
+          <div class="py-5" style=" width: 100% ; height: 200px">
+  <!--          <img src="{{instagramUserSearch.profilePicUrl}}" alt class="profilePic" >-->
+            <div>
+
+
+  <!--            <h4 style="margin-top: 30px; padding-right: 50px; padding-left: 220px; font-size: 10px" class="font-weight-bold mb-4">{{instagramUserSearch.displayName}}</h4>-->
+
+
+              <strong style="margin-top: 20px; font-size: 15px"><animated-digit [digit]="instagramUserSearch.followerCount" [duration]="1000"></animated-digit></strong>
+              <span style="margin-top: 30px;  padding-right: 20px; font-size: 10px" class="text-muted"> Followers </span>
+
+              <strong style="margin-top: 20px; font-size: 15px"><animated-digit [digit]="instagramUserSearch.followingCount" [duration]="1000"></animated-digit></strong>
+              <span style="margin-top: 30px; padding-right: 20px; font-size: 10px" class="text-muted"> Following</span>
+
+              <p  style="  display: block;  font-size: 10px" >BIO: {{instagramUserSearch.instaBio}}</p>
+            </div>
+
+
+          </div>
+
         </div>
-        <h3  style=" color: #ffffff; display: block;  margin-left: 25%; margin-right: auto; font-size: 20px" >BIO: {{instagramUserSearch.instaBio}}</h3>
 
       </div>
 
-    </div>
-  </div>
+
+  </mat-card>
+<!--  </div>-->
+<!--  <button mat-raised-button  *ngIf="followStatus" (click)="unFollowUser(todo.value)">-->
+<!--    <mat-icon></mat-icon>-->
+<!--    Unfollow-->
+<!--  </button>-->
+
+<!--  *ngIf="!followStatus"-->
+<!--  <button mat-raised-button   *ngIf="!followStatus" (click)="followUser(todo.value)">-->
+<!--    <mat-icon><span class="followIcon"></span></mat-icon>-->
+<!--    {{checkFollowStatus()}}-->
+<!--  </button>-->
+  <button mat-raised-button  *ngIf="!this.instagramUserSearch.followingStatus" [class.spinner]="loading" [disabled]="loading"
+           (click)="followUser(todo.value)">
+    <mat-icon><span class="followIcon"></span></mat-icon>
+    {{checkFollowStatus()}}
+  </button>
+
+  <button mat-raised-button *ngIf="this.instagramUserSearch.followingStatus" [class.spinner]="loading" [disabled]="loading"
+           (click)="unFollowUser(todo.value)">
+    <mat-icon><span class="followIcon"></span></mat-icon>
+    {{checkFollowStatus()}}
+  </button>
+
+  <button mat-raised-button (click)="closeModalDialog()" >Cancel</button>
 </ng-container>

@@ -1,3 +1,9 @@
+/* DashboardComponent's private CSS styles */
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+@import url(https://fonts.googleapis.com/css?family=Khand);
+
+/*[class*='col-'] {*/
 
 .example-card {
   width: 350px;
@@ -30,4 +36,373 @@ h3 {
 .title {
   color: black;
   text-align: center;
+}
+
+.basic-card{
+  background-color: rgb(173, 216, 255);
+  /*background-color: whitesmoke;*/
+
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+  /*width: 49%;*/
+  /*width: 650px;*/
+
+  width: 600px;
+  padding-left: 50px;
+}
+
+.basic-card-goal{
+  background-color: rgb(173, 216, 255);
+  /*background-color: whitesmoke;*/
+
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+  /*width: 49%;*/
+  /*width: 650px;*/
+
+  width: 250px;
+  /*padding-left: 20px;*/
+  margin-left: 10px;
+}
+.basic-card-small2{
+  background-color: rgb(173, 216, 255);
+  /*background-color: whitesmoke;*/
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+  /*width: 49%;*/
+  /*width: 650px;*/
+  margin-left: 10px;
+  width: 380px;
+  /*padding-left: 2px;*/
+  /*margin-left: 25px;*/
+
+}
+
+.recent-post-card{
+  background-color: white;
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+  /*width: 70%;*/
+  width: 335px;
+  height: 300px;
+
+}
+
+.goal-card {
+  /*background-color: whitesmoke;*/
+  border-radius: 5px;
+  background-color: white;
+
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+  /*width: 326px;*/
+  /*width: 90%;*/
+  height: 275px;
+  padding-left: 5px;
+}
+
+/* Clear floats after the columns */
+.row2:after {
+  content: "";
+  display: table;
+  clear: both;
+
+}
+
+.flex-column {
+  float: left;
+  /*width: 50%;*/
+  padding-left: 4px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.header{
+  text-align: center;
+}
+
+.outer-header{
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 16px;
+}
+
+.followers{
+  font-size: 16px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 7px 16px; border-radius: 100px; border: 1px solid rgb(173, 216, 255); border-image: none; text-align: center; color: black; line-height: 20px; font-size: 14px; font-weight: bold; white-space: nowrap; position: relative; cursor: pointer; float: left; box-shadow: none; background-color: rgb(173, 216, 255);
+  /*display: inline-block;*/
+  /*width: 50px;*/
+  /*border: 1px solid #000;*/
+  /*text-align: center;*/
+  margin-top: 15px;
+  padding-top: 10px;
+  cursor: default;
+
+}
+
+.status{
+  /*font-size: 16px;*/
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+}
+
+.posttweettacontainer2{
+  border-radius: 8px;  box-shadow: 0px 0px 0px 1px dodgerblue;  height: auto;
+  width: 300px;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; position: center;*/
+
+}
+
+.circle{
+  color: red;
+  fill: red;
+
+}
+
+.icons-twitter {
+  padding-top: 5px;
+}
+
+.mat-slider-horizontal {
+  width: 100%;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.module {
+  padding: 20px;
+  text-align: center;
+  color: #eee;
+  max-height: 120px;
+  min-width: 120px;
+  background-color: #3f525c;
+  border-radius: 2px;
+}
+.module:hover {
+  background-color: #eee;
+  cursor: pointer;
+  color: #607d8b;
+}
+.grid-pad {
+  padding: 10px 0;
+}
+.grid-pad > [class*='col-']:last-of-type {
+  padding-right: 20px;
+}
+@media (max-width: 600px) {
+  .module {
+    font-size: 10px;
+    max-height: 75px; }
+}
+@media (max-width: 1024px) {
+  .grid {
+    margin: 0;
+  }
+  .module {
+    min-width: 60px;
+  }
+}
+
+.facebookCard {
+  max-width: 400px;
+  margin-left: 17px;
+  background-image: linear-gradient(250deg, rgba(6,62,172,1) 5%, rgba(28,145,249,1) 42%, rgba(29,150,253,1) 44%, rgba(69,226,252,1) 95%);
+}
+
+.example-header-image {
+  background-size: cover;
+}
+#title{
+  color: black;
+  font-family: Khand, Impact;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#subtitle{
+  color: black;
+  font-family: Khand, Impact;
+  font-size: 17px;
+}
+
+#fbCard{
+  display: none;
+}
+
+#fbCardLogin{
+  display: block;
+}
+
+li{
+  color: black;
+  font-family: Khand, Impact;
+  font-size: 20px;
+}
+
+a{
+  color: black;
+  font-family: Khand, Impact;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+a:hover{
+  color: blue;
+  font-family: Khand, Impact;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.outer-basic-card{
+  /*background-color: rgb(173, 216, 255);*/
+  background-color: whitesmoke;
+
+  border-radius: 5px;
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+
+  width: 430px;
+ margin-left: 10px;
+}
+
+.snapshot-title{
+  text-align: center;
+  position: center;
+}
+
+.followers-header2{
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*cursor: default;*/
+  /*border: 2px solid #039be5;*/
+  /*border-radius: 5px;*/
+  /*width: 50%;*/
+  /*position: center;*/
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.followers-header3{
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 50%;
+  /*position: center;*/
+  margin-top: 30px;
+  /*height: 50px;*/
+  margin-bottom: 10px;
+
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.header-toolbar{
+  /*background-color: #1da1f2;*/
+  border-bottom-color: #1b1e21;
+  border-color: #4e555b;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+  top: 18px;
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 12px;
+  border-radius: 10px
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-background,
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  height: 100%;
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  background-color: blue;
+}
+.mat-accent .mat-slider-thumb {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: solid 2px gray;
+  bottom: -20px;
+  right: -20px;
+}
+.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+  background-color: white;
+}
+
+.mat-slider-horizontal {
+  width: 200px;
+  /*background-color: blue;*/
+
+}
+
+.mat-slider-vertical {
+  height: 300px;
+}
+
+.space{
+  padding-top: -20px;
+  margin-top: -30px;
+  text-align: center;
+  position: center;
+  margin-left: 95px;
+  margin-bottom: -15px;
+}
+
+
+
+/* Spotify Shit */
+.spotify_snapshot {
+  max-width: 30vw;
+  max-height: 45vh;
+}
+
+.spotify_recent_tracks_card, .spotify_favourite_tracks_card {
+  margin-right: 3%;
+  max-height: 178px;
+}
+
+.spotifyIcon {
+  background: url('https://api.iconify.design/mdi:spotify.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:spotify.svg?height=32');
+  vertical-align: -0.125em;
+}
+
+.spotify_snapshot_header {
+  /*background-color: #3498db;*/
+  /*max-width: 20vw;*/
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*justify-content: space-between;*/
+}
+
+/*.spotify_recently_played_tab {*/
+/*  background-color: #3498db;*/
+/*}*/
+
+hr {
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+#dPages{
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-family: Khand;
+  font-weight: bold;
+  color: black;
 }

@@ -1,0 +1,191 @@
+
+.example-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.nav-bar {
+  overflow-y: hidden;
+}
+
+#loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.nav_user_info img {
+  border-radius: 50%;
+  width: 125px;
+  margin-left: 1%;
+  margin-top: 2%;
+  margin-right: 1%;
+}
+
+.nav_user_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.nav_user_info h1, .nav_user_info h4 {
+  margin-left: 2%;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home_page_container {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+/* Featured Playlist */
+
+.featured_playlist_container {
+  background-color: #FFFFFF;
+  margin-top: .8%;
+  margin-left: 1%;
+  margin-right: 1%;
+  border-radius: 5px;
+  border: 2px solid snow;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.featured_playlist_card {
+  margin-right: 5%;
+  max-height: 162px;
+}
+
+.featured_playlist_card:hover {
+  background-color: slategray;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: snow;
+}
+
+.featured_playlist_content, .featured_playlist_footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.featured_playlist_table_container {
+  margin-top: -1%;
+  width: 95%;
+  overflow-x: auto;
+  margin-left: 2.5%;
+  overflow-y: hidden;
+}
+
+/* New Releases */
+.new_releases_container {
+  background-color: #FFFFFF;
+  margin-top: .5%;
+  margin-left: 1%;
+  margin-right: 1%;
+  border-radius: 5px;
+  border: 2px solid snow;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.new_releases_card {
+  margin-right: 5%;
+  max-height: 172px;
+}
+
+.new_releases_content, .new_releases_footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.new_releases_table_container {
+  margin-top: -1%;
+  width: 95%;
+  overflow-x: auto;
+  margin-left: 2.5%;
+  overflow-y: hidden;
+}
+
+
+/* User Tracks */
+.user_tracks_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.user_top_tracks_container {
+  width: 48%;
+  height: 225px;
+  margin-top: .8%;
+  margin-left: 1%;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  border: 2px solid snow;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.user_recent_tracks_container {
+  width: 48%;
+  height: 225px;
+  margin-top: .8%;
+  margin-right: 1%;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  border: 2px solid snow;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.user_top_tracks, .user_recent_tracks {
+  margin-top: -1.5%;
+  width: 100%;
+  height: 150px;
+  overflow-y: auto;
+}
+
+.songlist {
+  /*overflow-y: auto;*/
+  margin-right: 1%;
+  margin-left: 2%;
+  width: 97%;
+}
+
+.tracksData {
+  margin-bottom: 2%;
+}
+
+.tracksData:hover {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+

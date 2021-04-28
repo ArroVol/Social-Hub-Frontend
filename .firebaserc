@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "social-hub-d68f3": {
+      "hosting": {
+        "angular.io-example": [
+          "social-hub-d68f3"
+        ]
+      }
+    }
+  }
+}

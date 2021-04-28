@@ -1,0 +1,99 @@
+<!--<div id="modal-content-wrapper">-->
+<!--  <header id="modal-header">-->
+<!--    <h1 id="modal-title">Are you sure you want to logout?</h1>-->
+<!--  </header>-->
+<!--  <section id="modal-body">-->
+<!--    <p>If you logout bad things might happen, but don't mind me, I'm just the description in a modal...</p>-->
+<!--  </section>-->
+<!--  <footer id="modal-footer">-->
+<!--    <button mat-raised-button id="modal-action-button" (click)="actionFunction()">Logout</button>-->
+<!--    <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Go back</button>-->
+<!--  </footer>-->
+<!--</div>-->
+
+
+<div *ngIf="!nextForm else showNextForm" class="full-box">
+
+<div id="login-box">
+  <div class="left">
+    <form #userForm='ngForm'>
+      <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">
+        <mat-icon class="back-btn">arrow_back</mat-icon>
+
+      </button>
+        <h1 class="header">Register Account information below
+        </h1>
+        <div class="center3">
+
+          <input #username type="text" required [(ngModel)]="userModel.name"   (keypress)="omit_special_char($event)" name="userName" minlength="4" placeholder="Name" />
+          <div *ngIf="firstEmail.errors && (firstEmail.invalid || firstEmail.touched)">
+            <!--        <small class="text-danger" *ngIf="firstEmail.errors.required">Email is required</small>-->
+            <small class="text-danger" *ngIf="firstEmail.errors.pattern">Please provide a valid email address ex. speh@gmail.com</small>
+          </div>
+          <input #email type="text" placeholder="E-mail" #firstEmail="ngModel" [class.is-invalid]="firstEmail.invalid && firstEmail.touched" required
+                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" name="primaryEmail"
+                 [(ngModel)]="userModel.email" />
+          <!--      <input #email type="text" name="email" placeholder="E-mail" />-->
+<!--          <input #phoneNumber required [(ngModel)]="userModel.phoneNumber"  type="text" (keypress)="omit_special_char($event)" minlength="10" maxlength="12" name="phoneNumber" placeholder="Phone Number" />-->
+          <form [formGroup]="myForm">
+            <input type="password" minlength="4" matInput placeholder="Password" formControlName="password" required>
+            <!--          <small class="text-danger" *ngIf="myForm.hasError('required', 'password')">-->
+            <!--            Please enter a password-->
+            <!--          </small>-->
+            <small class="text-danger"*ngIf="myForm.hasError('notSame')">
+              Passwords do not match
+            </small>
+            <div></div>
+            <input type="password" required [(ngModel)]="userModel.password"  minlength="4" #password matInput placeholder="Confirm Password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+          </form>
+        </div>
+        <div class="create-account-btn">
+
+          <button [disabled]="userForm.invalid || myForm.invalid" class="submit"  (click)="next(username.value, password.value, email.value)">Next</button>
+          <div>
+<!--              <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Go back</button>-->
+        </div>
+        </div>
+    </form>
+  </div>
+</div>
+</div>
+<ng-template #showNextForm>
+  Onto the next form
+</ng-template>
+<!--<mat-horizontal-stepper linear #stepper>-->
+<!--  <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">-->
+<!--    <form [formGroup]="firstFormGroup">-->
+<!--      <ng-template matStepLabel>Fill out your name</ng-template>-->
+<!--      <mat-form-field>-->
+<!--        <mat-label>Name</mat-label>-->
+<!--        <input matInput formControlName="firstCtrl" placeholder="Last name, First name" required>-->
+<!--      </mat-form-field>-->
+<!--      <div>-->
+<!--        <button mat-button matStepperNext>Next</button>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </mat-step>-->
+<!--  <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">-->
+<!--    <form [formGroup]="secondFormGroup">-->
+<!--      <ng-template matStepLabel>Fill out your address</ng-template>-->
+<!--      <mat-form-field>-->
+<!--        <mat-label>Address</mat-label>-->
+<!--        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"-->
+<!--               required>-->
+<!--      </mat-form-field>-->
+<!--      <div>-->
+<!--        <button mat-button matStepperPrevious>Back</button>-->
+<!--        <button mat-button matStepperNext>Next</button>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </mat-step>-->
+<!--  <mat-step>-->
+<!--    <ng-template matStepLabel>Done</ng-template>-->
+<!--    <p>You are now done.</p>-->
+<!--    <div>-->
+<!--      <button mat-button matStepperPrevious>Back</button>-->
+<!--      <button mat-button (click)="stepper.reset()">Reset</button>-->
+<!--    </div>-->
+<!--  </mat-step>-->
+<!--</mat-horizontal-stepper>-->
