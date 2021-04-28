@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 import {Moment} from 'moment';
-import {InstagramUserSearchInfo} from "../model/instagram/InstagramUserSearchInfo";
+import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
 import {SpotifyService} from '../service/spotify.service';
 import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
   spotifyUserFavouriteTracks: SpotifyTrack[];
   ngOnInit(): void {
 
-    this.getInstaUser();
+    // this.getInstaUser();
     this.getChannel();
     // this.loginFB();
     //THIS IS FOR FACEBOOK LOGIN
@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit {
           });
       }
     });
-    this.initializeSpotifyFields();
+    // this.initializeSpotifyFields();
 
     window.addEventListener('resize', (e) => {
       if (window.matchMedia('(min-width: 1050px)').matches) {

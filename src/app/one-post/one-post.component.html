@@ -40,6 +40,15 @@
           </div>
         </section>
 
+        <mat-form-field id = "fbForm" appearance="fill">
+          <mat-label>Select Pages to Post to</mat-label>
+          <mat-select [(value)]="currentFBPage" multiple>
+            <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+              {{page}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <p class="error" *ngIf="this.form.controls['checkArray'].errors?.required">
           Checkbox is required, select at least one value.
         </p>
