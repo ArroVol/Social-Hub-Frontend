@@ -30,7 +30,8 @@
 <div class = "container" *ngIf="isVisible">
   <div class="sub-cat">
     <h1> My Videos </h1>
-    <ul class="no-bullets">
+    <mat-spinner *ngIf="isVisibleSpinnerContent"></mat-spinner>
+    <ul *ngIf="isVisibleContent" class="no-bullets">
       <li *ngFor="let video of channel.videos;">
         <mat-card class="example-card">
           <mat-card-header>
@@ -50,7 +51,8 @@
 
   <div class= "sub-cat">
     <h1> My Playlists </h1>
-  <ul class="no-bullets">
+    <mat-spinner *ngIf="isVisibleSpinnerContent"></mat-spinner>
+    <ul *ngIf="isVisibleContent" class="no-bullets">
     <li *ngFor="let playlist of channel.playlists;">
       <mat-card class="example-card">
         <mat-card-header>
@@ -58,8 +60,9 @@
         </mat-card-header>
         <iframe mat-card-image width="300" height="150" [src]="playlist | safe" allowfullscreen> </iframe>
         <mat-card-content>
-          <p>
-          </p>
+          <div class="container1" [class.show]="show" style="word-wrap: break-word;">
+            Description:
+          </div>
         </mat-card-content>
       </mat-card>
     </li>
@@ -68,9 +71,10 @@
   <div class="sub-cat">
     <h1> Liked Videos </h1>
 
-    <ul class="no-bullets">
+    <mat-spinner *ngIf="isVisibleSpinnerContent"></mat-spinner>
+    <ul *ngIf="isVisibleContent" class="no-bullets">
       <li *ngFor="let liked of channel.liked;">
-        <mat-card #card class="example-card">
+        <mat-card #card class="example-card" [ngClass]="{'example-card-resize': show, 'example-card': !show}">
           <mat-card-header>
             <mat-card-title>{{channel.username}}</mat-card-title>
           </mat-card-header>

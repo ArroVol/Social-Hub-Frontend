@@ -20,6 +20,8 @@ export class YoutubeComponent implements OnInit {
   channel: Channel;
   isVisible = false;
   isVisibleSpinner = false;
+  isVisibleSpinnerContent = false;
+  isVisibleContent = false;
   isLoggedIn = true;
   user: Youtube;
   videos = 'Select a video to post to';
@@ -94,6 +96,10 @@ export class YoutubeComponent implements OnInit {
     }, 6000);
   }
 
+  getMostRecentVideo(): string {
+    return this.channel.videos[0].videoId;
+  }
+
 
   // getPlaylists() {
   //   this.youtubeService.getPlaylists()
@@ -128,6 +134,11 @@ export class YoutubeComponent implements OnInit {
     setTimeout(() => {
       this.isVisibleSpinner = false;
       this.isVisible = true;
+      this.isVisibleSpinnerContent = true;
+      setTimeout(() => {
+        this.isVisibleSpinnerContent = false;
+        this.isVisibleContent = true;
+      }, 6000);
     }, 6000);
 
   }

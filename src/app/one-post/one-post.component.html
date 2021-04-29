@@ -31,7 +31,7 @@
 
           <div *ngFor="let data of Data; let i=index">
             <label class="container">
-              <input type="checkbox"  [defaultChecked]="resetCheckBox" [checked]="isChecked" class="example-margin" [disabled]="data.name === 'Instagram' && !atLeastOneFile"  [value]="data.value" (change)="onCheckboxChange($event)" />
+              <input type="checkbox"  [defaultChecked]="resetCheckBox" [checked]="isChecked" class="example-margin" [disabled]="data.name === 'Instagram' && !atLeastOneFile"  [value]="data.value" (change)="onCheckboxChange($event);" />
               <!--      <mat-checkbox type="checkbox" class="example-margin" [value]="data.value" (change)="onCheckboxChange($event)"></mat-checkbox>-->
 
               {{data.name}}
