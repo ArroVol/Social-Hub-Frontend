@@ -2,9 +2,9 @@
   <mat-drawer mode="side" opened position="end">
     <div class="nav-bar">
       <div class="nav_user_info">
-        <img src="{{spotifyUser.imageUrl}}">
-        <h1 style="margin-top: -2%;">{{spotifyUser.displayName}}</h1>
-        <h4 style="margin-top: -10%;">{{spotifyUser.email}}</h4>
+        <img src="{{spotifyUser?.imageUrl}}">
+        <h1 style="margin-top: -2%;">{{spotifyUser?.displayName}}</h1>
+        <h4 style="margin-top: -10%;">{{spotifyUser?.email}}</h4>
       </div>
       <div>
         <mat-nav-list>
@@ -37,7 +37,7 @@
           <div style="height: 150px; overflow-y: auto;">
             <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
                (click)="routeToPlaylist(playlist.id)">
-              {{ playlist.name }} </a>
+              {{ playlist?.name }} </a>
           </div>
         </mat-nav-list>
       </div>
@@ -49,21 +49,22 @@
     <div class="home_page_container" fxLayout="column">
 
       <div class="new_releases_container">
-        <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">New Album Releases</h1>
+        <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">New Album Releases </h1>
+        <!--        *ngIf="newRealeaseAlbums | async as album; else loading;"-->
         <div class="new_releases_table_container">
           <table>
             <tr>
               <td *ngFor="let album of newRealeaseAlbums" class="new_releases_card_container">
                 <mat-card class="new_releases_card">
                   <mat-card-content class="new_releases_content">
-                    <img src="{{album.imageUrl}}" width="125">
+                    <img src="{{album?.imageUrl}}" width="125">
                     <div fxLayout="column">
                       <h1
                         style="font-size: 14px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
-                        {{album.name}}</h1>
+                        {{album?.name}}</h1>
                       <h4
                         style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -28%;">
-                        {{album.artistNames}}</h4>
+                        {{album?.artistNames}}</h4>
                     </div>
                   </mat-card-content>
                 </mat-card>
@@ -80,14 +81,14 @@
             <tr>
               <td *ngFor="let playlist of featuredPlaylists" class="featured_playlist_card_container"
                   #playlistToolTip="matTooltip"
-                  matTooltip="{{playlist.description}}">
-                <mat-card class="featured_playlist_card" (click)="routeToPlaylist(playlist.id);">
+                  matTooltip="{{playlist?.description}}">
+                <mat-card class="featured_playlist_card" (click)="routeToPlaylist(playlist?.id);">
                   <mat-card-content class="featured_playlist_content">
-                    <img src="{{playlist.imageUrl}}" width="125">
+                    <img src="{{playlist?.imageUrl}}" width="125">
                     <div fxLayout="column">
                       <h1
                         style="font-size: 15px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
-                        {{playlist.name}}</h1>
+                        {{playlist?.name}}</h1>
                     </div>
                   </mat-card-content>
                   <mat-card-footer class="featured_playlist_footer">
@@ -103,15 +104,15 @@
 
         <div class="user_top_tracks_container">
           <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">Your Top Tracks</h1>
-          <h4 style="font-size: 15px; margin-top: -3%; margin-left: 1%;">{{userTopTracks.length}} Songs</h4>
+          <h4 style="font-size: 15px; margin-top: -3%; margin-left: 1%;">{{userTopTracks?.length}} Songs</h4>
           <div class="user_top_tracks">
             <table class="songlist">
               <tr *ngFor="let track of userTopTracks; let i = index" class="tracksData">
                 <td>{{i + 1}}</td>
-                <td><img src="{{track.album.imageUrl}}" width="75"></td>
-                <td><p>{{track.name}} <br>
+                <td><img src="{{track?.album.imageUrl}}" width="75"></td>
+                <td><p>{{track?.name}} <br>
                   <span style="font-size:12px;"
-                        *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
+                        *ngFor="let item of track.artistInfo | keyvalue">{{item?.value}} </span>
                 </p></td>
                 <td>{{transform(track.duration)}}</td>
                 <td>
@@ -121,21 +122,21 @@
                     <mat-icon>person_outline</mat-icon>
                   </button>
                   <mat-menu #artistMenu="matMenu">
-                    <button mat-menu-item *ngFor="let artist of track.artistInfo | keyvalue"
-                            (click)="routeToArtist(artist.key)">
-                      {{artist.value}}
+                    <button mat-menu-item *ngFor="let artist of track?.artistInfo | keyvalue"
+                            (click)="routeToArtist(artist?.key)">
+                      {{artist?.value}}
                     </button>
                   </mat-menu>
                 </td>
                 <td>
                   <button mat-icon-button *ngIf="!userTopTracksFavourites[i]"
-                          (click)="followTrack(track.id); userTopTracksFavourites[i] = true;"
+                          (click)="followTrack(track?.id); userTopTracksFavourites[i] = true;"
                           #favouritesToolTip="matTooltip"
                           matTooltip="Favourite this Track">
                     <mat-icon>favorite_border</mat-icon>
                   </button>
                   <button mat-icon-button *ngIf="userTopTracksFavourites[i]"
-                          (click)="unfollowTrack(track.id); userTopTracksFavourites[i] = false;"
+                          (click)="unfollowTrack(track?.id); userTopTracksFavourites[i] = false;"
                           color="warn" #favouritesToolTip="matTooltip" matTooltip="Favourite this Track">
                     <mat-icon>favorite</mat-icon>
                   </button>
@@ -148,8 +149,8 @@
                   </button>
                   <mat-menu #playlistMenu="matMenu">
                     <button mat-menu-item *ngFor="let playlist of spotifyUserPlaylist"
-                            (click)="addToPlaylist(playlist.id, track.spotifyUri)">
-                      {{playlist.name}}
+                            (click)="addToPlaylist(playlist?.id, track?.spotifyUri)">
+                      {{playlist?.name}}
                     </button>
                   </mat-menu>
                 </td>
@@ -165,12 +166,12 @@
             <table class="songlist">
               <tr *ngFor="let track of userRecentTracks; let i = index" class="tracksData">
                 <td>{{i + 1}}</td>
-                <td><img src="{{track.album.imageUrl}}" width="75"></td>
-                <td><p>{{track.name}} <br>
+                <td><img src="{{track?.album.imageUrl}}" width="75"></td>
+                <td><p>{{track?.name}} <br>
                   <span style="font-size:12px;"
-                        *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
+                        *ngFor="let item of track.artistInfo | keyvalue">{{item?.value}} </span>
                 </p></td>
-                <td>{{transform(track.duration)}}</td>
+                <td>{{transform(track?.duration)}}</td>
                 <td>
                   <button mat-icon-button [matMenuTriggerFor]="artistMenu"
                           #artistToolTip="matTooltip"
@@ -178,21 +179,21 @@
                     <mat-icon>person_outline</mat-icon>
                   </button>
                   <mat-menu #artistMenu="matMenu">
-                    <button mat-menu-item *ngFor="let artist of track.artistInfo | keyvalue"
-                            (click)="routeToArtist(artist.key)">
-                      {{artist.value}}
+                    <button mat-menu-item *ngFor="let artist of track?.artistInfo | keyvalue"
+                            (click)="routeToArtist(artist?.key)">
+                      {{artist?.value}}
                     </button>
                   </mat-menu>
                 </td>
                 <td>
                   <button mat-icon-button *ngIf="!userRecentTracksFavourites[i]"
-                          (click)="followTrack(track.id); userRecentTracksFavourites[i] = true;"
+                          (click)="followTrack(track?.id); userRecentTracksFavourites[i] = true;"
                           #favouritesToolTip="matTooltip"
                           matTooltip="Favourite this Track">
                     <mat-icon>favorite_border</mat-icon>
                   </button>
                   <button mat-icon-button *ngIf="userRecentTracksFavourites[i]"
-                          (click)="unfollowTrack(track.id); userRecentTracksFavourites[i] = false;"
+                          (click)="unfollowTrack(track?.id); userRecentTracksFavourites[i] = false;"
                           color="warn" #favouritesToolTip="matTooltip"
                           matTooltip="Favourite this Track">
                     <mat-icon>favorite</mat-icon>
@@ -206,8 +207,8 @@
                   </button>
                   <mat-menu #playlistMenu="matMenu">
                     <button mat-menu-item *ngFor="let playlist of spotifyUserPlaylist"
-                            (click)="addToPlaylist(playlist.id, track.spotifyUri)">
-                      {{playlist.name}}
+                            (click)="addToPlaylist(playlist?.id, track?.spotifyUri)">
+                      {{playlist?.name}}
                     </button>
                   </mat-menu>
                 </td>

@@ -117,28 +117,28 @@ export class SpotifyService {
       );
   }
 
-  createPlaylist(playlist_name: string, playlist_description: string): Observable<any> {
+  createPlaylist(playlist_name: string, playlist_description: string): Observable<SpotifyPlaylist> {
     const url = `${this.spotifyUrl}/playlist/create/` + playlist_name + '/' + playlist_description;
     // console.log(url);
     // console.log('method Called with parameters: ' + playlist_name + ' , ' + playlist_description);
-    return this.http.post<any>(url, null);
+    return this.http.post<SpotifyPlaylist>(url, null);
   }
 
-  reOrderPlaylist(playlist_id: string, range_start: number, insert_before: number): Observable<any> {
+  reOrderPlaylist(playlist_id: string, range_start: number, insert_before: number): Observable<SpotifyPlaylist> {
     const url = `${this.spotifyUrl}/playlist/reorder/` + playlist_id + '/' + range_start + '/' + insert_before;
     // console.log(url);
     // console.log(range_start + ' ' + insert_before);
-    return this.http.put<any>(url, null);
+    return this.http.put<SpotifyPlaylist>(url, null);
   }
 
-  removeTrackFromPlaylist(playlist_id: string, track_uri: string): Observable<any> {
+  removeTrackFromPlaylist(playlist_id: string, track_uri: string): Observable<SpotifyTrack[]> {
     const url = `${this.spotifyUrl}/playlist/remove/track/` + playlist_id + '/' + track_uri;
-    return this.http.put<any>(url, null);
+    return this.http.put<SpotifyTrack[]>(url, null);
   }
 
-  addTrackToPlaylist(playlist_id: string, track_uri: string): Observable<SpotifyPlaylist> {
+  addTrackToPlaylist(playlist_id: string, track_uri: string): Observable<SpotifyTrack[]> {
     const url = `${this.spotifyUrl}/playlist/add/track/` + playlist_id + '/' + track_uri;
-    return this.http.put<any>(url, null);
+    return this.http.put<SpotifyTrack[]>(url, null);
   }
 
   getArtistById(artist_id: string): Observable<SpotifyArtist> {
@@ -288,6 +288,17 @@ export class SpotifyService {
     return this.http.get<SpotifyPlaylistSnapshot[]>(url).pipe(
       tap(playlist => console.log('playlist_snapshot', playlist))
     );
+  }
+
+  getRecommendedTracks(track_ids: string): Observable<SpotifyTrack[]> {
+    const url = `${this.spotifyUrl}/get/recommended/tracks/` + track_ids;
+    return this.http.get<SpotifyTrack[]>(url).pipe();
+  }
+
+  getRecommendedTracksPromise(track_ids: string): Promise<SpotifyTrack[]> {
+    const url = `${this.spotifyUrl}/get/recommended/tracks/` + track_ids;
+    return this.http.get<SpotifyTrack[]>(url).pipe().toPromise();
+
   }
 
 

@@ -33,6 +33,8 @@ export class SpotifyComponent implements OnInit {
   userRecentTracks: SpotifyTrack[];
   userRecentTracksFavourites: Boolean[];
 
+  //TODO: perhaps use a map for the recentTracksFavourites and the topTracksFavourites: key = track_id, value = boolean
+
 
   constructor(private spotifyService: SpotifyService, private router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar) {
   }
@@ -70,12 +72,12 @@ export class SpotifyComponent implements OnInit {
   }
 
   getFavouritedTopTracks(track_ids: string[]) {
-    return this.spotifyService.checkFollowedTrack(track_ids).subscribe(result => console.log('favourited top tracks array', this.userTopTracksFavourites = result));
+    this.spotifyService.checkFollowedTrack(track_ids).subscribe(result => console.log('favourited top tracks array', this.userTopTracksFavourites = result));
     // console.log('favourited array', this.artistTopTracksFavourites);
   }
 
   getFavouritedRecentTracks(track_ids: string[]) {
-    return this.spotifyService.checkFollowedTrack(track_ids).subscribe(result => console.log('favourited recent tracks array', this.userRecentTracksFavourites = result));
+    this.spotifyService.checkFollowedTrack(track_ids).subscribe(result => console.log('favourited recent tracks array', this.userRecentTracksFavourites = result));
     // console.log('favourited array', this.artistTopTracksFavourites);
   }
 
@@ -138,7 +140,7 @@ export class SpotifyComponent implements OnInit {
 
       });
     }
-    this.getFavouritedTopTracks(this.userTopTracks.map(track => track.id));
+    this.getFavouritedTopTracks(this.userTopTracks.map(track => track?.id));
 
   }
 
@@ -151,7 +153,7 @@ export class SpotifyComponent implements OnInit {
         this.userRecentTracks = recentTracks;
       });
     }
-    this.getFavouritedRecentTracks(this.userRecentTracks.map(track => track.id));
+    this.getFavouritedRecentTracks(this.userRecentTracks.map(track => track?.id));
 
   }
 

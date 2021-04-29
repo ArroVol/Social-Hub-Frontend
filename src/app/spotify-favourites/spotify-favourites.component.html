@@ -56,7 +56,7 @@
           (click)="showAllTracks = !showAllTracks;"> See all</span></h1>
         <h4 style="font-size: 15px; margin-top: -1.5%; margin-left: 1%;">{{favouriteTracks.length}} Songs</h4>
         <div class="favourite_tracks_snapshot" *ngIf="!showAllTracks">
-          <table class="songlist">
+          <table class="songlist" *ngIf="favouriteTracks">
             <tr *ngFor="let track of favouriteTracks; let i = index" class="tracksData">
               <td>{{i + 1}}</td>
               <td><img src="{{track.album.imageUrl}}" width="75"></td>
@@ -103,7 +103,7 @@
         </div>
 
         <div class="favourite_tracks" *ngIf="showAllTracks">
-          <table class="songlist">
+          <table class="songlist" *ngIf="favouriteTracks">
             <tr *ngFor="let track of favouriteTracks; let i = index" class="tracksData">
               <td>{{i + 1}}</td>
               <td><img src="{{track.album.imageUrl}}" width="75"></td>
@@ -158,7 +158,7 @@
           (click)="showAllArtists = !showAllArtists;"> See all</span></h1>
         <h4 style="font-size: 15px; margin-top: -1.5%; margin-left: 1%;">{{favouriteArtists.length}} Artists</h4>
         <div class="favourite_artists_snapshot_table_container" *ngIf="!showAllArtists">
-          <table>
+          <table *ngIf="favouriteArtists">
             <tr>
               <td *ngFor="let artist of favouriteArtists">
                 <mat-card class="favourite_artists_card" (click)="routeToArtist(artist.id)"
@@ -179,7 +179,7 @@
           </table>
         </div>
         <div class="favourite_artists_table_container" *ngIf="showAllArtists">
-          <ul style="display: flex; flex-wrap: wrap;  list-style: none;">
+          <ul style="display: flex; flex-wrap: wrap;  list-style: none;" *ngIf="favouriteArtists">
             <li *ngFor="let artist of favouriteArtists">
               <mat-card class="favourite_artists_card"
                         (click)="routeToArtist(artist.id)" #artistCardToolTip="matTooltip"
@@ -227,7 +227,7 @@
           (click)="showAllAlbums = !showAllAlbums;"> See all</span></h1>
         <h4 style="font-size: 15px; margin-top: -1.5%; margin-left: 1%;">{{favouriteAlbums.length}} Albums</h4>
         <div class="favourite_albums_snapshot_table_container" *ngIf="!showAllAlbums">
-          <table>
+          <table *ngIf="favouriteAlbums">
             <tr>
               <td *ngFor="let album of favouriteAlbums" class="favourite_albums_card_container">
                 <mat-card class="favourite_albums_card">
@@ -249,7 +249,7 @@
         </div>
 
         <div *ngIf="showAllAlbums">
-          <ul style="display: flex; flex-wrap: wrap;  list-style: none;">
+          <ul style="display: flex; flex-wrap: wrap;  list-style: none;" *ngIf="favouriteAlbums">
             <li *ngFor="let album of favouriteAlbums">
               <mat-card class="favourite_albums_card">
                 <mat-card-content class="favourite_albums_content">
