@@ -14,7 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 // import { EmailAsteriskPipe } from './email-asterisk.pipe';
 // MDB Angular Pro
-// import { ModalModule, ButtonsModule, WavesModule } from 'ng-uikit-pro-standard';
+import { ModalModule, ButtonsModule, WavesModule } from 'ng-uikit-pro-standard';
 import {ModalComponent} from '../modal/modal.component';
 import {ImageService} from '../service/image.service';
 import {HttpClient} from '@angular/common/http';

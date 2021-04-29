@@ -12,9 +12,9 @@ import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 import {Moment} from 'moment';
 import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
-import {SpotifyService} from "../service/spotify.service";
-import {SpotifyUser} from "../model/spotify/SpotifyUser";
-import {SpotifyTrack} from "../model/spotify/SpotifyTrack";
+import {SpotifyService} from '../service/spotify.service';
+import {SpotifyUser} from '../model/spotify/SpotifyUser';
+import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
 
 
 // @ts-ignore
@@ -371,11 +371,7 @@ export class DashboardComponent implements OnInit {
   // Instagram Dashboard
 
 
-  storeImages(): void {
-    for (let i = 0; i < this.getMediaCount(); i++) {
-      this.images[i] = this.getImageUrl(i);
-    }
-  }
+
 
   getInstaUser(): InstagramUserInfo {
     this.instagramService.getInsta().subscribe(instagramUser => {
@@ -386,31 +382,15 @@ export class DashboardComponent implements OnInit {
     console.log('Get User Profile Called!');
   }
 
-  userSearch(user: string) {
-    this.instagramService.getSearchInsta(user).subscribe(user => {
-      this.instagramUserSearch = user;
-      console.log('Get Search User Profile Called!');
-      console.log(this.instagramUserSearch.displayName);
-    });
 
-    this.showSearch = !this.showSearch;
 
-    // CHANGE THE NAME OF THE BUTTON.
-    if (this.showSearch) {
-      this.buttonName = 'Hide';
-    } else {
-      this.buttonName = 'Change';
-    }
+
+  getImageByte(pic: number): string{
+    return 'data:image/jpeg;base64,' + this.instagramUser.images[pic];
   }
 
-  getMediaCount(): number {
-    return this.instagramUser.mediaCount;
-  }
-
-  getImageUrl(pic: number): string {
-
-    return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
-      this.instagramUser.imageFeed[pic].toString().search('width') - 2);
+  getUserProfilePic(): string{
+    return 'data:image/jpeg;base64,' + this.instagramUser.profilePicUrl.toString();
   }
 
 
@@ -431,7 +411,12 @@ export class DashboardComponent implements OnInit {
   }
 
   counterInstagram(i: number) {
-    return new Array(i);
+    if (i <= 18){
+      return new Array(i);
+    }
+    else {
+      return new Array(18);
+    }
   }
 
   getFollowerProfilePic(pic: number): string {
@@ -440,11 +425,6 @@ export class DashboardComponent implements OnInit {
       this.instagramUser.imageFeed[pic].toString().length);
   }
 
-  getUserFollowerProfilePic(pic: number): string {
-    return this.instagramUserSearch.followerFeed[pic].toString().substring(
-      this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:') + 11,
-      this.instagramUserSearch.imageFeed[pic].toString().length);
-  }
 
   getComment(pic: number): string {
     if (this.instagramUser.imageFeedComment[pic].toString().substring(
@@ -476,14 +456,6 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  changeBio(bio: string) {
-    this.instagramService.changeBio(bio).subscribe(bio => {
-      this.bio = bio;
-    });
-
-  }
-
-
 
 
   toggleChanges() {
@@ -497,14 +469,14 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Convert milliseconds to minutes and seconds
-  transform(input: string) {
-    let minutes: string | number = Math.floor((parseInt(input) / (1000 * 60)) % 60);
-    let seconds: string | number = Math.floor((parseInt(input) / 1000) % 60);
-    let formatted_minutes = (minutes < 10) ? '0' + minutes : minutes;
-    let formatted_seconds = (seconds < 10) ? '0' + seconds : seconds;
-    return formatted_minutes + ':' + formatted_seconds;
-  }
+  // // Convert milliseconds to minutes and seconds
+  // transform(input: string) {
+  //   let minutes: string | number = Math.floor((parseInt(input) / (1000 * 60)) % 60);
+  //   let seconds: string | number = Math.floor((parseInt(input) / 1000) % 60);
+  //   let formatted_minutes = (minutes < 10) ? '0' + minutes : minutes;
+  //   let formatted_seconds = (seconds < 10) ? '0' + seconds : seconds;
+  //   return formatted_minutes + ':' + formatted_seconds;
+  // }
 
 
 }

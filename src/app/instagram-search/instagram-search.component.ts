@@ -89,6 +89,10 @@ export class InstagramSearchComponent implements OnInit {
   //
   //   }
   // }
+  getUserProfilePic(): string{
+    return 'data:image/jpeg;base64,' + this.instagramUserSearch.profilePicUrl.toString();
+  }
+
   checkFollowStatus(): string {
     if (this.instagramUserSearch.followingStatus) {
       return 'Unfollow';
@@ -97,6 +101,7 @@ export class InstagramSearchComponent implements OnInit {
     }
 
   }
+
 
   unFollowUser(user: string) {
     this.loading = true;

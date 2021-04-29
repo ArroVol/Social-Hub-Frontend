@@ -12,7 +12,7 @@
   <!--    </mat-card-actions>-->
 
 
-      <span  class="instaIcon"></span><img routerLink="/instagram" mat-card-avatar [src]= "instagramUser.profilePicUrl" >
+      <span  class="instaIcon"></span><img routerLink="/instagram" mat-card-avatar [src]= "getUserProfilePic()" >
       <mat-card-title>{{instagramUser.displayName}}</mat-card-title>
 
 
@@ -27,8 +27,8 @@
 
     <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">
 
-      <mdb-carousel-item  *ngFor='let in of counterInstagram(18) ;let i = index'>
-        <img style="width: 300px; height: 300px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageUrl(i)" >
+      <mdb-carousel-item  *ngFor='let in of counterInstagram(2) ;let i = index'>
+        <img style="width: 300px; height: 300px; display: block;  margin-left: auto; margin-right: auto;" alt="First Slide" [src]="getImageByte(i)" >
 
       </mdb-carousel-item>
     </mdb-carousel>

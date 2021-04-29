@@ -1,6 +1,9 @@
 <!--<p>instagram works!</p>-->
 <!DOCTYPE html>
 <html lang="en">
+
+
+
 <head>
   <meta charset="utf-8" />
   <title>Instagram Page</title>
@@ -17,7 +20,7 @@
 <div class="container bootstrap-snippet header-container">
   <div class="headerImage">
     <div class="py-5" style=" width: 100% ; height: 200px">
-      <img src="{{instagramUser.profilePicUrl}}" alt class="profilePic" style=" float: top; float: left; margin-top: 0 ">
+      <img src="{{getUserProfilePic()}}" alt class="profilePic" style=" float: top; float: left; margin-top: 0 ">
       <div class="media col-md-10 col-lg-8 col-xl-7 p-0 my-4 "  >
 
 
@@ -94,12 +97,13 @@
 <!--        <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">-->
 
             <carousel arrowsTheme="dark" overflowCellsLimit="1" [height]="500" [cellWidth]="400">
-              <div class="carousel-cell" *ngFor='let in of counter(18) ;let i = index'>
+              <div class="carousel-cell" *ngFor='let in of counter(this.instagramUser.mediaCount) ;let i = index'>
                 <mat-card class="example-card headerImage">
 
                   <mat-card-content>
                     <div class="container">
-                    <img style="width: 350px; height: 350px; display: block;"  alt="First Slide" [src]="getImageUrl(i)" [routerLink]="getImageUrl(i)">
+                    <img style="width: 350px; height: 350px; display: block;"  alt="First Slide"
+                         [src]="getImageByte(i)" >
                       <div class="overlay">
                          <h2 class="likes"><span style="padding-right: 5px" class="material-icons">favorite</span> {{instagramUser.imageFeedLikes[i]}}</h2>
                       </div>
@@ -141,7 +145,7 @@
             search
           </span>
         </button></h2>
-        <ul *ngFor='let in of counter(18) ;let i = index'>
+        <ul *ngFor='let in of counter(this.instagramUser.followerCount) ;let i = index'>
           <li>
             <mat-card >
               <mat-card-header>
@@ -157,9 +161,11 @@
       </nav>
 
     </article>
-
-
+<!--  <img >-->
+<!--  <p>{{getImageFile(1)}}</p>-->
 </section>
+<!--<p>{{this.instagramUser.images[1].toString()}}</p>-->
+<!--<p>{{getImageByte(1)}}</p>-->
 
 <!--<form class="example-form">-->
 <!--  <mat-form-field class="example-full-width">-->
