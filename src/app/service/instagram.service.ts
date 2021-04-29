@@ -7,6 +7,7 @@ import {MessageService} from '../message.service';
 import {tap} from 'rxjs/operators';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
 import {User} from '../model/user/User';
+import {OnePosts} from '../model/user/OnePosts';
 
 
 const headers = new HttpHeaders({'Access-Control-Allow-Origin': '*'});
@@ -95,4 +96,15 @@ export class InstagramService {
         // catchError(() => observableThrowError('get registration by id error'))
       );
   }
+
+  uploadImage(formdata: FormData) {
+    const url = `${this.instagramUrl}/uploadImage`;
+    console.log('hitting upload image');
+    return this.http.post<FormData>(url, JSON.stringify(formdata), {headers})
+      .pipe(
+        tap(_ => console.log('sent the registration' ))
+        // catchError(() => observableThrowError('get registration by id error'))
+      );
+  }
+
 }

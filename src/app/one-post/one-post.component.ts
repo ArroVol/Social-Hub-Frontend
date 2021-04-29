@@ -3,7 +3,7 @@ import {TwitterService} from '../service/twitter.service';
 import {SecureTwitter} from '../model/twitter/SecureTwitter';
 import {Tweet} from '../model/twitter/Tweet';
 import {ThemePalette} from '@angular/material/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, FormArray, FormControl, Validators, FormGroupDirective, NgForm} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {SimpleFormComponent} from '../simple-form/simple-form.component';
 import {User} from '../model/user/User';
@@ -19,6 +19,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {AngularFireStorage, AngularFireStorageModule} from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import * as events from 'events';
+import {InstagramService} from '../service/instagram.service';
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json' });
@@ -49,6 +51,7 @@ export class OnePostComponent implements OnInit {
               private fb: FormBuilder,
               private userService: UserService,
               private imageService: ImageService,
+              private instagramService: InstagramService,
               private http: HttpClient,
               private onePostService: OnePostService,
               public snackBar: MatSnackBar,
@@ -56,6 +59,7 @@ export class OnePostComponent implements OnInit {
               private firebase: AngularFireDatabase
   ) {
     this.form = this.fb.group({
+      textInput: '',
       checkArray: this.fb.array([])
     });
   }
@@ -88,7 +92,11 @@ export class OnePostComponent implements OnInit {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
   private url = 'http://localhost:8080/api';
-
+  event1: events;
+  title2: string;
+  body: string;
+  checkBoxInput: string;
+  textInput: string;
   userId: number;
   usersOnePosts: OnePosts[];
   twitterHandle: string;
@@ -96,6 +104,8 @@ export class OnePostComponent implements OnInit {
   tweet: Tweet;
   twitterDeveloperMode: boolean;
   form: FormGroup;
+  totalNumCharacters: number;
+  change: string;
   twitterUser: User;
   public imageSrc = 'https://image.freepik.com/free-icon/upload-arrow_318-26670.jpg';
   Data: Array<any> = [
@@ -107,6 +117,7 @@ export class OnePostComponent implements OnInit {
     // {name: 'Spotify', value: 'spotify'}
 
   ];
+  checkBox: boolean;
   fileName = '';
   task: Task = {
     name: 'All',
@@ -145,10 +156,83 @@ export class OnePostComponent implements OnInit {
   });
 
 
-
   allComplete = false;
+  name = 'Angular';
+  resetCheckBox = false;
+  isChecked = false;
 
+  uploadToInstagram(content: string) {
+    console.log('in the upload method in one post.ts file..');
+    console.log('this is the content... ' + content);
+    if (this.file === undefined){
+      console.log('its undefined!');
+    } else {
+      this.currentFileUpload = this.file;
+      console.log(this.currentFileUpload);
 
+      console.log('attempting upload (one.post.ts)');
+      const data: FormData = new FormData();
+      data.append('file', this.file);
+      data.append('textContent', content);
+      this.instagramService.uploadImage(data);
+    }
+
+  }
+  upload(content: string): void {
+    console.log('upload sent...');
+
+    if (content !== undefined){
+      this.textContent = content;
+    }
+
+    for (let i = 0; i < this.form.value.checkArray.length; i++) {
+      if (this.form.value.checkArray[i] === 'twitter') {
+        console.log('twitter was checked...');
+        this.uploadToTwitter(content);
+      }
+
+      if (this.form.value.checkArray[i] === 'instagram') {
+        console.log('instagram was checked...');
+        this.uploadToInstagram(content);
+      }
+    }
+
+    this.saveOnePost(content);
+    this.resetForm();
+    this.clearFields();
+  }
+
+  uploadToTwitter(content: string) {
+    console.log('in the upload method in one post.ts file..');
+    console.log('this is the content... ' + content);
+    const url = '${this.url}/send-image';
+    if (this.file === undefined){
+      console.log('its undefined!');
+      this.newTweet = new Tweet();
+      this.newTweet.tweetCreator = sessionStorage.getItem('twitterHandle');
+      this.newTweet.tweetText = content;
+      this.twitterService.postUserTweet(this.newTweet, +sessionStorage.getItem('userId'))
+        .subscribe(tweet => {
+          this.newTweet = tweet;
+        });
+
+    } else {
+      this.currentFileUpload = this.file;
+      console.log(this.currentFileUpload);
+
+      console.log('attempting upload (one.post.ts)');
+      const data: FormData = new FormData();
+      data.append('file', this.file);
+      data.append('textContent', content);
+
+      this.http.post(url, data, {observe: 'response'})
+        .subscribe((response) => {
+            console.log('we did it!');
+          }
+        );
+    }
+
+  }
 
   uploadSubmit() {
     for (let i = 0; i < this.uploader.queue.length; i++) {
@@ -176,7 +260,7 @@ export class OnePostComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-
+    this.totalNumCharacters = 0;
     this.imageService.getImageDetailList();
     this.getFirebaseOnePosts();
     this.userId = +sessionStorage.getItem('userId');
@@ -237,10 +321,6 @@ export class OnePostComponent implements OnInit {
     this.task.subtasks.forEach(t => t.completed = completed);
   }
 
-  socialCheckBox() {
-
-  }
-
   toggleEditable(event) {
     if (event.target.checked) {
       // this.contentEditable = true;
@@ -265,8 +345,6 @@ export class OnePostComponent implements OnInit {
       });
     }
   }
-
-
 
   onDropHandler(object) {
     console.log('event ' + JSON.stringify(object));
@@ -304,22 +382,6 @@ export class OnePostComponent implements OnInit {
     // return this.http.request(newRequest);
   }
 
-
-
-  // uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-  //Make a call to the Spring Boot Application to save the image
-  //   this.http.post(url, uploadImageData, { observe: 'response' })
-  //     .subscribe((response) => {
-  //       console.log('we did it!');
-  //       // if (response.status === 200) {
-  //       //   this.message = 'Image uploaded successfully';
-  //       // } else {
-  //       //   this.message = 'Image not uploaded successfully';
-  //       // }
-  //     }
-  // );
-  // }
-  //
   getImage() {
     //Make a call to Sprinf Boot to get the Image Bytes.
     this.http.get('http://localhost:8080/image/get/' + this.imageName)
@@ -332,43 +394,6 @@ export class OnePostComponent implements OnInit {
       );
   }
 
-  onFileSelected(event) {
-
-    const file: File = event.target.files[0];
-    const url = `${this.url}/send-image`;
-    console.log(url);
-
-    //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
-
-    if (file) {
-
-      this.fileName = file.name;
-
-      const formData = new FormData();
-
-      formData.append('imageFile', file);
-
-      // const upload$ = this.http.post("/api/thumbnail-upload", formData);
-
-
-      this.http.post(url, formData, { observe: 'response' })
-        .subscribe((response) => {
-            console.log('we did it!');
-            // if (response.status === 200) {
-            //   this.message = 'Image uploaded successfully';
-            // } else {
-            //   this.message = 'Image not uploaded successfully';
-            // }
-          }
-        );
-      // const newRequest = new HttpRequest('POST', url, formData, {
-      //   reportProgress: true,
-      //   responseType: 'text'
-      // });
-
-      // upload$.subscribe();
-    }
-  }
 
   selectFile(event): void {
     console.log(event);
@@ -380,7 +405,6 @@ export class OnePostComponent implements OnInit {
     }
     this.selectedFiles = event.target.files;
   }
-
 
 
   upload2(content: string): void {
@@ -409,10 +433,6 @@ export class OnePostComponent implements OnInit {
     console.log(event);
   }
 
-  onKey($event: KeyboardEvent) {
-    // if value is not empty the set click to false otherwise true
-    this.click = (event.target as HTMLInputElement).value === '' ? true : false;
-  }
 
   checkCheckBox($event: MouseEvent) {
     console.log('logging');
@@ -428,6 +448,7 @@ export class OnePostComponent implements OnInit {
     checkBox.classList.toggle('clicked');
     checkBox.classList.toggle('checked');
     var button = document.getElementsByClassName('btn btn-success')[0];
+    console.log(button);
     button.classList.toggle('clicked');
   }
 
@@ -461,27 +482,10 @@ export class OnePostComponent implements OnInit {
 
     console.log('attempting upload');
 
-    // if(this.file === undefined){
-    //   const data: FormData = new FormData();
-    //   data.append('textContent', textContent);
-    //   data.append('socialMedia', this.socialMedia);
-    //   data.append('userId', sessionStorage.getItem('userId'));
-    //   const date = new Date();
-    //   data.append('createdAt', date.toDateString());
-    //   console.log('one post has no image media..');
+
     const url = `${this.url}/one-posts/save/form-data/text-only`;
 
-    // this.http.post(url, data, { observe: 'response' })
-    //   .subscribe(async(response) => {
-    //       console.log('we did it!');
-    //       this.openSnackBar('Posted to your account')
-    //       // this.snackBar.open('Posted to your account');
-    //      await this.delay(4500);
-    //       // window.location.reload();
-    //     }
-    //   );
 
-    // } else {
     const data: FormData = new FormData();
     data.append('file', this.file);
     data.append('textContent', textContent);
@@ -495,10 +499,6 @@ export class OnePostComponent implements OnInit {
     this.onePost.createdAt = new Date();
     data.append('createdAt', this.onePost.createdAt.toDateString());
 
-    // this.onePostService.saveOnePosts(this.onePost)
-    //   .subscribe(onePost => {
-    //     this.savedOnePost = onePost;
-    //   });
     if (this.file !== undefined){
       var filePath = `${sessionStorage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       console.log(filePath);
@@ -519,12 +519,9 @@ export class OnePostComponent implements OnInit {
 
               this.openSnackBar('Posted to your account');
               await this.delay(2500);
-              window.location.reload();
+              // window.location.reload();
               this.form2['imageUrl'] = url;
-              this.form2['caption'] = 'caption1';
-              this.form2['category'] = 'a';
-              // this.insertImageDetails(this.form2);
-              // this.resetForm();
+
             });
         })
       ).subscribe();
@@ -536,50 +533,11 @@ export class OnePostComponent implements OnInit {
 
       this.imageService.insertImageDetails(this.onePostData);
       this.openSnackBar('Posted to your account');
-      await this.delay(2500);
+      await this.delay(3500);
       this.clearFields();
       window.location.reload();
     }
-    // var filePath = `${sessionSto
-    // rage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-    // console.log(filePath);
-    // const fileRef = this.storage.ref(filePath);
-    // this.storage.upload(filePath, this.file)
-    //   .snapshotChanges().pipe(
-    //     //finalize call back function called when the upload is complete
-    //     finalize(()=>{
-    //       fileRef.getDownloadURL()
-    //         .subscribe((url)=>{
-    //
-    //           this.onePostData['imageUrl'] = url;
-    //           this.onePostData['textContent'] = textContent;
-    //           this.onePostData['socialMedia'] = this.socialMedia;
-    //           this.onePostData['userId'] = sessionStorage.getItem('userId');
-    //
-    //           this.imageService.insertImageDetails(this.onePostData);
-    //
-    //           this.form2['imageUrl'] = url;
-    //           this.form2['caption'] = 'caption1';
-    //           this.form2['category'] = 'a';
-    //           // this.insertImageDetails(this.form2);
-    //           // this.resetForm();
-    //         })
-    //     })
-    // ).subscribe();
 
-
-    // const url = `${this.url}/one-posts/save/form-data`;
-
-    // this.http.post(url, data, {observe: 'response'})
-    //   .subscribe(async (response) => {
-    //       console.log('we did it!');
-    //      this.openSnackBar('Posted to your account')
-    //       // this.snackBar.open('Posted to your account');
-    //       await this.delay(2500);
-    //       // window.location.reload();
-    //     }
-    //   );
-    // }
   }
 
   onSelect(event) {
@@ -607,18 +565,11 @@ export class OnePostComponent implements OnInit {
       const url = `${this.url}/send-image`;
     }
 
-    // this.selectedFiles = event.target.files;
-
-
-    // this.http.post(url, formData, {observe: 'response'})
-    //   .subscribe(res => {
-    //     console.log(res);
-    //     alert('Uploaded Successfully.');
-    //   })
 
   }
 
   onRemove(event) {
+    console.log('on remove..');
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
     if (this.files.length !== 0){
@@ -629,40 +580,7 @@ export class OnePostComponent implements OnInit {
   }
 
 
-  upload(content: string): void {
-    if (content !== undefined){
-      this.textContent = content;
-    }
-    console.log('in the upload method in one post.ts file..');
-    console.log('this is the content... ' + content);
-    const url = `${this.url}/send-image`;
-    if (this.file === undefined){
-      console.log('its undefined!');
-      this.newTweet = new Tweet();
-      this.newTweet.tweetCreator = sessionStorage.getItem('twitterHandle');
-      this.newTweet.tweetText = content;
-      this.twitterService.postUserTweet(this.newTweet, +sessionStorage.getItem('userId'))
-        .subscribe(tweet => {
-          this.newTweet = tweet;
-        });
 
-    } else {
-      this.currentFileUpload = this.file;
-      console.log(this.currentFileUpload);
-
-      console.log('attempting upload (one.post.ts)');
-      const data: FormData = new FormData();
-      data.append('file', this.file);
-      data.append('textContent', content);
-
-      this.http.post(url, data, {observe: 'response'})
-        .subscribe((response) => {
-            console.log('we did it!');
-          }
-        );
-    }
-    this.saveOnePost(content);
-  }
 
   submitForm(value: string, tweetContent: string) {
     console.log('submit');
@@ -703,7 +621,7 @@ export class OnePostComponent implements OnInit {
 
   openSnackBar(status: string) {
     this.snackBar.open(status, 'close', {
-      duration: 2500,
+      duration: 3500,
     });
   }
 
@@ -712,32 +630,18 @@ export class OnePostComponent implements OnInit {
   }
 
   resetForm(){
+    this.form.reset();
+
     this.form2.reset();
+
     this.form2.setValue({
-      caption: '',
+      userId: '',
+      textContent: '',
       imageUrl: '',
-      category: ''
+      socialMedia: ''
     });
   }
-  getImageDetailList(){
-    this.imageDetailList = this.firebase.list('imageDetails');
-    console.log('this is the image detail list: ' + this.imageDetailList);
-  }
 
-  insertImageDetails(imageDetails){
-    console.log(imageDetails);
-    console.log(imageDetails.category);
-    console.log(imageDetails.imageUrl);
-    console.log(imageDetails.caption);
-
-    this.imageDetailList.push({
-      userId: sessionStorage.getItem('userId'),
-      textContent: this.textContent,
-      socialMedia: this.socialMedia,
-      createAt: new Date().toDateString(),
-      imageUrl: imageDetails.imageUrl
-    });
-  }
 
   getFirebaseOnePosts(){
     this.imageService.imageDetailList.snapshotChanges().subscribe(
@@ -759,6 +663,36 @@ export class OnePostComponent implements OnInit {
   }
 
   clearFields() {
+    console.log('clearing.....');
+    this.textInput = ' ';
+    this.onRemove(this.event1);
+    // this.form2.reset();
+    this.form.reset();
+    this.form.get('checkArray').reset();
 
+  }
+
+
+  addPost(myForm: FormGroupDirective | NgForm) {
+    console.log('in add...');
+
+    myForm.resetForm();
+    myForm.reset();
+  }
+
+  handleClear(){
+    this.name = ' ';
+  }
+  reset() {
+    console.log('resetting..');
+    this.form.reset();
+    this.onRemove(this.files[0]);
+    this.resetCheckBox = false;
+    this.isChecked = false;
+
+  }
+
+  pressedEvent($event: any) {
+    this.totalNumCharacters = $event.length;
   }
 }

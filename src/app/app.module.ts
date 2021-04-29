@@ -9,6 +9,7 @@ import {AppRoutingModule} from './app-routing.module';
 // Non-Angular imports ex: bootstrap
 import {InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
 import {CarouselModule, IconsModule, LogoComponent} from 'angular-bootstrap-md';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 // import {PreloadersModule} from 'ng-uikit-pro-standard';
 import {MatCarousel, MatCarouselComponent} from '@ngbmodule/material-carousel';
 import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
@@ -21,7 +22,6 @@ import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DataTablesModule} from 'angular-datatables';
-import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -111,6 +111,7 @@ import {CollectionComponent} from './collection/collection.component';
 import {ImagesComponent} from './images/images.component';
 import {OnePostComponent} from './one-post/one-post.component';
 
+
 // ? Do we need this shit o naw?
 // import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -178,6 +179,8 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
   imports: [
     HttpClientModule,
     MatSidenavModule,
+    NgxDropzoneModule,
+    DragDropModule,
     BrowserModule,
     DragDropModule,
     FormsModule,
