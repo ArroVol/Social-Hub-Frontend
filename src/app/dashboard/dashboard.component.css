@@ -5,7 +5,7 @@
 
 /*[class*='col-'] {*/
 
-.example-card {
+.example-card-t {
   width: 350px;
   height: 315px;
   margin-left: 5px;
@@ -46,12 +46,18 @@
   vertical-align: -0.125em;
 }
 
+.example-card {
+  width: 350px;
+  height: 455px;
+  background-color: white;
+  box-shadow: 0 0 5px black;
+}
+
 .example-header-image {
   background-size: cover;
 }
 .video {
-  margin-left: 10px;
-  margin-right: 10px;
+
 }
 #snapshot {
   border-radius: 25px;
@@ -60,8 +66,8 @@
   padding: 20px;
   margin-left: 10px;
   margin-top: 20px;
-  max-width: 800px;
-  max-height: 450px;
+  max-width: 400px;
+  height: 565px;
   background-image: linear-gradient(to right, red, darkred);
 }
 h3 {

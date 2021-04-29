@@ -25,7 +25,7 @@
     <mat-option *ngFor="let vid of channel.videos" value= "{{vid.videoDetails.videoTitle}}">{{vid.videoDetails.videoTitle}}</mat-option>
   </mat-select>
   <input #comment type="text">
-  <button (click)="postComment(getVideoId(videos), comment.value)"> Post to Video </button>
+  <button (click)="postComment(getVideoId(videos), comment.value);"> Post to Video </button>
 </div>
 <div class = "container" *ngIf="isVisible">
   <div class="sub-cat">
@@ -38,9 +38,10 @@
           </mat-card-header>
           <iframe mat-card-image width="300" height="150" [src]="video.videoId | safe" allowfullscreen> </iframe>
           <mat-card-content>
-            <p>
-              {{video.videoDescription}}
-            </p>
+            <div class="container1" [class.show]="show">
+              Description: {{video.videoDescription}}
+            </div>
+            <button *ngIf="video.videoDescription.length > 33;" (click)="show = !show">{{ show ? 'Show less': 'Show More' }}</button>
           </mat-card-content>
         </mat-card>
       </li>
@@ -69,15 +70,16 @@
 
     <ul class="no-bullets">
       <li *ngFor="let liked of channel.liked;">
-        <mat-card class="example-card">
+        <mat-card #card class="example-card">
           <mat-card-header>
             <mat-card-title>{{channel.username}}</mat-card-title>
           </mat-card-header>
           <iframe mat-card-image width="300" height="150" [src]="liked.videoId | safe" allowfullscreen> </iframe>
           <mat-card-content>
-            <p>
-              {{liked.videoDescription}}
-            </p>
+            <div class="container1" [class.show]="show" style="word-wrap: break-word;">
+              Description: {{liked.videoDescription}}
+            </div>
+            <button *ngIf="liked.videoDescription.length > 33;" (click)="show = !show;">{{ show ? 'Show less': 'Show More' }}</button>
           </mat-card-content>
         </mat-card>
       </li>

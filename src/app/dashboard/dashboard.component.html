@@ -59,93 +59,76 @@
 
 <!--Youtube START -->
 
-  <!--<a href="https://accounts.google.com/o/oauth2/auth?client_id=665124826397-55241tfc755m03bp83d5io7kef9irbo2.apps.googleusercontent.com&redirect_uri=http://localhost:8080/Callback&response_type=code&scope=https://www.googleapis.com/auth/youtube.readonly" target="_blank">-->
-
-  <button *ngIf="!isVisible" (click)="getElements();">Log In </button>
-  <!--</a>-->
-  <br>
-  <br>
-
-  <mat-spinner align="center" *ngIf="isVisibleSpinner" style="width: 200px; height: 200px; margin-left: 45%;"></mat-spinner>
-
-  <div class = "ex1" *ngIf="isVisible">
-    <div style = "float: right; margin-right: 40px;">
-      <a *ngIf="!isLoggedIn" [href]="channel.channelId"> <img height="30" width="30" src="https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c545.png"> </a>
-      <a *ngIf="isLoggedIn" [href]="user.channelId"> <img height="30" width="30" src="https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c545.png"> </a>
-      <img *ngIf="!isLoggedIn" style="margin-left: 10px" id = "smallProfile" class="profilePic" width="30" height="30" [src]="channel.profilePhoto">
-      <img *ngIf="isLoggedIn" style="margin-left: 10px" class="profilePic" width="30" height="30" [src]="user.profile_pic">
+  <div id="snapshot">
+    <div style="display: flex;">
+      <div style = "margin-bottom: 10px; padding-bottom: 10px; width: 70px; background-color: whitesmoke; border-radius: 5px; padding-top: 10px;">
+        <img src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png" style="width: 70px; height: 40px;">
+      </div>
+      <h2 style="font-size: 20px; color: #f3f3f3; margin-left: 20%; margin-top: 10px;">
+        {{channel.username}}
+      </h2>
     </div>
-  </div>
-
-  <h1 *ngIf="isVisible && !isLoggedIn"> {{channel.username}}'s Youtube Channel </h1>
-  <h1 *ngIf="isVisible && isLoggedIn"> {{user.username}}'s Youtube Channel </h1>
-  <button *ngIf="isVisible" (click)="updateChannel();"> Update </button>
-  <h3 *ngIf="isVisible"> Updated on: {{pullTime}}</h3>
-  <div style="margin-left: 0px; display: block;" *ngIf="isVisible">
-    <mat-select [(value)]="videos" style="width: 25%; background-color: grey;">
-      <mat-option *ngFor="let vid of channel.videos" value= "{{vid.videoDetails.videoTitle}}">{{vid.videoDetails.videoTitle}}</mat-option>
-    </mat-select>
-    <input #comment type="text">
-    <button (click)="postComment(getVideoId(videos), comment.value);"> Post to Video </button>
-  </div>
-  <div class = "container" *ngIf="isVisible">
-    <div class="sub-cat">
-      <h1> My Videos </h1>
-      <ul class="no-bullets">
-        <li *ngFor="let video of channel.videos;">
-          <mat-card class="example-card">
-            <mat-card-header>
-              <mat-card-title>{{channel.username}}</mat-card-title>
-            </mat-card-header>
-            <iframe mat-card-image width="300" height="150" [src]="video.videoId | safe" allowfullscreen> </iframe>
+    <div>
+      <mat-card class = "example-card">
+        <mat-card-title>
+          <h1 style="color: black;" align="center"> Youtube Snapshot </h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <mat-form-field appearance="fill">
+            <mat-label> Select an Option </mat-label>
+            <mat-select [(value)]="selected" style="background-color: #f3f3f3; border-radius: 5px;">
+              <mat-option value = "video"> Videos </mat-option>
+              <mat-option value = "channelInsights"> Channel Insights </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-subtitle>
+        <mat-card-content>
+          <mat-card *ngIf="selected == 'video'">
+            <mat-card-subtitle>
+              <mat-select [(value)]="selectedVideo" style="background-color: #f3f3f3">
+                <mat-option value = "mostRecent"> Most Recent </mat-option>
+                <mat-option value = "oldest"> Oldest </mat-option>
+                <mat-option value = "minLiked"> Least Liked Video </mat-option>
+                <mat-option value = "mostLiked"> Most Liked Video </mat-option>
+                <mat-option value = "mostViewed"> Most Viewed </mat-option>
+                <mat-option value = "leastViewed"> Least Viewed </mat-option>
+                <mat-option value = "leastDisliked"> Least Disliked Video </mat-option>
+                <mat-option value = "mostDisliked"> Most Disliked Video </mat-option>
+              </mat-select>
+            </mat-card-subtitle>
             <mat-card-content>
-              <div class="container1" [class.show]="show">
-                Description: {{video.videoDescription}}
-              </div>
-              <button *ngIf="video.videoDescription.length > 33;" (click)="show = !show">{{ show ? 'Show less': 'Show More' }}</button>
+              <iframe *ngIf="selectedVideo == 'mostRecent'" mat-card-image width="325" height="210" [src]="channel.videos[0].videoId | safe"  allowfullscreen> </iframe>
+              <iframe *ngIf="selectedVideo == 'oldest'" mat-card-image width="325" height="210" [src]="channel.videos[channel.videos.length - 1].videoId | safe" allowfullscreen> </iframe>
+              <iframe *ngIf="selectedVideo == 'minLiked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinLikes()].videoId | safe" allowfullscreen> </iframe>
+              <iframe *ngIf="selectedVideo == 'mostLiked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxLikes()].videoId | safe" allowfullscreen> </iframe>
+              <iframe *ngIf="selectedVideo == 'mostViewed'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxViews()].videoId | safe" allowfullscreen> </iframe>
+              <iframe *ngIf="selectedVideo == 'leastViewed'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinViews()].videoId | safe" allowfullscreen> </iframe>
+              <iframe *ngIf="selectedVideo == 'leastDisliked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMinDislikes()].videoId | safe" allowfullscreen> </iframe>
+              <iframe *ngIf="selectedVideo == 'mostDisliked'" mat-card-image width="325" height="210" [src]="channel.videos[getIndexOfMaxDislikes()].videoId | safe" allowfullscreen> </iframe>
             </mat-card-content>
           </mat-card>
-        </li>
-      </ul>
+          <div *ngIf="selected == 'channelInsights'">
+            <mat-card>
+
+              <mat-card-title>
+                <img mat-card-avatar [src]="channel.profilePhoto">
+                {{channel.username}}
+              </mat-card-title>
+
+              <mat-card-content style="border-top:1px solid red;">
+                <h3> Subscriber Count: {{channel.subscriberCount}}</h3>
+                <h3> View Count: {{channel.viewCount}}</h3>
+                <h3> Video Count: {{channel.videoCount}}</h3>
+              </mat-card-content>
+
+            </mat-card>
+
+          </div>
+        </mat-card-content>
+        <a href="/youtube"> Youtube Page </a>
+      </mat-card>
     </div>
 
-    <div class= "sub-cat">
-      <h1> My Playlists </h1>
-      <ul class="no-bullets">
-        <li *ngFor="let playlist of channel.playlists;">
-          <mat-card class="example-card">
-            <mat-card-header>
-              <mat-card-title>{{channel.username}}</mat-card-title>
-            </mat-card-header>
-            <iframe mat-card-image width="300" height="150" [src]="playlist | safe" allowfullscreen> </iframe>
-            <mat-card-content>
-              <p>
-              </p>
-            </mat-card-content>
-          </mat-card>
-        </li>
-      </ul>
-    </div>
-    <div class="sub-cat">
-      <h1> Liked Videos </h1>
-
-      <ul class="no-bullets">
-        <li *ngFor="let liked of channel.liked;">
-          <mat-card #card class="example-card">
-            <mat-card-header>
-              <mat-card-title>{{channel.username}}</mat-card-title>
-            </mat-card-header>
-            <iframe mat-card-image width="300" height="150" [src]="liked.videoId | safe" allowfullscreen> </iframe>
-            <mat-card-content>
-              <div class="container1" [class.show]="show" style="word-wrap: break-word;">
-                Description: {{liked.videoDescription}}
-              </div>
-              <button *ngIf="liked.videoDescription.length > 33;" (click)="show = !show;">{{ show ? 'Show less': 'Show More' }}</button>
-            </mat-card-content>
-          </mat-card>
-        </li>
-      </ul>
-    </div>
   </div>
 
 
