@@ -1,8 +1,13 @@
 <!-- the top -->
 <mat-toolbar class="header-toolbar">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+
+  <button [matMenuTriggerFor]="menu" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>One Post Archives Page</button>
+<!--    <button mat-menu-item>Item 2</button>-->
+  </mat-menu>
   <span>Social Hub One Page</span>
 
   <span class="example-spacer"></span>
@@ -19,10 +24,10 @@
 <!--<mat-tab-group animationDuration="0ms">-->
 <!--  <mat-tab label="Create Post">-->
 <div class="row">
-  <div class="column">
+  <div class="column-1">
 
     <mat-card class="post-card" >
-      <h2>Select social media to upload to</h2>
+      <h2>Choose social media</h2>
       <!--      <h4>you can also upload images by pressing the "Choose file" button below</h4>-->
       <h4>you can also upload images by dragging them into the field below</h4>
 
@@ -88,9 +93,9 @@
 
   </div>
 
-  <div class="column">
-
+  <div class="column-2">
     <mat-card class="post-card" >
+      <div *ngIf="imageList.length > 0 else noOnePosts">
 
       <h2 class="header"> Recent Posts Made From Social Hub </h2>
 
@@ -123,7 +128,7 @@
       <br>
       <br>
       <br>
-
+      </div>
     </mat-card>
 
     <br>
@@ -144,4 +149,9 @@
   <h2>Null</h2>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </ng-template>
+
+  <ng-template #noOnePosts>
+    <h2>No Posts To Display</h2>
+    <span>Start sharing on Social Hub to save and view your posts across all of your platforms!</span>
+  </ng-template>
 </div>

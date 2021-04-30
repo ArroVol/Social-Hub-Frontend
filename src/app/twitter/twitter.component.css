@@ -443,3 +443,15 @@ th {
 .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
   background-color: white;
 }
+
+img {
+  border-style: solid;
+  border-width: 2px;
+  height: 250px;
+  width:250px;
+  margin: auto;
+}
+
+.follower-goal-btn{
+  background-color: lightskyblue;
+}

@@ -58,6 +58,7 @@ export class GoalModalComponent implements OnInit {
   // just close the modal
   closeModal() {
     this.dialogRef.close();
+    window.location.reload();
   }
 
   sendGoals(){

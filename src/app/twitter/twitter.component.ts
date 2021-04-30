@@ -295,6 +295,11 @@ export class TwitterComponent implements AfterViewInit, OnInit {
           this.userMostRetweeted = this.briefStatusList[1];
           this.briefStatusList = this.briefStatusList.splice(1, 1);
         }
+       for (let i = 0; i < this.briefStatusList.length; i++) {
+         this.briefStatusList[i].text = this.briefStatusList[i].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+
+       }
+        // console.log(this.briefStatusList[0].mediaURL);
       });
   }
 
@@ -500,7 +505,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id = 'goal-modal-component';
-    dialogConfig.height = '310px';
+    dialogConfig.height = '330px';
     dialogConfig.width = '610px';
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(GoalModalComponent, dialogConfig);

@@ -51,6 +51,18 @@
   height: 455px;
   background-color: white;
   box-shadow: 0 0 5px black;
+  /*padding-left: 40px;*/
+  /*margin-left: 40px;*/
+}
+
+.example-card-spotify {
+  width: 350px;
+  height: 455px;
+  background-color: white;
+  box-shadow: 0 0 5px black;
+  /*padding-left: 40px;*/
+  margin-left: 25px;
+  margin-top: 10px;
 }
 
 .example-header-image {
@@ -409,6 +421,8 @@ a:hover{
 .spotify_snapshot {
   max-width: 30vw;
   max-height: 45vh;
+  padding-top: 10px;
+  padding-left: 5px;
 }
 
 .spotify_recent_tracks_card, .spotify_favourite_tracks_card {
@@ -446,4 +460,15 @@ hr {
   font-family: Khand;
   font-weight: bold;
   color: black;
+}
+.column {
+  float: left;
+  width: 25.33%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }

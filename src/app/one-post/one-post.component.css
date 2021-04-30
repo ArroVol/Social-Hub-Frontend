@@ -440,6 +440,17 @@ h3 {
   width: 50%;
   height: 100%;
 }
+.column-1 {
+  float: left;
+  padding-left: 10px;
+  width: 40%;
+  height: 100%;
+}
+.column-2 {
+  float: left;
+  width: 60%;
+  height: 100%;
+}
 
 /* Clear floats after the columns */
 .row:after {
@@ -454,3 +465,16 @@ h3 {
   height: 100%;
   min-height: 800px;
 }
+
+
+/*.column {*/
+/*  float: left;*/
+/*  width: 33.33%;*/
+/*}*/
+
+/*!* Clear floats after the columns *!*/
+/*.row:after {*/
+/*  content: "";*/
+/*  display: table;*/
+/*  clear: both;*/
+/*}*/

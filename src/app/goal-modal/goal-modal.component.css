@@ -58,7 +58,7 @@ margin-bottom: 10px}
   font-weight: 500;
   transition: 0.2s ease;
   cursor: pointer;
-  background: deeppink;
+  background: palevioletred;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -89,5 +89,10 @@ input[type=number] {
   font-weight: 500;
   transition: 0.2s ease;
   cursor: pointer;
-  background: dodgerblue;
+  background: lightskyblue;
+  color: black;
+}
+
+.span-text{
+  padding-left: 10px;
 }

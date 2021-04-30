@@ -442,8 +442,8 @@ export class OnePostComponent implements OnInit {
               this.imageService.insertImageDetails(this.onePostData)
 
               this.openSnackBar('Posted to your account')
-              await this.delay(2500);
-              // window.location.reload();
+              await this.delay(1500);
+              window.location.reload();
               this.form2['imageUrl'] = url;
 
             })
@@ -457,11 +457,16 @@ export class OnePostComponent implements OnInit {
 
       this.imageService.insertImageDetails(this.onePostData);
       this.openSnackBar('Posted to your account')
-      await this.delay(3500);
+      await this.delay(1500);
       this.clearFields();
-      // window.location.reload();
+      window.location.reload();
     }
 
+    // this.resetForm();
+    // this.clearFields();
+    // await this.delay(1500);
+
+    // window.location.reload();
   }
 
   onSelect(event) {
@@ -503,11 +508,7 @@ export class OnePostComponent implements OnInit {
     }
   }
 
-
-  upload(content: string): void {
-    if(content !== undefined){
-      this.textContent = content
-    }
+  uploadToTwitter(content: string) {
     console.log('in the upload method in one post.ts file..');
     console.log('this is the content... ' + content);
     const url = `${this.url}/send-image`;
@@ -536,9 +537,24 @@ export class OnePostComponent implements OnInit {
           }
         );
     }
+
+  }
+
+  upload(content: string): void {
+    if(content !== undefined){
+      this.textContent = content
+    }
+
+    for (let i = 0; i < this.form.value.checkArray.length; i++) {
+      if (this.form.value.checkArray[i] === 'twitter') {
+        console.log('twitter was checked...');
+        this.uploadToTwitter(content);
+
+      }
+    }
+
     this.saveOnePost(content);
-    this.resetForm();
-    this.clearFields();
+
   }
 
   submitForm(value: string, tweetContent: string) {
@@ -554,7 +570,6 @@ export class OnePostComponent implements OnInit {
         console.log('twitter was checked...');
         console.log(value);
         console.log(tweetContent);
-        this.postUserTweet(value, tweetContent);
       }
     }
   }
@@ -657,4 +672,36 @@ export class OnePostComponent implements OnInit {
   pressedEvent($event: any) {
     this.totalNumCharacters = $event.length;
   }
+
+  // uploadToTwitter(content: string) {
+  //   console.log('in the upload method in one post.ts file..');
+  //   console.log('this is the content... ' + content);
+  //   const url = `${this.url}/send-image`;
+  //   if(this.file === undefined){
+  //     console.log('its undefined!');
+  //     this.newTweet = new Tweet();
+  //     this.newTweet.tweetCreator = sessionStorage.getItem('twitterHandle');
+  //     this.newTweet.tweetText = content;
+  //     this.twitterService.postUserTweet(this.newTweet, +sessionStorage.getItem('userId'))
+  //       .subscribe(tweet => {
+  //         this.newTweet = tweet;
+  //       });
+  //
+  //   } else {
+  //     this.currentFileUpload = this.file;
+  //     console.log(this.currentFileUpload);
+  //
+  //     console.log('attempting upload (one.post.ts)');
+  //     const data: FormData = new FormData();
+  //     data.append('file', this.file);
+  //     data.append('textContent', content);
+  //
+  //     this.http.post(url, data, {observe: 'response'})
+  //       .subscribe((response) => {
+  //           console.log('we did it!');
+  //         }
+  //       );
+  //   }
+  //
+  // }
 }

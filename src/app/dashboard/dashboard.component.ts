@@ -120,6 +120,8 @@ export class DashboardComponent implements OnInit {
           });
       }
     });
+    // this.loginFB();
+    // this.loginFB();
     this.initializeSpotifyFields();
 
     window.addEventListener('resize', (e) => {

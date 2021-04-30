@@ -3,7 +3,7 @@ export class InstagramUserSearchInfo{
   followerFeed: string[];
   followingCount: number;
   mediaCount: number;
-  profilePicUrl: string;
+  profilePicUrl: string[];
   instaBio: string;
   imageFeed: string[];
   imageFeedCaption: string[];

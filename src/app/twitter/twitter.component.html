@@ -11,7 +11,8 @@
   </span>
 
   <span class="example-spacer"></span>
-  <span>Goal Progress</span>
+  <div *ngIf="userGoal else setGoals">
+  <span >Goal Progress</span>
 
   <mat-slider style="pointer-events: none;"
               class="example-margin"
@@ -28,6 +29,7 @@
             <button (click)="launchGoalModal() "mat-icon-button aria-label="edit-handle-btn">
               <mat-icon class="edit-btn" >edit</mat-icon>
             </button>
+  </div>
 
 </mat-toolbar>
 <mat-tab-group animationDuration="0ms" (selectedTabChange)="tabClick($event.index)">
@@ -55,6 +57,7 @@
           <br>
             {{briefStatus.text}} <br>
             <br>
+            <div *ngIf="briefStatus.mediaURL"> <img [src]="briefStatus.mediaURL" alt="" class="'img-fluid"></div>
 <!--            <img [src]="briefStatus.text" alt="" class="'img-fluid">-->
 
 <div class="icons-twitter">
@@ -357,28 +360,30 @@
   <h1>Go to the account information page to log into your twitter account</h1>
 </ng-template>
 <ng-template #setGoals>
-  <h2 class="example-h2">Set a follower goal
-  </h2>
+<!--  <span><b>No Follower Goal Set  </b></span>-->
+  <button mat-raised-button class="follower-goal-btn"  (click)="launchGoalModal()">Create Follower Goal</button>
+  <!--<h2 class="example-h2">Set a follower goal-->
+<!--  </h2>-->
 
-  <section class="example-section">
-      <section class="example-section">
-        <mat-radio-group [(ngModel)]="labelPosition" (change)="radioChange($event)" >
-          <mat-radio-button #Weekly class="example-margin" value="Weekly" >Weekly</mat-radio-button>
-          <mat-radio-button #Monthly class="example-margin" value="Monthly"  >Monthly</mat-radio-button>
+<!--  <section class="example-section">-->
+<!--      <section class="example-section">-->
+<!--        <mat-radio-group [(ngModel)]="labelPosition" (change)="radioChange($event)" >-->
+<!--          <mat-radio-button #Weekly class="example-margin" value="Weekly" >Weekly</mat-radio-button>-->
+<!--          <mat-radio-button #Monthly class="example-margin" value="Monthly"  >Monthly</mat-radio-button>-->
 
-        </mat-radio-group>
-      </section>
-    <div></div>
-  </section>
-  <section class="example-section">
-    <mat-form-field class="example-margin">
-      <mat-label>Goal</mat-label>
-      <input matInput type="number" [(ngModel)]="max">
-    </mat-form-field>
-  </section>
-  <div>
-    <button mat-raised-button (click)="sendGoals()">Enter goal</button>
-  </div>
+<!--        </mat-radio-group>-->
+<!--      </section>-->
+<!--    <div></div>-->
+<!--  </section>-->
+<!--  <section class="example-section">-->
+<!--    <mat-form-field class="example-margin">-->
+<!--      <mat-label>Goal</mat-label>-->
+<!--      <input matInput type="number" [(ngModel)]="max">-->
+<!--    </mat-form-field>-->
+<!--  </section>-->
+<!--  <div>-->
+<!--    <button mat-raised-button (click)="sendGoals()">Enter goal</button>-->
+<!--  </div>-->
 </ng-template>
 
 
