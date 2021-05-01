@@ -41,7 +41,7 @@
         </section>
 
         <mat-form-field id = "fbForm" appearance="fill">
-          <mat-label>Select Pages to Post to</mat-label>
+          <mat-label>Select Facebook Pages</mat-label>
           <mat-select [(value)]="currentFBPage" multiple>
             <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
               {{page}}

@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   facebookPhotos: FacebookPhotos;
   facebookPages: FacebookPages;
   verificationCode: string;
-  loggedIntoFB: boolean;
+  loggedIntoFB: Boolean;
 
   constructor(private instagramService: InstagramService,
               private youtubeService: YoutubeService,
@@ -97,15 +97,34 @@ export class DashboardComponent implements OnInit {
   spotifyUserRecentTracks: SpotifyTrack[];
   spotifyUserFavouriteTracks: SpotifyTrack[];
   ngOnInit(): void {
+    window.addEventListener('resize', (e) => {
+      if (window.matchMedia('(min-width: 1050px)').matches) {
+        this.isMinWidth = true;
+      } else {
+        this.isMinWidth = false;
+      }
+    });
+    // this.instagramUser = this.instagramComponent.getInstaUser();
+    // this.counter = this.instagramComponent.counter(0);
+    this.initializeSpotifyFields();
+
+    this.getRecentPost();
+    this.getNumFollowers();
+    this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
+    this.twitterHandle = sessionStorage.getItem('twitterHandle');
+    this.getUserTimeline();
 
     // this.getInstaUser();
     this.getChannel();
     // this.loginFB();
     //THIS IS FOR FACEBOOK LOGIN
+    this.checkLoginFB();
+
     this.route.queryParams.subscribe(params => {
       let code = params['code'];
       if (!code){
         console.log('No code found');
+        //Check if backend can get user information
       } else{
         this.verificationCode = code;
         console.log('This is the code: ' + this.verificationCode);
@@ -122,20 +141,20 @@ export class DashboardComponent implements OnInit {
     });
     // this.initializeSpotifyFields();
 
-    window.addEventListener('resize', (e) => {
-      if (window.matchMedia('(min-width: 1050px)').matches) {
-        this.isMinWidth = true;
-      } else {
-        this.isMinWidth = false;
-      }
-    });
-    // this.instagramUser = this.instagramComponent.getInstaUser();
-    // this.counter = this.instagramComponent.counter(0);
-    this.getRecentPost();
-    this.getNumFollowers();
-    this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
-    this.twitterHandle = sessionStorage.getItem('twitterHandle');
-    this.getUserTimeline();
+    // window.addEventListener('resize', (e) => {
+    //   if (window.matchMedia('(min-width: 1050px)').matches) {
+    //     this.isMinWidth = true;
+    //   } else {
+    //     this.isMinWidth = false;
+    //   }
+    // });
+    // // this.instagramUser = this.instagramComponent.getInstaUser();
+    // // this.counter = this.instagramComponent.counter(0);
+    // this.getRecentPost();
+    // this.getNumFollowers();
+    // this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
+    // this.twitterHandle = sessionStorage.getItem('twitterHandle');
+    // this.getUserTimeline();
 
   }
 
@@ -182,6 +201,20 @@ export class DashboardComponent implements OnInit {
       this.loggedIntoFB = true;
     });
     window.location.href = this.facebookLogin.loginDialogURL;
+  }
+
+  checkLoginFB(){
+    this.facebookService.checkLogin().subscribe(check => {
+      console.log('Boolean check is: ' + check);
+      this.loggedIntoFB = check;
+      if (check){
+        this.getFBUsername();
+        this.getFBPhotos();
+        this.getFBPages();
+        document.getElementById('fbCard').style.display = 'block';
+        document.getElementById('fbCardLogin').style.display = 'none';
+      }
+    });
   }
 
   getFBUsername(){

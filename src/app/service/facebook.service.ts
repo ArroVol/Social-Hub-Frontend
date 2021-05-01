@@ -36,6 +36,16 @@ export class FacebookService{
       );
   }
 
+  checkLogin(): Observable<Boolean>{
+    console.log('Checking FB User');
+    const url = `${this.facebookURL}/check`;
+    return this.http.get<Boolean>(url)
+      .pipe(
+        tap(_ => console.log('Got check'))
+        // catchError(() => observableThrowError('get user by id error'))
+      );
+  }
+
   sendVerificationCode(code: string): Observable<string>{
     const body = JSON.stringify(code);
     const url = `${this.facebookURL}/verify`;
