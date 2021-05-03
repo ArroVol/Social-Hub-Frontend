@@ -1,14 +1,4 @@
 <div class = "topnav">
-    <!--
-    <fb:login-button
-      id = "fb-btn"
-      scope="public_profile,email,user_birthday,user_location,user_posts"
-      onlogin="checkLoginState();">
-    </fb:login-button>
-
-    <li><a id="fb-btn" (click)="submitLogin()">Login</a></li>
-    <li><a id="logout" (click)="logout()">Logout</a></li>
-    -->
     <a id="fb-btn" (click)="login()">Log in to Facebook</a>
     <div id="fb-btn2">Welcome, {{facebookUser.facebookName}}</div>
     <a id="fb-btn3" (click)="logout()">Logout</a>
@@ -79,7 +69,8 @@
     <form id = "postForm" class="example-form">
       <mat-form-field class="example-full-width">
         <mat-label>Post to Page</mat-label>
-        <input #postMessage matInput placeholder="Your Post Here">
+<!--        <input #postMessage matInput placeholder="Your Post Here">-->
+        <textarea style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;" #postMessage matInput placeholder="What's Happening?"></textarea>
       </mat-form-field>
       <button *ngIf="!loading" (click)="submitPost(postMessage.value)">Post to Page</button>
       <div *ngIf="loading" class="spinner-border" role="status" style="float: left">
@@ -139,7 +130,9 @@
 </div>
 <div id = "container2" class ="container2">
   <mat-card class = "example-card2">
-    <mat-card-title style="float:left; text-align: left; margin-top: 15px; font-size: 32px; font-weight: bold">Media Gallery</mat-card-title>
+    <mat-card-title style="float:left; text-align: left; font-size: 32px; font-weight: bold">Media Gallery</mat-card-title>
+    <br>
+    <hr>
     <!--
   <a [href]="facebookPhotos.photoURLs[0]" target="_blank">
   <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[0]">
@@ -163,6 +156,10 @@
   <img style="width: 150px; height: 150px; border: #1c1c1c" [src]="facebookPhotos.photos[6]">
   </a>
   -->
+    <br>
+    <div style="float:left; text-align: left; font-size: 25px;">
+    Recent Images
+  </div>
     <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
       <mdb-carousel-item>
         <img class="d-block w-300" src="{{facebookPhotos.photos[0]}}" style="width: 335px; height: 300px; margin-left: auto; margin-right: auto;">
@@ -198,6 +195,9 @@
 <!--        </video>-->
 <!--      </mdb-carousel-item>-->
 <!--    </mdb-carousel>-->
+    <div style="float:left; text-align: left; margin-top: 15px; font-size: 25px;">
+      Recent Videos
+    </div>
     <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" interval="-1" [animation]="'fade'">
       <!--First slide-->
       <mdb-carousel-item>
