@@ -45,13 +45,13 @@
     <br>
   </mat-drawer>
   <mat-drawer-content>
-
+    <!--    *ngIf="featuredPlaylists && newRealeaseAlbums && userRecentTracks && userTopTracks else loading"-->
     <div class="home_page_container" fxLayout="column">
 
       <div class="new_releases_container">
         <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">New Album Releases </h1>
         <!--        *ngIf="newRealeaseAlbums | async as album; else loading;"-->
-        <div class="new_releases_table_container">
+        <div class="new_releases_table_container" *ngIf="newRealeaseAlbums else loading">
           <table>
             <tr>
               <td *ngFor="let album of newRealeaseAlbums" class="new_releases_card_container">
@@ -76,11 +76,10 @@
 
       <div class="featured_playlist_container">
         <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">Featured Playlists</h1>
-        <div class="featured_playlist_table_container">
+        <div class="featured_playlist_table_container" *ngIf="featuredPlaylists else loading">
           <table>
             <tr>
               <td *ngFor="let playlist of featuredPlaylists" class="featured_playlist_card_container"
-                  #playlistToolTip="matTooltip"
                   matTooltip="{{playlist?.description}}">
                 <mat-card class="featured_playlist_card" (click)="routeToPlaylist(playlist?.id);">
                   <mat-card-content class="featured_playlist_content">
@@ -105,19 +104,18 @@
         <div class="user_top_tracks_container">
           <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">Your Top Tracks</h1>
           <h4 style="font-size: 15px; margin-top: -3%; margin-left: 1%;">{{userTopTracks?.length}} Songs</h4>
-          <div class="user_top_tracks">
+          <div class="user_top_tracks" *ngIf="userTopTracks else loading">
             <table class="songlist">
               <tr *ngFor="let track of userTopTracks; let i = index" class="tracksData">
                 <td>{{i + 1}}</td>
                 <td><img src="{{track?.album.imageUrl}}" width="75"></td>
                 <td><p>{{track?.name}} <br>
                   <span style="font-size:12px;"
-                        *ngFor="let item of track.artistInfo | keyvalue">{{item?.value}} </span>
+                        *ngFor="let item of track?.artistInfo | keyvalue">{{item?.value}} </span>
                 </p></td>
-                <td>{{transform(track.duration)}}</td>
+                <td>{{transform(track?.duration)}}</td>
                 <td>
                   <button mat-icon-button [matMenuTriggerFor]="artistMenu"
-                          #artistToolTip="matTooltip"
                           matTooltip="Get more information on the artist(s)">
                     <mat-icon>person_outline</mat-icon>
                   </button>
@@ -129,21 +127,19 @@
                   </mat-menu>
                 </td>
                 <td>
-                  <button mat-icon-button *ngIf="!userTopTracksFavourites[i]"
-                          (click)="followTrack(track?.id); userTopTracksFavourites[i] = true;"
-                          #favouritesToolTip="matTooltip"
+                  <button mat-icon-button *ngIf="userFavouriteTracks != null && !userFavouriteTracks.get(track.id)"
+                          (click)="followTrack(track.id); userFavouriteTracks.set(track.id, true);"
                           matTooltip="Favourite this Track">
                     <mat-icon>favorite_border</mat-icon>
                   </button>
-                  <button mat-icon-button *ngIf="userTopTracksFavourites[i]"
-                          (click)="unfollowTrack(track?.id); userTopTracksFavourites[i] = false;"
-                          color="warn" #favouritesToolTip="matTooltip" matTooltip="Favourite this Track">
+                  <button mat-icon-button *ngIf="userFavouriteTracks != null && userFavouriteTracks.get(track.id)"
+                          (click)="unfollowTrack(track.id); userFavouriteTracks.set(track.id, false);"
+                          color="warn" matTooltip="Favourite this Track">
                     <mat-icon>favorite</mat-icon>
                   </button>
                 </td>
                 <td>
                   <button mat-icon-button [matMenuTriggerFor]="playlistMenu"
-                          #playlistToolTip="matTooltip"
                           matTooltip="Add this track to your playlist">
                     <mat-icon>playlist_add</mat-icon>
                   </button>
@@ -161,20 +157,19 @@
 
         <div class="user_recent_tracks_container">
           <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">Recently Played</h1>
-          <h4 style="font-size: 15px; margin-top: -3%; margin-left: 1%;">{{userRecentTracks.length}} Songs</h4>
-          <div class="user_recent_tracks">
+          <h4 style="font-size: 15px; margin-top: -3%; margin-left: 1%;">{{userRecentTracks?.length}} Songs</h4>
+          <div class="user_recent_tracks" *ngIf="userRecentTracks else loading">
             <table class="songlist">
               <tr *ngFor="let track of userRecentTracks; let i = index" class="tracksData">
                 <td>{{i + 1}}</td>
                 <td><img src="{{track?.album.imageUrl}}" width="75"></td>
                 <td><p>{{track?.name}} <br>
                   <span style="font-size:12px;"
-                        *ngFor="let item of track.artistInfo | keyvalue">{{item?.value}} </span>
+                        *ngFor="let item of track?.artistInfo | keyvalue">{{item?.value}} </span>
                 </p></td>
                 <td>{{transform(track?.duration)}}</td>
                 <td>
                   <button mat-icon-button [matMenuTriggerFor]="artistMenu"
-                          #artistToolTip="matTooltip"
                           matTooltip="Get more information on the artist(s)">
                     <mat-icon>person_outline</mat-icon>
                   </button>
@@ -186,22 +181,19 @@
                   </mat-menu>
                 </td>
                 <td>
-                  <button mat-icon-button *ngIf="!userRecentTracksFavourites[i]"
-                          (click)="followTrack(track?.id); userRecentTracksFavourites[i] = true;"
-                          #favouritesToolTip="matTooltip"
+                  <button mat-icon-button *ngIf="userFavouriteTracks != null && !userFavouriteTracks.get(track.id)"
+                          (click)="followTrack(track.id); userFavouriteTracks.set(track.id, true);"
                           matTooltip="Favourite this Track">
                     <mat-icon>favorite_border</mat-icon>
                   </button>
-                  <button mat-icon-button *ngIf="userRecentTracksFavourites[i]"
-                          (click)="unfollowTrack(track?.id); userRecentTracksFavourites[i] = false;"
-                          color="warn" #favouritesToolTip="matTooltip"
-                          matTooltip="Favourite this Track">
+                  <button mat-icon-button *ngIf="userFavouriteTracks!= null && userFavouriteTracks.get(track.id)"
+                          (click)="unfollowTrack(track.id); userFavouriteTracks.set(track.id, false);"
+                          color="warn" matTooltip="Favourite this Track">
                     <mat-icon>favorite</mat-icon>
                   </button>
                 </td>
                 <td>
                   <button mat-icon-button [matMenuTriggerFor]="playlistMenu"
-                          #playlistToolTip="matTooltip"
                           matTooltip="Add this track to your playlist">
                     <mat-icon>playlist_add</mat-icon>
                   </button>
@@ -221,3 +213,7 @@
 
   </mat-drawer-content>
 </mat-drawer-container>
+
+<ng-template #loading>
+  <mat-spinner fxLayout="column" fxLayoutAlign="center center"></mat-spinner>
+</ng-template>

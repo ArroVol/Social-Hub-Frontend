@@ -17,6 +17,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
 import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
 import {Observable} from "rxjs";
+import {SpotifyPlaylistSnapshot} from "../model/spotify/SpotifyPlaylistSnapshot";
 
 
 @Component({
@@ -31,7 +32,7 @@ export class SpotifyPlaylistComponent implements OnInit {
   private playlist_id: string;
   spotifyPlaylist: SpotifyPlaylist = null;
   recommendedTracks: SpotifyTrack[] = null;
-  spotifyUserPlaylist: SpotifyPlaylist[];
+  spotifyUserPlaylist: SpotifyPlaylistSnapshot[];
   spotifyUser: SpotifyUser;
   isShown: boolean = true;
   tracksShowAll: boolean = false;
@@ -40,8 +41,7 @@ export class SpotifyPlaylistComponent implements OnInit {
   recommendedTracksMap: Map<string, Boolean> = new Map();
   currentSpotifyPlaylist: Observable<SpotifyPlaylist>;
 
-  recommendedTracksFavourites: Boolean[];
-
+  spotifyPlaylistOwner: Observable<SpotifyUser>;
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar, public lc: NgZone) {
   }
@@ -61,6 +61,7 @@ export class SpotifyPlaylistComponent implements OnInit {
     this.spotifyPlaylist = await this.spotifyService.getPlaylistByIdPromise(playlistId);
     await this.setRecommendedTracks();
     await this.getPlaylistTrackFavourites();
+    this.spotifyPlaylistOwner = this.spotifyService.getUserById(this.spotifyPlaylist.ownerId);
     console.log('the current favourites map', this.trackFavouritesMap);
   }
 
@@ -91,11 +92,11 @@ export class SpotifyPlaylistComponent implements OnInit {
   }
 
   async getRecommendedTracks() {
-    let tracks = this.spotifyPlaylist.tracks;
+    let tracks = this.spotifyPlaylist?.tracks;
     if (tracks.length > 0 && tracks.length < 6) {
-      return this.spotifyService.getRecommendedTracksPromise(tracks.map(track => track.id).join(','));
+      return await this.spotifyService.getRecommendedTracksPromise(tracks.map(track => track.id).join(','));
     } else if (tracks.length > 6) {
-      return this.spotifyService.getRecommendedTracksPromise(tracks.slice(0, 5).map(track => track.id).join(','));
+      return await this.spotifyService.getRecommendedTracksPromise(tracks.slice(0, 5).map(track => track.id).join(','));
       // console.log('recommended tracks list', tracks.slice(0, 5).map(track => track.id).join(','));
     }
     return null;
@@ -262,7 +263,8 @@ export class SpotifyPlaylistComponent implements OnInit {
       }
     })
       .afterClosed().subscribe(playlist => {
-      if (playlist != null) {
+      console.log('return from update dialigue', playlist);
+      if (playlist) {
         this.updatePlaylist(playlist.id, playlist.name, playlist.description);
       } else {
       }

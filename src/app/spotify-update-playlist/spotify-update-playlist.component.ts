@@ -29,7 +29,7 @@ export class SpotifyUpdatePlaylistComponent implements OnInit {
 
     this.updatePlaylistForm = new FormGroup({
       'playlist_description': new FormControl(null, null),
-      'playlist_name': new FormControl(null, Validators.minLength(5))
+      'playlist_name': new FormControl(null, Validators.minLength(1))
     });
 
   }

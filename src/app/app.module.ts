@@ -122,6 +122,7 @@ import {OnePostComponent} from './one-post/one-post.component';
 
 import * as moment from 'moment';
 import {Moment} from 'moment';
+import { SpotifyThrowawayRedirectComponent } from './spotify-throwaway-redirect/spotify-throwaway-redirect.component';
 
 
 @NgModule({
@@ -172,7 +173,8 @@ import {Moment} from 'moment';
     OnePostComponent,
     GoalModalComponent,
     ImagesComponent,
-    SpotifyFavouritesComponent
+    SpotifyFavouritesComponent,
+    SpotifyThrowawayRedirectComponent
   ],
   imports: [
     HttpClientModule,

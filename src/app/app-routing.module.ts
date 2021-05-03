@@ -22,6 +22,7 @@ import {SpotifyArtistComponent} from "./spotify-artist/spotify-artist.component"
 import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.component';
 import {SpotifyPlaylistComponent} from './spotify-playlist/spotify-playlist.component';
 import {SpotifyComponent} from './spotify/spotify.component';
+import {SpotifyThrowawayRedirectComponent} from "./spotify-throwaway-redirect/spotify-throwaway-redirect.component";
 // import {SpotifyCreatePlaylistComponent} from './spotify-create-playlist/spotify-create-playlist.component';
 // import {SpotifyUpdatePlaylistComponent} from "./spotify-update-playlist/spotify-update-playlist.component";
 
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path: 'spotify/artist', component: SpotifyArtistComponent, pathMatch: 'prefix'},
   {path: 'spotify/search', component: SpotifySearchComponent, pathMatch: 'full'},
   {path: 'spotify/favourite', component: SpotifyFavouritesComponent, pathMatch: 'full'},
+  {path: 'spotify/redirect', component: SpotifyThrowawayRedirectComponent, pathMatch: 'full'},
   {path: 'main', component: MainComponent},
   {path: 'login-page', component: LoginPageComponent},
   {path: 'account-information', component: AccountInformationComponent},

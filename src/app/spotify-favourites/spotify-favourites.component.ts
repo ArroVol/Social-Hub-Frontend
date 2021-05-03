@@ -11,6 +11,7 @@ import {SpotifyArtist} from "../model/spotify/SpotifyArtist";
 import {SpotifyAlbum} from "../model/spotify/SpotifyAlbum";
 import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
 import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
+import {SpotifyPlaylistSnapshot} from "../model/spotify/SpotifyPlaylistSnapshot";
 
 @Component({
   selector: 'app-spotify-favourites',
@@ -21,7 +22,7 @@ export class SpotifyFavouritesComponent implements OnInit {
   isShown: boolean = true;
 
   spotifyUser: SpotifyUser;
-  spotifyUserPlaylist: SpotifyPlaylist[];
+  spotifyUserPlaylist: SpotifyPlaylistSnapshot[];
 
   favouriteTracks: SpotifyTrack[];
   favouriteArtists: SpotifyArtist[];
@@ -43,7 +44,7 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserProfile() {
-    if (sessionStorage.getItem("spotify_user") != null) {
+    if (JSON.parse(sessionStorage.getItem("spotify_user"))) {
       this.spotifyUser = JSON.parse(sessionStorage.getItem("spotify_user"));
     } else {
       this.spotifyService.getUserProfile().subscribe(spotifyUser => {
@@ -61,11 +62,13 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserFavouriteTracks() {
-    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
+    console.log('favourited tracks session storage', JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks")));
+    if (JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"))) {
       this.favouriteTracks = JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"));
     } else {
       this.spotifyService.getUserFollowedTracks().subscribe(tracks => {
         sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(tracks));
+        console.log(JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks")))
         this.favouriteTracks = tracks;
 
       });
@@ -75,11 +78,13 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserFavouriteArtists() {
-    if (sessionStorage.getItem("spotify_user_favourite_artists") != null) {
+    console.log('favourited artists session storage', JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists")));
+    if (JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists"))) {
       this.favouriteArtists = JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists"));
     } else {
       this.spotifyService.getUserFollowedArtists().subscribe(artists => {
         sessionStorage.setItem('spotify_user_favourite_artists', JSON.stringify(artists));
+        console.log(JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists")))
         this.favouriteArtists = artists;
 
       });
@@ -88,11 +93,13 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserFavouriteAlbums() {
-    if (sessionStorage.getItem("spotify_user_favourite_albums") != null) {
+    console.log('favourited albums session storage', JSON.parse(sessionStorage.getItem("spotify_user_favourite_albums")));
+    if (JSON.parse(sessionStorage.getItem("spotify_user_favourite_albums"))) {
       this.favouriteAlbums = JSON.parse(sessionStorage.getItem("spotify_user_favourite_albums"));
     } else {
       this.spotifyService.getUserFollowedAlbums().subscribe(albums => {
         sessionStorage.setItem('spotify_user_favourite_albums', JSON.stringify(albums));
+        console.log(JSON.parse(sessionStorage.getItem("spotify_user_favourite_albums")))
         this.favouriteAlbums = albums;
 
       });

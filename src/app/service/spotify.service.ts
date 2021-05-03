@@ -36,6 +36,11 @@ export class SpotifyService {
       );
   }
 
+  getUserById(user_id: string): Observable<SpotifyUser> {
+    const url = `${this.spotifyUrl}/get/user/id/` + user_id;
+    return this.http.get<SpotifyUser>(url).pipe();
+  }
+
   getUserProfilePromise(): Promise<SpotifyUser> {
     console.log('getting spotify user');
     const url = `${this.spotifyUrl}/userinfo`;
@@ -54,7 +59,7 @@ export class SpotifyService {
       responseType: 'text' as 'json'
     };
     console.log('getting spotify authorization');
-    const url = `${this.spotifyUrl}/`;
+    const url = `${this.spotifyUrl}/get/authorizationcode`;
     return this.http.get<string>(url, httpOptionsText)
       .pipe(
         tap(_ => console.log('fetched authorization link'))
@@ -81,10 +86,10 @@ export class SpotifyService {
       );
   }
 
-  getUserPlaylist(): Observable<SpotifyPlaylist[]> {
+  getUserPlaylist(): Observable<SpotifyPlaylistSnapshot[]> {
     console.log('getting spotify user playlist');
-    const url = `${this.spotifyUrl}/playlist`;
-    return this.http.get<SpotifyPlaylist[]>(url)
+    const url = `${this.spotifyUrl}/get/user/current/playlist`;
+    return this.http.get<SpotifyPlaylistSnapshot[]>(url)
       .pipe(
         tap(_ => console.log('fetched spotify user playlist'))
       );
