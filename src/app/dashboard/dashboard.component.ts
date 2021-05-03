@@ -341,7 +341,9 @@ export class DashboardComponent implements OnInit {
         this.briefStatusList = this.briefStatusList.slice(1);
 
         for (let i = 0; i < this.briefStatusList.length; i++){
+          console.log('brief status list');
           console.log(this.briefStatusList[i].text);
+          console.log(this.briefStatusList[i].mediaURL)
         }
         this.getOtherUserTimeline('SocialHubClub');
 
@@ -353,10 +355,14 @@ export class DashboardComponent implements OnInit {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
  async getRecentPost() {
+
     this.twitterService.getRecentPostByHandle(sessionStorage.getItem('twitterHandle'))
       .subscribe(async briefStatus => {
         this.briefStatus = briefStatus;
+        console.log('RECENT POST!');
         console.log(this.briefStatus.createdAt);
+        console.log(this.briefStatus.mediaURL);
+        console.log(this.briefStatus.text);
       });
   }
 
@@ -475,7 +481,13 @@ export class DashboardComponent implements OnInit {
     return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
       this.instagramUser.imageFeed[pic].toString().search('width') - 2);
   }
+  getImageByte(pic: number): string{
+    return 'data:image/jpeg;base64,' + this.instagramUser.images[pic];
+  }
 
+  getUserProfilePic(): string{
+    return 'data:image/jpeg;base64,' + this.instagramUser.profilePicUrl.toString();
+  }
 
   counterFunc(end: number, element: any, duration: number) {
     let range, current: number, step, timer;

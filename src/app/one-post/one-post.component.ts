@@ -49,6 +49,9 @@ export class OnePostComponent implements OnInit {
   // });
   atLeastOneFile = false;
   imageList: any[];
+  shortenedImageList: any[];
+  savedOnePostList: any[];
+  selectedSocialMedia: string;
   rowIndexArray: any[];
   textContent: string;
   newTweet: Tweet;
@@ -69,6 +72,7 @@ export class OnePostComponent implements OnInit {
   click = true;
   onePost: OnePosts;
   image: number[];
+  onePostsBySocialMedia: any[];
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -181,6 +185,7 @@ export class OnePostComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    this.onePostsBySocialMedia = new Array();
     this.totalNumCharacters = 0;
     this.imageService.getImageDetailList();
     this.getFirebaseOnePosts();
@@ -549,8 +554,8 @@ export class OnePostComponent implements OnInit {
       if (this.form.value.checkArray[i] === 'twitter') {
         console.log('twitter was checked...');
         this.uploadToTwitter(content);
-
       }
+
     }
 
     this.saveOnePost(content);
@@ -623,6 +628,12 @@ export class OnePostComponent implements OnInit {
         this.imageList = list.map(item => {return item.payload.val();});
         console.log(this.imageList.length);
         this.imageList = this.imageList.reverse();
+        if(this.imageList.length > 20) {
+          this.shortenedImageList = this.imageList.slice(0, 20);
+          this.savedOnePostList = this.shortenedImageList;
+        }
+        console.log('this is the shortened lenght... : ' + this.shortenedImageList.length);
+        console.log(this.shortenedImageList[0].textContent);
 
         // for (let i = 0; i < this.imageList.length; i++){
         //   console.log(this.imageList[i].userId);
@@ -669,6 +680,40 @@ export class OnePostComponent implements OnInit {
 
   }
 
+  selectChangeHandler(event: any) {
+    this.shortenedImageList = this.savedOnePostList;
+    console.log(event);
+    if(event.toString() !== 'All'){
+
+    this.selectedSocialMedia = event.toString();
+    this.onePostsBySocialMedia = new Array();
+    for (let i = 0; i < this.shortenedImageList.length; i++){
+      console.log(this.shortenedImageList[i].socialMedia);
+      if(this.shortenedImageList[i].socialMedia.includes(this.selectedSocialMedia.toLowerCase())){
+        console.log('true');
+        console.log(this.shortenedImageList[i]);
+
+        this.onePostsBySocialMedia.push(this.shortenedImageList[i]);
+      }
+    }
+
+    for (let i = 0; i < this.onePostsBySocialMedia.length; i++){
+      console.log(this.onePostsBySocialMedia[i].socialMedia);
+      console.log(this.onePostsBySocialMedia[i].textContent);
+    }
+    this.shortenedImageList = this.onePostsBySocialMedia;
+    }
+
+    // this.sectionBySubjectArray = this.section.filter(s => s.courseSubject === event.toString());
+    // this.sectionBySubjectArray = this.sectionBySubjectArray.filter(s => s.semester === this.selectedTerm);
+    // this.courseService.getCourseBySubject(this.selectedSubject)
+    //   .subscribe(courseBySubject => {
+    //     this.courseBySubject = courseBySubject;
+    //   });
+    // this.clicked = true;
+    // this.clickedButtonCourses = false;
+  }
+
   pressedEvent($event: any) {
     this.totalNumCharacters = $event.length;
   }
@@ -705,3 +750,4 @@ export class OnePostComponent implements OnInit {
   //
   // }
 }
+

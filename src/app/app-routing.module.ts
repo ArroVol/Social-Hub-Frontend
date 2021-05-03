@@ -22,7 +22,8 @@ import {InstagramSearchComponent} from './instagram-search/instagram-search.comp
 import {SpotifySearchComponent} from "./spotify-search/spotify-search.component";
 import {OnePostComponent} from "./one-post/one-post.component";
 import {ImagesComponent} from "./images/images.component";
-
+import {SpotifyFavouritesComponent} from "./spotify-favourites/spotify-favourites.component";
+import {OnePostArchiveComponent} from "./one-post-archive/one-post-archive.component";
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
@@ -34,6 +35,8 @@ const routes: Routes = [
   {path: 'spotify/landing', component: SpotifyLandingComponent, pathMatch: 'full'},
   {path: 'spotify/playlist', component: SpotifyPlaylistComponent, pathMatch: 'prefix'},
   {path: 'spotify/artist', component: SpotifyArtistComponent, pathMatch: 'prefix'},
+  {path: 'spotify/search', component: SpotifySearchComponent, pathMatch: 'full'},
+  {path: 'spotify/favourite', component: SpotifyFavouritesComponent, pathMatch: 'full'},
   {path: 'main', component: MainComponent},
   {path: 'spotify/search', component: SpotifySearchComponent, pathMatch: 'full'},
   {path: 'login-page', component: LoginPageComponent},
@@ -44,6 +47,9 @@ const routes: Routes = [
   {path: 'youtube', component: YoutubeComponent},
   {path: 'collection', component: CollectionComponent},
   {path: 'one-post', component: OnePostComponent},
+  {path: 'one-post-archive', component: OnePostArchiveComponent},
+  {path: 'one-post-archive', component: OnePostArchiveComponent},
+
   {path: 'image', component: ImagesComponent}
 
 

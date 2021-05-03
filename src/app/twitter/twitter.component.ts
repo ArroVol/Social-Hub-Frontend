@@ -5,26 +5,19 @@ import {Status} from 'tslint/lib/runner';
 import {Observable} from 'rxjs';
 import {BriefStatus} from '../model/twitter/BriefStatus';
 import {MatSort} from '@angular/material/sort';
-import {SimpleFormComponent} from '../simple-form/simple-form.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {AppComponent} from '../app.component';
 import {GoalService} from '../service/goal.service';
 import {Goal} from '../model/user/Goal';
 import {MatRadioChange} from '@angular/material/radio';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
-import {MatTabsModule} from '@angular/material/tabs';
-import {ChangeDetectionStrategy} from '@angular/core';
 
-// import moment from 'moment';
 import {Moment} from 'moment';
 import * as moment from 'moment';
-import {Snackbar} from "@material-ui/core";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {ModalComponent} from "../modal/modal.component";
 import {GoalModalComponent} from "../goal-modal/goal-modal.component";
 
 export class RankData {
@@ -81,7 +74,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
 
   fontStyle?: string;
   filteredOptions: Observable<User[]>;
-  labelPosition: string;
   showRanking: boolean;
   otherNumFollowers: number;
   otherMostRetweeted: BriefStatus;
@@ -107,7 +99,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   timelineList: Tweet[];
   reactiveForm: FormGroup;
   rankData: RankData;
-  timelineList$: Observable<Tweet[]>;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -149,11 +140,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
               private builder: FormBuilder,
               public snackBar: MatSnackBar,
               public matDialog: MatDialog) {
-    // this.dataSource = this.friendsList;
   }
-
-
-
 
 
   ngAfterViewInit() {
@@ -171,7 +158,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     this.reactiveForm = this.builder.group({
       age: [null, Validators.required]
     });
-    // this.rankData = new RankData();
     this.rankingList = new Array as RankData[];
     this.showingOther = 'Most Retweeted Post';
     this.currentDate = moment(Date.now());
