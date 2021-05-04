@@ -1,3 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 20%;
+  padding: 10px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+  line-height: 1.8;
+}
+
+/* Create a Parallax Effect */
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.w3-wide {letter-spacing: 20px;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1600px) {
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: scroll;
+    min-height: 400px;
+  }
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -93,6 +135,9 @@ header .tagline {
 header .tagline h1 {
   font-size: 4rem;
   line-height: 4rem;
+  margin-left: 20%;
+  color: black;
+  font-family: 'Font Awesome 5 Pro', 'Font Awesome 5 Free';
 }
 
 header .tagline p {
@@ -191,6 +236,30 @@ div.multi-section-two {
 }
 main div:last-of-type{
   text-align: center;
+}
+
+.imageUpload {
+  background: url('https://api.iconify.design/mdi:image-plus.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:image-plus.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.createPlaylist {
+  background: url('https://api.iconify.design/mdi:playlist-plus.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:playlist-plus.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.writePost {
+  background: url('https://api.iconify.design/mdi:pencil-plus.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:pencil-plus.svg?height=24');
+  vertical-align: -0.125em;
+}
+
+.editProfile {
+  background: url('https://api.iconify.design/mdi:account-edit.svg') no-repeat center center / contain;
+  content: url('https://api.iconify.design/mdi:account-edit.svg?height=24');
+  vertical-align: -0.125em;
 }
 
 

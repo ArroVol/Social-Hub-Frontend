@@ -1,109 +1,289 @@
 <!--<div class="container">-->
-  <header>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <div class="tagline">
+<body>
 
-      <h1>Welcome to <br/>  The Hub</h1>
-      <p>Stay connected to your social media platforms all in one place. Track your progression and gain new followers. Become an influencer.</p>
-      <div>
-        <a  class="contact" (click)="signUpStepper()">Sign Up</a>
-<!--        <a  class="learn-more">Log In</a>-->
-      </div>
-<!--      <mat-horizontal-stepper>-->
 
-<!--        <mat-step label="Step 1" [stepControl]="firstFormGroup">-->
-<!--          <p>Put down your phones.</p>-->
-<!--          <div>-->
-<!--            <button mat-button matStepperNext>Next</button>-->
-<!--          </div>-->
-<!--        </mat-step>-->
+<!-- First Parallax Image with Logo Text -->
+<div class="bgimg-1 w3-display-container w3-opacity-min"  id="home">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Welcome To <span class="w3-hide-small" style="font-size: 40px;" > <img style="width: 250px; height: 80px; background-color: white" src="assets/textHeader.png"></span></span>
 
-<!--        <mat-step label="Step 2" state="chat">-->
-<!--          <p>Socialize with each other.</p>-->
-<!--          <div>-->
-<!--            <button mat-button matStepperPrevious>Back</button>-->
-<!--            <button mat-button matStepperNext>Next</button>-->
-<!--          </div>-->
-<!--        </mat-step>-->
+  </div>
 
-<!--        <mat-step label="Step 3">-->
-<!--          <p>You're welcome.</p>-->
-<!--        </mat-step>-->
 
-<!--        &lt;!&ndash; Icon overrides. &ndash;&gt;-->
-<!--        <ng-template matStepperIcon="phone">-->
-<!--          <mat-icon>call_end</mat-icon>-->
-<!--        </ng-template>-->
+</div>
 
-<!--        <ng-template matStepperIcon="chat">-->
-<!--          <mat-icon>forum</mat-icon>-->
-<!--        </ng-template>-->
+<button  (click)="signUpStepper()" class="w3-button  w3-light-grey" style="margin-left: 45%; padding-bottom: 10px">SIGN UP</button>
 
-<!--      </mat-horizontal-stepper>-->
 
-<!--    </div>-->
 
-<!--&lt;!&ndash;    <img src="/assets/app-development.png" />&ndash;&gt;-->
-<!--    <div class="overlay"></div>-->
-<!--  </header>-->
-<!--  <main>-->
-<!--    <div class="intro">-->
-<!--      <h3>Show the world what you can do.</h3>-->
-<!--      <p>-->
-<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quam nulla, ornare ac leo nec, imperdiet ultrices eros. Aliquam ullamcorper turpis lorem, id porttitor elit sodales eget. Sed vitae scelerisque quam. Donec tellus ante, lobortis id sem sed, porttitor tempor lacus. Donec et purus lorem. Nam nec ante vel nisi luctus aliquam volutpat nec erat. Ut iaculis imperdiet ligula, in blandit leo finibus pulvinar.-->
-<!--      </p>-->
-<!--    </div>-->
 
-<!--    <div class="multi-section">-->
-<!--      <img src="/assets/responsive.png" />-->
+
+
+
+<!-- Hide this text on small devices -->
+<div class="w3-col m6 w3-hide-small w3-padding-large">
+
+</div>
+
+
+
+<!-- Hide this text on small devices -->
+<div class="w3-col m6 w3-hide-small w3-padding-large">
+
+</div>
+
+<div class="w3-row w3-center w3-dark-grey w3-padding-16">
+
+  <div >
+    <p style=" background-color: dimgrey; font-size: 20px; text-align: center">Stay connected to all your social media platforms in one place</p>
+
+  </div>
+
+
+</div>
+
+
+<div class="row" style=" background-color: black">
+  <div class="column">
+    <a href="https://www.instagram.com/">
+      <img src="https://www.rawshorts.com/blog/wp-content/uploads/2019/06/instagram-accounts-for-design-inspiration.gif" style="padding-inline-start: 20px; width: 200px; height: 200px; "   alt="Quiet ocean">
+    </a>
+  </div>
+  <div class="column">
+    <a href="https://www.spotify.com/">
+      <img src="https://cdn.dribbble.com/users/3691429/screenshots/15011694/spotify.gif" style=" width: 200px; height: 200px; "   alt="My beloved typewriter">
+    </a>
+  </div>
+  <div class="column">
+    <a href="https://www.youtube.com/">
+      <img src="https://i.pinimg.com/originals/f9/fd/ee/f9fdee9073b6b6c4ade999a359fbd012.gif" style="width: 200px; height: 200px; "  alt="The mist over the mountains">
+    </a>
+  </div>
+
+  <div class="column">
+    <a href="https://www.facebook.com/">
+      <img src="https://i.pinimg.com/originals/67/fc/3c/67fc3ccec9950375038b8917e1f7f988.gif" style="width: 200px; height: 200px;  "  alt="Coffee beans">
+    </a>
+  </div>
+
+  <div class="column">
+    <a href="https://www.twitter.com/">
+      <img src="https://i.pinimg.com/originals/ba/46/c8/ba46c8090ccc536ef26c005f9f2fc404.gif" style="width: 200px; height: 200px; "  alt="Bear closeup">
+    </a>
+  </div>
+</div>
+
+
+<div class="w3-row w3-center w3-dark-grey w3-padding-16">
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">Upload Pictures <span class="imageUpload" data-icon="mdi:image-plus" data-inline="false"></span> </span><br>
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">Create Playlists <span class="createPlaylist" data-icon="mdi:image-plus" data-inline="false"></span></span><br>
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">Write Posts <span class="writePost" data-icon="mdi:image-plus" data-inline="false"></span></span><br>
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">Edit Profiles <span class="editProfile" data-icon="mdi:image-plus" data-inline="false"></span></span><br>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Container (Portfolio Section) -->
+<div class="  " id="portfolio">
+
+
+
+
+
+
+
+
+</div>
+
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+  <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+
+
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+  <div class="w3-xlarge w3-section">
+    <i style="padding: 10px" class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i style="padding: 10px" class="fa fa-instagram w3-hover-opacity"></i>
+    <i style="padding: 10px" class="fa fa-snapchat w3-hover-opacity"></i>
+    <i style="padding: 10px" class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i style="padding: 10px" class="fa fa-twitter w3-hover-opacity"></i>
+    <i style="padding: 10px" class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+</footer>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--  <header>-->
+
+<!--    <div class="tagline">-->
+
+<!--      <h1>Welcome to <br/>  The Hub</h1>-->
+<!--      <p>Stay connected to your social media platforms all in one place. Track your progression and gain new followers. Become an influencer.</p>-->
 <!--      <div>-->
-<!--        <h3>Full Responsive Breaks.</h3>-->
-<!--        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quam nulla, ornare ac leo nec, imperdiet ultrices eros. Aliquam ullamcorper turpis lorem, id porttitor elit sodales eget. Sed vitae scelerisque quam. Donec tellus ante, lobortis id sem sed, porttitor tempor lacus. Donec et purus lorem. Nam nec ante vel nisi luctus aliquam volutpat nec erat. Ut iaculis imperdiet ligula, in blandit leo finibus pulvinar.</p>-->
+<!--        <a  class="contact" (click)="signUpStepper()">Sign Up</a>-->
+<!--&lt;!&ndash;        <a  class="learn-more">Log In</a>&ndash;&gt;-->
 <!--      </div>-->
+<!--&lt;!&ndash;      <mat-horizontal-stepper>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <mat-step label="Step 1" [stepControl]="firstFormGroup">&ndash;&gt;-->
+<!--&lt;!&ndash;          <p>Put down your phones.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;          <div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button mat-button matStepperNext>Next</button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </mat-step>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <mat-step label="Step 2" state="chat">&ndash;&gt;-->
+<!--&lt;!&ndash;          <p>Socialize with each other.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;          <div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button mat-button matStepperPrevious>Back</button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button mat-button matStepperNext>Next</button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </mat-step>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <mat-step label="Step 3">&ndash;&gt;-->
+<!--&lt;!&ndash;          <p>You're welcome.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </mat-step>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; Icon overrides. &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <ng-template matStepperIcon="phone">&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-icon>call_end</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;        </ng-template>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <ng-template matStepperIcon="chat">&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-icon>forum</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;        </ng-template>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      </mat-horizontal-stepper>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    <img src="/assets/app-development.png" />&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="overlay"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </header>&ndash;&gt;-->
+<!--&lt;!&ndash;  <main>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="intro">&ndash;&gt;-->
+<!--&lt;!&ndash;      <h3>Show the world what you can do.</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;      <p>&ndash;&gt;-->
+<!--&lt;!&ndash;        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quam nulla, ornare ac leo nec, imperdiet ultrices eros. Aliquam ullamcorper turpis lorem, id porttitor elit sodales eget. Sed vitae scelerisque quam. Donec tellus ante, lobortis id sem sed, porttitor tempor lacus. Donec et purus lorem. Nam nec ante vel nisi luctus aliquam volutpat nec erat. Ut iaculis imperdiet ligula, in blandit leo finibus pulvinar.&ndash;&gt;-->
+<!--&lt;!&ndash;      </p>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div class="multi-section">&ndash;&gt;-->
+<!--&lt;!&ndash;      <img src="/assets/responsive.png" />&ndash;&gt;-->
+<!--&lt;!&ndash;      <div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <h3>Full Responsive Breaks.</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quam nulla, ornare ac leo nec, imperdiet ultrices eros. Aliquam ullamcorper turpis lorem, id porttitor elit sodales eget. Sed vitae scelerisque quam. Donec tellus ante, lobortis id sem sed, porttitor tempor lacus. Donec et purus lorem. Nam nec ante vel nisi luctus aliquam volutpat nec erat. Ut iaculis imperdiet ligula, in blandit leo finibus pulvinar.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div class="multi-section-two">&ndash;&gt;-->
+<!--&lt;!&ndash;      <img class="a" src="/assets/programming.png" />&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="b">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h3>Clean Code Output</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quam nulla, ornare ac leo nec, imperdiet ultrices eros. Aliquam ullamcorper turpis lorem, id porttitor elit sodales eget. Sed vitae scelerisque quam. Donec tellus ante, lobortis id sem sed, porttitor tempor lacus. Donec et purus lorem. Nam nec ante vel nisi luctus aliquam volutpat nec erat. Ut iaculis imperdiet ligula, in blandit leo finibus pulvinar.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div>&ndash;&gt;-->
+<!--&lt;!&ndash;      <h3>Ready To Build Your Own Website?</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;      <p>Now is the time to give your business a professional website</p>&ndash;&gt;-->
+<!--&lt;!&ndash;      <a href="#" class="contact">Free Trial </a>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </main>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <footer>&ndash;&gt;-->
+<!--&lt;!&ndash;    <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">Sign up</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">Log in</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;    <ul>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      <li><a href="#">DesignTools</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">Partners</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">Community</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">Careers</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">Support</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;    <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">Documentation</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">Prices</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">About</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#">Get Started</a></li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;    <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#"><i class="fab fa-twitter"></i></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li><a href="#"><i class="fab fa-instagram"></i></a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;    </ul>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  </footer>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
 <!--    </div>-->
-
-<!--    <div class="multi-section-two">-->
-<!--      <img class="a" src="/assets/programming.png" />-->
-<!--      <div class="b">-->
-<!--        <h3>Clean Code Output</h3>-->
-<!--        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quam nulla, ornare ac leo nec, imperdiet ultrices eros. Aliquam ullamcorper turpis lorem, id porttitor elit sodales eget. Sed vitae scelerisque quam. Donec tellus ante, lobortis id sem sed, porttitor tempor lacus. Donec et purus lorem. Nam nec ante vel nisi luctus aliquam volutpat nec erat. Ut iaculis imperdiet ligula, in blandit leo finibus pulvinar.</p>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--      <h3>Ready To Build Your Own Website?</h3>-->
-<!--      <p>Now is the time to give your business a professional website</p>-->
-<!--      <a href="#" class="contact">Free Trial </a>-->
-<!--    </div>-->
-<!--  </main>-->
-
-<!--  <footer>-->
-<!--    <ul>-->
-<!--      <li><a href="#">Sign up</a></li>-->
-<!--      <li><a href="#">Log in</a></li>-->
-<!--    </ul>-->
-<!--    <ul>-->
-
-<!--      <li><a href="#">DesignTools</a></li>-->
-<!--      <li><a href="#">Partners</a></li>-->
-<!--      <li><a href="#">Community</a></li>-->
-<!--      <li><a href="#">Careers</a></li>-->
-<!--      <li><a href="#">Support</a></li>-->
-<!--    </ul>-->
-<!--    <ul>-->
-<!--      <li><a href="#">Documentation</a></li>-->
-<!--      <li><a href="#">Prices</a></li>-->
-<!--      <li><a href="#">About</a></li>-->
-<!--      <li><a href="#">Get Started</a></li>-->
-
-<!--    </ul>-->
-<!--    <ul>-->
-<!--      <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>-->
-<!--      <li><a href="#"><i class="fab fa-twitter"></i></a></li>-->
-<!--      <li><a href="#"><i class="fab fa-instagram"></i></a></li>-->
-<!--    </ul>-->
-
-<!--  </footer>-->
-<!--</div>-->
-    </div>
-  </header>
+<!--  </header>-->
