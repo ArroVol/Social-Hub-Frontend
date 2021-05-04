@@ -5,26 +5,19 @@ import {Status} from 'tslint/lib/runner';
 import {Observable} from 'rxjs';
 import {BriefStatus} from '../model/twitter/BriefStatus';
 import {MatSort} from '@angular/material/sort';
-import {SimpleFormComponent} from '../simple-form/simple-form.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {AppComponent} from '../app.component';
 import {GoalService} from '../service/goal.service';
 import {Goal} from '../model/user/Goal';
 import {MatRadioChange} from '@angular/material/radio';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
-import {MatTabsModule} from '@angular/material/tabs';
-import {ChangeDetectionStrategy} from '@angular/core';
 
-// import moment from 'moment';
 import {Moment} from 'moment';
 import * as moment from 'moment';
-import {Snackbar} from "@material-ui/core";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {ModalComponent} from "../modal/modal.component";
 import {GoalModalComponent} from "../goal-modal/goal-modal.component";
 
 export class RankData {
@@ -81,7 +74,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
 
   fontStyle?: string;
   filteredOptions: Observable<User[]>;
-  labelPosition: string;
   showRanking: boolean;
   otherNumFollowers: number;
   otherMostRetweeted: BriefStatus;
@@ -107,7 +99,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   timelineList: Tweet[];
   reactiveForm: FormGroup;
   rankData: RankData;
-  timelineList$: Observable<Tweet[]>;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -149,11 +140,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
               private builder: FormBuilder,
               public snackBar: MatSnackBar,
               public matDialog: MatDialog) {
-    // this.dataSource = this.friendsList;
   }
-
-
-
 
 
   ngAfterViewInit() {
@@ -171,7 +158,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     this.reactiveForm = this.builder.group({
       age: [null, Validators.required]
     });
-    // this.rankData = new RankData();
     this.rankingList = new Array as RankData[];
     this.showingOther = 'Most Retweeted Post';
     this.currentDate = moment(Date.now());
@@ -203,6 +189,10 @@ export class TwitterComponent implements AfterViewInit, OnInit {
         sessionStorage.setItem('twitterFollowerCount', this.followerCount.toString());
 
       });
+    this.dataSource = new MatTableDataSource<any>(this.timelineList);
+    // Assign the paginator *after* dataSource is set
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
 
   }
 
@@ -291,6 +281,11 @@ export class TwitterComponent implements AfterViewInit, OnInit {
           this.userMostRetweeted = this.briefStatusList[1];
           this.briefStatusList = this.briefStatusList.splice(1, 1);
         }
+       for (let i = 0; i < this.briefStatusList.length; i++) {
+         this.briefStatusList[i].text = this.briefStatusList[i].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+
+       }
+        // console.log(this.briefStatusList[0].mediaURL);
       });
   }
 
@@ -496,7 +491,7 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id = 'goal-modal-component';
-    dialogConfig.height = '310px';
+    dialogConfig.height = '330px';
     dialogConfig.width = '610px';
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(GoalModalComponent, dialogConfig);

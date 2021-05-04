@@ -1,7 +1,4 @@
-// @ts-ignore
-import { Component, OnInit } from '@angular/core';
-import {Channel} from '../model/youtube/Channel';
-import {YoutubeService} from '../service/youtube.service';
+import {Component, Input, OnInit} from '@angular/core';
 import {InstagramService} from '../service/instagram.service';
 import {InstagramUserInfo} from '../model/instagram/InstagramUserInfo';
 import {InstagramComponent} from '../instagram/instagram.component';
@@ -11,11 +8,14 @@ import * as moment from 'moment';
 import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 import {Moment} from 'moment';
-import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
+import {InstagramUserSearchInfo} from "../model/instagram/InstagramUserSearchInfo";
 import {SpotifyService} from '../service/spotify.service';
 import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
-
+import {YoutubeComponent} from '../youtube/youtube.component';
+import {Youtube} from '../model/youtube/Youtube';
+import {YoutubeService} from '../service/youtube.service';
+import {Channel} from '../model/youtube/Channel';
 
 import {FacebookService} from '../service/facebook.service';
 import {FacebookUser} from '../model/facebook/FacebookUser';
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   facebookPhotos: FacebookPhotos;
   facebookPages: FacebookPages;
   verificationCode: string;
-  loggedIntoFB: Boolean;
+  loggedIntoFB: boolean;
 
   constructor(private instagramService: InstagramService,
               private youtubeService: YoutubeService,
@@ -97,34 +97,15 @@ export class DashboardComponent implements OnInit {
   spotifyUserRecentTracks: SpotifyTrack[];
   spotifyUserFavouriteTracks: SpotifyTrack[];
   ngOnInit(): void {
-    window.addEventListener('resize', (e) => {
-      if (window.matchMedia('(min-width: 1050px)').matches) {
-        this.isMinWidth = true;
-      } else {
-        this.isMinWidth = false;
-      }
-    });
-    // this.instagramUser = this.instagramComponent.getInstaUser();
-    // this.counter = this.instagramComponent.counter(0);
-    this.initializeSpotifyFields();
 
-    this.getRecentPost();
-    this.getNumFollowers();
-    this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
-    this.twitterHandle = sessionStorage.getItem('twitterHandle');
-    this.getUserTimeline();
-
-    // this.getInstaUser();
+    this.getInstaUser();
     this.getChannel();
     // this.loginFB();
     //THIS IS FOR FACEBOOK LOGIN
-    this.checkLoginFB();
-
     this.route.queryParams.subscribe(params => {
       let code = params['code'];
       if (!code){
         console.log('No code found');
-        //Check if backend can get user information
       } else{
         this.verificationCode = code;
         console.log('This is the code: ' + this.verificationCode);
@@ -139,22 +120,24 @@ export class DashboardComponent implements OnInit {
           });
       }
     });
-    // this.initializeSpotifyFields();
+    // this.loginFB();
+    // this.loginFB();
+    this.initializeSpotifyFields();
 
-    // window.addEventListener('resize', (e) => {
-    //   if (window.matchMedia('(min-width: 1050px)').matches) {
-    //     this.isMinWidth = true;
-    //   } else {
-    //     this.isMinWidth = false;
-    //   }
-    // });
-    // // this.instagramUser = this.instagramComponent.getInstaUser();
-    // // this.counter = this.instagramComponent.counter(0);
-    // this.getRecentPost();
-    // this.getNumFollowers();
-    // this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
-    // this.twitterHandle = sessionStorage.getItem('twitterHandle');
-    // this.getUserTimeline();
+    window.addEventListener('resize', (e) => {
+      if (window.matchMedia('(min-width: 1050px)').matches) {
+        this.isMinWidth = true;
+      } else {
+        this.isMinWidth = false;
+      }
+    });
+    // this.instagramUser = this.instagramComponent.getInstaUser();
+    // this.counter = this.instagramComponent.counter(0);
+    this.getRecentPost();
+    this.getNumFollowers();
+    this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
+    this.twitterHandle = sessionStorage.getItem('twitterHandle');
+    this.getUserTimeline();
 
   }
 
@@ -201,20 +184,6 @@ export class DashboardComponent implements OnInit {
       this.loggedIntoFB = true;
     });
     window.location.href = this.facebookLogin.loginDialogURL;
-  }
-
-  checkLoginFB(){
-    this.facebookService.checkLogin().subscribe(check => {
-      console.log('Boolean check is: ' + check);
-      this.loggedIntoFB = check;
-      if (check){
-        this.getFBUsername();
-        this.getFBPhotos();
-        this.getFBPages();
-        document.getElementById('fbCard').style.display = 'block';
-        document.getElementById('fbCardLogin').style.display = 'none';
-      }
-    });
   }
 
   getFBUsername(){
@@ -372,7 +341,9 @@ export class DashboardComponent implements OnInit {
         this.briefStatusList = this.briefStatusList.slice(1);
 
         for (let i = 0; i < this.briefStatusList.length; i++){
+          console.log('brief status list');
           console.log(this.briefStatusList[i].text);
+          console.log(this.briefStatusList[i].mediaURL)
         }
         this.getOtherUserTimeline('SocialHubClub');
 
@@ -384,10 +355,14 @@ export class DashboardComponent implements OnInit {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
  async getRecentPost() {
+
     this.twitterService.getRecentPostByHandle(sessionStorage.getItem('twitterHandle'))
       .subscribe(async briefStatus => {
         this.briefStatus = briefStatus;
+        console.log('RECENT POST!');
         console.log(this.briefStatus.createdAt);
+        console.log(this.briefStatus.mediaURL);
+        console.log(this.briefStatus.text);
       });
   }
 
@@ -506,7 +481,13 @@ export class DashboardComponent implements OnInit {
     return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
       this.instagramUser.imageFeed[pic].toString().search('width') - 2);
   }
+  getImageByte(pic: number): string{
+    return 'data:image/jpeg;base64,' + this.instagramUser.images[pic];
+  }
 
+  getUserProfilePic(): string{
+    return 'data:image/jpeg;base64,' + this.instagramUser.profilePicUrl.toString();
+  }
 
   counterFunc(end: number, element: any, duration: number) {
     let range, current: number, step, timer;

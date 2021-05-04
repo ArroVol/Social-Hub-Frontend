@@ -57,11 +57,11 @@ export class InstagramComponent implements OnInit {
   }
 
 
-  storeImages(): void {
-    for (let i = 0; i < this.getMediaCount(); i++) {
-      this.images[i] = this.getImageUrl(i);
-    }
-  }
+  // storeImages(): void {
+  //   for (let i = 0; i < this.getMediaCount(); i++) {
+  //     this.images[i] = this.getImageUrl(i);
+  //   }
+  // }
 
 
   instagramPageLoad() {
@@ -104,11 +104,17 @@ export class InstagramComponent implements OnInit {
     return this.instagramUser.mediaCount;
   }
 
-  getImageUrl(pic: number): string{
-
-    return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
-      this.instagramUser.imageFeed[pic].toString().search('width') - 2);
+  getImageByte(pic: number): string{
+    return 'data:image/jpeg;base64,' + this.instagramUser.images[pic];
   }
+
+
+
+  // getImageUrl(pic: number): string{
+  //
+  //   return this.instagramUser.imageFeed[pic].toString().substring(this.instagramUser.imageFeed[pic].toString().search('url') + 4,
+  //     this.instagramUser.imageFeed[pic].toString().search('width') - 2);
+  // }
 
   getSearchImageUrl(pic: number): string{
 
@@ -146,19 +152,24 @@ export class InstagramComponent implements OnInit {
   }
 
   counter(i: number) {
-    return new Array(i);
+    if (i <= 18){
+      return new Array(i);
+    }
+    else {
+      return new Array(18);
+    }
+
+
+  }
+
+  getUserProfilePic(): string{
+    return 'data:image/jpeg;base64,' + this.instagramUser.profilePicUrl.toString();
   }
 
   getFollowerProfilePic(pic: number): string{
-    return this.instagramUser.followerFeed[pic].toString().substring(
-      this.instagramUser.followerFeed[pic].toString().search('ProfilePic:') + 11,
-      this.instagramUser.imageFeed[pic].toString().length);
+    return 'data:image/jpeg;base64,' + this.instagramUser.followerProfilePics[pic];
   }
-  getUserFollowerProfilePic(pic: number): string{
-    return this.instagramUserSearch.followerFeed[pic].toString().substring(
-      this.instagramUserSearch.followerFeed[pic].toString().search('ProfilePic:') + 11,
-      this.instagramUserSearch.imageFeed[pic].toString().length);
-  }
+
 
   getComment(pic: number): string{
     if (this.instagramUser.imageFeedComment[pic].toString().substring(

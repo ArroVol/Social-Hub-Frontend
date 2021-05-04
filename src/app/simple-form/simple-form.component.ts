@@ -41,12 +41,31 @@ import {Subject} from "rxjs";
     </div>
         <ng-template  #showLogOut>
           <div class="login-container" style="font-size: 10px; position: absolute; right: 40px; top: 12px">
+            <button style="margin: 0" type="button" mat-button [matMenuTriggerFor]="menuUser">
+                 <span class="material-icons">
+                    settings
+                </span>
+            </button>
 
-          <button class="log-out-btn" mat-button (click)="logOut();">
-            Log Out
-          </button>
+            <mat-menu #menuUser="matMenu">
+              <button mat-menu-item><a routerLink="/login-page">log in page</a></button>
+              <button mat-menu-item><a routerLink="/account-information">Account information</a></button>
+              <button mat-menu-item><a routerLink="/about">about</a></button>
+              <button class="log-out-btn" mat-button (click)="logOut();">
+                Log Out
+              </button>
+            </mat-menu>
+
           </div>
         </ng-template>
+<!--        <ng-template  #showLogOut>-->
+<!--          <div class="login-container" style="font-size: 10px; position: absolute; right: 40px; top: 12px">-->
+
+<!--          <button class="log-out-btn" mat-button (click)="logOut();">-->
+<!--            Log Out-->
+<!--          </button>-->
+<!--          </div>-->
+<!--        </ng-template>-->
 
     <p></p>
     <ng-template #loading>

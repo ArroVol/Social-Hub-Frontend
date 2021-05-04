@@ -8,6 +8,7 @@ export class BriefStatus{
   retweetCount: number;
   screenName: string;
   handle: string;
+  mediaURL: string;
   constructor() {
   }
 }

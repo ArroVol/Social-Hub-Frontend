@@ -1,0 +1,168 @@
+/*style="display: flex; flex-wrap: wrap;  list-style: none;"*/
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: blue;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: blue;
+}
+
+
+.mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+  top: 18px;
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 12px;
+  border-radius: 10px
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-background,
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  height: 100%;
+}
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  background-color: blue;
+}
+.mat-accent .mat-slider-thumb {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: solid 2px gray;
+  bottom: -20px;
+  right: -20px;
+}
+.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+  background-color: white;
+}
+
+.example-viewport {
+  height: 660px;
+  /*width: 200px;*/
+  border: 2px slategrey;
+  /*border-radius: 55px;*/
+
+}
+
+.example-item {
+  height: 50px;
+}
+
+.scroll{
+  /*background-color: white;*/
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  /*box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);*/
+  direction:ltr;
+  overflow:auto;
+  border: none;
+}
+
+.scroll{
+  /*background-color: white;*/
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  /*box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);*/
+  direction:ltr;
+  overflow:auto;
+  border: none;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge add Firefox */
+.scroll-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+  direction:ltr;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: blue;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: blue;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+img {
+  border-style: solid;
+  border-width: 5px;
+  height: 250px;
+  width:250px;
+  /*margin: auto;*/
+}
+
+.card-container-one{
+  margin-bottom: 10px;
+  margin-left: 25px;
+  border: none;
+  border-radius: 5px;
+   box-shadow: 0px 4px 14px 3px;
+  max-width: 330px;
+
+  /*box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);*/
+  /*display: flex; */
+  /*flex-direction: row;*/
+}
+.basic-card{
+  /*background-color: whitesmoke;*/
+  background-color: white;
+
+  border-radius: 5px;
+  /* box-shadow: 0px 4px 14px --3px; */
+  box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
+  /*width: 1400px;*/
+  width: 40%;
+  /*overflow-y: scroll;*/
+  /*display: flex; flex-wrap: wrap;  list-style: none;*/
+
+
+}
+
+.one-post-card{
+  /*width: 100%;*/
+  min-width: 300px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+}
+
+.post-card{
+  margin: auto;
+
+}
+
+.test2{
+  margin: auto;
+
+}
+
+.created{
+  margin-top: 10px;
+}

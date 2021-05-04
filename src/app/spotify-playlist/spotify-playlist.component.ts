@@ -16,6 +16,7 @@ import {SpotifyUpdatePlaylistComponent} from "../spotify-update-playlist/spotify
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
 import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -28,17 +29,18 @@ export class SpotifyPlaylistComponent implements OnInit {
   @ViewChild(MatAccordion) artistAccordion: MatAccordion;
 
   private playlist_id: string;
-  spotifyPlaylist: SpotifyPlaylist;
+  spotifyPlaylist: SpotifyPlaylist = null;
+  recommendedTracks: SpotifyTrack[] = null;
   spotifyUserPlaylist: SpotifyPlaylist[];
-  spotifyTrackList: SpotifyTrack[];
-  userProfile: SpotifyUser;
+  spotifyUser: SpotifyUser;
   isShown: boolean = true;
+  tracksShowAll: boolean = false;
 
-  trackSearchGroup: FormGroup;
-  trackQueryResult: SpotifyTrack[];
-  trackQuery: string;
-  hideSearchBar: boolean = true;
-  timeout: any = null;
+  trackFavouritesMap: Map<string, Boolean> = new Map();
+  recommendedTracksMap: Map<string, Boolean> = new Map();
+  currentSpotifyPlaylist: Observable<SpotifyPlaylist>;
+
+  recommendedTracksFavourites: Boolean[];
 
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar, public lc: NgZone) {
@@ -51,21 +53,15 @@ export class SpotifyPlaylistComponent implements OnInit {
       this.getUserPlaylist();
       this.getUserProfile();
     });
-    this.trackSearchGroup = new FormGroup({
-      'track_name': new FormControl(null, Validators.minLength(1))
-    });
 
   }
 
-  getPlaylistById(playlistId: string) {
-    this.spotifyService.getPlaylistById(playlistId).subscribe(spotifyPlaylist => {
-      this.spotifyPlaylist = spotifyPlaylist;
-      this.spotifyTrackList = spotifyPlaylist.tracks;
-      // console.log(this.spotifyTrackList);
-      // console.log(this.spotifyTrackList[0].artistInfo);
-
-    });
-    console.log('in spotify playlist component ts called get playlist by id: ' + playlistId);
+  async getPlaylistById(playlistId: string) {
+    this.currentSpotifyPlaylist = this.spotifyService.getPlaylistById(playlistId);
+    this.spotifyPlaylist = await this.spotifyService.getPlaylistByIdPromise(playlistId);
+    await this.setRecommendedTracks();
+    await this.getPlaylistTrackFavourites();
+    console.log('the current favourites map', this.trackFavouritesMap);
   }
 
 
@@ -77,7 +73,51 @@ export class SpotifyPlaylistComponent implements OnInit {
   }
 
   getUserProfile() {
-    this.spotifyService.getUserProfile().subscribe(userProfile => this.userProfile = userProfile);
+    if (sessionStorage.getItem("spotify_user") != null) {
+      this.spotifyUser = JSON.parse(sessionStorage.getItem("spotify_user"));
+    } else {
+      this.spotifyService.getUserProfile().subscribe(spotifyUser => {
+        sessionStorage.setItem("spotify_user", JSON.stringify(spotifyUser));
+        this.spotifyUser = spotifyUser;
+      });
+    }
+  }
+
+  async setRecommendedTracks() {
+    this.recommendedTracks = await this.getRecommendedTracks();
+    if (this.recommendedTracks != null) {
+      await this.getRecommendedTrackFavourites(this.recommendedTracks.map(track => track?.id));
+    }
+  }
+
+  async getRecommendedTracks() {
+    let tracks = this.spotifyPlaylist.tracks;
+    if (tracks.length > 0 && tracks.length < 6) {
+      return this.spotifyService.getRecommendedTracksPromise(tracks.map(track => track.id).join(','));
+    } else if (tracks.length > 6) {
+      return this.spotifyService.getRecommendedTracksPromise(tracks.slice(0, 5).map(track => track.id).join(','));
+      // console.log('recommended tracks list', tracks.slice(0, 5).map(track => track.id).join(','));
+    }
+    return null;
+    // this.spotifyService.getRecommendedTracks(track_ids).subscribe(tracks => this.recommendedTracks = tracks);
+  }
+
+  async getRecommendedTrackFavourites(track_ids: string[]) {
+    let trackSet = new Set(track_ids);
+    let index = 0;
+    this.recommendedTracksMap.clear();
+    this.spotifyService.checkFollowedTrack(Array.from(trackSet)).subscribe(value => {
+      trackSet.forEach(track_id => this.recommendedTracksMap.set(track_id, value[index++]));
+    });
+    // this.spotifyService.checkFollowedTrack(track_ids).subscribe(result => this.recommendedTracksFavourites = result);
+  }
+
+  async getPlaylistTrackFavourites() {
+    let trackSet = new Set(this.spotifyPlaylist.tracks.map(track => track.id));
+    let index = 0;
+    this.spotifyService.checkFollowedTrack(Array.from(trackSet)).subscribe(value => {
+      trackSet.forEach(track_id => this.trackFavouritesMap.set(track_id, value[index++]));
+    });
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -89,25 +129,47 @@ export class SpotifyPlaylistComponent implements OnInit {
     // console.log('previousIndex', event.previousIndex);
     // console.log('currentIndex', event.currentIndex);
     // this.reorderPlaylist(this.spotifyPlaylist.id, event.previousIndex, event.currentIndex);
-    moveItemInArray(this.spotifyTrackList, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.spotifyPlaylist.tracks, event.previousIndex, event.currentIndex);
   }
 
   reorderPlaylist(playlist_id: string, range_start: number, insert_before: number) {
     this.spotifyService.reOrderPlaylist(playlist_id, range_start, insert_before).subscribe(result => {
       this.spotifyPlaylist = result;
-      this.spotifyTrackList = result.tracks;
     });
   }
 
   deleteTrackFromPlaylist(trackPosition: number) {
-    console.log(this.spotifyTrackList[trackPosition].spotifyUri);
-    this.spotifyService.removeTrackFromPlaylist(this.spotifyPlaylist.id, this.spotifyTrackList[trackPosition].spotifyUri).subscribe(result => {
-      this.spotifyPlaylist = result;
-      this.spotifyTrackList = result.tracks;
-      // console.log('Tracks: ', result.tracks);
-      // console.log(result);
+    console.log(this.spotifyPlaylist.tracks[trackPosition].spotifyUri);
+    this.spotifyService.removeTrackFromPlaylist(this.spotifyPlaylist.id, this.spotifyPlaylist.tracks[trackPosition].spotifyUri).subscribe(result => {
+      this.spotifyPlaylist.tracks = result;
+      this._snackBar.open('Song has been removed!', '', {duration: 2000,});
     });
-    // this.routeToPlaylist(this.spotifyPlaylist.id);
+  }
+
+  followTrack(track_id: string) {
+    this.spotifyService.followTrack(track_id).subscribe();
+    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
+      this.spotifyService.getTrackById(track_id).subscribe(track => {
+        sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify([track].concat(JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks")))));
+      });
+
+    }
+    this._snackBar.open('Song has been favourited!', '', {duration: 2000,});
+  }
+
+  unfollowTrack(track_id: string) {
+    this.spotifyService.unfollowTrack(track_id).subscribe();
+    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
+
+      let favouriteTracks = JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"));
+      favouriteTracks.forEach((track, index) => {
+        if (track.id == track_id) {
+          favouriteTracks.splice(index, 1);
+        }
+      });
+      sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(favouriteTracks));
+    }
+    this._snackBar.open('Song has been unfavourited!', '', {duration: 2000,});
   }
 
   transform(input: string) {
@@ -158,8 +220,8 @@ export class SpotifyPlaylistComponent implements OnInit {
         this.openAddWarning(playlistId, track_uri);
       } else {
         this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
-          this.spotifyTrackList = result.tracks;
-          this.spotifyPlaylist = result;
+          this.spotifyPlaylist.tracks = result;
+          this.spotifyService.checkFollowedTrack([track_uri]).subscribe(check => this.trackFavouritesMap.set(track_uri, check[0]));
           this._snackBar.openFromComponent(SpotifyAddplaylistSnackbarComponent, {
             duration: 3000,
           });
@@ -168,6 +230,7 @@ export class SpotifyPlaylistComponent implements OnInit {
       }
     } else {
       this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
+        this.spotifyService.checkFollowedTrack([track_uri]).subscribe(check => this.trackFavouritesMap.set(track_uri, check[0]));
         this._snackBar.openFromComponent(SpotifyAddplaylistSnackbarComponent, {
           duration: 3000,
         });
@@ -177,28 +240,8 @@ export class SpotifyPlaylistComponent implements OnInit {
 
   }
 
-  queryTrackByName(track_name: string) {
-    this.timeout = null;
-    if(this.timeout){
-      window.clearTimeout(this.timeout);
-    }
-
-    this.timeout = window.setTimeout(() => {
-      this.timeout = null;
-      this.lc.run(() => this.spotifyService.getTrackQuery(track_name).subscribe(resultingTrackList => this.trackQueryResult = resultingTrackList));
-    },1000);
-
-    // this.spotifyService.getTrackQuery(track_name).subscribe(resultingTrackList => this.trackQueryResult = resultingTrackList);
-  }
-
-  clearSearchQuery() {
-    this.trackQuery = "";
-    this.trackQueryResult = null;
-
-  }
-
   checkMatchingTrackUri(track_uri: string): boolean {
-    for (let track of this.spotifyTrackList) {
+    for (let track of this.spotifyPlaylist.tracks) {
       if (track.spotifyUri === track_uri) {
         return true;
       }
@@ -219,11 +262,9 @@ export class SpotifyPlaylistComponent implements OnInit {
       }
     })
       .afterClosed().subscribe(playlist => {
-      console.log('dialogue return', playlist);
       if (playlist != null) {
         this.updatePlaylist(playlist.id, playlist.name, playlist.description);
       } else {
-        console.log('nope');
       }
     });
   }
@@ -232,8 +273,7 @@ export class SpotifyPlaylistComponent implements OnInit {
     this.dialog.open(SpotifyAddplaylistWarningComponent, {data: {accept: false}}).afterClosed().subscribe(value => {
       if (value.accept != null && value.accept == true) {
         this.spotifyService.addTrackToPlaylist(playlistId, track_uri).subscribe(result => {
-          this.spotifyTrackList = result.tracks;
-          this.spotifyPlaylist = result;
+          this.spotifyPlaylist.tracks = result;
           this._snackBar.openFromComponent(SpotifyAddplaylistSnackbarComponent, {
             duration: 3000,
           });

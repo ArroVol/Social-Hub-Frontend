@@ -1,13 +1,17 @@
 <!-- the top -->
 <mat-toolbar class="header-toolbar">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+
+  <button [matMenuTriggerFor]="menu" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/one-post-archive"><span class="onePostIcon"></span>One Post Archives Page
+    </button>
+    <!--    <button mat-menu-item>Item 2</button>-->
+  </mat-menu>
   <span>Social Hub One Page</span>
 
   <span class="example-spacer"></span>
-
-
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>favorite</mat-icon>
   </button>
@@ -16,22 +20,23 @@
   </button>
 </mat-toolbar>
 
-<!--<mat-tab-group animationDuration="0ms">-->
-<!--  <mat-tab label="Create Post">-->
 <div class="row">
-  <div class="column">
+  <div class="column-1">
 
-    <mat-card class="post-card" >
-      <h2>Select social media to upload to</h2>
-      <!--      <h4>you can also upload images by pressing the "Choose file" button below</h4>-->
+    <mat-card class="post-card">
+      <h2>Choose social media</h2>
       <h4>you can also upload images by dragging them into the field below</h4>
 
-      <form #myForm="ngForm" [formGroup]="form" (ngSubmit)="submitForm('socialHubClub', 'content'); form.reset(); myForm.resetForm(); resetForm()" novalidate>
+      <form #myForm="ngForm" [formGroup]="form"
+            (ngSubmit)="submitForm('socialHubClub', 'content'); form.reset(); myForm.resetForm(); resetForm()"
+            novalidate>
         <section class="example-section">
 
           <div *ngFor="let data of Data; let i=index">
             <label class="container">
-              <input type="checkbox"  [defaultChecked]="resetCheckBox" [checked]="isChecked" class="example-margin" [disabled]="data.name === 'Instagram' && !atLeastOneFile"  [value]="data.value" (change)="onCheckboxChange($event)" />
+              <input type="checkbox" [defaultChecked]="resetCheckBox" [checked]="isChecked" class="example-margin"
+                     [disabled]="data.name === 'Instagram' && !atLeastOneFile" [value]="data.value"
+                     (change)="onCheckboxChange($event)"/>
               <!--      <mat-checkbox type="checkbox" class="example-margin" [value]="data.value" (change)="onCheckboxChange($event)"></mat-checkbox>-->
 
               {{data.name}}
@@ -52,106 +57,168 @@
         <p class="error" *ngIf="this.form.controls['checkArray'].errors?.required">
           Checkbox is required, select at least one value.
         </p>
-        <!--        <input type="submit" value="Submit">-->
-<!--      </form>-->
-      <div class="rightcontainer" *ngIf="twitterDeveloperMode">
-        <div class="posttweetcontainer">
-          <!--        <img class="posttweetprofimg" src="http://3.bp.blogspot.com/-JCYefwq__2U/TxCfC3s1ZpI/AAAAAAAAKcM/u5mw7qPAL0w/s300-c/Camilla-Belle-6.jpg">-->
-          <div class="ml56px">
-            <div class="posttweettacontainer">
-              <textarea formControlName="textInput" #content id="posttweetta"  [(ngModel)]="change" (ngModelChange)="pressedEvent($event)" maxlength="280" class="posttweetta" placeholder="What's happening?" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;"></textarea>
-              <div class="posttweetcountcont">
-                <span class="posttweetcount"><span id="totalchars">{{totalNumCharacters}}</span>/280</span>
+        <div class="rightcontainer" *ngIf="twitterDeveloperMode">
+          <div class="posttweetcontainer">
+            <div class="ml56px">
+              <div class="posttweettacontainer">
+                <textarea formControlName="textInput" #content id="posttweetta" [(ngModel)]="change"
+                          (ngModelChange)="pressedEvent($event)" maxlength="280" class="posttweetta"
+                          placeholder="What's happening?"
+                          style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;"></textarea>
+                <div class="posttweetcountcont">
+                  <span class="posttweetcount"><span id="totalchars">{{totalNumCharacters}}</span>/280</span>
+                </div>
               </div>
-            </div>
-            <div class="posttweetbutcont">
-              <!--              <label class="btn btn-default">-->
-              <!--                <input class="choose-file-btn" type="file" (change)="selectFile($event)" />-->
-              <!--              </label>-->
-              <div>
-                <ngx-dropzone class="dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
-                  <ngx-dropzone-label>Drag & Drop or <a>Browse</a></ngx-dropzone-label>
-                  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                  </ngx-dropzone-image-preview>
-                </ngx-dropzone>
-                <span class="upload-btn-div">
-              <button class="btn btn-success" [disabled]="content.value === '' && !atLeastOneFile" (click)="upload(content.value); form.reset(); reset()">
+              <div class="posttweetbutcont">
+                <div>
+                  <ngx-dropzone class="dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+                    <ngx-dropzone-label>Drag & Drop or <a>Browse</a></ngx-dropzone-label>
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                                                [removable]="true" (removed)="onRemove(f)">
+                      <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-image-preview>
+                  </ngx-dropzone>
+                  <span class="upload-btn-div">
+              <button class="btn btn-success" [disabled]="content.value === '' && !atLeastOneFile"
+                      (click)="upload(content.value); form.reset(); reset()">
                 Upload
               </button>
             </span>
 
+                </div>
+
               </div>
 
-              <!--              <button id="posttweetbut" class="posttweetbut" type="submit" value="submit" (click)="submitForm('socialHubClub', content.value)">Post</button>-->
             </div>
 
           </div>
 
         </div>
-
-      </div>
       </form>
 
     </mat-card>
 
   </div>
 
-  <div class="column">
+  <div class="column-2">
+    <mat-card class="post-card">
+      <div *ngIf="imageList.length > 0 else noOnePosts">
 
-    <mat-card class="post-card" >
+        <h2 class="header"> Recent Posts Made From Social Hub </h2>
+        <h4>Showing the last 20 posts you made from Social Hub</h4>
 
-      <h2 class="header"> Recent Posts Made From Social Hub </h2>
+        <mat-form-field>
 
-      <cdk-virtual-scroll-viewport  *ngIf="imageList" itemSize="20" class="example-viewport">
+          <mat-select placeholder="Filter Social Media " (selectionChange)="selectChangeHandler($event.value)">
+<!--            <mat-option selected="All">All</mat-option>-->
+            <mat-option class="yellow-option" value="All">All</mat-option>
+            <mat-option class="yellow-option" value="Twitter">Twitter</mat-option>
+            <mat-option class="yellow-option" value="Facebook">Facebook</mat-option>
+            <mat-option class="yellow-option" value="Instagram">Instagram</mat-option>
+            <mat-option class="yellow-option" value="Youtube">Youtube</mat-option>
+            <mat-option class="yellow-option" value="Spotify">Spotify</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-        <span *ngIf="imageList else spin" class="status">
-<!--            <carousel arrowsTheme="dark" overflowCellsLimit="1" >-->
 
-        <div class="image-container" style="padding-bottom: 10px"  *ngFor="let onePost of imageList">
-          <mat-card class="basic-card" >
-            <div class="Posted">Posted To: {{onePost.socialMedia}}</div>
+        <cdk-virtual-scroll-viewport *ngIf="imageList" itemSize="20" class="example-viewport">
 
-            <div class="text-content">
-          <b >{{onePost.textContent}}</b>
-            </div>
-            <div *ngIf="onePost.imageUrl">
-            <img [src]="onePost.imageUrl" alt="" class="'img-fluid">
-          </div>
-            <div class="created">
-              Created On: {{onePost.createAt}}
-            </div>
+          <mat-card class="test2" fxLayout="row wrap" fxLayoutGap="30px">
+
+
+            <mat-card class="card-container-one" *ngFor="let onePost of shortenedImageList" style="margin-top:10px">
+<!--              card-->
+
+              <mat-card class="one-post-card">
+                <div class="posted">Posted To: {{onePost.socialMedia}}</div>
+
+                <div class="text-content">
+                  <b>{{onePost.textContent}}</b>
+                </div>
+                <div *ngIf="onePost.imageUrl">
+                  <img [src]="onePost.imageUrl" alt="" class="'img-fluid">
+                </div>
+                <div class="created">
+                  Created On: {{onePost.createAt}}
+                </div>
+
+              </mat-card>
+              <!--    <mat-card-header>-->
+              <!--      <mat-card-title>{{onePost.socialMedia}}</mat-card-title>-->
+              <!--      <mat-card-subtitle>{{onePost.socialMedia}}-->
+              <!--      </mat-card-subtitle>-->
+              <!--    </mat-card-header>-->
+              <!--    <mat-card-content>-->
+              <!--      <div class="Posted">-->
+              <!--        Posted To: {{onePost.socialMedia}}-->
+              <!--      </div>-->
+
+              <!--      <p>-->
+
+              <!--        {{onePost.textContent}}-->
+              <!--      </p>-->
+              <!--    </mat-card-content>-->
+              <!--    <mat-card-actions>-->
+              <!--      <button mat-button>-->
+              <!--        <mat-icon>favorite</mat-icon>-->
+              <!--      </button>-->
+              <!--      <button mat-button>SHARE</button>-->
+              <!--    </mat-card-actions>-->
+
+            </mat-card>
 
           </mat-card>
+          <br>
+          <div class="upload-btn-div-2">
+            <a routerLink="/one-post-archive">
+
+              <button mat-raised-button color="primary" class="btn btn-success">
+                See All One Posts
+              </button>
+            </a>
+          </div>
+        </cdk-virtual-scroll-viewport>
+        <br><br><br>
       </div>
-<!--            </carousel>-->
-        </span>
-      </cdk-virtual-scroll-viewport>
-
-
-      <br>
-      <br>
-      <br>
-
     </mat-card>
-
     <br>
     <div></div>
-
-
   </div>
+  <ng-template #spin>
+    <h2>
+      Null
+    </h2>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-template>
 
-
-
-
-<!--  </mat-tab>-->
-
-<!--  <mat-tab label="Recent Posts">-->
-
-
-
-<ng-template #spin>
-  <h2>Null</h2>
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-template>
+  <ng-template #noOnePosts>
+    <h2>No Posts To Display</h2>
+    <span>Start sharing on Social Hub to save and view your posts across all of your platforms!</span>
+  </ng-template>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

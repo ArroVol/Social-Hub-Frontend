@@ -216,7 +216,7 @@ img {
   border-width: 5px;
   height: 250px;
   width:250px;
-  margin: auto;
+  /*margin: auto;*/
 }
 
 .upload-btn-div{
@@ -253,6 +253,7 @@ img {
   scrollbar-width: none;
 }
 
+
 .basic-card{
   /*background-color: whitesmoke;*/
   background-color: white;
@@ -261,8 +262,9 @@ img {
   /* box-shadow: 0px 4px 14px --3px; */
   box-shadow: 0px 4px 14px -3px rgba(0, 0, 0, 0.7);
   /*width: 1400px;*/
-  width: 50%;
+  width: 40%;
   /*overflow-y: scroll;*/
+  /*display: flex; flex-wrap: wrap;  list-style: none;*/
 
 
 }
@@ -332,7 +334,7 @@ img {
 }
 
 .example-viewport {
-  height: 550px;
+  height: 660px;
   /*width: 200px;*/
   border: 2px slategrey;
   /*border-radius: 55px;*/
@@ -402,7 +404,8 @@ img {
 }
 
 .created{
-  padding-top: 5px;
+  padding-top: 10px;
+  /*margin-top: 10px;*/
 }
 .text-content{
   font-size: 14px;
@@ -440,6 +443,17 @@ h3 {
   width: 50%;
   height: 100%;
 }
+.column-1 {
+  float: left;
+  padding-left: 10px;
+  width: 40%;
+  height: 100%;
+}
+.column-2 {
+  float: left;
+  width: 60%;
+  height: 100%;
+}
 
 /* Clear floats after the columns */
 .row:after {
@@ -449,10 +463,106 @@ h3 {
   /*height: 100%;*/
 }
 
-.post-card{
+
+
+
+/*.column {*/
+/*  float: left;*/
+/*  width: 33.33%;*/
+/*}*/
+
+/*!* Clear floats after the columns *!*/
+/*.row:after {*/
+/*  content: "";*/
+/*  display: table;*/
+/*  clear: both;*/
+/*}*/
+
+.small-card{
+  width: 90px;
+  /*width: fit-content;*/
+  /*display: flex;*/
+  flex-wrap: wrap;
+  /*list-style: none;*/
+}
+
+/*.container {*/
+/*  background: lightyellow;*/
+/*  width: 500px;*/
+/*}*/
+
+.new {
+  background: lightblue;
+  width: 100px;
+}
+
+.post-card-2{
+  /*height: 1400px;*/
+  /*height: 100%;*/
+  /*min-height: 800px;*/
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.post-card-3{
   /*height: 1400px;*/
   height: 100%;
-  min-height: 700px;
+  min-height: 800px;
+  width: 50%;
+  /*flex-wrap: wrap;*/
+  display: flex;
+  flex-wrap: wrap;
+
+
+}
+
+.post-card{
+  height: 1450px;
+  height: 100%;
+  min-height: 900px;
+
+
+
+}
+
+.test{
+  width: 50%;
+  flex-flow: row wrap;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.one-post-card{
+  width: 100%;
+  min-width: 300px;
+}
+
+.btn-see-all{
+  background-color: #007bff;
+  /*color: red;*/
+  float:right;
+}
+
+.upload-btn-div-2{
+  float:right;
+  padding-right: 10px;
+}
+
+.posted{
+  word-wrap: break-word;
+}
+
+.card-container-one{
+  margin-bottom: 10px;
+  margin-left: 25px;
+  border-radius: 1px;
+  box-shadow: 0px 4px 10px 3px;
+  max-width: 330px;
+
+  /*padding-left: 20px;*/
+  /*display: flex; */
+  /*flex-direction: row;*/
 }
 
 #fbForm{

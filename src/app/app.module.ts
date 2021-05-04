@@ -112,6 +112,10 @@ import {MatMenuModule} from "@angular/material/menu";
 import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.component";
 
 import {IvyCarouselModule} from 'angular-responsive-carousel';
+import {SpotifyFavouritesComponent} from "./spotify-favourites/spotify-favourites.component";
+import { OnePostArchiveComponent } from './one-post-archive/one-post-archive.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
+import { GridListOverviewExampleComponent } from './grid-list-overview-example/grid-list-overview-example.component';
 
 
 // import { MatCarouselModule } from 'ng-mat-carousel';
@@ -176,7 +180,10 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
     SpotifySearchComponent,
     OnePostComponent,
     GoalModalComponent,
-    ImagesComponent
+    ImagesComponent,
+    SpotifyFavouritesComponent,
+    OnePostArchiveComponent,
+    GridListOverviewExampleComponent
   ],
   imports: [
     HttpClientModule,
@@ -236,7 +243,9 @@ import {IvyCarouselModule} from 'angular-responsive-carousel';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
-    IvyCarouselModule
+    IvyCarouselModule,
+    FlexLayoutModule
+
 
   ],
   providers: [ {

@@ -1,0 +1,389 @@
+<!-- the top -->
+<mat-toolbar class="header-toolbar">
+
+  <button [matMenuTriggerFor]="menu" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+<!--    <button mat-menu-item>One Post Archives Page</button>-->
+      <button mat-menu-item routerLink="/one-post-archive"><span class="onePostIcon"></span>One Post Archives Page</button>
+<!--    <button mat-menu-item>Item 2</button>-->
+  </mat-menu>
+  <span>Social Hub One Page</span>
+
+  <span class="example-spacer"></span>
+
+
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!--<mat-tab-group animationDuration="0ms">-->
+<!--  <mat-tab label="Create Post">-->
+<div class="row">
+  <div class="column-1">
+
+    <mat-card class="post-card" >
+      <h2>Choose social media</h2>
+      <!--      <h4>you can also upload images by pressing the "Choose file" button below</h4>-->
+      <h4>you can also upload images by dragging them into the field below</h4>
+
+      <form #myForm="ngForm" [formGroup]="form" (ngSubmit)="submitForm('socialHubClub', 'content'); form.reset(); myForm.resetForm(); resetForm()" novalidate>
+        <section class="example-section">
+
+          <div *ngFor="let data of Data; let i=index">
+            <label class="container">
+              <input type="checkbox"  [defaultChecked]="resetCheckBox" [checked]="isChecked" class="example-margin" [disabled]="data.name === 'Instagram' && !atLeastOneFile"  [value]="data.value" (change)="onCheckboxChange($event)" />
+              <!--      <mat-checkbox type="checkbox" class="example-margin" [value]="data.value" (change)="onCheckboxChange($event)"></mat-checkbox>-->
+
+              {{data.name}}
+              <span class="checkmark" (click)="checkCheckBox2($event, data.name)"></span>
+            </label>
+          </div>
+        </section>
+
+        <p class="error" *ngIf="this.form.controls['checkArray'].errors?.required">
+          Checkbox is required, select at least one value.
+        </p>
+        <!--        <input type="submit" value="Submit">-->
+<!--      </form>-->
+      <div class="rightcontainer" *ngIf="twitterDeveloperMode">
+        <div class="posttweetcontainer">
+          <!--        <img class="posttweetprofimg" src="http://3.bp.blogspot.com/-JCYefwq__2U/TxCfC3s1ZpI/AAAAAAAAKcM/u5mw7qPAL0w/s300-c/Camilla-Belle-6.jpg">-->
+          <div class="ml56px">
+            <div class="posttweettacontainer">
+              <textarea formControlName="textInput" #content id="posttweetta"  [(ngModel)]="change" (ngModelChange)="pressedEvent($event)" maxlength="280" class="posttweetta" placeholder="What's happening?" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;"></textarea>
+              <div class="posttweetcountcont">
+                <span class="posttweetcount"><span id="totalchars">{{totalNumCharacters}}</span>/280</span>
+              </div>
+            </div>
+            <div class="posttweetbutcont">
+              <!--              <label class="btn btn-default">-->
+              <!--                <input class="choose-file-btn" type="file" (change)="selectFile($event)" />-->
+              <!--              </label>-->
+              <div>
+                <ngx-dropzone class="dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+                  <ngx-dropzone-label>Drag & Drop or <a>Browse</a></ngx-dropzone-label>
+                  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                  </ngx-dropzone-image-preview>
+                </ngx-dropzone>
+                <span class="upload-btn-div">
+              <button class="btn btn-success" [disabled]="content.value === '' && !atLeastOneFile" (click)="upload(content.value); form.reset(); reset()">
+                Upload
+              </button>
+            </span>
+
+              </div>
+
+              <!--              <button id="posttweetbut" class="posttweetbut" type="submit" value="submit" (click)="submitForm('socialHubClub', content.value)">Post</button>-->
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      </form>
+
+    </mat-card>
+
+  </div>
+
+  <div class="column-2">
+    <mat-card class="post-card" >
+      <div *ngIf="imageList.length > 0 else noOnePosts">
+
+      <h2 class="header"> Recent Posts Made From Social Hub </h2>
+
+      <cdk-virtual-scroll-viewport  *ngIf="imageList" itemSize="20" class="example-viewport">
+
+        <span *ngIf="imageList else spin" class="status">
+<!--            <carousel arrowsTheme="dark" overflowCellsLimit="1" >-->
+
+        <span class="card-container-one" style="padding-bottom: 10px"  *ngFor="let onePost of shortenedImageList">
+          <mat-card class="basic-card" >
+            <div class="Posted">Posted To: {{onePost.socialMedia}}</div>
+
+            <div class="text-content">
+          <b >{{onePost.textContent}}</b>
+            </div>
+            <div *ngIf="onePost.imageUrl">
+            <img [src]="onePost.imageUrl" alt="" class="'img-fluid">
+          </div>
+            <div class="created">
+              Created On: {{onePost.createAt}}
+            </div>
+
+          </mat-card>
+      </span>
+<!--            </carousel>-->
+        </span>
+      </cdk-virtual-scroll-viewport>
+
+
+      <br>
+      <br>
+      <br>
+      </div>
+    </mat-card>
+
+    <br>
+    <div></div>
+
+
+  </div>
+
+
+
+
+<!--  </mat-tab>-->
+
+<!--  <mat-tab label="Recent Posts">-->
+
+
+<ng-template #spin>
+  <h2>Null</h2>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
+
+  <ng-template #noOnePosts>
+    <h2>No Posts To Display</h2>
+    <span>Start sharing on Social Hub to save and view your posts across all of your platforms!</span>
+  </ng-template>
+</div>
+
+
+<h2>With fxLayout row wrap</h2>
+<cdk-virtual-scroll-viewport  *ngIf="imageList" itemSize="20" class="example-viewport">
+
+<mat-card class="test" fxLayout="row wrap" fxLayoutGap="30px">
+
+  <mat-card class="card-container-one" *ngFor="let onePost of shortenedImageList" style="margin-top:10px" >
+
+    <mat-card class="one-post-card" >
+      <div class="Posted">Posted To: {{onePost.socialMedia}}</div>
+
+      <div class="text-content">
+        <b >{{onePost.textContent}}</b>
+      </div>
+      <div *ngIf="onePost.imageUrl">
+        <img [src]="onePost.imageUrl" alt="" class="'img-fluid">
+      </div>
+      <div class="created">
+        Created On: {{onePost.createAt}}
+      </div>
+
+    </mat-card>
+<!--    <mat-card-header>-->
+<!--      <mat-card-title>{{onePost.socialMedia}}</mat-card-title>-->
+<!--      <mat-card-subtitle>{{onePost.socialMedia}}-->
+<!--      </mat-card-subtitle>-->
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--      <div class="Posted">-->
+<!--        Posted To: {{onePost.socialMedia}}-->
+<!--      </div>-->
+
+<!--      <p>-->
+
+<!--        {{onePost.textContent}}-->
+<!--      </p>-->
+<!--    </mat-card-content>-->
+<!--    <mat-card-actions>-->
+<!--      <button mat-button>-->
+<!--        <mat-icon>favorite</mat-icon>-->
+<!--      </button>-->
+<!--      <button mat-button>SHARE</button>-->
+<!--    </mat-card-actions>-->
+
+</mat-card>
+
+<!--  <mat-card class="child-1">1. One</mat-card>-->
+<!--  <mat-card class="child-2">1. Two</mat-card>-->
+<!--  <mat-card class="child-3">1. Three</mat-card>-->
+<!--  <mat-card class="child-3">1. Four</mat-card>-->
+<!--  <mat-card class="child-3">1. Five</mat-card>-->
+<!--  <mat-card class="child-3">1. Six</mat-card>-->
+</mat-card>
+</cdk-virtual-scroll-viewport>
+
+
+
+
+
+
+
+
+<!--<div class="mat-app-background basic-container">-->
+
+<!--<app-grid-list-overview-example>loading</app-grid-list-overview-example>-->
+
+<!--</div>-->
+
+
+<!--<mat-card class="container" fxLayout="row" fxLayoutWrap>-->
+<!--&lt;!&ndash;  <cdk-virtual-scroll-viewport>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="container-2" fxLayout="row" fxLayoutWrap>&ndash;&gt;-->
+<!--  <mat-card class="new" *ngFor="let onePost of shortenedImageList" style="margin-top:10px" >-->
+<!--    <mat-card-header>-->
+<!--      <mat-card-title>{{onePost.socialMedia}}</mat-card-title>-->
+<!--      <mat-card-subtitle>{{onePost.socialMedia}}-->
+<!--      </mat-card-subtitle>-->
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--      <div class="Posted">-->
+<!--        Posted To: {{onePost.socialMedia}}-->
+<!--      </div>-->
+
+<!--      <p>-->
+
+<!--      {{onePost.textContent}}-->
+<!--      </p>-->
+<!--    </mat-card-content>-->
+<!--    <mat-card-actions>-->
+<!--      <button mat-button>-->
+<!--        <mat-icon>favorite</mat-icon>-->
+<!--      </button>-->
+<!--      <button mat-button>SHARE</button>-->
+<!--    </mat-card-actions>-->
+<!--  </mat-card>-->
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </cdk-virtual-scroll-viewport>&ndash;&gt;-->
+<!--</mat-card>-->
+
+
+<!--<mat-card class="container" fxLayout="row" fxLayoutWrap>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--</mat-card>-->
+
+
+
+
+
+
+
+
+
+
+<mat-card class="post-card" >
+  <div *ngIf="imageList.length > 0 else noOnePosts">
+
+    <h2 class="header"> Recent Posts Made From Social Hub </h2>
+
+    <cdk-virtual-scroll-viewport  *ngIf="imageList" itemSize="20" class="example-viewport">
+      <div class="container-2" fxLayout="row" fxLayoutWrap>
+        <span *ngIf="imageList else spin" class="status">
+<!--            <carousel arrowsTheme="dark" overflowCellsLimit="1" >-->
+
+        <span class="card-container-one" style="padding-bottom: 10px"  *ngFor="let onePost of shortenedImageList">
+          <mat-card class="basic-card" >
+            <div class="Posted">Posted To: {{onePost.socialMedia}}</div>
+
+            <div class="text-content">
+          <b >{{onePost.textContent}}</b>
+            </div>
+            <div *ngIf="onePost.imageUrl">
+            <img [src]="onePost.imageUrl" alt="" class="'img-fluid">
+          </div>
+            <div class="created">
+              Created On: {{onePost.createAt}}
+            </div>
+
+          </mat-card>
+      </span>
+          <!--            </carousel>-->
+        </span>
+      </div>
+    </cdk-virtual-scroll-viewport>
+
+
+    <br>
+    <br>
+    <br>
+  </div>
+</mat-card>
+
+
+<mat-card fxLayout='row' fxLayoutWrap class="cards">
+
+  <div fxFlex="20" class="example-card">
+    <mat-card *ngFor="let onePost of shortenedImageList" style="margin-top:10px">
+  <mat-card-header>
+    <mat-card-title>{{onePost.socialMedia}}</mat-card-title>
+    <mat-card-subtitle>{{onePost.socialMedia}}
+    </mat-card-subtitle>
+  </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{onePost.textContent}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+    </mat-card>
+  </div>
+</mat-card>
+
+
+<div class="container-2" fxLayout="row" fxLayoutWrap>
+  <mat-card *ngFor="let onePost of shortenedImageList" style="margin-top:10px">
+    <mat-card-header>
+      <mat-card-title>{{onePost.socialMedia}}</mat-card-title>
+      <mat-card-subtitle>{{onePost.socialMedia}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{onePost.textContent}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+<!--  <mat-card class="new">Card info</mat-card>-->
+</div>
+
+
+<div class="margin-top-20" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+    <div>
+      <span style="font-size:32px;text-align:center">+<br />Add product</span>
+    </div>
+
+
+      <p>
+        test
+      </p>
+    <mat-card-actions align="end">
+
+    </mat-card-actions>
+</div>

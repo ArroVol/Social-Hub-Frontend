@@ -1,0 +1,100 @@
+<mat-toolbar class="header-toolbar">
+
+  <button [matMenuTriggerFor]="menu" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <!--    <button mat-menu-item>One Post Archives Page</button>-->
+    <button mat-menu-item routerLink="/one-post"><span class="onePostIcon"></span>One Post Hub Page</button>
+    <!--    <button mat-menu-item>Item 2</button>-->
+  </mat-menu>
+  <span>Social Hub Archives</span>
+
+  <span class="example-spacer"></span>
+
+
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-card class="post-card" >
+  <div *ngIf="imageList.length > 0 else noOnePosts">
+
+    <h2 class="header"> All Posts Made From Social Hub </h2>
+
+    <mat-form-field>
+
+      <mat-select placeholder="Filter Social Media " (selectionChange)="selectChangeHandler($event.value)">
+        <!--            <mat-option selected="All">All</mat-option>-->
+        <mat-option class="yellow-option" value="All">All</mat-option>
+        <mat-option class="yellow-option" value="Twitter">Twitter</mat-option>
+        <mat-option class="yellow-option" value="Facebook">Facebook</mat-option>
+        <mat-option class="yellow-option" value="Instagram">Instagram</mat-option>
+        <mat-option class="yellow-option" value="Youtube">Youtube</mat-option>
+        <mat-option class="yellow-option" value="Spotify">Spotify</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <cdk-virtual-scroll-viewport  *ngIf="imageList" itemSize="20" class="example-viewport">
+
+      <mat-card class="test2" fxLayout="row wrap" fxLayoutGap="30px">
+        <mat-card class="card-container-one" *ngFor="let onePost of imageList" style="margin-top:10px" >
+
+          <mat-card class="one-post-card" >
+            <div class="Posted">Posted To: {{onePost.socialMedia}}</div>
+
+            <div class="text-content">
+              <b >{{onePost.textContent}}</b>
+            </div>
+            <div *ngIf="onePost.imageUrl">
+              <img [src]="onePost.imageUrl" alt="" class="'img-fluid">
+            </div>
+            <div class="created">
+              Created On: {{onePost.createAt}}
+            </div>
+<br> <div></div>
+          </mat-card>
+          <!--    <mat-card-header>-->
+          <!--      <mat-card-title>{{onePost.socialMedia}}</mat-card-title>-->
+          <!--      <mat-card-subtitle>{{onePost.socialMedia}}-->
+          <!--      </mat-card-subtitle>-->
+          <!--    </mat-card-header>-->
+          <!--    <mat-card-content>-->
+          <!--      <div class="Posted">-->
+          <!--        Posted To: {{onePost.socialMedia}}-->
+          <!--      </div>-->
+
+          <!--      <p>-->
+
+          <!--        {{onePost.textContent}}-->
+          <!--      </p>-->
+          <!--    </mat-card-content>-->
+          <!--    <mat-card-actions>-->
+          <!--      <button mat-button>-->
+          <!--        <mat-icon>favorite</mat-icon>-->
+          <!--      </button>-->
+          <!--      <button mat-button>SHARE</button>-->
+          <!--    </mat-card-actions>-->
+<br>
+          <div></div>
+        </mat-card>
+
+
+      </mat-card>
+    </cdk-virtual-scroll-viewport>
+
+
+    <br>
+    <br>
+    <br>
+  </div>
+</mat-card>
+
+<ng-template #noOnePosts>
+  <h2>No Posts To Display</h2>
+  <span>Start sharing on Social Hub to save and view your posts across all of your platforms!</span>
+</ng-template>
