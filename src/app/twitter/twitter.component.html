@@ -173,6 +173,42 @@
 
   </div>
 
+  <ng-template #showFavoritedCard>
+    <mat-card  class="basic-card" *ngIf="otherBriefStatusList">
+      <h2>{{showingOther.toString()}}</h2>
+      <mat-card class="basic-card">
+        <div class="posttweettacontainer3">
+
+          <b>{{otherMostFavorited.handle}}</b> <span style="color:#808080"> @{{otherMostFavorited.screenName}} {{' * '}} {{otherMostFavorited.createdAt.substring(0, 10)}} </span>
+          <br>
+          {{otherMostFavorited.text}} <br>
+
+          <mat-icon class="repeat">repeat</mat-icon> {{otherMostFavorited.retweetCount}} {{'          '}}<mat-icon class="circle" [ngStyle]="{'color':'red'}">favorite_border</mat-icon> {{otherMostFavorited.favoriteCount}}
+          <ng-template #spin>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </ng-template>
+          <br>
+          <br>
+
+        </div>
+      </mat-card>
+      <section class="example-section">
+        <div class="dispblk2">
+									<span class="followers"> <div *ngIf="otherNumFollowers !== null">
+                    Followers: {{otherNumFollowers}}
+</div>
+                  </span>
+        </div>
+      </section>
+      <section class="other-tweet-option">
+        <mat-button-toggle-group [formControl]="fontStyleControl" aria-label="Font Style">
+          <mat-button-toggle (click)="changeOtherRetweeted()" value="bold" checked = true>Most Retweets</mat-button-toggle>
+          <mat-button-toggle (click)="changeOtherFavorited()" value="italic">Most Favorites</mat-button-toggle>
+        </mat-button-toggle-group>
+      </section>
+    </mat-card>
+  </ng-template>
+
 
 
   <div class="column-3">
