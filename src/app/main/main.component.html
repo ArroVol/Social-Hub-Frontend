@@ -1,60 +1,111 @@
-<!--<div class="container">-->
-<html>
+<!DOCTYPE html>
+<html mode="side" >
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+  body, html {
+    height: 100%;
+    color: #777;
+    line-height: 1.8;
+  }
 
+  /* Create a Parallax Effect */
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  /* First image (Logo. Full height) */
+  .bgimg-1 {
+
+    min-height: 100%;
+
+  }
+
+  /* Second image (Portfolio) */
+  .bgimg-2 {
+    background-color: white;
+    min-height: 450px;
+  }
+
+  .bgimg-20 {
+    background-color: white;
+    height: 250px;
+    width: 500px;
+  }
+
+  /* Third image (Contact) */
+  .bgimg-3 {
+    background-color: #0c5460;
+    min-height: 400px;
+  }
+
+  .w3-wide {letter-spacing: 10px;}
+  .w3-hover-opacity {cursor: pointer;}
+
+  /* Turn off parallax scrolling for tablets and phones */
+  @media only screen and (max-device-width: 1600px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+      background-attachment: scroll;
+      min-height: 400px;
+    }
+  }
+</style>
 <body>
 
 
+
+
 <!-- First Parallax Image with Logo Text -->
-<div class="bgimg-1 w3-display-container w3-opacity-min"  id="home">
-  <div class="w3-display-middle" style="white-space:nowrap;">
-    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Welcome To <span class="w3-hide-small" style="font-size: 40px;" > <img style="width: 250px; height: 80px; background-color: white" src="assets/textHeader.png"></span></span>
+<div class="bgimg-1 w3-display-container " id="home">
+  <div class="bgimg-20 w3-display-middle " >
+          <div  style="white-space:nowrap; padding-top: 40px">
+            <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity"style="margin-left: 5%">Welcome</span> <br> <br>
+            <span class=" w3-padding-large  w3-xlarge w3-wide w3-animate-opacity" style="margin-left: 40%; color: white; padding-top: 30px; background-color: dimgrey">To</span><br>
+            <span class="w3-hide-small" style="" > <img style="width: 250px; height: 80px;margin-left: 50%; " src="assets/textHeader.png"></span>
 
+          </div>
   </div>
-
-
 </div>
 
-<button  (click)="signUpStepper()" class="w3-button  w3-light-grey" style="margin-left: 45%; padding-bottom: 10px">SIGN UP</button>
+<h3 class="w3-center"><button mat-button  (click)="signUpStepper()"
+                              style=" padding-bottom: 10px; background-color: dimgrey; color: white">SIGN UP</button>
+</h3>
 
 
+  <h2 class="w3-center" style="background-color: white"><em>Stay connected to all your social media platforms in one place</em></h2>
 
 
-
-
-
-<!-- Hide this text on small devices -->
-<div class="w3-col m6 w3-hide-small w3-padding-large">
-
-</div>
-
-
-
-<!-- Hide this text on small devices -->
-<div class="w3-col m6 w3-hide-small w3-padding-large">
-
-</div>
 
 <div class="w3-row w3-center w3-dark-grey w3-padding-16">
-
-  <div >
-    <p style=" background-color: dimgrey; font-size: 20px; text-align: center">Stay connected to all your social media platforms in one place</p>
-
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">Upload Pictures <span class="imageUpload" data-icon="mdi:image-plus" data-inline="false"></span> </span><br>
   </div>
-
-
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">Create Playlists <span class="createPlaylist" data-icon="mdi:image-plus" data-inline="false"></span></span><br>
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">Write Posts <span class="writePost" data-icon="mdi:image-plus" data-inline="false"></span></span><br>
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">Edit Profiles <span class="editProfile" data-icon="mdi:image-plus" data-inline="false"></span></span><br>
+  </div>
 </div>
 
 
+
+<!-- Container (Portfolio Section) -->
 <div class="row" style=" background-color: black">
   <div class="column">
     <a href="https://www.instagram.com/">
-        <img src="https://www.rawshorts.com/blog/wp-content/uploads/2019/06/instagram-accounts-for-design-inspiration.gif" style="padding-inline-start: 20px; width: 200px; height: 200px; "   alt="Quiet ocean">
+        <img src="https://www.rawshorts.com/blog/wp-content/uploads/2019/06/instagram-accounts-for-design-inspiration.gif" style=" margin-left: 10%; width: 200px; height: 200px; "   alt="Quiet ocean">
     </a>
   </div>
   <div class="column">
@@ -82,66 +133,103 @@
 </div>
 
 
-<div class="w3-row w3-center w3-dark-grey w3-padding-16">
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">Upload Pictures <span class="imageUpload" data-icon="mdi:image-plus" data-inline="false"></span> </span><br>
-  </div>
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">Create Playlists <span class="createPlaylist" data-icon="mdi:image-plus" data-inline="false"></span></span><br>
-  </div>
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">Write Posts <span class="writePost" data-icon="mdi:image-plus" data-inline="false"></span></span><br>
-  </div>
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">Edit Profiles <span class="editProfile" data-icon="mdi:image-plus" data-inline="false"></span></span><br>
-  </div>
-</div>
-
-
-
-
-
-
-<!-- Container (Portfolio Section) -->
-<div class="  " id="portfolio">
-
-
-
-
-
-
-
-
-</div>
-
-
-<!-- Modal for full size images on click-->
-<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
-  <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
-  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-    <img id="img01" class="w3-image">
-    <p id="caption" class="w3-opacity w3-large"></p>
-  </div>
-</div>
-
 
 
 
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-64">
-  <div class="w3-xlarge w3-section">
-    <i style="padding: 10px" class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i style="padding: 10px" class="fa fa-instagram w3-hover-opacity"></i>
-    <i style="padding: 10px" class="fa fa-snapchat w3-hover-opacity"></i>
-    <i style="padding: 10px" class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i style="padding: 10px" class="fa fa-twitter w3-hover-opacity"></i>
-    <i style="padding: 10px" class="fa fa-linkedin w3-hover-opacity"></i>
-  </div>
+<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
+    <div class="w3-xlarge w3-section">
+      <i style="padding: 10px" class="fa fa-facebook-official w3-hover-opacity"></i>
+      <i style="padding: 10px" class="fa fa-instagram w3-hover-opacity"></i>
+      <i style="padding: 10px" class="fa fa-spotify w3-hover-opacity"></i>
+      <i style="padding: 10px" class="fa fa-twitter w3-hover-opacity"></i>
+      <i style="padding: 10px" class="fa fa-youtube w3-hover-opacity"></i>
+    </div>
 </footer>
+
 
 
 </body>
 </html>
+
+
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--<html>-->
+<!--<title>W3.CSS Template</title>-->
+<!--<meta charset="UTF-8">-->
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+<!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">-->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+
+<!--<body>-->
+
+
+<!--&lt;!&ndash; First Parallax Image with Logo Text &ndash;&gt;-->
+<!--<div class="bgimg-1 w3-display-container w3-opacity-min"  id="home">-->
+
+<!--  <div class="w3-display-middle"  style=" background-color: blue">-->
+<!--      <div class="w3-display-middle" style="white-space:nowrap;">-->
+<!--        <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Welcome To <span class="w3-hide-small" style="font-size: 40px;" > <img style="width: 250px; height: 80px; background-color: white" src="assets/textHeader.png"></span></span>-->
+
+<!--      </div>-->
+<!--  </div>-->
+
+
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+
+<!--&lt;!&ndash; Hide this text on small devices &ndash;&gt;-->
+<!--<div class="w3-col m6 w3-hide-small w3-padding-large">-->
+
+<!--</div>-->
+
+<!--<div class="w3-row w3-center w3-dark-grey w3-padding-16">-->
+
+<!--  <div >-->
+<!--    <p style=" background-color: dimgrey; font-size: 20px; text-align: center">Stay connected to all your social media platforms in one place</p>-->
+
+<!--  </div>-->
+
+
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--&lt;!&ndash; Footer &ndash;&gt;-->
+<!--<footer class="w3-center w3-black w3-padding-64">-->
+<!--  <div class="w3-xlarge w3-section">-->
+<!--    <i style="padding: 10px" class="fa fa-facebook-official w3-hover-opacity"></i>-->
+<!--    <i style="padding: 10px" class="fa fa-instagram w3-hover-opacity"></i>-->
+<!--    <i style="padding: 10px" class="fa fa-spotify w3-hover-opacity"></i>-->
+<!--    <i style="padding: 10px" class="fa fa-twitter w3-hover-opacity"></i>-->
+<!--    <i style="padding: 10px" class="fa fa-youtube w3-hover-opacity"></i>-->
+<!--  </div>-->
+<!--</footer>-->
+
+
+<!--</body>-->
+<!--</html>-->
 
 
 
