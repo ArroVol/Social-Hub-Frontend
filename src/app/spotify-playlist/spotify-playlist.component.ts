@@ -87,6 +87,12 @@ export class SpotifyPlaylistComponent implements OnInit {
       });
     }
   }
+  //
+  // testFavourites(track_id: string) {
+  //   let tracks = JSON.parse(sessionStorage.getItem('spotify_user_favourite_tracks'));
+  //   console.log([tracks].find(track => track.id === track_id));
+  //   return [tracks].find(track => track.id === track_id);
+  // }
 
   async setRecommendedTracks() {
     this.recommendedTracks = await this.getRecommendedTracks();
