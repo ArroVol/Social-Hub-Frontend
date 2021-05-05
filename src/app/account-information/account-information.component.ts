@@ -353,7 +353,7 @@ export class AccountInformationComponent implements OnInit {
 
   checkDefault(social: any): boolean {
 
-    if(this.socialOnStart === social){
+    if (this.socialOnStart === social){
       return true;
     }
     return false;

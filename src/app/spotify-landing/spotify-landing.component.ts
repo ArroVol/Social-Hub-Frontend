@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SpotifyService} from '../service/spotify.service';
+
 @Component({
   selector: 'app-spotify-landing',
   templateUrl: './spotify-landing.component.html',
@@ -10,7 +11,8 @@ export class SpotifyLandingComponent implements OnInit {
   authorizationLink: string;
   logged: boolean = false;
 
-  constructor(private spotifyService: SpotifyService) { }
+  constructor(private spotifyService: SpotifyService) {
+  }
 
   ngOnInit(): void {
     this.getAuthorizationLink();
@@ -25,7 +27,8 @@ export class SpotifyLandingComponent implements OnInit {
   }
 
   redirectToAuthorizationPage() {
-    window.location.href = this.authorizationLink;
+    // window.location.href = this.authorizationLink;
+    window.open(this.authorizationLink, '_blank');
     this.logged = true;
   }
 }

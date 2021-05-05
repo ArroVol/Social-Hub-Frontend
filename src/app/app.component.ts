@@ -1,11 +1,8 @@
-import {Component, ViewChild} from '@angular/core';
+import { Component } from '@angular/core';
 import {NavbarService} from './service/navbar.service';
 import {TwitterService} from './service/twitter.service';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {AngularFirestore} from "@angular/fire/firestore";
-import {MatSidenav} from "@angular/material/sidenav";
-import {UserService} from "./service/user.service";
-import {SimpleFormComponent} from "./simple-form/simple-form.component";
 // import * as moment from 'moment';
 
 
@@ -63,7 +60,6 @@ export class AppComponent {
    */
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit(): void {
-    this.getIsSideBarVisible();
     // this.loggedIn = false;
     console.log('init..');
     console.log(window.location.href);
@@ -104,6 +100,8 @@ export class AppComponent {
 
   }
 
+
+
   checkLogin() {
     console.log('checking login.......');
     console.log('*****"');
@@ -114,6 +112,7 @@ export class AppComponent {
       this.loggedIn = false;
     }
   }
+
 
   set login(value) {
     this.loggedIn = value;

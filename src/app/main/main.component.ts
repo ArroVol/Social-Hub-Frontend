@@ -23,6 +23,8 @@ export class MainComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private formBuilder: FormBuilder, public matDialog: MatDialog) { }
 
   ngOnInit(): void {
+
+
     if (sessionStorage.getItem('loggedIn') === 'true'){
       this.loggedIn = true;
     }

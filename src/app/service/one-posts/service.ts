@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
-import {User} from "../../model/user/User";
-import {OnePosts} from "../../model/user/OnePosts";
+import {User} from '../../model/user/User';
+import {OnePosts} from '../../model/user/OnePosts';
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json' });

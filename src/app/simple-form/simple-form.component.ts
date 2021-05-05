@@ -32,11 +32,17 @@ import {Subject} from "rxjs";
             <button mat-button (click)="logOut();">
               Log Out
             </button>
+
+
           </ng-template>
           <ng-template #logOutDisplay>
             <button mat-button (click)="logOut();">
               Log Out
             </button>
+
+
+
+
           </ng-template>
     </div>
         <ng-template  #showLogOut>
@@ -73,7 +79,7 @@ import {Subject} from "rxjs";
       </div>
     </ng-template>
   `,
-  styles: ['./simple-form.component.css'],
+  styles: ['simple-form.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class SimpleFormComponent implements OnInit {
