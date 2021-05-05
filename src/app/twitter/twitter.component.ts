@@ -31,17 +31,19 @@ export interface State {
   name: string;
   population: string;
 }
+
 export interface User {
   name: string;
 }
+
 export class CdkVirtualScrollOverviewExample {
   items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
 }
+
 @Component({
   selector: 'app-twitter',
   templateUrl: './twitter.component.html',
   styleUrls: ['./twitter.component.css'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
 export class TwitterComponent implements AfterViewInit, OnInit {
@@ -147,11 +149,12 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
   /**
    * On page open get the recent post from the user and the number of followers.
    */
   ngOnInit(): void {
-    this.showingOther ='';
+    this.showingOther = '';
     this.showingUser = 'Most Retweeted Post';
     this.showOtherDiv = false;
     this.showMostFavorited = false;
@@ -170,8 +173,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
       );
     this.getFriendsList();
     this.appComponent.displaySideNav = true;
-    console.log('twitter.ts onit..');
-    // this.compareTwitter = false;
     this.otherBriefStatusList = null;
     this.twitterHandle = sessionStorage.getItem('twitterHandle');
     if (sessionStorage.getItem('twitterHandle') !== null) {
@@ -179,7 +180,6 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     }
     this.twitterHandleFound = Boolean(sessionStorage.getItem('twitterHandleFound'));
     this.developerMode = Boolean(sessionStorage.getItem('developerModeEnabled'));
-
 
     this.twitterService.getNumFollowersByHandle(sessionStorage.getItem('twitterHandle'))
       .subscribe(followerCount => {
@@ -197,38 +197,18 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   }
 
 
-
   /**
    * Posts the user tweets to their twitter. Make a call to the backend and then to the twitter API
    * @param value is the id for the user.
    * @param tweetContent is the content of the tweet.
    */
   postUserTweet(value: string, tweetContent: string) {
-    console.log('in the post user tweet in the twitter ts');
     this.tweet = new Tweet();
     this.tweet.tweetCreator = 'socialhubclub';
     this.tweet.tweetText = tweetContent;
     this.twitterService.postUserTweet(this.tweet, 1)
       .subscribe(tweet => {
         this.tweet = tweet;
-      });
-    console.log('called the post user tweet');
-    console.log(this.followerCount);
-  }
-
-
-  /**
-   * Gets the user tweets from the twitter API.
-   * @param value is the id for the user.
-   */
-  getUserStatus(value: string) {
-    this.twitterService.getUserStatus(+value)
-      .subscribe(status => {
-        this.status = status;
-        console.log('status text: ' + this.statusText);
-        console.log('called the front end method get statuts');
-        console.log(this.status);
-        console.log(status);
       });
   }
 
@@ -241,68 +221,48 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     this.twitterService.getUserStatusAsTweet(+value)
       .subscribe(tweet => {
         this.tweet = tweet;
-        console.log('status text: ' + this.tweet.tweetText);
       });
 
   }
+
   /**
    * Gets the users timeline.
    * @param value the id for the user.
    */
   getTimeline(value: string) {
-    console.log('in the twitter componenet get timeline method');
     this.twitterService.getTimeline(+value)
       .subscribe(tweet => {
         this.timelineList = tweet;
         this.listData = new MatTableDataSource<any>(this.timelineList);
         this.listData.sort = this.sort;
         // this.listData.paginator = this.paginator;
-        console.log(this.timelineList.length);
-        // console.log('status text: ' + this.tweet.tweetText);
       });
 
   }
 
-   getUserTimeline() {
-    console.log('getting the users timeline...');
+  getUserTimeline() {
     this.twitterService.getUserTimeline(this.twitterHandle)
       .subscribe(timeline => {
         this.briefStatusList = timeline;
-        console.log('the length  of the users timeline list: ' + this.briefStatusList.length);
 
-        if(this.briefStatusList[0].favoriteCount != 0){
+        if (this.briefStatusList[0].favoriteCount != 0) {
           this.userMostFavorited = this.briefStatusList[0];
           this.briefStatusList = this.briefStatusList.slice(1);
-            if(this.briefStatusList[0].retweetCount != 0){
-              this.userMostRetweeted = this.briefStatusList[0];
-              this.briefStatusList = this.briefStatusList.slice(1);
-            }
-        } else if(this.briefStatusList[0].favoriteCount == 0 && this.briefStatusList[1].retweetCount != 0){
+          if (this.briefStatusList[0].retweetCount != 0) {
+            this.userMostRetweeted = this.briefStatusList[0];
+            this.briefStatusList = this.briefStatusList.slice(1);
+          }
+        } else if (this.briefStatusList[0].favoriteCount == 0 && this.briefStatusList[1].retweetCount != 0) {
           this.userMostRetweeted = this.briefStatusList[1];
           this.briefStatusList = this.briefStatusList.splice(1, 1);
         }
-       for (let i = 0; i < this.briefStatusList.length; i++) {
-         this.briefStatusList[i].text = this.briefStatusList[i].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+        for (let i = 0; i < this.briefStatusList.length; i++) {
+          this.briefStatusList[i].text = this.briefStatusList[i].text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
 
-       }
-        // console.log(this.briefStatusList[0].mediaURL);
+        }
       });
   }
 
-  getUsersMostPopular() {
-    // console.log('getting the users timeline...');
-    // this.twitterService.getUserTimeline(this.twitterHandle)
-    //   .subscribe(timeline => {
-    //     this.briefStatusList = timeline;
-    //     console.log('the length  of hte users timeline list: ' + this.briefStatusList.length);
-    //     // this.briefStatusList = this.briefStatusList.slice(1);
-    //
-    //     for (let i = 0; i < this.briefStatusList.length; i++){
-    //       console.log(this.briefStatusList[i].text);
-    //     }
-    //
-    //   });
-  }
   getOtherUserTimeline(otherTwitterHandle: string) {
     this.otherBriefStatusList = null;
     this.otherMostRetweeted = null;
@@ -312,19 +272,18 @@ export class TwitterComponent implements AfterViewInit, OnInit {
         this.otherBriefStatusList = otherTimeline;
         this.otherMostRetweeted = this.otherBriefStatusList[0];
         this.otherMostFavorited = this.otherBriefStatusList[1];
-        if (this.otherMostRetweeted.retweetCount === 0){
+        if (this.otherMostRetweeted.retweetCount === 0) {
 
         } else if (this.otherMostFavorited.favoriteCount === 0 && this.otherMostRetweeted.retweetCount > 0) {
           this.otherBriefStatusList = this.otherBriefStatusList.slice(1);
         } else {
-        this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
+          this.otherBriefStatusList = this.otherBriefStatusList.slice(2);
         }
-       this.showOtherDiv = true;
+        this.showOtherDiv = true;
 
         this.twitterService.getNumFollowersByHandle(otherTwitterHandle)
           .subscribe(otherNumFollowers => {
             this.otherNumFollowers = otherNumFollowers;
-            console.log('other num followers: ' + this.otherNumFollowers);
           });
 
       });
@@ -334,24 +293,18 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     this.goalService.getGoalByUserId(sessionStorage.getItem('userId'))
       .subscribe(goal => {
         this.userGoal = goal;
-        if (this.userGoal !== null){
+        if (this.userGoal !== null) {
           this.goalSet = true;
           this.value = this.followerCount - this.userGoal.goalStartNumber;
           this.endDate = moment(this.userGoal.startDate);
-          console.log(this.endDate.calendar() + '  : end date');
           this.endDate = this.endDate.add(7, 'days');
-          console.log('finalend date: ' + this.endDate.format('YYYY-MM-DD'));
           this.endDateString = this.endDate.format('YYYY-MM-DD');
 
         }
       });
   }
 
-  updateGoals() {
-  this.goalSet = false;
-}
-
-  sendGoals(){
+  sendGoals() {
     this.userGoal = new Goal();
     this.userGoal.goalMaxNumber = this.max;
     this.userGoal.goalType = this.radioChoice;
@@ -363,14 +316,13 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     this.goalService.setGoals(this.userGoal)
       .subscribe(goal => {
         this.userGoal = goal;
-        if (this.userGoal !== null){
+        if (this.userGoal !== null) {
           this.goalSet = true;
         }
-        console.log(this.briefStatus.createdAt);
       });
   }
+
   radioChange($event: MatRadioChange) {
-    console.log($event.value);
     this.radioChoice = $event.value;
   }
 
@@ -384,17 +336,14 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   }
 
   getFriendsList() {
-    console.log('getting friends list');
-    console.log(sessionStorage.getItem('twitterHandle'));
     this.twitterService.getFriendsList(sessionStorage.getItem('twitterHandle'))
       .subscribe(friendsList => {
         this.friendsList = friendsList;
         this.friendsList = this.friendsList.reverse();
         if (friendsList !== null) {
-        for (let i = 0; i < friendsList.length; i++){
-          console.log(friendsList[i]);
-          this.options[i].name = friendsList[i];
-        }
+          for (let i = 0; i < friendsList.length; i++) {
+            this.options[i].name = friendsList[i];
+          }
         }
       });
   }
@@ -424,17 +373,17 @@ export class TwitterComponent implements AfterViewInit, OnInit {
   onKey($event: KeyboardEvent) {
     // if value is not empty the set click to false otherwise true
     this.click = (event.target as HTMLInputElement).value === '' ? true : false;
-    console.log(KeyboardEvent.length);
   }
-  onButtonClick(){
+
+  onButtonClick() {
     this.click = !this.click;
   }
 
   clearFields(value: string) {
-   value = '';
-   this.searchFriend = '';
-   this.handle.nativeElement.value = '';
-   this.otherBriefStatusList = null;
+    value = '';
+    this.searchFriend = '';
+    this.handle.nativeElement.value = '';
+    this.otherBriefStatusList = null;
   }
 
   applyFilter(event: Event) {
@@ -446,38 +395,31 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     }
   }
 
-  getFriendsRankingList(){
-    console.log('clicked');
-    console.log(this.rankingList.length)
-    if(this.rankingList.length === 0) {
+  getFriendsRankingList() {
+    if (this.rankingList.length === 0) {
 
-    console.log('getting ranking list');
-    this.twitterService.getRankingList(sessionStorage.getItem('twitterHandle'))
-      .subscribe(rankingList => {
-        this.rankingList = rankingList;
-        this.rankingList = this.rankingList.reverse();
-        if (rankingList !== null) {
-          this.incrementor = 0;
-          for (let i = 0; i < rankingList.length; i++){
-            console.log(rankingList[i]);
-            this.incrementor += 1;
-            rankingList[i].rank = this.incrementor.toString();
+      this.twitterService.getRankingList(sessionStorage.getItem('twitterHandle'))
+        .subscribe(rankingList => {
+          this.rankingList = rankingList;
+          this.rankingList = this.rankingList.reverse();
+          if (rankingList !== null) {
+            this.incrementor = 0;
+            for (let i = 0; i < rankingList.length; i++) {
+              this.incrementor += 1;
+              rankingList[i].rank = this.incrementor.toString();
+            }
+            this.dataSource = new MatTableDataSource<any>(this.rankingList);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
           }
-          this.dataSource = new MatTableDataSource<any>(this.rankingList);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
-      });
+        });
     } else {
       this.openSnackBar('No friends to display, Add friends on Twitter to get started!');
     }
   }
-  checkDefault(type: any): boolean {
 
-    if(this.goalType === type){
-      return true;
-    }
-    return false;
+  checkDefault(type: any): boolean {
+    return this.goalType === type;
   }
 
   openSnackBar(status: string) {
@@ -496,10 +438,9 @@ export class TwitterComponent implements AfterViewInit, OnInit {
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(GoalModalComponent, dialogConfig);
   }
+
   tabClick(tab) {
-    console.log(tab);
-    if (tab === 1 && this.rankingList.length === 0){
-      console.log('the ranking list is null.. get the list');
+    if (tab === 1 && this.rankingList.length === 0) {
       this.getFriendsRankingList();
     }
   }

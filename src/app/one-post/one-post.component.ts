@@ -170,7 +170,6 @@ export class OnePostComponent implements OnInit {
     for (let j = 0; j < this.uploader.queue.length; j++) {
       let data = new FormData();
       let fileItem = this.uploader.queue[j]._file;
-      console.log(fileItem.name);
       data.append('file', fileItem);
       data.append('fileSeq', 'seq' + j);
       data.append('dataType', this.uploadForm.controls.type.value);
@@ -179,10 +178,6 @@ export class OnePostComponent implements OnInit {
     this.uploader.clearQueue();
   }
 
-  //
-  // uploadFile(data: FormData): Observable {
-  //   return this.http.post('http://localhost:8080/upload', data);
-  // }
 
   ngOnInit(): void {
     this.onePostsBySocialMedia = new Array();
@@ -194,7 +189,6 @@ export class OnePostComponent implements OnInit {
       document: [null, null],
       type: [null, Validators.compose([Validators.required])]
     });
-    console.log(+sessionStorage.getItem('userId'));
     this.twitterDeveloperMode = true;
     this.twitterHandle = sessionStorage.getItem('twitterHandle');
     // this.checkIfTwitterDev();
@@ -202,9 +196,6 @@ export class OnePostComponent implements OnInit {
     this.userService.getUserById(+sessionStorage.getItem('userId'))
       .subscribe(user => {
         this.twitterUser = user;
-        console.log(this.twitterUser.userId);
-        console.log(this.twitterUser.email);
-        console.log(this.twitterUser.username);
         this.getUsersOnePosts(this.userId);
       });
   }
@@ -221,9 +212,7 @@ export class OnePostComponent implements OnInit {
     this.twitterService.getTwitterTokens()
       .subscribe(twitterSecure => {
         this.twitterSecureData = twitterSecure;
-        console.log('this is the id...: ' + this.twitterSecureData.userId);
         if (this.twitterSecureData.userId === '0') {
-          console.log('null twitter secure data');
         }
       });
   }
@@ -253,13 +242,11 @@ export class OnePostComponent implements OnInit {
   toggleEditable(event) {
     if (event.target.checked) {
       // this.contentEditable = true;
-      console.log(event);
     }
   }
 
   onCheckboxChange(e) {
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
-    console.log(e);
 
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
@@ -276,7 +263,6 @@ export class OnePostComponent implements OnInit {
   }
 
   onDropHandler(object) {
-    console.log("event " + JSON.stringify(object));
     this.imageSrc = object.event.target.result;
   }
 
@@ -288,10 +274,6 @@ export class OnePostComponent implements OnInit {
   }
 
   onUpload(event) {
-    console.log('ON UPLOAD!');
-    // console.log(event);
-    console.log(event.target.files[0]);
-    console.log(this.selectedFile);
     this.files.push(...event.addedFiles);
     const url = `${this.url}/send-image`;
 
@@ -325,11 +307,9 @@ export class OnePostComponent implements OnInit {
 
 
   selectFile(event): void {
-    console.log(event);
     if (event.target.files.length === 1) {
       const file = event.target.files[0];
       this.file = file;
-      console.log(file);
     } else {
     }
     this.selectedFiles = event.target.files;
@@ -340,7 +320,6 @@ export class OnePostComponent implements OnInit {
     const url = `${this.url}/send-image`;
 
     this.currentFileUpload = this.file;
-    console.log('attempting upload');
     const data: FormData = new FormData();
     data.append('file', this.file);
     // data.append('content', content);
@@ -348,10 +327,8 @@ export class OnePostComponent implements OnInit {
     this.objectHolder = new ObjectHolder();
     this.objectHolder.formData = data;
     this.objectHolder.textContent = content;
-    console.log(url);
     this.http.post(url, this.objectHolder, { observe: 'response' })
       .subscribe((response) => {
-          console.log('we did it!');
 
         }
       );
@@ -359,38 +336,29 @@ export class OnePostComponent implements OnInit {
   }
 
   contentEntered($event: Event) {
-    console.log(event);
   }
 
 
   checkCheckBox($event: MouseEvent) {
-    console.log('logging');
-    console.log($event.type);
 
   }
 
   checkCheckBox2($event: MouseEvent, name) {
-    console.log(name);
     var checkBox = document.getElementsByClassName("example-margin")[0];
-    console.log(checkBox);
     checkBox.classList.toggle("pressed");
     checkBox.classList.toggle("clicked");
     checkBox.classList.toggle("checked");
     var button = document.getElementsByClassName("btn btn-success")[0];
-    console.log(button);
     button.classList.toggle("clicked");
   }
 
   getUsersOnePosts(userId: number) {
-  console.log('getting the users one posts....')
     this.onePostService.getUsersOnePosts(userId)
       .subscribe(onePosts => {
         this.usersOnePosts = onePosts;
 
         if(this.usersOnePosts !== null) {
-          console.log(this.usersOnePosts.length)
           for (let i = 0; i < onePosts.length; i++) {
-            console.log(onePosts[i]);
           }
         }
     });
@@ -402,14 +370,11 @@ export class OnePostComponent implements OnInit {
   async saveOnePost(textContent: string){
 
     for (let i = 0; i < this.form.value.checkArray.length; i++) {
-     console.log(this.form.value.checkArray[i]);
      this.socialMedia = this.socialMedia.concat(this.form.value.checkArray[i]);
      this.socialMedia = this.socialMedia.concat(' ');
     }
-    console.log(this.socialMedia);
     this.currentFileUpload = this.file;
 
-    console.log('attempting upload');
 
 
       const url = `${this.url}/one-posts/save/form-data/text-only`;
@@ -430,7 +395,6 @@ export class OnePostComponent implements OnInit {
 
     if(this.file !== undefined){
       var filePath = `${sessionStorage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-      console.log(filePath);
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.file)
         .snapshotChanges().pipe(
@@ -475,13 +439,10 @@ export class OnePostComponent implements OnInit {
   }
 
   onSelect(event) {
-    console.log(event);
     this.files.push(...event.addedFiles);
 
     if(this.files.length !== 0){
-      console.log('its ture');
       this.atLeastOneFile = true;
-      console.log(this.atLeastOneFile);
 
     }
 
@@ -503,8 +464,6 @@ export class OnePostComponent implements OnInit {
   }
 
   onRemove(event) {
-    console.log('on remove..');
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
     if(this.files.length !== 0){
       this.atLeastOneFile = true;
@@ -514,11 +473,8 @@ export class OnePostComponent implements OnInit {
   }
 
   uploadToTwitter(content: string) {
-    console.log('in the upload method in one post.ts file..');
-    console.log('this is the content... ' + content);
     const url = `${this.url}/send-image`;
     if(this.file === undefined){
-      console.log('its undefined!');
       this.newTweet = new Tweet();
       this.newTweet.tweetCreator = sessionStorage.getItem('twitterHandle');
       this.newTweet.tweetText = content;
@@ -529,16 +485,12 @@ export class OnePostComponent implements OnInit {
 
     } else {
       this.currentFileUpload = this.file;
-      console.log(this.currentFileUpload);
-
-      console.log('attempting upload (one.post.ts)');
       const data: FormData = new FormData();
       data.append('file', this.file);
       data.append('textContent', content);
 
       this.http.post(url, data, {observe: 'response'})
         .subscribe((response) => {
-            console.log('we did it!');
           }
         );
     }
@@ -552,7 +504,6 @@ export class OnePostComponent implements OnInit {
 
     for (let i = 0; i < this.form.value.checkArray.length; i++) {
       if (this.form.value.checkArray[i] === 'twitter') {
-        console.log('twitter was checked...');
         this.uploadToTwitter(content);
       }
 
@@ -563,39 +514,11 @@ export class OnePostComponent implements OnInit {
   }
 
   submitForm(value: string, tweetContent: string) {
-    console.log('submit');
-
-    console.log(this.form.value.checkArray.length);
-
-    console.log(this.form.value.checkArray);
-    console.log(this.form.value.checkArray[0]);
 
     for (let i = 0; i < this.form.value.checkArray.length; i++) {
       if (this.form.value.checkArray[i] === 'twitter') {
-        console.log('twitter was checked...');
-        console.log(value);
-        console.log(tweetContent);
       }
     }
-  }
-
-  /**
-   * Posts the user tweets to their twitter. Make a call to the backend and then to the twitter API
-   * @param value is the id for the user.
-   * @param tweetContent is the content of the tweet.
-   */
-  postUserTweet(value: string, tweetContent: string) {
-    // this.submitForm(value, tweetContent);
-    console.log('in the post user tweet in the twitter ts');
-    this.tweet = new Tweet();
-    this.tweet.tweetCreator = 'socialhubclub';
-    this.tweet.tweetText = tweetContent;
-    this.twitterService.postUserTweet(this.tweet, 1)
-      .subscribe(tweet => {
-        this.tweet = tweet;
-      });
-    console.log('called the post user tweet');
-    // console.log(this.followerCount);
   }
 
   openSnackBar(status: string) {
@@ -626,29 +549,20 @@ export class OnePostComponent implements OnInit {
     this.imageService.imageDetailList.snapshotChanges().subscribe(
       list =>{
         this.imageList = list.map(item => {return item.payload.val();});
-        console.log(this.imageList.length);
         this.imageList = this.imageList.reverse();
         if(this.imageList.length > 20) {
           this.shortenedImageList = this.imageList.slice(0, 20);
           this.savedOnePostList = this.shortenedImageList;
         }
-        console.log('this is the shortened lenght... : ' + this.shortenedImageList.length);
-        console.log(this.shortenedImageList[0].textContent);
 
-        // for (let i = 0; i < this.imageList.length; i++){
-        //   console.log(this.imageList[i].userId);
-        //   console.log(this.imageList[i].textContent);
-        //
-        // }
+
         this.rowIndexArray = Array.from(Array(Math.ceil(this.imageList.length / 1)).keys());
-        console.log('length of indexarray... ' + this.rowIndexArray.length);
       }
 
     );
   }
 
   clearFields() {
-    console.log('clearing.....');
     this.textInput = ' ';
   this.onRemove(this.event1)
   // this.form2.reset();
@@ -659,7 +573,6 @@ export class OnePostComponent implements OnInit {
 
 
   addPost(myForm: FormGroupDirective | NgForm) {
-    console.log('in add...');
 
     myForm.resetForm();
     myForm.reset();
@@ -672,7 +585,6 @@ export class OnePostComponent implements OnInit {
     this.name = ' ';
   }
   reset() {
-    console.log('resetting..');
     this.form.reset();
     this.onRemove(this.files[0]);
     this.resetCheckBox = false;
@@ -682,72 +594,25 @@ export class OnePostComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.shortenedImageList = this.savedOnePostList;
-    console.log(event);
     if(event.toString() !== 'All'){
 
     this.selectedSocialMedia = event.toString();
     this.onePostsBySocialMedia = new Array();
     for (let i = 0; i < this.shortenedImageList.length; i++){
-      console.log(this.shortenedImageList[i].socialMedia);
       if(this.shortenedImageList[i].socialMedia.includes(this.selectedSocialMedia.toLowerCase())){
-        console.log('true');
-        console.log(this.shortenedImageList[i]);
-
         this.onePostsBySocialMedia.push(this.shortenedImageList[i]);
       }
     }
 
-    for (let i = 0; i < this.onePostsBySocialMedia.length; i++){
-      console.log(this.onePostsBySocialMedia[i].socialMedia);
-      console.log(this.onePostsBySocialMedia[i].textContent);
-    }
     this.shortenedImageList = this.onePostsBySocialMedia;
     }
 
-    // this.sectionBySubjectArray = this.section.filter(s => s.courseSubject === event.toString());
-    // this.sectionBySubjectArray = this.sectionBySubjectArray.filter(s => s.semester === this.selectedTerm);
-    // this.courseService.getCourseBySubject(this.selectedSubject)
-    //   .subscribe(courseBySubject => {
-    //     this.courseBySubject = courseBySubject;
-    //   });
-    // this.clicked = true;
-    // this.clickedButtonCourses = false;
+
   }
 
   pressedEvent($event: any) {
     this.totalNumCharacters = $event.length;
   }
 
-  // uploadToTwitter(content: string) {
-  //   console.log('in the upload method in one post.ts file..');
-  //   console.log('this is the content... ' + content);
-  //   const url = `${this.url}/send-image`;
-  //   if(this.file === undefined){
-  //     console.log('its undefined!');
-  //     this.newTweet = new Tweet();
-  //     this.newTweet.tweetCreator = sessionStorage.getItem('twitterHandle');
-  //     this.newTweet.tweetText = content;
-  //     this.twitterService.postUserTweet(this.newTweet, +sessionStorage.getItem('userId'))
-  //       .subscribe(tweet => {
-  //         this.newTweet = tweet;
-  //       });
-  //
-  //   } else {
-  //     this.currentFileUpload = this.file;
-  //     console.log(this.currentFileUpload);
-  //
-  //     console.log('attempting upload (one.post.ts)');
-  //     const data: FormData = new FormData();
-  //     data.append('file', this.file);
-  //     data.append('textContent', content);
-  //
-  //     this.http.post(url, data, {observe: 'response'})
-  //       .subscribe((response) => {
-  //           console.log('we did it!');
-  //         }
-  //       );
-  //   }
-  //
-  // }
 }
 
