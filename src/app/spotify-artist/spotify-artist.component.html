@@ -83,7 +83,7 @@
                 <table class="songlist">
                   <tr *ngFor="let track of artistTopTracks; let i = index" class="tracksData">
                     <td>{{i + 1}}</td>
-                    <td><img src="{{track?.album.imageUrl}}" width="75"></td>
+                    <td><img src="{{track?.album?.imageUrl}}" width="75"></td>
                     <td><p>{{track?.name}} <br>
                       <span style="font-size:12px;"
                             *ngFor="let item of track?.artistInfo | keyvalue">{{item?.value}} </span>

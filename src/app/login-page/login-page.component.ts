@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user/User';
 import {UserService} from '../service/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -14,7 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 // import { EmailAsteriskPipe } from './email-asterisk.pipe';
 // MDB Angular Pro
-import { ModalModule, ButtonsModule, WavesModule } from 'ng-uikit-pro-standard';
+import {ModalModule, ButtonsModule, WavesModule} from 'ng-uikit-pro-standard';
 import {ModalComponent} from '../modal/modal.component';
 import {ImageService} from '../service/image.service';
 import {HttpClient} from '@angular/common/http';
@@ -38,14 +38,16 @@ export class UserData {
     public name: string,
     public phoneNumber: string,
     public password: string,
-    s: string){}
+    s: string) {
+  }
 }
 
 class ImageSnippet {
   pending = false;
   status = 'init';
 
-  constructor(public src: string, public file: File) {}
+  constructor(public src: string, public file: File) {
+  }
 }
 
 // class ImageService {
@@ -355,8 +357,8 @@ export class LoginPageComponent implements OnInit {
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = true;
     dialogConfig.id = 'modal-component';
-    dialogConfig.height = '550px';
-    dialogConfig.width = '700px';
+    dialogConfig.height = '500px';
+    dialogConfig.width = '800px';
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
   }

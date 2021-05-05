@@ -66,22 +66,48 @@
           <div class="search_result_container" *ngIf="hideArtistSearchBar"
                style="height: 500px;">
             <table class="search_result_table" *ngIf="trackQueryResult else loading">
-              <tr *ngFor="let track of trackQueryResult; let i = index">
+              <tr *ngFor="let track of trackQueryResult; let i = index;">
                 <td>{{i + 1}}</td>
                 <td><img src="{{track?.album?.imageUrl}}" width="75"></td>
                 <td><p>{{track?.name}} <br>
                   <span style="font-size:12px;"
-                        *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
-                </p></td>
-                <td>{{track?.album.name}}</td>
+                        *ngFor="let item of track?.artistInfo | keyvalue">{{item?.value}} </span>
+                </p>
+                </td>
+                <td>{{track?.album?.name}}</td>
                 <td>
-                  <button mat-icon-button [matMenuTriggerFor]="menu"
+                  <button mat-icon-button [matMenuTriggerFor]="artistMenu"
+                          matTooltip="Get more information on the artist(s)">
+                    <mat-icon>person_outline</mat-icon>
+                  </button>
+                  <mat-menu #artistMenu="matMenu">
+                    <button mat-menu-item *ngFor="let artist of track?.artistInfo | keyvalue"
+                            (click)="routeToArtist(artist?.key)">
+                      {{artist?.value}}
+                    </button>
+                  </mat-menu>
+                </td>
+                <td *ngIf="searchFavourites">
+                  <button mat-icon-button *ngIf="!searchFavourites[i]"
+                          (click)="followTrack(track?.id); searchFavourites[i] = true;"
+                          matTooltip="Favourite this Track">
+                    <mat-icon>favorite_border</mat-icon>
+                  </button>
+                  <button mat-icon-button *ngIf="searchFavourites[i]"
+                          (click)="unfollowTrack(track?.id); searchFavourites[i] = false;"
+                          color="warn" matTooltip="Unfavourite this Track">
+                    <mat-icon>favorite</mat-icon>
+                  </button>
+                </td>
+
+                <td>
+                  <button mat-icon-button [matMenuTriggerFor]="playlistAdd"
                           aria-label="Example icon button with a vertical three dot icon">
                     <mat-icon>playlist_add</mat-icon>
                   </button>
-                  <mat-menu #menu="matMenu">
+                  <mat-menu #playlistAdd="matMenu">
                     <button mat-menu-item *ngFor="let playlist of spotifyUserPlaylist"
-                            (click)="addToPlaylist(playlist?.id, track?.spotifyUri)">
+                            (click)="addToPlaylist(playlist?.id, track?.spotifyUri);">
                       {{playlist?.name}}
                     </button>
                   </mat-menu>
@@ -129,18 +155,6 @@
                 <td><img src="{{artist?.imageUrl}}" width="75"></td>
                 <td>{{artist?.name}}</td>
                 <td>{{artist?.followers|number}}</td>
-                <!--              <td>-->
-                <!--                <button mat-icon-button [matMenuTriggerFor]="artistQueryMenu"-->
-                <!--                        aria-label="Example icon button with a vertical three dot icon">-->
-                <!--                  <mat-icon>playlist_add</mat-icon>-->
-                <!--                </button>-->
-                <!--                <mat-menu #artistQueryMenu="matMenu">-->
-                <!--                  &lt;!&ndash;                  <button mat-menu-item *ngFor="let playlist of spotifyUserPlaylist"&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                          (click)="addToPlaylist(playlist?.id, artist?.spotifyUri)">&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                    {{playlist?.name}}&ndash;&gt;-->
-                <!--                  &lt;!&ndash;                  </button>&ndash;&gt;-->
-                <!--                </mat-menu>-->
-                <!--              </td>-->
               </tr>
             </table>
           </div>

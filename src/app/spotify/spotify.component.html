@@ -43,8 +43,12 @@
     <!--    *ngIf="featuredPlaylists && newRealeaseAlbums && userRecentTracks && userTopTracks else loading"-->
     <div class="home_page_container" fxLayout="column">
 
-      <div class="new_releases_container">
-        <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">New Album Releases </h1>
+      <div class="new_releases_container" *ngIf="!showAllNewReleaseAlbums">
+        <h1
+          style="font-size: 25px; margin-left: 1%; margin-top: .5%; display: flex; flex-direction: row; justify-content: space-between;">
+          New Album Releases <span
+          style="font-size: 15px; color: #191970; margin-right: 1%;"
+          (click)="showAllNewReleaseAlbums = !showAllNewReleaseAlbums;"> See all</span></h1>
         <!--        *ngIf="newRealeaseAlbums | async as album; else loading;"-->
         <div class="new_releases_table_container" *ngIf="newRealeaseAlbums else loading">
           <table>
@@ -68,9 +72,39 @@
           </table>
         </div>
       </div>
+      <div *ngIf="showAllNewReleaseAlbums" class="new_releases_container">
+        <h1
+          style="font-size: 25px; margin-left: 1%; margin-top: .5%; display: flex; flex-direction: row; justify-content: space-between;">
+          New Album Releases <span
+          style="font-size: 15px; color: #191970; margin-right: 1%;"
+          (click)="showAllNewReleaseAlbums = !showAllNewReleaseAlbums;"> Collapse</span></h1>
+        <div class="new_releases_table_container" *ngIf="newRealeaseAlbums else loading">
+          <ul style="display: flex; flex-wrap: wrap;  list-style: none;">
+            <li *ngFor="let album of newRealeaseAlbums" class="new_releases_card_container">
+              <mat-card class="new_releases_card">
+                <mat-card-content class="new_releases_content">
+                  <img src="{{album?.imageUrl}}" width="125">
+                  <div fxLayout="column">
+                    <h1
+                      style="font-size: 14px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
+                      {{album?.name}}</h1>
+                    <h4
+                      style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -28%;">
+                      {{album?.artistNames}}</h4>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-      <div class="featured_playlist_container">
-        <h1 style="font-size: 25px; margin-left: 1%; margin-top: .5%;">Featured Playlists</h1>
+      <div class="featured_playlist_container" *ngIf="!showAllFeaturedPlaylists">
+        <h1
+          style="font-size: 25px; margin-left: 1%; margin-top: .5%; display: flex; flex-direction: row; justify-content: space-between;">
+          Featured Playlists <span
+          style="font-size: 15px; color: #191970; margin-right: 1%;"
+          (click)="showAllFeaturedPlaylists = !showAllFeaturedPlaylists;"> See all</span></h1>
         <div class="featured_playlist_table_container" *ngIf="featuredPlaylists else loading">
           <table>
             <tr>
@@ -93,7 +127,32 @@
           </table>
         </div>
       </div>
-
+      <div *ngIf="showAllFeaturedPlaylists" class="featured_playlist_container">
+        <h1
+          style="font-size: 25px; margin-left: 1%; margin-top: .5%; display: flex; flex-direction: row; justify-content: space-between;">
+          Featured Playlists <span
+          style="font-size: 15px; color: #191970; margin-right: 1%;"
+          (click)="showAllFeaturedPlaylists = !showAllFeaturedPlaylists;"> Collapse</span></h1>
+        <div class="featured_playlist_table_container" *ngIf="featuredPlaylists else loading">
+          <ul style="display: flex; flex-wrap: wrap;  list-style: none;">
+            <li *ngFor="let playlist of featuredPlaylists" class="featured_playlist_card_container">
+              <mat-card class="featured_playlist_card" (click)="routeToPlaylist(playlist?.id);"
+                        matTooltip="{{playlist?.description}}">
+                <mat-card-content class="featured_playlist_content">
+                  <img src="{{playlist?.imageUrl}}" width="125">
+                  <div fxLayout="column">
+                    <h1
+                      style="font-size: 15px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
+                      {{playlist?.name}}</h1>
+                  </div>
+                </mat-card-content>
+                <mat-card-footer class="featured_playlist_footer">
+                </mat-card-footer>
+              </mat-card>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div class="user_tracks_container">
 
         <div class="user_top_tracks_container">
@@ -103,7 +162,7 @@
             <table class="songlist">
               <tr *ngFor="let track of userTopTracks; let i = index" class="tracksData">
                 <td>{{i + 1}}</td>
-                <td><img src="{{track?.album.imageUrl}}" width="75"></td>
+                <td><img src="{{track?.album?.imageUrl}}" width="75"></td>
                 <td><p>{{track?.name}} <br>
                   <span style="font-size:12px;"
                         *ngFor="let item of track?.artistInfo | keyvalue">{{item?.value}} </span>
@@ -157,7 +216,7 @@
             <table class="songlist">
               <tr *ngFor="let track of userRecentTracks; let i = index" class="tracksData">
                 <td>{{i + 1}}</td>
-                <td><img src="{{track?.album.imageUrl}}" width="75"></td>
+                <td><img src="{{track?.album?.imageUrl}}" width="75"></td>
                 <td><p>{{track?.name}} <br>
                   <span style="font-size:12px;"
                         *ngFor="let item of track?.artistInfo | keyvalue">{{item?.value}} </span>
@@ -205,6 +264,33 @@
         </div>
       </div>
     </div>
+
+    <!--    <div *ngIf="showAllFeaturedPlaylists" class="featured_playlist_container">-->
+    <!--      <h1-->
+    <!--        style="font-size: 25px; margin-left: 1%; margin-top: .5%; display: flex; flex-direction: row; justify-content: space-between;">-->
+    <!--        Featured Playlists <span-->
+    <!--        style="font-size: 15px; color: #191970; margin-right: 1%;"-->
+    <!--        (click)="showAllFeaturedPlaylists = !showAllFeaturedPlaylists;"> Collapse</span></h1>-->
+    <!--      <div class="featured_playlist_table_container" *ngIf="featuredPlaylists else loading">-->
+    <!--        <ul style="display: flex; flex-wrap: wrap;  list-style: none;">-->
+    <!--          <li *ngFor="let playlist of featuredPlaylists" class="featured_playlist_card_container">-->
+    <!--            <mat-card class="featured_playlist_card" (click)="routeToPlaylist(playlist?.id);"-->
+    <!--                      matTooltip="{{playlist?.description}}">-->
+    <!--              <mat-card-content class="featured_playlist_content">-->
+    <!--                <img src="{{playlist?.imageUrl}}" width="125">-->
+    <!--                <div fxLayout="column">-->
+    <!--                  <h1-->
+    <!--                    style="font-size: 15px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">-->
+    <!--                    {{playlist?.name}}</h1>-->
+    <!--                </div>-->
+    <!--              </mat-card-content>-->
+    <!--              <mat-card-footer class="featured_playlist_footer">-->
+    <!--              </mat-card-footer>-->
+    <!--            </mat-card>-->
+    <!--          </li>-->
+    <!--        </ul>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
   </mat-drawer-content>
 </mat-drawer-container>

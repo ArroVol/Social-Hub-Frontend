@@ -33,7 +33,7 @@ export class SpotifySearchComponent implements OnInit {
   artistQueryResult: SpotifyArtist[];
   artistQuery: string;
   hideArtistSearchBar: boolean = false;
-
+  searchFavourites: Boolean[] = null;
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar) {
   }
@@ -83,6 +83,7 @@ export class SpotifySearchComponent implements OnInit {
         this._snackBar.openFromComponent(SpotifyAddplaylistSnackbarComponent, {
           duration: 3000,
         });
+        // this.processing = false;
       });
     }
   }
@@ -101,6 +102,39 @@ export class SpotifySearchComponent implements OnInit {
     return false;
   }
 
+  followTrack(track_id: string) {
+    this.spotifyService.followTrack(track_id).subscribe();
+    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
+      this.spotifyService.getTrackById(track_id).subscribe(track => {
+        sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify([track].concat(JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks")))));
+      });
+    }
+    this._snackBar.open('Song has been favourited!', '', {duration: 2000,});
+  }
+
+  unfollowTrack(track_id: string) {
+    this.spotifyService.unfollowTrack(track_id).subscribe();
+    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
+      let favouriteTracks = JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"));
+      favouriteTracks.forEach((track, index) => {
+        if (track.id == track_id) {
+          favouriteTracks.splice(index, 1);
+        }
+      });
+      sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(favouriteTracks));
+    }
+    this._snackBar.open('Song has been unfavourited!', '', {duration: 2000,});
+
+  }
+
+  async checkFollowedTrackByPromise(track_id: string[]) {
+    return this.spotifyService.checkFollowedTrackByPromise(track_id);
+  }
+
+  async getFavouritedTracks(track_ids: string[]) {
+    return this.spotifyService.checkFollowedTrack(track_ids).subscribe(result => console.log('favourited array', this.searchFavourites = result));
+  }
+
   openAddWarning(playlistId: string, track_uri: string) {
     this.dialog.open(SpotifyAddplaylistWarningComponent, {data: {accept: false}}).afterClosed().subscribe(value => {
       if (value.accept != null && value.accept == true) {
@@ -115,7 +149,7 @@ export class SpotifySearchComponent implements OnInit {
   }
 
   queryTrackByName(track_name: string) {
-    this.spotifyService.getTrackQuery(track_name).subscribe(resultingTrackList => this.trackQueryResult = resultingTrackList);
+    this.spotifyService.getTrackQuery(track_name).subscribe(async resultingTrackList => await this.getFavouritedTracks((this.trackQueryResult = resultingTrackList).map(track => track.id)));
   }
 
   queryArtistByName(artist_name: string) {

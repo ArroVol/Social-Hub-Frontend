@@ -43,6 +43,8 @@ export class SpotifyPlaylistComponent implements OnInit {
 
   spotifyPlaylistOwner: Observable<SpotifyUser>;
 
+
+
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar, public lc: NgZone) {
   }
 
@@ -87,6 +89,7 @@ export class SpotifyPlaylistComponent implements OnInit {
       });
     }
   }
+
   //
   // testFavourites(track_id: string) {
   //   let tracks = JSON.parse(sessionStorage.getItem('spotify_user_favourite_tracks'));
@@ -113,6 +116,8 @@ export class SpotifyPlaylistComponent implements OnInit {
     // this.spotifyService.getRecommendedTracks(track_ids).subscribe(tracks => this.recommendedTracks = tracks);
   }
 
+
+
   async getRecommendedTrackFavourites(track_ids: string[]) {
     let trackSet = new Set(track_ids);
     let index = 0;
@@ -124,10 +129,12 @@ export class SpotifyPlaylistComponent implements OnInit {
   }
 
   async getPlaylistTrackFavourites() {
-    let trackSet = new Set(this.spotifyPlaylist.tracks.map(track => track.id));
+    let trackSet = await new Set(await this.spotifyPlaylist.tracks.map(track => track.id));
     let index = 0;
-    this.spotifyService.checkFollowedTrack(Array.from(trackSet)).subscribe(value => {
-      trackSet.forEach(track_id => this.trackFavouritesMap.set(track_id, value[index++]));
+    await this.spotifyService.checkFollowedTrack(Array.from(trackSet)).subscribe(value => {
+      for (const track_id of trackSet) {
+        this.trackFavouritesMap.set(track_id, value[index++]);
+      }
     });
   }
 

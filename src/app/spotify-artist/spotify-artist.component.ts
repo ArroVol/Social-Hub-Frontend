@@ -219,18 +219,27 @@ export class SpotifyArtistComponent implements OnInit {
 
   followTrack(track_id: string) {
     this.spotifyService.followTrack(track_id).subscribe();
+    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
+      this.spotifyService.getTrackById(track_id).subscribe(track => {
+        sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify([track].concat(JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks")))));
+      });
+    }
     this._snackBar.open('Song has been favourited!', '', {duration: 2000,});
   }
 
   unfollowTrack(track_id: string) {
     this.spotifyService.unfollowTrack(track_id).subscribe();
+    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
+      let favouriteTracks = JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"));
+      favouriteTracks.forEach((track, index) => {
+        if (track.id == track_id) {
+          favouriteTracks.splice(index, 1);
+        }
+      });
+      sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(favouriteTracks));
+    }
     this._snackBar.open('Song has been unfavourited!', '', {duration: 2000,});
 
   }
-
-  hideloader() {
-    this.isShown = false;
-  }
-
 
 }

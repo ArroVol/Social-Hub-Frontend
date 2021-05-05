@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
@@ -20,6 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return (invalidCtrl || invalidParent);
   }
 }
+
 //user-data.ts
 // @ts-ignore
 export class UserData {
@@ -28,8 +29,10 @@ export class UserData {
     public email: string,
     public name: string,
     public password: string,
-    s: string){}
+    s: string) {
+  }
 }
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -63,9 +66,8 @@ export class ModalComponent implements OnInit {
   });
   validUserFields: boolean;
   nextForm: boolean;
-  authorizationLink: string;
+  spotifyAuthorizationLink: string;
   logged = false;
-
 
 
   // tslint:disable-next-line:variable-name
@@ -94,7 +96,7 @@ export class ModalComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
-
+    this.getSpotifyAuthorizationLink();
   }
 
   // When the user clicks the action button a.k.a. the logout button in the\
@@ -109,11 +111,11 @@ export class ModalComponent implements OnInit {
   closeModal() {
     this.dialogRef.close();
   }
-  omit_special_char(event)
-  {
+
+  omit_special_char(event) {
     var k;
     k = event.charCode;  //         k = event.keyCode;  (Both can be used)
-    return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
   }
 
   save(f: User, isValid: boolean) {
@@ -123,7 +125,7 @@ export class ModalComponent implements OnInit {
     let pass = group.controls.password.value;
     let confirmPass = group.controls.confirmPassword.value;
 
-    return pass === confirmPass ? null : { notSame: true };
+    return pass === confirmPass ? null : {notSame: true};
   }
 
   next(username: string, password: string, email: string) {
@@ -142,16 +144,16 @@ export class ModalComponent implements OnInit {
           .subscribe(emailTaken => {
             this.emailTaken = emailTaken;
             console.log('the boolean for email: ,' + emailTaken);
-            if (!this.usernameTaken && !this.emailTaken){
+            if (!this.usernameTaken && !this.emailTaken) {
               console.log('they arent taken...');
               this.validUserFields = true;
-            } else if (this.usernameTaken){
+            } else if (this.usernameTaken) {
               this.openSnackBar('username is taken');
             } else {
               this.openSnackBar('email is taken');
 
             }
-            if (this.validUserFields){
+            if (this.validUserFields) {
               this.goNext();
             }
 
@@ -162,9 +164,10 @@ export class ModalComponent implements OnInit {
     // this.newUser.userId = 1;
 
   }
-    goNext(){
+
+  goNext() {
     this.nextForm = true;
-    }
+  }
 
   openSnackBar(status: string) {
     this.snackBar.open(status, 'close', {
@@ -173,7 +176,7 @@ export class ModalComponent implements OnInit {
   }
 
   async delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   async signUp(username: string, password: string, email: string, stepper: MatStepper): Promise<void> {
@@ -193,15 +196,15 @@ export class ModalComponent implements OnInit {
           .subscribe(emailTaken => {
             this.emailTaken = emailTaken;
             console.log('the boolean for email: ,' + emailTaken);
-            if (!this.usernameTaken && !this.emailTaken){
+            if (!this.usernameTaken && !this.emailTaken) {
               console.log('they arent taken...');
               this.validUserFields = true;
 
               this.userService.attemptUserSave(this.newUser)
                 .subscribe(async newUser => {
                   this.newUser = newUser;
-                  if (this.newUser !== null){
-                      this.showMore = true;
+                  if (this.newUser !== null) {
+                    this.showMore = true;
 
                   }
                   console.log(' the user details returned: ');
@@ -239,7 +242,7 @@ export class ModalComponent implements OnInit {
 
                 });
 
-            } else if (this.usernameTaken){
+            } else if (this.usernameTaken) {
               this.openSnackBar('username is taken');
             } else {
               this.openSnackBar('email is taken');
@@ -251,7 +254,7 @@ export class ModalComponent implements OnInit {
 
   }
 
- async sendTwitterHandle(twitterHandle: string, stepper: MatHorizontalStepper) {
+  async sendTwitterHandle(twitterHandle: string, stepper: MatHorizontalStepper) {
     console.log('*************************');
     console.log('sending twitter data!!!!!!');
     this.twitterData = new TwitterData();
@@ -294,15 +297,15 @@ export class ModalComponent implements OnInit {
 
   }
 
-  getAuthorizationLink() {
+  getSpotifyAuthorizationLink() {
     this.spotifyService.getAuthorizationLink().subscribe(authorizationLink => {
-      this.authorizationLink = authorizationLink;
+      this.spotifyAuthorizationLink = authorizationLink;
     });
-    console.log('AuthorizationLink has been called');
-    console.log(this.authorizationLink);
   }
+
   redirectToAuthorizationPage() {
-    window.location.href = this.authorizationLink;
+    // window.location.href = this.authorizationLink;
+    window.open(this.spotifyAuthorizationLink, '_blank');
     this.logged = true;
   }
 

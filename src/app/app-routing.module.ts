@@ -29,7 +29,7 @@ import {SpotifyThrowawayRedirectComponent} from "./spotify-throwaway-redirect/sp
 
 const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: '/main', pathMatch: 'full'},
   {path: 'twitter', component: TwitterComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'facebook', component: FacebookComponent},

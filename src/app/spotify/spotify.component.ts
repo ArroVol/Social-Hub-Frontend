@@ -19,8 +19,6 @@ import {SpotifyPlaylistSnapshot} from "../model/spotify/SpotifyPlaylistSnapshot"
 })
 export class SpotifyComponent implements OnInit {
 
-  isShown: boolean = true;
-
   spotifyUser: SpotifyUser;
   spotifyUserPlaylist: SpotifyPlaylistSnapshot[];
 
@@ -30,6 +28,9 @@ export class SpotifyComponent implements OnInit {
   userRecentTracks: SpotifyTrack[];
 
   userFavouriteTracks: Map<string, Boolean> = new Map<string, Boolean>();
+
+  showAllFeaturedPlaylists: boolean = false;
+  showAllNewReleaseAlbums: boolean = false;
 
   constructor(private spotifyService: SpotifyService, private router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar) {
   }
@@ -258,9 +259,6 @@ export class SpotifyComponent implements OnInit {
     this.dialog.open(SpotifyCreatePlaylistComponent);
   }
 
-  hideloader() {
-    this.isShown = false;
-  }
 
   transform(input: string) {
     let minutes: string | number = Math.floor((parseInt(input) / (1000 * 60)) % 60);

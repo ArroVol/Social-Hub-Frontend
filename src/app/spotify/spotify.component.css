@@ -76,6 +76,7 @@
 
 .featured_playlist_card {
   margin-right: 5%;
+  margin-bottom: 5%;
   max-height: 162px;
 }
 
@@ -113,6 +114,7 @@
 
 .new_releases_card {
   margin-right: 5%;
+  margin-bottom: 5%;
   max-height: 172px;
 }
 
