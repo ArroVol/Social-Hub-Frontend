@@ -591,11 +591,11 @@
 <!--</div>-->
 <div>
   <mat-card class="spotify_snapshot">
-    <mat-card-header>
-      <img mat-card-avatar [src]="spotifyUser.imageUrl">
+    <mat-card-header *ngIf="spotifyUser else loading">
+      <img mat-card-avatar [src]="spotifyUser?.imageUrl">
       <mat-card-title>
         <div class="spotify_snapshot_header">
-          {{spotifyUser.displayName}}
+          {{spotifyUser?.displayName}}
           <!--        <button mat-button style="display: block;  margin-left: auto;"><span-->
           <!--          class="spotifyIcon"></span>-->
           <!--        </button>-->
@@ -607,20 +607,20 @@
     <mat-card-content>
       <mat-tab-group mat-align-tabs="center">
         <mat-tab label="Recently Played" class="spotify_recently_played_tab">
-          <table class="songlist">
+          <table class="songlist" *ngIf="spotifyUserRecentTracks else loading">
             <tr>
               <td *ngFor="let track of spotifyUserRecentTracks; let i = index;" class="tracksData">
                 <mat-card class="spotify_recent_tracks_card">
                   <mat-card-content class="spotify_recent_tracks_content">
-                    <img src="{{track.album.imageUrl}}" width="125">
+                    <img src="{{track?.album?.imageUrl}}" width="125">
                     <div fxLayout="column">
                       <h1
                         style="font-size: 16px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
-                        {{track.name}}</h1>
+                        {{track?.name}}</h1>
                       <h4
                         style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -25%;">
                       <span style="font-size:12px;"
-                            *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
+                            *ngFor="let item of track?.artistInfo | keyvalue">{{item?.value}} </span>
                       </h4>
                     </div>
                   </mat-card-content>
@@ -630,20 +630,20 @@
           </table>
         </mat-tab>
         <mat-tab label="Favourites" class="spotify_favourites_tab">
-          <table class="songlist">
+          <table class="songlist" *ngIf="spotifyUserFavouriteTracks else loading">
             <tr>
               <td *ngFor="let track of spotifyUserFavouriteTracks; let i = index;" class="tracksData">
                 <mat-card class="spotify_favourite_tracks_card">
                   <mat-card-content class="spotify_favourite_tracks_content">
-                    <img src="{{track.album.imageUrl}}" width="125">
+                    <img src="{{track?.album?.imageUrl}}" width="125">
                     <div fxLayout="column">
                       <h1
                         style="font-size: 16px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -6%;">
-                        {{track.name}}</h1>
+                        {{track?.name}}</h1>
                       <h4
                         style="font-size: 11px; white-space: nowrap; width: 120px; overflow: hidden; text-overflow: ellipsis; margin-top: -25%;">
                       <span style="font-size:12px;"
-                            *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
+                            *ngFor="let item of track?.artistInfo | keyvalue">{{item?.value}} </span>
                       </h4>
                     </div>
                   </mat-card-content>
@@ -662,4 +662,12 @@
     </mat-card-actions>
   </mat-card>
 </div>
+<div>
 
+</div>
+
+<ng-template #loading>
+  <mat-spinner fxLayout="column" fxLayoutAlign="center center"></mat-spinner>
+</ng-template>
+<!--background-color: #8ae9b3;-->
+<!--background-image: linear-gradient(315deg, #8ae9b3 0%, #c8d6e5 74%);-->

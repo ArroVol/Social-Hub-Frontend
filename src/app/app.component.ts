@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavbarService} from './service/navbar.service';
 import {TwitterService} from './service/twitter.service';
 import {BehaviorSubject} from 'rxjs';
@@ -16,13 +16,13 @@ import {AngularFirestore} from "@angular/fire/firestore";
  */
 export class AppComponent {
   //invoke the value changes to invoke and subscribe to an observable
-  todo = this.store.collection('todo').valueChanges({ idField: 'id'});
-  profileImages = this.store.collection('profileImages').valueChanges({ idField: 'id'});
-  onePostImages = this.store.collection('onePostImages').valueChanges({ idField: 'id'});
+  todo = this.store.collection('todo').valueChanges({idField: 'id'});
+  profileImages = this.store.collection('profileImages').valueChanges({idField: 'id'});
+  onePostImages = this.store.collection('onePostImages').valueChanges({idField: 'id'});
 
-  sideNav: Promise<string>|null = null;
+  sideNav: Promise<string> | null = null;
   displaySideNav = false;
-  private resolve: Function|null = null;
+  private resolve: Function | null = null;
 
   title = 'Social Hub Club';
   hide = false;
@@ -33,10 +33,12 @@ export class AppComponent {
   // loggedIn: string;
   loggedIn = false;
   loggedIn$ = new BehaviorSubject(this.loggedIn);
+  spotifyUserLoggedIn: boolean = false;
 
   constructor(private store: AngularFirestore) {
     this.reset();
   }
+
   reset() {
     this.displaySideNav = false;
     this.sideNav = new Promise<string>((resolve, reject) => {
@@ -52,7 +54,7 @@ export class AppComponent {
     // this.loggedIn = false;
     console.log('init..');
     console.log(window.location.href);
-    if (window.location.href === 'http://localhost:4200/main'){
+    if (window.location.href === 'http://localhost:4200/main') {
       console.log('we are on the main page');
       this.displaySideNav = false;
     }
@@ -66,6 +68,7 @@ export class AppComponent {
       console.log('user id not null');
       // this.loggedIn = 'true';
     }
+    sessionStorage.setItem('spotify_user_logged', '' + this.spotifyUserLoggedIn);
   }
 
   checkLogin() {
@@ -88,6 +91,15 @@ export class AppComponent {
     return this.loggedIn$.asObservable();
   }
 
+  getSpotifyUserLogin() {
+    return this.spotifyUserLoggedIn;
+  }
+
+  setSpotifyUserLogin(condition: boolean) {
+    this.spotifyUserLoggedIn = condition;
+    sessionStorage.setItem('spotify_user_logged', '' + condition);
+    console.log('current spotify user log status', this.spotifyUserLoggedIn);
+  }
 
 
 }

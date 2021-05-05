@@ -28,13 +28,8 @@
             <span style="font-size:16px; padding-left: 15px;">Create New</span>
           </a>
         </mat-nav-list>
-        <div *ngIf="isShown" class="d-flex justify-content-center">
-          <div class="spinner-border" role="status">
-            <span class="sr-only" id="loading"></span>
-          </div>
-        </div>
         <mat-nav-list>
-          <div style="height: 150px; overflow-y: auto;">
+          <div style="height: 150px; overflow-y: auto;" *ngIf="spotifyUserPlaylist else loading">
             <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
                (click)="routeToPlaylist(playlist.id)">
               {{ playlist?.name }} </a>

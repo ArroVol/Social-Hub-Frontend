@@ -2,9 +2,9 @@
   <mat-drawer mode="side" opened position="end">
     <div class="nav-bar">
       <div class="nav_user_info">
-        <img src="{{userProfile.imageUrl}}">
-        <h1 style="margin-top: -2%;">{{userProfile.displayName}}</h1>
-        <h4 style="margin-top: -10%;">{{userProfile.email}}</h4>
+        <img src="{{spotifyUser?.imageUrl}}">
+        <h1 style="margin-top: -2%;">{{spotifyUser?.displayName}}</h1>
+        <h4 style="margin-top: -10%;">{{spotifyUser?.email}}</h4>
       </div>
       <div>
         <mat-nav-list>
@@ -23,21 +23,16 @@
           </a>
           <br>
           <h1 style="text-align: center; font-size: 15px;">PLAYLIST</h1>
-          <a mat-list-item (click)="openDialog()" style="margin-top: -15%">
+          <a mat-list-item (click)="openDialog()">
             <mat-icon>library_add</mat-icon>
-            <span style="font-size:17px; padding-left: 15px;">Create New</span>
+            <span style="font-size:16px; padding-left: 15px;">Create New</span>
           </a>
         </mat-nav-list>
-        <div *ngIf="isShown" class="d-flex justify-content-center">
-          <div class="spinner-border" role="status">
-            <span class="sr-only" id="loading"></span>
-          </div>
-        </div>
         <mat-nav-list>
-          <div style="height: 150px; overflow-y: auto;">
+          <div style="height: 150px; overflow-y: auto;" *ngIf="spotifyUserPlaylist else loading">
             <a mat-list-item *ngFor="let playlist of spotifyUserPlaylist"
-               (click)="routeToPlaylist(playlist.id)">
-              {{ playlist.name }} </a>
+               (click)="routeToPlaylist(playlist?.id)">
+              {{ playlist?.name }} </a>
           </div>
         </mat-nav-list>
       </div>
@@ -48,7 +43,7 @@
     <div class="search_container">
       <div class="search_track">
         <div class="search_track_input" *ngIf="!hideTrackSearchBar">
-          <div class="search_track_searchbar" >
+          <div class="search_track_searchbar">
             <h2>Search for a Track
             </h2>
             <form>
@@ -59,22 +54,26 @@
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-form-field>
-              <button mat-raised-button color="primary"
-                      (click)="queryTrackByName(trackquery.value); hideArtistSearchBar = true;">
+              <button mat-raised-button disabled color="primary" *ngIf="!trackquery.value">
+                <mat-icon>search</mat-icon>
+              </button>
+              <button mat-raised-button color="primary" *ngIf="trackquery.value"
+                      (click)="trackQueryResult= null; queryTrackByName(trackquery.value); hideArtistSearchBar = true;">
                 <mat-icon>search</mat-icon>
               </button>
             </form>
           </div>
-          <div class="search_result_container" *ngIf="trackQueryResult!=null" style="height: 500px;">
-            <table class="search_result_table">
+          <div class="search_result_container" *ngIf="hideArtistSearchBar"
+               style="height: 500px;">
+            <table class="search_result_table" *ngIf="trackQueryResult else loading">
               <tr *ngFor="let track of trackQueryResult; let i = index">
                 <td>{{i + 1}}</td>
-                <td><img src="{{track.album.imageUrl}}" width="75"></td>
-                <td><p>{{track.name}} <br>
+                <td><img src="{{track?.album?.imageUrl}}" width="75"></td>
+                <td><p>{{track?.name}} <br>
                   <span style="font-size:12px;"
                         *ngFor="let item of track.artistInfo | keyvalue">{{item.value}} </span>
                 </p></td>
-                <td>{{track.album.name}}</td>
+                <td>{{track?.album.name}}</td>
                 <td>
                   <button mat-icon-button [matMenuTriggerFor]="menu"
                           aria-label="Example icon button with a vertical three dot icon">
@@ -82,8 +81,8 @@
                   </button>
                   <mat-menu #menu="matMenu">
                     <button mat-menu-item *ngFor="let playlist of spotifyUserPlaylist"
-                            (click)="addToPlaylist(playlist.id, track.spotifyUri)">
-                      {{playlist.name}}
+                            (click)="addToPlaylist(playlist?.id, track?.spotifyUri)">
+                      {{playlist?.name}}
                     </button>
                   </mat-menu>
                 </td>
@@ -95,20 +94,56 @@
       </div>
       <div class="search_artist">
         <div class="search_input" *ngIf="!hideArtistSearchBar">
-          <h2>Search for an Artist
-          </h2>
-          <form>
-            <mat-form-field class="search_input_field">
-              <input matInput placeholder="Search for artists..." #artistquery>
-              <button mat-button *ngIf="artistquery.value" matSuffix mat-icon-button aria-label="Clear"
-                      (click)="clearSearchQuery(); artistquery.value = '';">
-                <mat-icon>close</mat-icon>
+          <div class="search_track_searchbar">
+            <h2>Search for an Artist
+            </h2>
+            <form>
+              <mat-form-field class="search_input_field">
+                <input matInput placeholder="Search for artists..." #artistquery>
+                <button mat-button *ngIf="artistquery.value" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="clearSearchQuery(); artistquery.value = ''; hideTrackSearchBar = false;">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+              <button mat-raised-button disabled color="primary" *ngIf="!artistquery.value">
+                <mat-icon>search</mat-icon>
               </button>
-            </mat-form-field>
-            <button mat-raised-button color="primary">
-              <mat-icon>search</mat-icon>
-            </button>
-          </form>
+              <button mat-raised-button color="primary" *ngIf="artistquery.value"
+                      (click)="artistQueryResult = null; queryArtistByName(artistquery.value); hideTrackSearchBar = true;">
+                <mat-icon>search</mat-icon>
+              </button>
+            </form>
+          </div>
+          <div class="search_result_container" *ngIf="hideTrackSearchBar"
+               style="height: 500px;">
+            <table class="search_result_table" *ngIf="artistQueryResult else loading">
+              <tr>
+                <td><h1 style="font-size: 16px">#</h1></td>
+                <td></td>
+                <td><h1 style="font-size: 16px">Name</h1></td>
+                <td><h1 style="font-size: 16px">Followers</h1></td>
+              </tr>
+              <tr *ngFor="let artist of artistQueryResult; let i = index" class="search_artist_data"
+                  (click)="routeToArtist(artist?.id)">
+                <td>{{i + 1}}</td>
+                <td><img src="{{artist?.imageUrl}}" width="75"></td>
+                <td>{{artist?.name}}</td>
+                <td>{{artist?.followers|number}}</td>
+                <!--              <td>-->
+                <!--                <button mat-icon-button [matMenuTriggerFor]="artistQueryMenu"-->
+                <!--                        aria-label="Example icon button with a vertical three dot icon">-->
+                <!--                  <mat-icon>playlist_add</mat-icon>-->
+                <!--                </button>-->
+                <!--                <mat-menu #artistQueryMenu="matMenu">-->
+                <!--                  &lt;!&ndash;                  <button mat-menu-item *ngFor="let playlist of spotifyUserPlaylist"&ndash;&gt;-->
+                <!--                  &lt;!&ndash;                          (click)="addToPlaylist(playlist?.id, artist?.spotifyUri)">&ndash;&gt;-->
+                <!--                  &lt;!&ndash;                    {{playlist?.name}}&ndash;&gt;-->
+                <!--                  &lt;!&ndash;                  </button>&ndash;&gt;-->
+                <!--                </mat-menu>-->
+                <!--              </td>-->
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -116,4 +151,6 @@
 </mat-drawer-container>
 
 
-
+<ng-template #loading>
+  <mat-spinner fxLayout="column" fxLayoutAlign="center center"></mat-spinner>
+</ng-template>

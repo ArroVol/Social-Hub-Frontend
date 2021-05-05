@@ -55,10 +55,14 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserPlaylist() {
-    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
-      this.spotifyUserPlaylist = spotifyUserPlaylist;
-      this.hideloader();
-    });
+    if (JSON.parse(sessionStorage.getItem("spotify_user_playlists"))) {
+      this.spotifyUserPlaylist = JSON.parse(sessionStorage.getItem("spotify_user_playlists"));
+    } else {
+      this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
+        sessionStorage.setItem("spotify_user_playlists", JSON.stringify(spotifyUserPlaylist));
+        this.spotifyUserPlaylist = spotifyUserPlaylist;
+      });
+    }
   }
 
   getUserFavouriteTracks() {
@@ -70,7 +74,6 @@ export class SpotifyFavouritesComponent implements OnInit {
         sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(tracks));
         console.log(JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks")))
         this.favouriteTracks = tracks;
-
       });
     }
 
@@ -86,7 +89,6 @@ export class SpotifyFavouritesComponent implements OnInit {
         sessionStorage.setItem('spotify_user_favourite_artists', JSON.stringify(artists));
         console.log(JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists")))
         this.favouriteArtists = artists;
-
       });
     }
     // this.spotifyService.getUserFollowedArtists().subscribe(artists => this.favouriteArtists = artists);
@@ -110,6 +112,7 @@ export class SpotifyFavouritesComponent implements OnInit {
   unfollowTrack(id: string) {
     this.spotifyService.unfollowTrack(id).subscribe();
     this.removeFromSavedTracks(id);
+    // sessionStorage.setItem('spotify_user_favourite_tracks', "");
     this._snackBar.open('Song has been unfavourited!', '', {duration: 2000,});
   }
 

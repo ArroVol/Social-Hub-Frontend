@@ -9,7 +9,6 @@ import {AppRoutingModule} from './app-routing.module';
 // Non-Angular imports ex: bootstrap
 import {InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
 import {CarouselModule, IconsModule, LogoComponent} from 'angular-bootstrap-md';
-// import {PreloadersModule} from 'ng-uikit-pro-standard';
 import {MatCarousel, MatCarouselComponent} from '@ngbmodule/material-carousel';
 import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
 import {ModalModule} from 'angular-bootstrap-md';
@@ -78,7 +77,6 @@ import {SpotifyArtistComponent} from './spotify-artist/spotify-artist.component'
 import {SpotifyUpdatePlaylistComponent} from './spotify-update-playlist/spotify-update-playlist.component';
 import {SpotifyAddplaylistSnackbarComponent} from './spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
 import {SpotifyAddplaylistWarningComponent} from './spotify-addplaylist-warning/spotify-addplaylist-warning.component';
-import {SpotifyFollowedTracksComponent} from './spotify-followed-tracks/spotify-followed-tracks.component';
 import {SpotifySearchComponent} from './spotify-search/spotify-search.component';
 import {SpotifyFavouritesComponent} from './spotify-favourites/spotify-favourites.component';
 
@@ -154,7 +152,6 @@ import { SpotifyThrowawayRedirectComponent } from './spotify-throwaway-redirect/
     LoadingAnimationComponent,
     SpotifyAddplaylistSnackbarComponent,
     SpotifyAddplaylistWarningComponent,
-    SpotifyFollowedTracksComponent,
     ModalComponent,
     UpdateAccountComponent,
     ImageUploadComponent,

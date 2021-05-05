@@ -1,5 +1,5 @@
 // @ts-ignore
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {Channel} from '../model/youtube/Channel';
 import {YoutubeService} from '../service/youtube.service';
 import {InstagramService} from '../service/instagram.service';
@@ -27,6 +27,8 @@ import {SpotifyTrack} from "../model/spotify/SpotifyTrack";
  * The Class for the dashboard component.
  */
 export class DashboardComponent implements OnInit {
+  // @Output() spotifyUserLoginStatus = new EventEmitter();
+  @Input() spotifyUserLoginStatus: boolean;
   public showChanges = false;
   public showSearch = false;
   public buttonName: any = 'Change';
@@ -109,35 +111,56 @@ export class DashboardComponent implements OnInit {
     // this.getUserTimeline();
 
     this.initializeSpotifyFields();
-
   }
 
   // Spotify Methods
-  async initializeSpotifyFields() {
-    this.spotifyUser = await this.getSpotifyUser();
-    this.spotifyUserFavouriteTracks = await this.getSpotifyUserFavouriteTracks();
-    this.spotifyUserRecentTracks = await this.getSpotifyUserRecentTracks();
-    // console.log('Spotify User', this.spotifyUser);
-    // console.log('Spotify Favourites', this.spotifyUserFavouriteTracks);
-    // console.log('Spotify Recent', this.spotifyUserRecentTracks);
-    // if (this.spotifyUser != null && this.spotifyUserFavouriteTracks != null && this.spotifyUserRecentTracks != null) {
-    //   console.log('card status', this.spotifyCardHidden = false);
-    // }
-
-
-    // this.getSpotifyUserFavouriteTracks();
+  initializeSpotifyFields() {
+    this.getSpotifyUser();
+    this.getSpotifyUserFavouriteTracks();
+    this.getSpotifyUserRecentTracks();
   }
 
-  async getSpotifyUser(): Promise<SpotifyUser> {
-    return this.spotifyService.getUserProfilePromise();
+
+  getSpotifyUser() {
+    // console.log(sessionStorage.getItem('spotify_user_logged'));
+    console.log(this.spotifyUserLoginStatus);
+
+    if (JSON.parse(sessionStorage.getItem("spotify_user"))) {
+      this.spotifyUser = JSON.parse(sessionStorage.getItem("spotify_user"));
+    } else {
+      this.spotifyService.getUserProfile().subscribe(spotifyUser => {
+        sessionStorage.setItem("spotify_user", JSON.stringify(spotifyUser));
+        this.spotifyUser = spotifyUser;
+      });
+    }
   }
 
-  async getSpotifyUserRecentTracks() {
-    return this.spotifyService.getUserRecentTracksPromise();
+  getSpotifyUserRecentTracks() {
+    if (JSON.parse(sessionStorage.getItem("spotify_user_tracks_recent"))) {
+      console.log('spotify_user_tracks_recent session storage!', JSON.parse(sessionStorage.getItem("spotify_user_tracks_recent")));
+      this.spotifyUserRecentTracks = JSON.parse(sessionStorage.getItem("spotify_user_tracks_recent"));
+      // await this.getFavouritedRecentTracks(JSON.parse(sessionStorage.getItem("spotify_user_tracks_recent")).map(track => track?.id));
+    } else {
+      this.spotifyService.getUserRecentTracks().subscribe(async recentTracks => {
+        console.log('service call recent tracks', recentTracks);
+        sessionStorage.setItem('spotify_user_tracks_recent', JSON.stringify(recentTracks));
+        console.log('spotify_user_tracks_recent session storage!', JSON.parse(sessionStorage.getItem("spotify_user_tracks_recent")));
+        this.spotifyUserRecentTracks = recentTracks;
+        // await this.getFavouritedRecentTracks(recentTracks.map(track => track?.id));
+      });
+    }
   }
 
-  async getSpotifyUserFavouriteTracks() {
-    return this.spotifyService.getUserFollowedTracksPromise();
+  getSpotifyUserFavouriteTracks() {
+    if (JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"))) {
+      this.spotifyUserFavouriteTracks = JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"));
+    } else {
+      this.spotifyService.getUserFollowedTracks().subscribe(tracks => {
+        sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(tracks));
+        console.log(JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks")))
+        this.spotifyUserFavouriteTracks = tracks;
+      });
+    }
   }
 
 

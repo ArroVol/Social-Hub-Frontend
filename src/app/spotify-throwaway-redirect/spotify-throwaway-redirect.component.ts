@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-spotify-throwaway-redirect',
@@ -6,11 +6,14 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./spotify-throwaway-redirect.component.css']
 })
 export class SpotifyThrowawayRedirectComponent implements OnInit {
+  @Output() spotifyUserLogged = new EventEmitter<boolean>();
 
   constructor() {
   }
 
   ngOnInit(): void {
+    sessionStorage.setItem('spotify_user_logged', 'true');
+    this.spotifyUserLogged.emit(true);
     window.close();
   }
 

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {SpotifyService} from '../service/spotify.service';
-import {SpotifyArtist} from '../model/spotify/SpotifyArtist';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
 import {SpotifyPlaylist} from '../model/spotify/SpotifyPlaylist';
 import {Router, NavigationExtras} from '@angular/router';
@@ -12,7 +11,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
 import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
 import {SpotifyPlaylistSnapshot} from "../model/spotify/SpotifyPlaylistSnapshot";
-import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-spotify',
@@ -32,9 +30,6 @@ export class SpotifyComponent implements OnInit {
   userRecentTracks: SpotifyTrack[];
 
   userFavouriteTracks: Map<string, Boolean> = new Map<string, Boolean>();
-
-  //TODO: perhaps use a map for the recentTracksFavourites and the topTracksFavourites: key = track_id, value = boolean
-
 
   constructor(private spotifyService: SpotifyService, private router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar) {
   }
@@ -56,20 +51,22 @@ export class SpotifyComponent implements OnInit {
     } else {
       this.spotifyService.getUserProfile().subscribe(spotifyUser => {
         sessionStorage.setItem("spotify_user", JSON.stringify(spotifyUser));
-        console.log(sessionStorage.getItem("spotify_user"));
         this.spotifyUser = spotifyUser;
       });
     }
   }
 
   getUserPlaylist() {
-    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
-      this.spotifyUserPlaylist = spotifyUserPlaylist;
-      this.hideloader();
-    });
+    if (JSON.parse(sessionStorage.getItem("spotify_user_playlists"))) {
+      this.spotifyUserPlaylist = JSON.parse(sessionStorage.getItem("spotify_user_playlists"));
+    } else {
+      this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
+        sessionStorage.setItem("spotify_user_playlists", JSON.stringify(spotifyUserPlaylist));
+        this.spotifyUserPlaylist = spotifyUserPlaylist;
+      });
+    }
   }
 
-  //TODO: combine the bottom two methods into one method which sets a map. That prolly needs to be async and awaited in the parent caller
   async getFavouritedTracks(track_ids: string[]) {
     console.log('get favourited tracks', track_ids);
     let trackSet = new Set(track_ids);
@@ -148,9 +145,6 @@ export class SpotifyComponent implements OnInit {
       });
     }
   }
-
-  // TODO: create a unified get favouritedTracks method which initializes a map with both top and recent track favs
-  // TODO: Make the bottom two methods async and have them wait for the get favouritedTracks method
 
   // TODO: refactor once errythin is workin by making the methods async
 

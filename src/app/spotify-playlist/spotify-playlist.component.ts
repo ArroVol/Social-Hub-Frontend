@@ -67,10 +67,14 @@ export class SpotifyPlaylistComponent implements OnInit {
 
 
   getUserPlaylist() {
-    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
-      this.spotifyUserPlaylist = spotifyUserPlaylist;
-      this.hideloader();
-    });
+    if (JSON.parse(sessionStorage.getItem("spotify_user_playlists"))) {
+      this.spotifyUserPlaylist = JSON.parse(sessionStorage.getItem("spotify_user_playlists"));
+    } else {
+      this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
+        sessionStorage.setItem("spotify_user_playlists", JSON.stringify(spotifyUserPlaylist));
+        this.spotifyUserPlaylist = spotifyUserPlaylist;
+      });
+    }
   }
 
   getUserProfile() {

@@ -179,7 +179,7 @@
 
 .discography_container {
   background-color: #FFFFFF;
-  margin-top: 1%;
+  margin-top: .5%;
   margin-left: 1%;
   margin-right: 1%;
   border-radius: 5px;
@@ -192,6 +192,7 @@
   margin-top: 1%;
   margin-left: 1%;
   margin-right: 1%;
+  margin-bottom: 1%;
   border-radius: 5px;
   border: 2px solid snow;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -203,11 +204,14 @@
 
 .discography_card {
   margin-right: 5%;
-  /*max-height: 200px;*/
+  margin-bottom: 5%;
+  max-height: 200px;
 }
 
 .related_artists_card {
   margin-right: 5%;
+  margin-bottom: 3%;
+  max-height: 220px;
 }
 
 .related_artists_card:hover {
@@ -233,13 +237,17 @@
   width: 95%;
   overflow-x: auto;
   margin-left: 2.5%;
+  overflow-y: hidden;
+  margin-bottom: .5%;
+
 }
 
 .related_artists_table_container {
   width: 95%;
   overflow-x: auto;
   margin-left: 2.5%;
-
+  overflow-y: hidden;
+  margin-bottom: .5%;
 }
 
 .discography_card_album_details {
@@ -249,13 +257,25 @@
   text-overflow: ellipsis;
 }
 
-.related_artists_card_details {
-  white-space: nowrap;
-  width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.related_artists_card_all {
+  margin-right: 5%;
+  margin-bottom: 5%;
+  max-height: 220px;
 }
 
+.related_artists_card_all:hover {
+  background-color: slategray;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.related_artists_table_container_all {
+  width: 98%;
+  overflow-x: auto;
+  margin-left: 1%;
+  margin-right: 1%;
+  overflow-y: hidden;
+  margin-bottom: .5%;
+}
 
 
 

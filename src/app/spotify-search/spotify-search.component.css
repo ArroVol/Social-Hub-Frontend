@@ -106,11 +106,7 @@
 
 .search_track_input {
   width: 100%;
-  /*display: flex;*/
-  /*justify-content: center;*/
-  /*align-content: center;*/
-  /*flex-direction: column;*/
-  /*background-color: #3498db;*/
+
 }
 
 .search_track {
@@ -121,10 +117,29 @@
   /*background-color: #6f42c1;*/
 }
 
+.search_artist {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
 .search_track_searchbar {
   margin-left: 40%;
 }
 
+.search_track_searchbar {
+  margin-left: 40%;
+}
+
+.search_artist_data:hover {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
 
 /*.search_input {*/
 /*  display: flex;*/

@@ -18,7 +18,7 @@
 </mat-toolbar>
 
 
-<mat-sidenav-container  class="example-container">
+<mat-sidenav-container class="example-container">
   <mat-toolbar color="primary">
     <div style="display: flex; justify-content: space-around">
       <mat-toolbar-row>
@@ -50,7 +50,7 @@
             <span class="dashboardIcon"></span>
             Dashboard
           </button>
-            <mat-menu #menuUser="matMenu">
+          <mat-menu #menuUser="matMenu">
             <button mat-menu-item><a routerLink="/login-page">log in page</a></button>
             <button mat-menu-item><a routerLink="/account-information">Account information</a></button>
             <button mat-menu-item><a routerLink="/about">about</a></button>
@@ -72,7 +72,7 @@
           </button>
           <mat-menu #menuInsta="matMenu">
             <button mat-menu-item><a routerLink="/instagram">Instagram Profile</a></button>
-<!--            <button mat-menu-item><a routerLink="/instagram-search">Instagram User Search</a></button>-->
+            <!--            <button mat-menu-item><a routerLink="/instagram-search">Instagram User Search</a></button>-->
           </mat-menu>
         </li>
         <!--        <li><a routerLink="/instagram">Instagram</a></li>-->
@@ -90,9 +90,10 @@
         <li>
           <button class="YTMenuButton" mat-button routerLink="/youtube"><span class="ytIcon"></span> YouTube</button>
         </li>
-                <li>
-                  <button class="onePageMenuButton" mat-button routerLink="/one-post"><span class="ytIcon2"></span> One Page</button>
-                </li>
+        <li>
+          <button class="onePageMenuButton" mat-button routerLink="/one-post"><span class="ytIcon2"></span> One Page
+          </button>
+        </li>
         <li>
           <button class="onePageMenuButton" mat-button routerLink="/image"><span class="ytIcon2"></span> Images</button>
         </li>
@@ -110,3 +111,5 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<app-spotify-throwaway-redirect (spotifyUserLogged)="setSpotifyUserLogin($event)"></app-spotify-throwaway-redirect>
+<!--<app-dashboard [spotifyUserLoginStatus]="getSpotifyUserLogin()"></app-dashboard>-->

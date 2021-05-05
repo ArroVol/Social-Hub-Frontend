@@ -10,6 +10,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SpotifyCreatePlaylistComponent} from "../spotify-create-playlist/spotify-create-playlist.component";
 import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
 import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
+import {SpotifyPlaylistSnapshot} from "../model/spotify/SpotifyPlaylistSnapshot";
+import {SpotifyArtist} from "../model/spotify/SpotifyArtist";
 
 @Component({
   selector: 'app-spotify-search',
@@ -18,8 +20,8 @@ import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning
 })
 export class SpotifySearchComponent implements OnInit {
 
-  spotifyUserPlaylist: SpotifyPlaylist[];
-  userProfile: SpotifyUser;
+  spotifyUserPlaylist: SpotifyPlaylistSnapshot[];
+  spotifyUser: SpotifyUser;
   isShown: boolean = true;
 
   trackSearchGroup: FormGroup;
@@ -27,6 +29,8 @@ export class SpotifySearchComponent implements OnInit {
   trackQuery: string;
   hideTrackSearchBar: boolean = false;
 
+  artistSearchGroup: FormGroup;
+  artistQueryResult: SpotifyArtist[];
   artistQuery: string;
   hideArtistSearchBar: boolean = false;
 
@@ -40,17 +44,32 @@ export class SpotifySearchComponent implements OnInit {
     this.trackSearchGroup = new FormGroup({
       'track_name': new FormControl(null, Validators.minLength(1))
     });
-  }
-
-  getUserPlaylist() {
-    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
-      this.spotifyUserPlaylist = spotifyUserPlaylist;
-      this.hideloader();
+    this.artistSearchGroup = new FormGroup({
+      'track_name': new FormControl(null, Validators.minLength(1))
     });
   }
 
   getUserProfile() {
-    this.spotifyService.getUserProfile().subscribe(userProfile => this.userProfile = userProfile);
+    if (JSON.parse(sessionStorage.getItem("spotify_user"))) {
+      this.spotifyUser = JSON.parse(sessionStorage.getItem("spotify_user"));
+    } else {
+      this.spotifyService.getUserProfile().subscribe(spotifyUser => {
+        sessionStorage.setItem("spotify_user", JSON.stringify(spotifyUser));
+        console.log(sessionStorage.getItem("spotify_user"));
+        this.spotifyUser = spotifyUser;
+      });
+    }
+  }
+
+  getUserPlaylist() {
+    if (JSON.parse(sessionStorage.getItem("spotify_user_playlists"))) {
+      this.spotifyUserPlaylist = JSON.parse(sessionStorage.getItem("spotify_user_playlists"));
+    } else {
+      this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
+        sessionStorage.setItem("spotify_user_playlists", JSON.stringify(spotifyUserPlaylist));
+        this.spotifyUserPlaylist = spotifyUserPlaylist;
+      });
+    }
   }
 
   async addToPlaylist(playlistId: string, track_uri: string) {
@@ -96,24 +115,17 @@ export class SpotifySearchComponent implements OnInit {
   }
 
   queryTrackByName(track_name: string) {
-    //
-    // this.timeout = window.setTimeout(() => {
-    //   this.timeout = null;
-    //   this.lc.run(() => this.spotifyService.getTrackQuery(track_name).subscribe(resultingTrackList => this.trackQueryResult = resultingTrackList));
-    // },1000);
-
     this.spotifyService.getTrackQuery(track_name).subscribe(resultingTrackList => this.trackQueryResult = resultingTrackList);
+  }
+
+  queryArtistByName(artist_name: string) {
+    this.spotifyService.getArtistQuery(artist_name).subscribe(artistResult => this.artistQueryResult = artistResult);
   }
 
   clearSearchQuery() {
     this.trackQuery = "";
     this.artistQuery = "";
     this.trackQueryResult = null;
-
-  }
-
-  hideloader() {
-    this.isShown = false;
   }
 
   openDialog() {
@@ -129,6 +141,17 @@ export class SpotifySearchComponent implements OnInit {
       }
     };
     this.router.navigate(['spotify/playlist'], navigationExtras);
+  }
+
+  routeToArtist(artist_id: string) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: artist_id
+      }
+    };
+    this.router.navigate(['spotify/artist'], navigationExtras);
   }
 
 }

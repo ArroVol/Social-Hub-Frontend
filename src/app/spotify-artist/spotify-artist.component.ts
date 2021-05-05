@@ -13,6 +13,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
 import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {SpotifyPlaylistSnapshot} from "../model/spotify/SpotifyPlaylistSnapshot";
 
 @Component({
   selector: 'app-spotify-artist',
@@ -22,8 +23,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 export class SpotifyArtistComponent implements OnInit {
 
   @ViewChild(MatAccordion) artistAccordion: MatAccordion;
-  spotifyUserPlaylist: SpotifyPlaylist[];
-  userProfile: SpotifyUser;
+  spotifyUserPlaylist: SpotifyPlaylistSnapshot[];
+  spotifyUser: SpotifyUser;
   spotifyArtist: SpotifyArtist;
   artistAlbums: SpotifyAlbum[];
   artistTopTracks: SpotifyTrack[];
@@ -33,6 +34,8 @@ export class SpotifyArtistComponent implements OnInit {
   isShown: boolean = true;
   tempSpotifyPlaylist: SpotifyPlaylist;
   followed: boolean;
+  relatedArtistShowAll: boolean = false;
+  discographyShowAll: boolean = false;
 
 
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar) {
@@ -57,10 +60,10 @@ export class SpotifyArtistComponent implements OnInit {
   }
 
   getArtistTopTracks(artist_id: string) {
-    this.spotifyService.getArtistTopTracks(artist_id).subscribe(spotifyTracks => {
+    this.spotifyService.getArtistTopTracks(artist_id).subscribe(async spotifyTracks => {
       this.artistTopTracks = spotifyTracks;
       console.log('spotifyTracks', spotifyTracks);
-      this.getFavouritedTracks(spotifyTracks.map(track => track.id));
+      await this.getFavouritedTracks(spotifyTracks.map(track => track.id));
     });
 
     // await this.getFavouritedTracks(this.artistTopTracks.);
@@ -70,28 +73,35 @@ export class SpotifyArtistComponent implements OnInit {
   getArtistById(artist_id: string) {
     this.spotifyService.getArtistById(artist_id).subscribe(spotifyArtist => {
       this.spotifyArtist = spotifyArtist;
-      console.log('spotifyArtist', spotifyArtist);
     });
   }
 
   getArtistAlbums(artist_id: string) {
     this.spotifyService.getArtistAlbums(artist_id).subscribe(artistAlbums => {
       this.artistAlbums = artistAlbums;
-      console.log('artistAlbums', artistAlbums);
     });
   }
 
   getUserPlaylist() {
-    this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
-      this.spotifyUserPlaylist = spotifyUserPlaylist;
-      this.hideloader();
-    });
+    if (JSON.parse(sessionStorage.getItem("spotify_user_playlists"))) {
+      this.spotifyUserPlaylist = JSON.parse(sessionStorage.getItem("spotify_user_playlists"));
+    } else {
+      this.spotifyService.getUserPlaylist().subscribe(spotifyUserPlaylist => {
+        sessionStorage.setItem("spotify_user_playlists", JSON.stringify(spotifyUserPlaylist));
+        this.spotifyUserPlaylist = spotifyUserPlaylist;
+      });
+    }
   }
 
   getUserProfile() {
-    this.spotifyService.getUserProfile().subscribe(userProfile =>
-      this.userProfile = userProfile
-    );
+    if (JSON.parse(sessionStorage.getItem("spotify_user"))) {
+      this.spotifyUser = JSON.parse(sessionStorage.getItem("spotify_user"));
+    } else {
+      this.spotifyService.getUserProfile().subscribe(spotifyUser => {
+        sessionStorage.setItem("spotify_user", JSON.stringify(spotifyUser));
+        this.spotifyUser = spotifyUser;
+      });
+    }
   }
 
   routeToPlaylist(playlistId: string) {
@@ -171,16 +181,26 @@ export class SpotifyArtistComponent implements OnInit {
   }
 
   followArtist() {
-    console.log('Inside FOllow Artist');
-    this.spotifyService.followArtist(this.spotifyArtist.id).subscribe(result => console.log('followArtist', result));
+    this.spotifyService.followArtist(this.spotifyArtist.id).subscribe();
     this.followed = true;
+    if (JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists"))) {
+      sessionStorage.setItem('spotify_user_favourite_artists', JSON.stringify([this.spotifyArtist].concat(JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists")))));
+    }
     this._snackBar.open(this.spotifyArtist.name + " has been followed!", '', {duration: 2000,});
   }
 
   unfollowArtist() {
-    console.log('Inside unfollow Artist');
-    this.spotifyService.unfollowArtist(this.spotifyArtist.id).subscribe(result => console.log('unfollowArtist', result));
+    this.spotifyService.unfollowArtist(this.spotifyArtist.id).subscribe();
     this.followed = false;
+    if (sessionStorage.getItem("spotify_user_favourite_artists") != null) {
+      let favouriteArtists = JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists"));
+      favouriteArtists.forEach((artist, index) => {
+        if (artist.id == this.spotifyArtist.id) {
+          favouriteArtists.splice(index, 1);
+        }
+      });
+      sessionStorage.setItem('spotify_user_favourite_artists', JSON.stringify(favouriteArtists));
+    }
     this._snackBar.open(this.spotifyArtist.name + " has been unfollowed!", '', {duration: 2000,});
   }
 
@@ -193,25 +213,9 @@ export class SpotifyArtistComponent implements OnInit {
     return this.spotifyService.checkFollowedTrackByPromise(track_id);
   }
 
-  getFavouritedTracks(track_ids: string[]) {
+  async getFavouritedTracks(track_ids: string[]) {
     return this.spotifyService.checkFollowedTrack(track_ids).subscribe(result => console.log('favourited array', this.artistTopTracksFavourites = result));
-    // console.log('favourited array', this.artistTopTracksFavourites);
   }
-
-  // checkFollowedTrack(track_id: string) {
-  //   let flag = false;
-  //   this.spotifyService.checkFollowedTrack(track_id).subscribe(result => flag = result.valueOf());
-  //   return flag;
-  // }
-
-  // async followTrackRequest(track_id: string[]) {
-  //   let flag = await this.checkFollowedTrackByPromise(track_id);
-  //   if (flag) {
-  //     this.unfollowTrack(track_id);
-  //   } else {
-  //     this.followTrack(track_id);
-  //   }
-  // }
 
   followTrack(track_id: string) {
     this.spotifyService.followTrack(track_id).subscribe();
@@ -223,7 +227,6 @@ export class SpotifyArtistComponent implements OnInit {
     this._snackBar.open('Song has been unfavourited!', '', {duration: 2000,});
 
   }
-
 
   hideloader() {
     this.isShown = false;
