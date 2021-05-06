@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {SpotifyUser} from "../model/spotify/SpotifyUser";
-import {SpotifyPlaylist} from "../model/spotify/SpotifyPlaylist";
-import {SpotifyService} from "../service/spotify.service";
-import {NavigationExtras, Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {SpotifyCreatePlaylistComponent} from "../spotify-create-playlist/spotify-create-playlist.component";
-import {SpotifyTrack} from "../model/spotify/SpotifyTrack";
-import {SpotifyArtist} from "../model/spotify/SpotifyArtist";
-import {SpotifyAlbum} from "../model/spotify/SpotifyAlbum";
-import {SpotifyAddplaylistSnackbarComponent} from "../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
-import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning/spotify-addplaylist-warning.component";
+import {SpotifyUser} from '../model/spotify/SpotifyUser';
+import {SpotifyPlaylist} from '../model/spotify/SpotifyPlaylist';
+import {SpotifyService} from '../service/spotify.service';
+import {NavigationExtras, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SpotifyCreatePlaylistComponent} from '../spotify-create-playlist/spotify-create-playlist.component';
+import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
+import {SpotifyArtist} from '../model/spotify/SpotifyArtist';
+import {SpotifyAlbum} from '../model/spotify/SpotifyAlbum';
+import {SpotifyAddplaylistSnackbarComponent} from '../spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
+import {SpotifyAddplaylistWarningComponent} from '../spotify-addplaylist-warning/spotify-addplaylist-warning.component';
 
 @Component({
   selector: 'app-spotify-favourites',
@@ -18,7 +18,7 @@ import {SpotifyAddplaylistWarningComponent} from "../spotify-addplaylist-warning
   styleUrls: ['./spotify-favourites.component.css']
 })
 export class SpotifyFavouritesComponent implements OnInit {
-  isShown: boolean = true;
+  isShown = true;
 
   spotifyUser: SpotifyUser;
   spotifyUserPlaylist: SpotifyPlaylist[];
@@ -27,9 +27,9 @@ export class SpotifyFavouritesComponent implements OnInit {
   favouriteArtists: SpotifyArtist[];
   favouriteAlbums: SpotifyAlbum[];
 
-  showAllTracks: boolean = false;
-  showAllArtists: boolean = false;
-  showAllAlbums: boolean = false;
+  showAllTracks = false;
+  showAllArtists = false;
+  showAllAlbums = false;
 
   constructor(private spotifyService: SpotifyService, private router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar) {
   }
@@ -43,11 +43,11 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserProfile() {
-    if (sessionStorage.getItem("spotify_user") != null) {
-      this.spotifyUser = JSON.parse(sessionStorage.getItem("spotify_user"));
+    if (sessionStorage.getItem('spotify_user') != null) {
+      this.spotifyUser = JSON.parse(sessionStorage.getItem('spotify_user'));
     } else {
       this.spotifyService.getUserProfile().subscribe(spotifyUser => {
-        sessionStorage.setItem("spotify_user", JSON.stringify(spotifyUser));
+        sessionStorage.setItem('spotify_user', JSON.stringify(spotifyUser));
         this.spotifyUser = spotifyUser;
       });
     }
@@ -61,8 +61,8 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserFavouriteTracks() {
-    if (sessionStorage.getItem("spotify_user_favourite_tracks") != null) {
-      this.favouriteTracks = JSON.parse(sessionStorage.getItem("spotify_user_favourite_tracks"));
+    if (sessionStorage.getItem('spotify_user_favourite_tracks') != null) {
+      this.favouriteTracks = JSON.parse(sessionStorage.getItem('spotify_user_favourite_tracks'));
     } else {
       this.spotifyService.getUserFollowedTracks().subscribe(tracks => {
         sessionStorage.setItem('spotify_user_favourite_tracks', JSON.stringify(tracks));
@@ -75,8 +75,8 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserFavouriteArtists() {
-    if (sessionStorage.getItem("spotify_user_favourite_artists") != null) {
-      this.favouriteArtists = JSON.parse(sessionStorage.getItem("spotify_user_favourite_artists"));
+    if (sessionStorage.getItem('spotify_user_favourite_artists') != null) {
+      this.favouriteArtists = JSON.parse(sessionStorage.getItem('spotify_user_favourite_artists'));
     } else {
       this.spotifyService.getUserFollowedArtists().subscribe(artists => {
         sessionStorage.setItem('spotify_user_favourite_artists', JSON.stringify(artists));
@@ -88,8 +88,8 @@ export class SpotifyFavouritesComponent implements OnInit {
   }
 
   getUserFavouriteAlbums() {
-    if (sessionStorage.getItem("spotify_user_favourite_albums") != null) {
-      this.favouriteAlbums = JSON.parse(sessionStorage.getItem("spotify_user_favourite_albums"));
+    if (sessionStorage.getItem('spotify_user_favourite_albums') != null) {
+      this.favouriteAlbums = JSON.parse(sessionStorage.getItem('spotify_user_favourite_albums'));
     } else {
       this.spotifyService.getUserFollowedAlbums().subscribe(albums => {
         sessionStorage.setItem('spotify_user_favourite_albums', JSON.stringify(albums));
@@ -103,7 +103,7 @@ export class SpotifyFavouritesComponent implements OnInit {
   unfollowTrack(id: string) {
     this.spotifyService.unfollowTrack(id).subscribe();
     this.removeFromSavedTracks(id);
-    this._snackBar.open('Song has been unfavourited!', '', {duration: 2000,});
+    this._snackBar.open('Song has been unfavourited!', '', {duration: 2000, });
   }
 
   removeFromSavedTracks(id: string) {
@@ -118,7 +118,7 @@ export class SpotifyFavouritesComponent implements OnInit {
   unfollowArtist(id: string) {
     this.spotifyService.unfollowArtist(id).subscribe();
     this.removeFromSavedArtists(id);
-    this._snackBar.open('Artist has been unfavourited!', '', {duration: 2000,});
+    this._snackBar.open('Artist has been unfavourited!', '', {duration: 2000, });
   }
 
   removeFromSavedArtists(id: string) {
@@ -205,7 +205,7 @@ export class SpotifyFavouritesComponent implements OnInit {
 
         });
       }
-    })
+    });
   }
 
 

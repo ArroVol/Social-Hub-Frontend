@@ -12,7 +12,6 @@
 </head>
 <div  *ngIf="isVisibleSpinner" >
   <mat-spinner color="accent" strokeWidth="2" [diameter]="100" style="width: 200px; height: 200px; margin-left: 45%;"></mat-spinner>
-  <img class="spinnerImg" src="https://cdn.discordapp.com/attachments/801155090059755593/805973372269887548/piclogo.png" >
 </div>
 <div *ngIf="this.isVisible">
 <body id="page-top">
@@ -96,13 +95,13 @@
       <div>
 <!--        <mdb-carousel  class="carousel slide carousel-fade"  [animation]="'fade'">-->
 
-            <carousel arrowsTheme="dark" overflowCellsLimit="1" [height]="500" [cellWidth]="400">
+            <carousel arrowsTheme="dark" overflowCellsLimit="1" [height]="700" [cellWidth]="500">
               <div class="carousel-cell" *ngFor='let in of counter(this.instagramUser.mediaCount) ;let i = index'>
                 <mat-card class="example-card headerImage">
 
                   <mat-card-content>
                     <div class="container">
-                    <img style="width: 350px; height: 350px; display: block;"  alt="First Slide"
+                    <img style="width: 450px; height: 550px; display: block;"  alt="First Slide"
                          [src]="getImageByte(i)" >
                       <div class="overlay">
                          <h2 class="likes"><span style="padding-right: 5px" class="material-icons">favorite</span> {{instagramUser.imageFeedLikes[i]}}</h2>

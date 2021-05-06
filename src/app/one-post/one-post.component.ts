@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import {TwitterService} from "../service/twitter.service";
-import {SecureTwitter} from "../model/twitter/SecureTwitter";
-import {Tweet} from "../model/twitter/Tweet";
+import {TwitterService} from '../service/twitter.service';
+import {SecureTwitter} from '../model/twitter/SecureTwitter';
+import {Tweet} from '../model/twitter/Tweet';
 import {ThemePalette} from '@angular/material/core';
 import {FormBuilder, FormGroup, FormArray, FormControl, Validators, FormGroupDirective, NgForm} from '@angular/forms';
-import {UserService} from "../service/user.service";
-import {SimpleFormComponent} from "../simple-form/simple-form.component";
-import {User} from "../model/user/User";
-import {Observable} from "rxjs";
-import {ImageService} from "../service/image.service";
+import {UserService} from '../service/user.service';
+import {SimpleFormComponent} from '../simple-form/simple-form.component';
+import {User} from '../model/user/User';
+import {Observable} from 'rxjs';
+import {ImageService} from '../service/image.service';
 import {HttpClient, HttpEventType, HttpHeaders, HttpRequest} from '@angular/common/http';
-import {NgxDropzoneChangeEvent} from "ngx-dropzone";
-import {FileUploader} from "ng2-file-upload";
-import {ObjectHolder} from "../model/Image/object-holder";
-import {OnePostService} from "../service/one-posts/service";
-import {OnePosts} from "../model/user/OnePosts";
+import {NgxDropzoneChangeEvent} from 'ngx-dropzone';
+import {FileUploader} from 'ng2-file-upload';
+import {ObjectHolder} from '../model/Image/object-holder';
+import {OnePostService} from '../service/one-posts/service';
+import {OnePosts} from '../model/user/OnePosts';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {AngularFireStorage, AngularFireStorageModule} from "@angular/fire/storage";
-import { finalize } from "rxjs/operators"
-import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
-import * as events from "events";
+import {AngularFireStorage, AngularFireStorageModule} from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
+import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import * as events from 'events';
 
 const headers = new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json' });
@@ -31,8 +31,8 @@ export interface Task {
   subtasks?: Task[];
 }
 class ImageSnippet {
-  pending: boolean = false;
-  status: string = 'init';
+  pending = false;
+  status = 'init';
 
   constructor(public src: string, public file: File,
               public snackBar: MatSnackBar,
@@ -44,6 +44,23 @@ class ImageSnippet {
   styleUrls: ['./one-post.component.css']
 })
 export class OnePostComponent implements OnInit {
+
+  // selectedFile: ImageSnippet;
+  constructor(private twitterService: TwitterService,
+              private fb: FormBuilder,
+              private userService: UserService,
+              private imageService: ImageService,
+              private http: HttpClient,
+              private onePostService: OnePostService,
+              public snackBar: MatSnackBar,
+              private storage: AngularFireStorage,
+              private firebase: AngularFireDatabase
+  ) {
+    this.form = this.fb.group({
+      textInput: '',
+      checkArray: this.fb.array([])
+    });
+  }
   // public uploader:FileUploader = new FileUploader({
   //   isHTML5: true
   // });
@@ -131,31 +148,20 @@ export class OnePostComponent implements OnInit {
     textContent: '',
     socialMedia: '',
     imageUrl: ''
-  })
+  });
 
   form2 = new FormGroup({
     userId: new FormControl(sessionStorage.getItem('userId')),
     textContent: new FormControl(''),
     socialMedia: new FormControl(''),
     imageUrl: new FormControl('')
-  })
+  });
 
-  // selectedFile: ImageSnippet;
-  constructor(private twitterService: TwitterService,
-              private fb: FormBuilder,
-              private userService: UserService,
-              private imageService: ImageService,
-              private http: HttpClient,
-              private onePostService: OnePostService,
-              public snackBar: MatSnackBar,
-              private storage: AngularFireStorage,
-              private firebase: AngularFireDatabase
-  ) {
-    this.form = this.fb.group({
-      textInput: '',
-      checkArray: this.fb.array([])
-    })
-  }
+
+  allComplete = false;
+  name = 'Angular';
+  resetCheckBox = false;
+  isChecked = false;
 
 
 
@@ -163,7 +169,7 @@ export class OnePostComponent implements OnInit {
     for (let i = 0; i < this.uploader.queue.length; i++) {
       let fileItem = this.uploader.queue[i]._file;
       if (fileItem.size > 10000000) {
-        alert("Each File should be less than 10 MB of size.");
+        alert('Each File should be less than 10 MB of size.');
         return;
       }
     }
@@ -217,9 +223,6 @@ export class OnePostComponent implements OnInit {
       });
   }
 
-
-  allComplete: boolean = false;
-
   updateAllComplete() {
     this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
   }
@@ -251,7 +254,7 @@ export class OnePostComponent implements OnInit {
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
     } else {
-      let i: number = 0;
+      let i = 0;
       checkArray.controls.forEach((item: FormControl) => {
         if (item.value == e.target.value) {
           checkArray.removeAt(i);
@@ -279,7 +282,7 @@ export class OnePostComponent implements OnInit {
 
     //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
     const uploadImageData = new FormData();
-    uploadImageData.append("imageFile", this.files[0]);
+    uploadImageData.append('imageFile', this.files[0]);
 
 
 
@@ -344,12 +347,12 @@ export class OnePostComponent implements OnInit {
   }
 
   checkCheckBox2($event: MouseEvent, name) {
-    var checkBox = document.getElementsByClassName("example-margin")[0];
-    checkBox.classList.toggle("pressed");
-    checkBox.classList.toggle("clicked");
-    checkBox.classList.toggle("checked");
-    var button = document.getElementsByClassName("btn btn-success")[0];
-    button.classList.toggle("clicked");
+    var checkBox = document.getElementsByClassName('example-margin')[0];
+    checkBox.classList.toggle('pressed');
+    checkBox.classList.toggle('clicked');
+    checkBox.classList.toggle('checked');
+    var button = document.getElementsByClassName('btn btn-success')[0];
+    button.classList.toggle('clicked');
   }
 
   getUsersOnePosts(userId: number) {
@@ -357,7 +360,7 @@ export class OnePostComponent implements OnInit {
       .subscribe(onePosts => {
         this.usersOnePosts = onePosts;
 
-        if(this.usersOnePosts !== null) {
+        if (this.usersOnePosts !== null) {
           for (let i = 0; i < onePosts.length; i++) {
           }
         }
@@ -377,45 +380,45 @@ export class OnePostComponent implements OnInit {
 
 
 
-      const url = `${this.url}/one-posts/save/form-data/text-only`;
+    const url = `${this.url}/one-posts/save/form-data/text-only`;
 
 
-      const data: FormData = new FormData();
-      data.append('file', this.file);
-      data.append('textContent', textContent);
-      data.append('socialMedia', this.socialMedia);
-      data.append('userId', sessionStorage.getItem('userId'));
+    const data: FormData = new FormData();
+    data.append('file', this.file);
+    data.append('textContent', textContent);
+    data.append('socialMedia', this.socialMedia);
+    data.append('userId', sessionStorage.getItem('userId'));
 
-      this.onePost = new OnePosts();
-      this.onePost.image = data;
-      this.onePost.textContent = textContent;
-      this.onePost.userId = +sessionStorage.getItem('userId');
-      this.onePost.createdAt = new Date();
-      data.append('createdAt', this.onePost.createdAt.toDateString());
+    this.onePost = new OnePosts();
+    this.onePost.image = data;
+    this.onePost.textContent = textContent;
+    this.onePost.userId = +sessionStorage.getItem('userId');
+    this.onePost.createdAt = new Date();
+    data.append('createdAt', this.onePost.createdAt.toDateString());
 
-    if(this.file !== undefined){
+    if (this.file !== undefined){
       var filePath = `${sessionStorage.getItem('userId')}/images/${this.file.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.file)
         .snapshotChanges().pipe(
         //finalize call back function called when the upload is complete
-        finalize(async()=>{
+        finalize(async () => {
           fileRef.getDownloadURL()
-            .subscribe(async(url)=>{
+            .subscribe(async (url) => {
 
               this.onePostData['imageUrl'] = url;
               this.onePostData['textContent'] = textContent;
               this.onePostData['socialMedia'] = this.socialMedia;
               this.onePostData['userId'] = sessionStorage.getItem('userId');
 
-              this.imageService.insertImageDetails(this.onePostData)
+              this.imageService.insertImageDetails(this.onePostData);
 
-              this.openSnackBar('Posted to your account')
+              this.openSnackBar('Posted to your account');
               await this.delay(1500);
               window.location.reload();
               this.form2['imageUrl'] = url;
 
-            })
+            });
         })
       ).subscribe();
     } else {
@@ -425,7 +428,7 @@ export class OnePostComponent implements OnInit {
       this.onePostData['userId'] = sessionStorage.getItem('userId');
 
       this.imageService.insertImageDetails(this.onePostData);
-      this.openSnackBar('Posted to your account')
+      this.openSnackBar('Posted to your account');
       await this.delay(1500);
       this.clearFields();
       window.location.reload();
@@ -441,12 +444,12 @@ export class OnePostComponent implements OnInit {
   onSelect(event) {
     this.files.push(...event.addedFiles);
 
-    if(this.files.length !== 0){
+    if (this.files.length !== 0){
       this.atLeastOneFile = true;
 
     }
 
-    if (this.files[1]!=null){
+    if (this.files[1] != null){
       this.onRemove(this.files[0]);
       this.file = this.files[0];
 
@@ -454,7 +457,7 @@ export class OnePostComponent implements OnInit {
       const formData = new FormData();
 
       for (var i = 0; i < this.files.length; i++) {
-        formData.append("file[]", this.files[i]);
+        formData.append('file[]', this.files[i]);
       }
       this.file = this.files[0];
       const url = `${this.url}/send-image`;
@@ -465,7 +468,7 @@ export class OnePostComponent implements OnInit {
 
   onRemove(event) {
     this.files.splice(this.files.indexOf(event), 1);
-    if(this.files.length !== 0){
+    if (this.files.length !== 0){
       this.atLeastOneFile = true;
     } else {
       this.atLeastOneFile = false;
@@ -474,7 +477,32 @@ export class OnePostComponent implements OnInit {
 
   uploadToTwitter(content: string) {
     const url = `${this.url}/send-image`;
-    if(this.file === undefined){
+    if (this.file === undefined){
+      this.newTweet = new Tweet();
+      this.newTweet.tweetCreator = sessionStorage.getItem('twitterHandle');
+      this.newTweet.tweetText = content;
+      this.twitterService.postUserTweet(this.newTweet, +sessionStorage.getItem('userId'))
+        .subscribe(tweet => {
+          this.newTweet = tweet;
+        });
+
+    } else {
+      this.currentFileUpload = this.file;
+      const data: FormData = new FormData();
+      data.append('file', this.file);
+      data.append('textContent', content);
+
+      this.http.post(url, data, {observe: 'response'})
+        .subscribe((response) => {
+          }
+        );
+    }
+
+  }
+
+  uploadToInstagram(content: string) {
+    const url = `${this.url}/instagram/uploadImage`;
+    if (this.file === undefined){
       this.newTweet = new Tweet();
       this.newTweet.tweetCreator = sessionStorage.getItem('twitterHandle');
       this.newTweet.tweetText = content;
@@ -498,13 +526,15 @@ export class OnePostComponent implements OnInit {
   }
 
   upload(content: string): void {
-    if(content !== undefined){
-      this.textContent = content
+    if (content !== undefined){
+      this.textContent = content;
     }
 
     for (let i = 0; i < this.form.value.checkArray.length; i++) {
       if (this.form.value.checkArray[i] === 'twitter') {
         this.uploadToTwitter(content);
+      } else if (this.form.value.checkArray[i] === 'instagram') {
+        this.uploadToInstagram(content);
       }
 
     }
@@ -547,10 +577,10 @@ export class OnePostComponent implements OnInit {
 
   getFirebaseOnePosts(){
     this.imageService.imageDetailList.snapshotChanges().subscribe(
-      list =>{
-        this.imageList = list.map(item => {return item.payload.val();});
+      list => {
+        this.imageList = list.map(item => item.payload.val());
         this.imageList = this.imageList.reverse();
-        if(this.imageList.length > 20) {
+        if (this.imageList.length > 20) {
           this.shortenedImageList = this.imageList.slice(0, 20);
           this.savedOnePostList = this.shortenedImageList;
         }
@@ -564,10 +594,10 @@ export class OnePostComponent implements OnInit {
 
   clearFields() {
     this.textInput = ' ';
-  this.onRemove(this.event1)
+    this.onRemove(this.event1);
   // this.form2.reset();
-  this.form.reset();
-  this.form.get('checkArray').reset();
+    this.form.reset();
+    this.form.get('checkArray').reset();
 
   }
 
@@ -577,9 +607,6 @@ export class OnePostComponent implements OnInit {
     myForm.resetForm();
     myForm.reset();
   }
-  name = 'Angular';
-  resetCheckBox = false;
-  isChecked = false;
 
   handleClear(){
     this.name = ' ';
@@ -594,12 +621,12 @@ export class OnePostComponent implements OnInit {
 
   selectChangeHandler(event: any) {
     this.shortenedImageList = this.savedOnePostList;
-    if(event.toString() !== 'All'){
+    if (event.toString() !== 'All'){
 
     this.selectedSocialMedia = event.toString();
     this.onePostsBySocialMedia = new Array();
     for (let i = 0; i < this.shortenedImageList.length; i++){
-      if(this.shortenedImageList[i].socialMedia.includes(this.selectedSocialMedia.toLowerCase())){
+      if (this.shortenedImageList[i].socialMedia.includes(this.selectedSocialMedia.toLowerCase())){
         this.onePostsBySocialMedia.push(this.shortenedImageList[i]);
       }
     }

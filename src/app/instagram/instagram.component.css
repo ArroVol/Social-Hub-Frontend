@@ -98,7 +98,7 @@ body{
 article nav {
   float: right;
   width: 30%;
-  height: 555px; /* only for demonstration, should be removed */
+  height: 755px; /* only for demonstration, should be removed */
   padding: 20px;
   overflow: auto;
 
@@ -187,8 +187,8 @@ mdb-carousel-item button{
 
 .example-card {
 
-  width: 400px;
-  height: 500px;
+  width: 500px;
+  height: 650px;
   margin-left: 5px;
   background-color: white;
   box-shadow: 0 0 5px black;

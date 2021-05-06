@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import {NavbarService} from './service/navbar.service';
 import {TwitterService} from './service/twitter.service';
-import {BehaviorSubject} from 'rxjs';
-import {AngularFirestore} from "@angular/fire/firestore";
+import {BehaviorSubject, Subject} from 'rxjs';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {UserService} from './service/user.service';
 // import * as moment from 'moment';
 
 

@@ -68,18 +68,22 @@ export class InstagramComponent implements OnInit {
     setTimeout(() => {
       this.isVisibleSpinner = false;
       this.isVisible = true;
-    }, 4000);
+    }, 1000);
 
   }
 
   getInstaUser(): InstagramUserInfo {
-    this.instagramService.getInsta().subscribe(instagramUser => {
-      this.instagramUser = instagramUser;
-      return this.instagramUser;
-    });
-    console.log('Get User Profile Called!');
+    if (sessionStorage.getItem('instagram_user') != null) {
+      this.instagramUser = JSON.parse(sessionStorage.getItem('instagram_user'));
+    } else {
+      this.instagramService.getInsta().subscribe(instagramUser => {
+        sessionStorage.setItem('instagram_user', JSON.stringify(instagramUser));
+        this.instagramUser = instagramUser;
+        return this.instagramUser;
+      });
+    }
     return this.instagramUser;
-
+    console.log('Get User Profile Called!');
   }
 
   userSearch(user: string){

@@ -1,39 +1,19 @@
-// Base
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
-import {MessagesComponent} from './messages/messages.component';
-import {AppComponent} from './app.component';
-import {AppRoutingModule} from './app-routing.module';
-
-// Non-Angular imports ex: bootstrap
-import {InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
-import {CarouselModule, IconsModule, LogoComponent} from 'angular-bootstrap-md';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-// import {PreloadersModule} from 'ng-uikit-pro-standard';
-import {MatCarousel, MatCarouselComponent} from '@ngbmodule/material-carousel';
-import {NavbarModule, WavesModule, ButtonsModule} from 'angular-bootstrap-md';
-import {ModalModule} from 'angular-bootstrap-md';
-import {NgxDropzoneModule} from 'ngx-dropzone';
-import {MomentModule} from 'ngx-moment';
-
-// Angular stuff
-import {RouterModule} from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
+import * as moment from 'moment';
+import { MessagesComponent } from './messages/messages.component';
+import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DataTablesModule} from 'angular-datatables';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {environment} from '../environments/environment';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
-
-// Mat Stuff
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
+// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// import { SimpleFormComponent } from './simple-form/simple-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -65,12 +45,8 @@ import { TimelineComponent } from './timeline/timeline.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {SpotifyAddplaylistWarningComponent} from './spotify-addplaylist-warning/spotify-addplaylist-warning.component';
 import {SpotifyFollowedTracksComponent} from './spotify-followed-tracks/spotify-followed-tracks.component';
-import {SpotifySearchComponent} from './spotify-search/spotify-search.component';
-import {SpotifyFavouritesComponent} from './spotify-favourites/spotify-favourites.component';
 
 // Twitter Components
-import {TwitterComponent} from './twitter/twitter.component';
-import {GoalModalComponent} from './goal-modal/goal-modal.component';
 
 // Youtube Components
 import {YoutubeComponent} from './youtube/youtube.component';
@@ -78,6 +54,7 @@ import {SafePipe} from './youtube/SafePipe.component';
 //import { DataTableComponent } from './data-table/data-table.component';
 import { InstagramComponent } from './instagram/instagram.component';
 import { AnimatedDigitComponent } from './animated-digit/animated-digit.component';
+
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
 import {NavbarModule, WavesModule, ButtonsModule, CarouselModule} from 'angular-bootstrap-md';
 import { InstagramSearchComponent } from './instagram-search/instagram-search.component';
@@ -98,16 +75,6 @@ import {MainComponent} from './main/main.component';
 import {HeaderComponent} from './header/header.component';
 import {LandingComponent} from './landing/landing.component';
 import {FooterComponent} from './footer/footer.component';
-import {CollectionComponent} from './collection/collection.component';
-import {ImagesComponent} from './images/images.component';
-import {OnePostComponent} from './one-post/one-post.component';
-
-
-// ? Do we need this shit o naw?
-// import {IconsModule, InputUtilitiesModule, MDBBootstrapModulesPro, MDBSpinningPreloader} from 'ng-uikit-pro-standard';
-// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-// import { SimpleFormComponent } from './simple-form/simple-form.component';
-// import { OnePostComponent } from './one-post/one-post.component';
 // import {NgxDropzoneModule} from 'ngx-dropzone';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -122,27 +89,40 @@ import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {PreloadersModule} from 'ng-uikit-pro-standard';
 import { OnePostComponent } from './one-post/one-post.component';
-import {MatTabsModule} from "@angular/material/tabs";
-import {GoalModalComponent} from "./goal-modal/goal-modal.component";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {AngularFirestoreModule} from "@angular/fire/firestore";
-import {environment} from "../environments/environment";
-import {AngularFireModule} from "@angular/fire";
-import {AngularFireStorageModule} from "@angular/fire/storage";
+import {MatTabsModule} from '@angular/material/tabs';
+import {GoalModalComponent} from './goal-modal/goal-modal.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 import { ImagesComponent } from './images/images.component';
-import {AngularFireDatabaseModule} from "@angular/fire/database";
-import {MatExpansionModule} from "@angular/material/expansion";
-import {DragDropModule} from "@angular/cdk/drag-drop";
-import {SpotifySearchComponent} from "./spotify-search/spotify-search.component";
-import {DataTablesModule} from "angular-datatables";
-import {SpotifyAddplaylistSnackbarComponent} from "./spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
-import {SpotifyUpdatePlaylistComponent} from "./spotify-update-playlist/spotify-update-playlist.component";
-import {SpotifyArtistComponent} from "./spotify-artist/spotify-artist.component";
-import {SpotifyCreatePlaylistComponent} from "./spotify-create-playlist/spotify-create-playlist.component";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {MatMenuModule} from "@angular/material/menu";
-import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.component";
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {SpotifySearchComponent} from './spotify-search/spotify-search.component';
+import {DataTablesModule} from 'angular-datatables';
+import {SpotifyAddplaylistSnackbarComponent} from './spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
+import {SpotifyUpdatePlaylistComponent} from './spotify-update-playlist/spotify-update-playlist.component';
+import {SpotifyArtistComponent} from './spotify-artist/spotify-artist.component';
+import {SpotifyCreatePlaylistComponent} from './spotify-create-playlist/spotify-create-playlist.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatMenuModule} from '@angular/material/menu';
+import {SpotifyPlaylistComponent} from './spotify-playlist/spotify-playlist.component';
+
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import {SpotifyFavouritesComponent} from './spotify-favourites/spotify-favourites.component';
+import { OnePostArchiveComponent } from './one-post-archive/one-post-archive.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { GridListOverviewExampleComponent } from './grid-list-overview-example/grid-list-overview-example.component';
+
+
+// import { MatCarouselModule } from 'ng-mat-carousel';
+// import { MatCarousel, MatCarouselComponent } from '@ngmodule/material-carousel';
+// import { MatCarouselModule } from "@angular/material-carousel";
+
+// import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 
 
@@ -198,16 +178,16 @@ import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.comp
     LoadingAnimationComponent,
     InstagramSearchComponent,
     SpotifySearchComponent,
-    AnimatedDigitComponent,
     OnePostComponent,
     GoalModalComponent,
-    ImagesComponent
+    ImagesComponent,
+    SpotifyFavouritesComponent,
+    OnePostArchiveComponent,
+    GridListOverviewExampleComponent
   ],
   imports: [
     HttpClientModule,
     MatSidenavModule,
-    NgxDropzoneModule,
-    DragDropModule,
     BrowserModule,
     DragDropModule,
     FormsModule,
@@ -224,10 +204,8 @@ import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.comp
     MatMenuModule,
     MatButtonModule,
     MatListModule,
-    MatSelectModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -236,19 +214,13 @@ import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.comp
     RouterModule,
     DataTablesModule,
     MatFormFieldModule,
-    MatDialogModule,
-    MatCardModule,
     MatExpansionModule,
     CarouselModule,
     // PreloadersModule,
     NavbarModule,
     WavesModule,
     ButtonsModule,
-    MatCardModule,
     MatGridListModule,
-    ScrollingModule,
-    MatCardModule,
-    MatButtonToggleModule,
     ReactiveFormsModule,
     MatRadioModule,
     MatSidenavModule,
@@ -267,9 +239,13 @@ import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.comp
     ScrollingModule,
     MatTabsModule,
     MatTooltipModule,
+    // MatCarouselModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    IvyCarouselModule,
+    FlexLayoutModule
+
 
   ],
   providers: [ {
@@ -281,8 +257,7 @@ import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.comp
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
 
 // export class AppModule {
 //   loggedIn: string;
