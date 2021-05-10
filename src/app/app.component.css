@@ -421,12 +421,12 @@ button.social-signin:active {
   transition: 0.2s ease;
 }
 .example-container {
-/*  position: absolute;*/
-/*  top: 60px;*/
-/*  bottom: 0;*/
-/*  left: 0;*/
-  /* right: 0;*/
-/*  background: #eee;*/
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+   right: 0;
+  background: #eee;
 }
 
 .profilePic {

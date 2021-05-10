@@ -1,5 +1,5 @@
 // @ts-ignore
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Channel} from '../model/youtube/Channel';
 import {YoutubeService} from '../service/youtube.service';
 import {InstagramService} from '../service/instagram.service';
@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 import {Moment} from 'moment';
-import {InstagramUserSearchInfo} from "../model/instagram/InstagramUserSearchInfo";
+import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
 import {SpotifyService} from '../service/spotify.service';
 import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
@@ -23,7 +23,9 @@ import {FacebookPhotos} from '../model/facebook/FacebookPhotos';
 import { ActivatedRoute } from '@angular/router';
 import {FacebookLogin} from '../model/facebook/FacebookLogin';
 import {FacebookPages} from '../model/facebook/FacebookPages';
+import {MatDialog} from '@angular/material/dialog';
 // @ts-ignore
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -51,6 +53,7 @@ export class DashboardComponent implements OnInit {
               private twitterService: TwitterService,
               private goalService: GoalService,
               private spotifyService: SpotifyService,
+              private dialog: MatDialog,
               protected route: ActivatedRoute,
               protected facebookService: FacebookService) {
   }
@@ -174,6 +177,7 @@ export class DashboardComponent implements OnInit {
       this.isVisible = true;
     }, 5000);
   }
+
 
 
   loginFB(){
@@ -563,10 +567,14 @@ export class DashboardComponent implements OnInit {
   transform(input: string) {
     let minutes: string | number = Math.floor((parseInt(input) / (1000 * 60)) % 60);
     let seconds: string | number = Math.floor((parseInt(input) / 1000) % 60);
+    // tslint:disable-next-line:variable-name
     let formatted_minutes = (minutes < 10) ? '0' + minutes : minutes;
+    // tslint:disable-next-line:variable-name
     let formatted_seconds = (seconds < 10) ? '0' + seconds : seconds;
     return formatted_minutes + ':' + formatted_seconds;
   }
 
 
 }
+
+

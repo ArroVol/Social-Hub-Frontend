@@ -106,6 +106,7 @@ export class OnePostComponent implements OnInit {
   checkBoxInput: string;
   textInput: string;
   userId: number;
+  youtubeIsChecked = false;
   usersOnePosts: OnePosts[];
   twitterHandle: string;
   twitterSecureData: SecureTwitter;
@@ -125,6 +126,13 @@ export class OnePostComponent implements OnInit {
     // {name: 'Spotify', value: 'spotify'}
 
   ];
+  taskYoutube: Task = {
+    name: 'Indeterminate',
+    completed: false,
+    color: 'primary',
+    subtasks: [{name: 'vide', completed: false, color: 'primary'}
+    ]
+  };
   checkBox: boolean;
   fileName = '';
   task: Task = {
@@ -169,7 +177,7 @@ export class OnePostComponent implements OnInit {
   resetCheckBox = false;
   isChecked = false;
 
-  openDialog() {
+  getYoutube() {
     this.youtubeService.getChannelInfo()
       .subscribe(channel => {
         this.channel = JSON.parse(channel.toString());
@@ -278,8 +286,15 @@ export class OnePostComponent implements OnInit {
   onCheckboxChange(e) {
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
     console.log(e);
-
     if (e.target.checked) {
+      if (e.target.value == 'youtube') {
+        this.getYoutube();
+        console.log('YOUTIUBE');
+        for (let video of this.channel.videos) {
+          this.taskYoutube.subtasks.push({name: video.videoDetails.videoTitle, completed: false, color: 'primary'});
+        }
+        this.youtubeIsChecked = true;
+      }
       checkArray.push(new FormControl(e.target.value));
     } else {
       let i = 0;

@@ -29,6 +29,7 @@ export class YoutubeComponent implements OnInit {
   constructor(private youtubeService: YoutubeService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.getElements();
     // console.log(sessionStorage.getItem('username'));
     // if (this.youtubeService.getUserByUsername(sessionStorage.getItem('username')) != null) {
     //   console.log(this.youtubeService.getUserByUsername(sessionStorage.getItem('username')));

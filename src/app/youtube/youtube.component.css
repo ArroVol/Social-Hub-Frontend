@@ -1,7 +1,8 @@
-.example-container {
-  height: 300px;
-  overflow: auto;
-}
+/*.example-container {*/
+/*  overflow: auto;*/
+/*  height: auto;*/
+/*  width: auto;*/
+/*}*/
 .container1 {
   font-size: 16px;
   line-height: 16px;
@@ -55,20 +56,21 @@ img.profilePic {
   border-radius: 50%;
 }
 
-.container{width:100%; display: flex;}
+.container{display: flex;}
 
 #container{width:100%; }
 #left{float:left;}
 #right{float:right;}
-#center{margin:0 auto}
+#center{margin:0 auto;}
 
 .sub-cat {
   float: left;
   background: #ccc;
   padding: 5px 10px;
+  margin-left: 5px;
   margin-right: 10px;
   margin-top: 10px;
   width: 700px;
-  height: 680px;
+  height: 800px;
   overflow: scroll;
 }

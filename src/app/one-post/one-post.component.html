@@ -33,7 +33,7 @@
             <label class="container">
               <input type="checkbox"  [defaultChecked]="resetCheckBox" [checked]="isChecked" class="example-margin" [disabled]="data.name === 'Instagram' && !atLeastOneFile"  [value]="data.value" (change)="onCheckboxChange($event);" />
               <!--      <mat-checkbox type="checkbox" class="example-margin" [value]="data.value" (change)="onCheckboxChange($event)"></mat-checkbox>-->
-
+              <input type = "checkbox" *ngIf="youtubeIsChecked" [value]="taskYoutube.name">
               {{data.name}}
               <span class="checkmark" (click)="checkCheckBox2($event, data.name)"></span>
             </label>

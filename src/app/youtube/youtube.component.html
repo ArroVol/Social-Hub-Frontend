@@ -1,6 +1,5 @@
 <!--<a href="https://accounts.google.com/o/oauth2/auth?client_id=665124826397-55241tfc755m03bp83d5io7kef9irbo2.apps.googleusercontent.com&redirect_uri=http://localhost:8080/Callback&response_type=code&scope=https://www.googleapis.com/auth/youtube.readonly" target="_blank">-->
 
-<button *ngIf="!isVisible" (click)="getElements();">Log In </button>
 <!--</a>-->
 <br>
 <br>
@@ -15,22 +14,23 @@
     <img *ngIf="isLoggedIn" style="margin-left: 10px" class="profilePic" width="30" height="30" [src]="user.profile_pic">
   </div>
 </div>
-
-  <h1 *ngIf="isVisible && !isLoggedIn"> {{channel.username}}'s Youtube Channel </h1>
-  <h1 *ngIf="isVisible && isLoggedIn"> {{user.username}}'s Youtube Channel </h1>
-  <button *ngIf="isVisible" (click)="updateChannel();"> Update </button>
-  <h3 *ngIf="isVisible"> Updated on: {{pullTime}}</h3>
-<div style="margin-left: 0px; display: block;" *ngIf="isVisible">
-  <mat-select [(value)]="videos" style="width: 25%; background-color: grey;">
-    <mat-option *ngFor="let vid of channel.videos" value= "{{vid.videoDetails.videoTitle}}">{{vid.videoDetails.videoTitle}}</mat-option>
-  </mat-select>
-  <input #comment type="text">
-  <button (click)="postComment(getVideoId(videos), comment.value);"> Post to Video </button>
+<div style="margin-left: 10px;">
+    <h1 *ngIf="isVisible && !isLoggedIn"> {{channel.username}}'s Youtube Channel </h1>
+    <h1 *ngIf="isVisible && isLoggedIn"> {{user.username}}'s Youtube Channel </h1>
+    <button *ngIf="isVisible" (click)="updateChannel();"> Update Channel Information </button>
+    <h3 *ngIf="isVisible"> Updated on: {{pullTime}}</h3>
+  <div style="margin-left: 0px; display: block;" *ngIf="isVisible">
+    <mat-select [(value)]="videos" style="width: 300px; background-color: grey;">
+      <mat-option *ngFor="let vid of channel.videos" value= "{{vid.videoDetails.videoTitle}}">{{vid.videoDetails.videoTitle}}</mat-option>
+    </mat-select>
+    <input #comment type="text">
+    <button (click)="postComment(getVideoId(videos), comment.value);"> Post to Video </button>
+  </div>
 </div>
 <div class = "container" *ngIf="isVisible">
   <div class="sub-cat">
     <h1> My Videos </h1>
-    <mat-spinner *ngIf="isVisibleSpinnerContent"></mat-spinner>
+    <mat-spinner *ngIf="isVisibleSpinnerContent" style="margin-left: 32.5%;"></mat-spinner>
     <ul *ngIf="isVisibleContent" class="no-bullets">
       <li *ngFor="let video of channel.videos;">
         <mat-card class="example-card">
@@ -51,7 +51,7 @@
 
   <div class= "sub-cat">
     <h1> My Playlists </h1>
-    <mat-spinner *ngIf="isVisibleSpinnerContent"></mat-spinner>
+    <mat-spinner *ngIf="isVisibleSpinnerContent" style="margin-left: 32.5%;"></mat-spinner>
     <ul *ngIf="isVisibleContent" class="no-bullets">
     <li *ngFor="let playlist of channel.playlists;">
       <mat-card class="example-card">
@@ -61,7 +61,7 @@
         <iframe mat-card-image width="300" height="150" [src]="playlist | safe" allowfullscreen> </iframe>
         <mat-card-content>
           <div class="container1" [class.show]="show" style="word-wrap: break-word;">
-            Description:
+            Description: Playlist
           </div>
         </mat-card-content>
       </mat-card>
@@ -71,7 +71,7 @@
   <div class="sub-cat">
     <h1> Liked Videos </h1>
 
-    <mat-spinner *ngIf="isVisibleSpinnerContent"></mat-spinner>
+    <mat-spinner *ngIf="isVisibleSpinnerContent" style="margin-left: 32.5%;"></mat-spinner>
     <ul *ngIf="isVisibleContent" class="no-bullets">
       <li *ngFor="let liked of channel.liked;">
         <mat-card #card class="example-card" [ngClass]="{'example-card-resize': show, 'example-card': !show}">

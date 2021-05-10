@@ -89,29 +89,30 @@ import {CollectionComponent} from './collection/collection.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 // import {PreloadersModule} from 'ng-uikit-pro-standard';
 import { OnePostComponent } from './one-post/one-post.component';
-import {MatTabsModule} from "@angular/material/tabs";
-import {GoalModalComponent} from "./goal-modal/goal-modal.component";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {AngularFirestoreModule} from "@angular/fire/firestore";
-import {environment} from "../environments/environment";
-import {AngularFireModule} from "@angular/fire";
-import {AngularFireStorageModule} from "@angular/fire/storage";
+import {MatTabsModule} from '@angular/material/tabs';
+import {GoalModalComponent} from './goal-modal/goal-modal.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 import { ImagesComponent } from './images/images.component';
-import {AngularFireDatabaseModule} from "@angular/fire/database";
-import {MatExpansionModule} from "@angular/material/expansion";
-import {DragDropModule} from "@angular/cdk/drag-drop";
-import {SpotifySearchComponent} from "./spotify-search/spotify-search.component";
-import {DataTablesModule} from "angular-datatables";
-import {SpotifyAddplaylistSnackbarComponent} from "./spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component";
-import {SpotifyUpdatePlaylistComponent} from "./spotify-update-playlist/spotify-update-playlist.component";
-import {SpotifyArtistComponent} from "./spotify-artist/spotify-artist.component";
-import {SpotifyCreatePlaylistComponent} from "./spotify-create-playlist/spotify-create-playlist.component";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {MatMenuModule} from "@angular/material/menu";
-import {SpotifyPlaylistComponent} from "./spotify-playlist/spotify-playlist.component";
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {SpotifySearchComponent} from './spotify-search/spotify-search.component';
+import {DataTablesModule} from 'angular-datatables';
+import {SpotifyAddplaylistSnackbarComponent} from './spotify-addplaylist-snackbar/spotify-addplaylist-snackbar.component';
+import {SpotifyUpdatePlaylistComponent} from './spotify-update-playlist/spotify-update-playlist.component';
+import {SpotifyArtistComponent} from './spotify-artist/spotify-artist.component';
+import {SpotifyCreatePlaylistComponent} from './spotify-create-playlist/spotify-create-playlist.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatMenuModule} from '@angular/material/menu';
+import {SpotifyPlaylistComponent} from './spotify-playlist/spotify-playlist.component';
 
 import {IvyCarouselModule} from 'angular-responsive-carousel';
+
 
 
 // import { MatCarouselModule } from 'ng-mat-carousel';
