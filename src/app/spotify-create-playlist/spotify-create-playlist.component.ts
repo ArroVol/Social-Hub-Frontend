@@ -29,7 +29,10 @@ export class SpotifyCreatePlaylistComponent implements OnInit {
   submitForm() {
     if (this.createPlaylistForm.valid) {
       // window.location.href = 'http://localhost:8080/spotify/playlist/create/' + this.createPlaylistForm.value['playlist_name'] + '/' + this.createPlaylistForm.value['playlist_description'];
-      this.spotifyService.createPlaylist(this.createPlaylistForm.value['playlist_name'], this.createPlaylistForm.value['playlist_description']).subscribe(data => {
+      this.spotifyService.createPlaylist(this.createPlaylistForm.value['playlist_name'], this.createPlaylistForm.value['playlist_description']).subscribe(playlist => {
+        console.log('newly created playlist', playlist);
+        sessionStorage.setItem('spotify_user_playlists', JSON.stringify([playlist].concat(JSON.parse(sessionStorage.getItem("spotify_user_playlists")))));
+        // sessionStorage.getItem('spotify_user_playlists');
       });
 
     }

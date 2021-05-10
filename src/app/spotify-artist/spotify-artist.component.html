@@ -40,10 +40,11 @@
     <br>
   </mat-drawer>
 
-  <mat-drawer-content class="content" fxLayout="column">
+  <mat-drawer-content class="content" fxLayout="column" >
     <div *ngIf="!relatedArtistShowAll && !discographyShowAll">
-      <div class=header fxLayout="row" style="display: flex; flex-direction: row; justify-content:space-between;">
-        <div class="artist_info_container" style="width: 30%">
+      <div class=header fxLayout="row"
+           style="display: flex; flex-direction: row; justify-content:space-between;">
+        <div class="artist_info_container">
           <mat-card class="artist_info" fxLayout="column" *ngIf="spotifyArtist else loading">
             <mat-card-header>
             </mat-card-header>
@@ -72,7 +73,7 @@
           </mat-card>
         </div>
 
-        <div class="popular_tracks_container" fxLayout="column" style="width: 68%; height: 390px;">
+        <div class="popular_tracks_container" fxLayout="column">
           <mat-card class="popular_tracks" *ngIf="artistTopTracks else loading">
             <mat-card-title>
               <h1 style="font-size: 30px;">Most Popular</h1>
@@ -122,7 +123,7 @@
       </div>
       <div class="discography_container">
         <h1
-          style="font-size: 30px; margin-left: 1%; margin-top: 1%; display: flex; flex-direction: row; justify-content: space-between;">
+          style="font-size: 30px; margin-left: 1%; margin-top: 1%; display: flex; flex-direction: row; justify-content: space-between; ">
           Discography
           <span style="font-size: 15px; color: #191970; margin-right: 1%;"
                 (click)="discographyShowAll = !discographyShowAll"> See all</span>

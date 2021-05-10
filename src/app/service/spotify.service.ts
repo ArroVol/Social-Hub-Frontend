@@ -122,11 +122,11 @@ export class SpotifyService {
       );
   }
 
-  createPlaylist(playlist_name: string, playlist_description: string): Observable<SpotifyPlaylist> {
+  createPlaylist(playlist_name: string, playlist_description: string): Observable<SpotifyPlaylistSnapshot> {
     const url = `${this.spotifyUrl}/playlist/create/` + playlist_name + '/' + playlist_description;
     // console.log(url);
     // console.log('method Called with parameters: ' + playlist_name + ' , ' + playlist_description);
-    return this.http.post<SpotifyPlaylist>(url, null);
+    return this.http.post<SpotifyPlaylistSnapshot>(url, null);
   }
 
   reOrderPlaylist(playlist_id: string, range_start: number, insert_before: number): Observable<SpotifyPlaylist> {
@@ -178,10 +178,10 @@ export class SpotifyService {
       );
   }
 
-  updatePlaylistDetails(playlist_id: string, playlist_name: string, playlist_description: string): Observable<SpotifyPlaylist> {
+  updatePlaylistDetails(playlist_id: string, playlist_name: string, playlist_description: string): Observable<SpotifyPlaylistSnapshot> {
     const url = `${this.spotifyUrl}/playlist/update/` + playlist_id + '/' + encodeURIComponent(playlist_name) + '/' + encodeURIComponent(playlist_description);
     console.log(url);
-    return this.http.put<any>(url, null);
+    return this.http.put<SpotifyPlaylistSnapshot>(url, null);
   }
 
   followArtist(artist_id: string): Observable<Boolean> {

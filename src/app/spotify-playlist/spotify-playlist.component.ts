@@ -44,7 +44,6 @@ export class SpotifyPlaylistComponent implements OnInit {
   spotifyPlaylistOwner: Observable<SpotifyUser>;
 
 
-
   constructor(private route: ActivatedRoute, private spotifyService: SpotifyService, public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar, public lc: NgZone) {
   }
 
@@ -115,7 +114,6 @@ export class SpotifyPlaylistComponent implements OnInit {
     return null;
     // this.spotifyService.getRecommendedTracks(track_ids).subscribe(tracks => this.recommendedTracks = tracks);
   }
-
 
 
   async getRecommendedTrackFavourites(track_ids: string[]) {
@@ -201,6 +199,18 @@ export class SpotifyPlaylistComponent implements OnInit {
 
   // change this up a bit
   deletePlaylist() {
+    if (JSON.parse(sessionStorage.getItem("spotify_user_playlists")) != null) {
+      let sessionPlaylists = JSON.parse(sessionStorage.getItem("spotify_user_playlists"));
+      console.log('current session playlist', sessionPlaylists);
+      sessionPlaylists.forEach((session_pl, index) => {
+        if (session_pl.id === this.spotifyPlaylist.id) {
+          sessionPlaylists.splice(index, 1);
+        }
+      });
+      sessionStorage.setItem('spotify_user_playlists', JSON.stringify(sessionPlaylists));
+      console.log('post update session playlist', JSON.parse(sessionStorage.getItem("spotify_user_playlists")));
+      this.spotifyUserPlaylist = sessionPlaylists;
+    }
     window.location.href = 'http://localhost:8080/spotify/playlist/remove/playlist/' + this.spotifyPlaylist.id;
   }
 
@@ -226,9 +236,26 @@ export class SpotifyPlaylistComponent implements OnInit {
 
   updatePlaylist(playlistId: string, playlistName: string, playlistDescription: string) {
     this.spotifyService.updatePlaylistDetails(playlistId, playlistName, playlistDescription).subscribe((playlist) => {
-      this.spotifyPlaylist = playlist;
+      this.spotifyPlaylist.name = playlist.name;
+      this.spotifyPlaylist.description = playlist.description;
+      if (JSON.parse(sessionStorage.getItem("spotify_user_playlists")) != null) {
+        let sessionPlaylists = JSON.parse(sessionStorage.getItem("spotify_user_playlists"));
+        console.log('current session playlist', sessionPlaylists);
+        sessionPlaylists.forEach((session_pl, index) => {
+          if (session_pl.id === playlistId) {
+            console.log(sessionPlaylists[index] = playlist);
+          }
+        });
+        sessionStorage.setItem('spotify_user_playlists', JSON.stringify(sessionPlaylists));
+        console.log('post update session playlist', JSON.parse(sessionStorage.getItem("spotify_user_playlists")));
+        this.spotifyUserPlaylist = sessionPlaylists;
+      }
     });
 
+  }
+
+  findIndexToUpdate(newItem) {
+    return newItem.id === this;
   }
 
   addToPlaylist(playlistId: string, track_uri: string) {
@@ -271,7 +298,7 @@ export class SpotifyPlaylistComponent implements OnInit {
     this.dialog.open(SpotifyCreatePlaylistComponent);
   }
 
-  openUpdateDialog() {
+  openUpdateDialog(oldPlaylistName: string) {
     this.dialog.open(SpotifyUpdatePlaylistComponent, {
       data: {
         id: this.spotifyPlaylist.id,

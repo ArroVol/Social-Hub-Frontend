@@ -23,8 +23,6 @@ import {SpotifyLandingComponent} from './spotify-landing/spotify-landing.compone
 import {SpotifyPlaylistComponent} from './spotify-playlist/spotify-playlist.component';
 import {SpotifyComponent} from './spotify/spotify.component';
 import {SpotifyThrowawayRedirectComponent} from "./spotify-throwaway-redirect/spotify-throwaway-redirect.component";
-// import {SpotifyCreatePlaylistComponent} from './spotify-create-playlist/spotify-create-playlist.component';
-// import {SpotifyUpdatePlaylistComponent} from "./spotify-update-playlist/spotify-update-playlist.component";
 
 
 const routes: Routes = [

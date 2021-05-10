@@ -43,13 +43,18 @@
 .content {
   align-items: center;
   justify-content: center;
-  width: 100%;
+  /*max-width: 80vw;*/
+  /*overflow: hidden;*/
 }
 
 .heading {
   margin-left: 10%;
 
 }
+
+/*.header{*/
+/*  max-width: 1000px;*/
+/*}*/
 
 .navbar {
   align-items: center;
@@ -135,8 +140,8 @@
 }
 
 .artist_info {
-  margin-left: 4%;
-  margin-top: 2%;
+  width: 100%;
+  height: 100%;
 }
 
 .artist_info img {
@@ -159,16 +164,33 @@
 }
 
 .popular_tracks_container {
-  max-height: 20%;
+  height: 47vh;
+  width: 68%;
+  margin-top: 1%;
+  margin-left: 0.5%;
+  margin-right: 1%;
+  border-radius: 5px;
+  border: 2px solid snow;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #FFFFFF;
   /*background-color: #0b2e13;*/
 }
 
 .popular_tracks {
-  margin-top: 1%;
-  margin-right: 1%;
+  width: 100%;
+  height: 100%;
 }
 
 .artist_info_container {
+  height: 47vh;
+  width: 30%;
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-right: .5%;
+  border-radius: 5px;
+  border: 2px solid snow;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #FFFFFF;
 }
 
 .songlist {
@@ -185,6 +207,7 @@
   border-radius: 5px;
   border: 2px solid snow;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /*max-width: 1000px;*/
 }
 
 .related_artist_container {
@@ -196,6 +219,8 @@
   border-radius: 5px;
   border: 2px solid snow;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /*max-width: 1000px;*/
+
 }
 
 .discography_table {
@@ -235,6 +260,7 @@
 
 .discography_table_container {
   width: 95%;
+  /*max-width: 1000px;*/
   overflow-x: auto;
   margin-left: 2.5%;
   overflow-y: hidden;
