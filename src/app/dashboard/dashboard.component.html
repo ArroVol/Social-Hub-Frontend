@@ -198,7 +198,7 @@
 
       <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
 
-        <mdb-carousel-item *ngFor='let in of counterInstagram(2) ;let i = index'>
+        <mdb-carousel-item *ngFor='let in of counterInstagram(this.instagramUser.mediaCount) ;let i = index'>
           <img style="width: 400px; height: 400px; display: block;  margin-left: auto; margin-right: auto;"
                alt="First Slide" [src]="getImageByte(i)">
 
