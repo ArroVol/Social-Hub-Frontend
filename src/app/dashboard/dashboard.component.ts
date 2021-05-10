@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import {Goal} from '../model/user/Goal';
 import {GoalService} from '../service/goal.service';
 import {Moment} from 'moment';
-import {InstagramUserSearchInfo} from "../model/instagram/InstagramUserSearchInfo";
+import {InstagramUserSearchInfo} from '../model/instagram/InstagramUserSearchInfo';
 import {SpotifyService} from '../service/spotify.service';
 import {SpotifyUser} from '../model/spotify/SpotifyUser';
 import {SpotifyTrack} from '../model/spotify/SpotifyTrack';
@@ -102,6 +102,7 @@ export class DashboardComponent implements OnInit {
     this.getChannel();
     // this.loginFB();
     //THIS IS FOR FACEBOOK LOGIN
+    this.checkLoginFB();
     this.route.queryParams.subscribe(params => {
       let code = params['code'];
       if (!code){
@@ -184,6 +185,19 @@ export class DashboardComponent implements OnInit {
       this.loggedIntoFB = true;
     });
     window.location.href = this.facebookLogin.loginDialogURL;
+  }
+
+  checkLoginFB(){
+    this.facebookService.checkLogin().subscribe(check => {
+      console.log('Boolean check is: ' + check);
+      if (check){
+        this.getFBUsername();
+        this.getFBPhotos();
+        this.getFBPages();
+        document.getElementById('fbCard').style.display = 'block';
+        document.getElementById('fbCardLogin').style.display = 'none';
+      }
+    });
   }
 
   getFBUsername(){
@@ -343,7 +357,7 @@ export class DashboardComponent implements OnInit {
         for (let i = 0; i < this.briefStatusList.length; i++){
           console.log('brief status list');
           console.log(this.briefStatusList[i].text);
-          console.log(this.briefStatusList[i].mediaURL)
+          console.log(this.briefStatusList[i].mediaURL);
         }
         this.getOtherUserTimeline('SocialHubClub');
 

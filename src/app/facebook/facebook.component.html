@@ -22,19 +22,38 @@
     </mat-card-header>
     <mat-card-content>
       <p></p>
-      <p class = "pText">{{facebookPosts.posts[0]}}
-        <br>-{{facebookPosts.posts[1]}}
-      </p>
-      <p class = "pText">{{facebookPosts.posts[2]}}
-        <br>-{{facebookPosts.posts[3]}}
-      </p>
-      <p class = "pText">{{facebookPosts.posts[4]}}
-        <br>-{{facebookPosts.posts[5]}}
-      </p>
+      <mat-card class="example-card" style="box-shadow: 0 0 5px black;">
+        <mat-card-content>
+          <p class = "pText">{{facebookPosts.posts[0]}}</p>
+          <p>-{{facebookPosts.posts[1]}}</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="example-card" style="box-shadow: 0 0 5px black;">
+        <mat-card-content>
+          <p class = "pText">{{facebookPosts.posts[2]}}</p>
+          <p>-{{facebookPosts.posts[3]}}</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="example-card" style="box-shadow: 0 0 5px black;">
+        <mat-card-content>
+          <p class = "pText">{{facebookPosts.posts[4]}}</p>
+          <p>-{{facebookPosts.posts[5]}}</p>
+        </mat-card-content>
+      </mat-card>
+<!--      <p></p>-->
+<!--      <p class = "pText">{{facebookPosts.posts[0]}}-->
+<!--        <br>-{{facebookPosts.posts[1]}}-->
+<!--      </p>-->
+<!--      <p class = "pText">{{facebookPosts.posts[2]}}-->
+<!--        <br>-{{facebookPosts.posts[3]}}-->
+<!--      </p>-->
+<!--      <p class = "pText">{{facebookPosts.posts[4]}}-->
+<!--        <br>-{{facebookPosts.posts[5]}}-->
+<!--      </p>-->
     </mat-card-content>
   </mat-card>
 
-  <mat-card class="example-card">
+  <mat-card class="example-card" style="padding-right: 20px">
     <mat-card-title style="margin-top: 15px; font-size: 32px; font-weight: bold">{{facebookUser.facebookName}}'s Pages</mat-card-title>
     <mat-form-field appearance="fill">
     <mat-label>Your Facebook Pages</mat-label>
@@ -45,39 +64,59 @@
       </mat-select>
     </mat-form-field>
     <button (click)="setCurrentPage(currentPP)">View Page Posts</button>
-    <div *ngIf="gotPosts">
-      <p class = "pText">{{facebookPagePosts.pagePosts[0]}}
-        <br>-{{facebookPagePosts.times[0]}}
-      </p>
-      <p class = "pText">{{facebookPagePosts.pagePosts[1]}}
-        <br>-{{facebookPagePosts.times[1]}}
-      </p>
-      <p class = "pText">{{facebookPagePosts.pagePosts[2]}}
-        <br>-{{facebookPagePosts.times[2]}}
-      </p>
+    <div *ngIf="!gotPosts">
+      <mat-card class="example-card" style="box-shadow: 0 0 5px black;">
+        <mat-card-content>
+          <h2 style=" font-size: 30px; margin-bottom: 15px; margin-top: 15px">Select Facebook Page to View <br>Recent Posts</h2>
+        </mat-card-content>
+      </mat-card>
     </div>
-    <hr>
-    <mat-card-subtitle style="margin-top: 15px; font-size: 25px; font-weight: bold">Create Posts</mat-card-subtitle>
-    <mat-form-field appearance="fill">
-      <mat-label>Select Pages to Post to</mat-label>
-      <mat-select [(value)]="currentPage" multiple>
-        <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
-          {{page}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <form id = "postForm" class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Post to Page</mat-label>
-<!--        <input #postMessage matInput placeholder="Your Post Here">-->
-        <textarea style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;" #postMessage matInput placeholder="What's Happening?"></textarea>
-      </mat-form-field>
-      <button *ngIf="!loading" (click)="submitPost(postMessage.value)">Post to Page</button>
-      <div *ngIf="loading" class="spinner-border" role="status" style="float: left">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </form>
+    <div *ngIf="gotPosts">
+      <mat-card class="example-card" style="box-shadow: 0 0 5px black;">
+        <mat-card-content>
+          <p class = "pText">{{facebookPagePosts.pagePosts[0]}}</p>
+          <p>-{{facebookPagePosts.times[0]}}</p>
+        </mat-card-content>
+      </mat-card>
+      <p></p>
+      <mat-card class="example-card" style="box-shadow: 0 0 5px black;">
+        <mat-card-content>
+          <p class = "pText">{{facebookPagePosts.pagePosts[1]}}</p>
+          <p>-{{facebookPagePosts.times[1]}}</p>
+        </mat-card-content>
+      </mat-card>
+      <p></p>
+      <mat-card class="example-card" style="box-shadow: 0 0 5px black;">
+        <mat-card-content>
+          <p class = "pText">{{facebookPagePosts.pagePosts[2]}}</p>
+          <p>-{{facebookPagePosts.times[2]}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+<!--    <br>-->
+<!--    <hr>-->
+<!--    <mat-card-subtitle style="margin-top: 15px; font-size: 25px; font-weight: bold">Create Posts</mat-card-subtitle>-->
+<!--    <mat-form-field appearance="fill">-->
+<!--      <mat-label>Select Pages to Post to</mat-label>-->
+<!--      <mat-select [(value)]="currentPage" multiple>-->
+<!--        <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">-->
+<!--          {{page}}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+<!--    <form id = "postForm" class="example-form">-->
+<!--      <mat-form-field class="example-full-width">-->
+<!--        <mat-label>Post to Page</mat-label>-->
+<!--&lt;!&ndash;        <input #postMessage matInput placeholder="Your Post Here">&ndash;&gt;-->
+<!--        <textarea style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;" #postMessage matInput placeholder="What's Happening?"></textarea>-->
+<!--      </mat-form-field>-->
+<!--      <button *ngIf="!loading" (click)="submitPost(postMessage.value)">Post to Page</button>-->
+<!--      <div *ngIf="loading" class="spinner-border" role="status" style="float: left">-->
+<!--        <span class="sr-only">Loading...</span>-->
+<!--      </div>-->
+<!--    </form>-->
   </mat-card>
+
 <!--
   <mat-card class="example-card">
     <mat-form-field appearance="fill">
@@ -115,6 +154,29 @@
       </div>
     </ul>
   </div>
+  </mat-card>
+
+  <mat-card class="example-card" style="width: 200%">
+    <mat-card-subtitle style="margin-top: 15px; font-size: 25px; font-weight: bold">Create Posts</mat-card-subtitle>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Pages to Post to</mat-label>
+      <mat-select [(value)]="currentPage" multiple>
+        <mat-option *ngFor="let page of facebookPages.pageNames" [value]="page">
+          {{page}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <form id = "postForm" class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Post to Page</mat-label>
+        <!--        <input #postMessage matInput placeholder="Your Post Here">-->
+        <textarea style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;" #postMessage matInput placeholder="What's Happening?"></textarea>
+      </mat-form-field>
+      <button *ngIf="!loading" (click)="submitPost(postMessage.value)">Post to Page</button>
+      <div *ngIf="loading" class="spinner-border" role="status" style="float: left">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </form>
   </mat-card>
   <!--
   <a [href]="facebookPages.likedLinks[0]" target="_blank">
@@ -157,7 +219,7 @@
   </a>
   -->
     <br>
-    <div style="float:left; text-align: left; font-size: 25px;">
+    <div style="float:left; text-align: left; font-size: 25px; font-weight: bold">
     Recent Images
   </div>
     <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
@@ -195,7 +257,7 @@
 <!--        </video>-->
 <!--      </mdb-carousel-item>-->
 <!--    </mdb-carousel>-->
-    <div style="float:left; text-align: left; margin-top: 15px; font-size: 25px;">
+    <div style="float:left; text-align: left; margin-top: 15px; font-size: 25px; font-weight: bold">
       Recent Videos
     </div>
     <mdb-carousel [isControls]="true" class="carousel slide carousel-fade" interval="-1" [animation]="'fade'">

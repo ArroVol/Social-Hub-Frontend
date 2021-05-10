@@ -71,7 +71,7 @@
               </div>
               <div class="posttweetbutcont">
                 <div>
-                  <ngx-dropzone class="dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+                  <ngx-dropzone id = "dropzone" class="dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
                     <ngx-dropzone-label>Drag & Drop or <a>Browse</a></ngx-dropzone-label>
                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
                                                 [removable]="true" (removed)="onRemove(f)">
